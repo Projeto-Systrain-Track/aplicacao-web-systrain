@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Sys-Train Track</title>
+    <!-- Link de conexão com o Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./css/login-usuario.css" />
+  </head>
+
+  <body onload="listar()">
+    <!-- navbar -->
+    <div class=""></div>
+    <!-- nav-mobile -->
+    <div class="mobile"></div>
+    <!-- Home -->
+    <div class="container-sys">
+      <div class="centro">
+        <div class="formulario">
+          <div class="titulo-cad">
+            <h1><span style="color: orange">Bem vindo </span> de volta!</h1>
+          </div>
+          <div class="campo">
+            <span>Seu e-mail de funcionario:</span> <br />
+            <input
+              id="email_input"
+              type="text"
+              placeholder="meuemail@systrain.com"
+            />
+          </div>
+          <div class="campo">
+            <span>Senha:</span> <br />
+            <input id="senha_input" type="password" placeholder="******" />
+          </div>
+          <div class="redirecionar"></div>
+          <button class="botao" onclick="entrar()">Login</button>
+          <div class="redirecionar">
+            <span
+              >Não é funcionario?
+              <a href="index.html">Voltar para home</a></span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <!--footer inicio-->
+  <footer>
+    <div class="links">
+      <div class="titulo">
+        <h1>Fale conosco</h1>
+      </div>
+      <div class="footer-infos">
+        <div class="midias">
+          <a href="#">
+            <img src="./assets/icons/x.png" alt="X" />
+          </a>
+          <a href="#">
+            <img src="./assets/icons/facebook.png" alt="F" />
+          </a>
+          <a href="#">
+            <img src="./assets/icons/youtube.png" alt="Y" />
+          </a>
+        </div>
+        <div class="termos">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+        <div class="copy">
+          <p>
+            Copyright © 2026 Sys-Train Track Software Limited | Registered in
+            Brazil No. 10072356
+          </p>
+        </div>
+        <div class="text-desc">
+          <p>
+            Apple, the Apple logo, and iPhone are trademarks of Apple Inc.,
+            registered in the U.S. and other countries. App Store is a service
+            mark of Apple Inc. Android, Google Play and the Google Play logo are
+            trademarks of Google LLC.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="contato">
+      <div class="card">
+        <h2>Dúvidas?</h2>
+        <p>Envie seu email, para entrar em contato e saber mais</p>
+        <div>
+          <input type="text" placeholder="Email address" />
+          <button>Submit</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--footer fim-->
+</html>
+
+<script>
+  function entrar() {
+    console.log("entrou");
+
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+
+    if (emailVar == "" || senhaVar == "") {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "(Mensagem de erro para todos os campos em branco)";
+      finalizarAguardar();
+      return false;
+    } else {
+      setInterval(sumirMensagem, 5000);
+    }
+
+    console.log("FORM LOGIN: ", emailVar);
+    console.log("FORM SENHA: ", senhaVar);
+
+    fetch("/usuarios/autenticar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("ESTOU NO THEN DO entrar()!");
+
+        if (resposta.ok) {
+          console.log(resposta);
+          resposta.json().then((json) => {
+            console.log(json);
+            console.log(JSON.stringify(json));
+            sessionStorage.EMAIL_USUARIO = json.email;
+            sessionStorage.NOME_USUARIO = json.nome;
+            sessionStorage.ID_USUARIO = json.id;
+            setTimeout(function () {
+              window.location = "./index.html";
+            }, 1000); // apenas para exibir o loading
+          });
+        } else {
+          console.log("Houve um erro ao tentar realizar o login!");
+
+          resposta.text().then((texto) => {
+            console.error(texto);
+            finalizarAguardar(texto);
+          });
+        }
+      })
+      .catch(function (erro) {
+        console.log(erro);
+      });
+
+    return false;
+  }
+
+  function sumirMensagem() {
+    cardErro.style.display = "none";
+  }
+</script>

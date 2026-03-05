@@ -72,7 +72,7 @@ h1 {
     width: 100%;
     height: 10vh;
     position: fixed;
-    background-color: #ffffffeb;
+    background-color: #edf0ffd2;
     border-bottom: solid 2px var(--azul-escuro);
 }
 
@@ -87,6 +87,12 @@ h1 {
     width: 50%;
     height: 100%;
     /*mudar depois */
+}
+
+.nav-logo img {
+    width: 30vh;
+    margin-top: -7vh;
+    margin-left: 10%;
 }
 
 .nav-links {
@@ -530,6 +536,13 @@ footer .card button {
 
 footer a {
     text-decoration: none;
+}
+
+.redirecionar-footer {
+    padding-top: 1vh;
+    padding-bottom: 6vh;
+    display: flex;
+    align-self: flex-start;
 }
 
 @media only screen and (max-width: 600px) {

@@ -1,261 +1,311 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sys-Train Track</title>
     <!-- Link de conexão com o Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./css/style.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
 
-</head>
-
-<body>
+  <body>
     <!-- navbar -->
     <div class="">
-        <nav class="nav-desk navbar">
-            <div class="nav-bar">
-                <div class="nav-logo"></div>
-                <div class="nav-links">
-                    <a href="#home">Home</a>
-                    <a href="#sobre">Sobre</a>
-                    <a href="#servico">Serviço</a>
-                    <a href="#contato">Contato</a>
-                </div>
-                <div class="nav-acessos">
-                    <div class="acessos login">
-                        <a href="./login.html">Login</a>
-                    </div>
-                    <div class="acessos cad">
-                        <a href="./cadastro.html">Cadastre-se</a>
-                    </div>
-                </div>
+      <nav class="nav-desk navbar">
+        <div class="nav-bar">
+          <div class="nav-logo">
+            <img src="/public/assets/images/sys_logo.svg" alt="" />
+          </div>
+          <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#servico">Serviço</a>
+            <a href="#contato">Contato</a>
+          </div>
+          <div class="nav-acessos">
+            <div class="acessos login">
+              <a href="./login.html">Login</a>
             </div>
-        </nav>
+            <div class="acessos cad">
+              <a href="./cadastro.html">Cadastre-se</a>
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
     <!-- nav-mobile -->
     <div class="mobile">
-        <nav class="navbar bg-body-tertiary fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand titulo-nav" href="#">Sys-Train Track</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                    aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title titulo-nav" id="offcanvasNavbarLabel">Links</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#home">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#sobre">Sobre</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#servico">Servico</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#contato">Contato</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="./login.html">Realize login</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="./cadastro.html">Cadastre-se</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+      <nav class="navbar bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand titulo-nav" href="#">Sys-Train Track</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="offcanvas offcanvas-end"
+            tabindex="-1"
+            id="offcanvasNavbar"
+            aria-labelledby="offcanvasNavbarLabel"
+          >
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title titulo-nav" id="offcanvasNavbarLabel">
+                Links
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
             </div>
-        </nav>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#home"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#sobre">Sobre</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#servico">Servico</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#contato">Contato</a>
+                </li>
+                <li>
+                  <a class="nav-link" href="./login.html">Realize login</a>
+                </li>
+                <li>
+                  <a class="nav-link" href="./cadastro.html">Cadastre-se</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
     <!-- Home -->
     <div class="container-stt container-home" id="home">
-        <!-- Card com img da home -->
-        <div class="area-home">
-            <div class="card-img">
-                <img src="./assets/images/passageiro.png" alt="Sys-Train Track">
-            </div>
+      <!-- Card com img da home -->
+      <div class="area-home">
+        <div class="card-img">
+          <img src="./assets/images/passageiro.png" alt="Sys-Train Track" />
         </div>
-        <!-- infos da home -->
-        <div class="area-home">
-            <div class="infos">
-                <div>
-                    <h1>Sys-Train</h1>
-                    <h1>Track</h1>
-                </div>
-                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque
-                    sem placerat</p>
-                <div class="infos-acessos">
-                    <a href="#" class="btn-saibaMais">
-                        Saiba mais sobre nós
-                        <img class="icon" src="./assets/icons/seta.png" alt="...">
-                    </a>
+      </div>
+      <!-- infos da home -->
+      <div class="area-home">
+        <div class="infos">
+          <div>
+            <h1>Sys-Train</h1>
+            <h1>Track</h1>
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque
+            faucibus ex sapien vitae pellentesque sem placerat
+          </p>
+          <div class="infos-acessos">
+            <a href="#" class="btn-saibaMais">
+              Saiba mais sobre nós
+              <img class="icon" src="./assets/icons/seta.png" alt="..." />
+            </a>
 
-                    <a href="#" class="btn-contato">
-                        Entre em contato
-                        <img class="icon" src="./assets/icons/telefone.png" alt="...">
-                    </a>
-                </div>
-            </div>
+            <a href="#" class="btn-contato">
+              Entre em contato
+              <img class="icon" src="./assets/icons/telefone.png" alt="..." />
+            </a>
+          </div>
         </div>
-
+      </div>
     </div>
     <!-- Quem somos -->
-    <div class="container-stt container-sobre " id="sobre">
-        <div class="efeito-azul">
-            <div class="area-titulo">
-                <h1>Quem somos</h1>
-                <p>A Sys-Train-Track nasce com a missão de fortalecer a confiabilidade da infraestrutura ferroviária
-                    brasileira, contribuindo para um ecossistema mais seguro e eficiente</p>
-            </div>
-            <div class="infos">
-                <div class="card-desc">
-                    <p>A Sys-Train-Track é uma empresa especializada em soluções tecnológicas para monitoramento e
-                        gestão de infraestrutura ferroviária crítica. </p>
-                    <p>Nosso foco está no monitoramento de servidores responsáveis pelo funcionamento do RBC (Radio
-                        Block Center), componente essencial do ETCS Nível 2 (European Train Control System), tecnologia
-                        que vem sendo implementada na modernização da malha ferroviária paulista.</p>
-                    <p>Acreditamos que a transformação digital do transporte ferroviário exige mais do que a adoção de
-                        sistemas avançados de sinalização, demanda controle contínuo, visibilidade operacional e
-                        capacidade de resposta estruturada. É nesse contexto que desenvolvemos uma plataforma capaz de
-                        acompanhar métricas de desempenho, identificar degradações de recursos, gerar alertas
-                        estratégicos e apoiar decisões técnicas com base em dados históricos.</p>
-                </div>
-                <div class="card-img desktop">
-                    <img src="./assets/images/trem.png" alt="trem">
-                </div>
-            </div>
+    <div class="container-stt container-sobre" id="sobre">
+      <div class="efeito-azul">
+        <div class="area-titulo">
+          <h1>Quem somos</h1>
+          <p>
+            A Sys-Train-Track nasce com a missão de fortalecer a confiabilidade
+            da infraestrutura ferroviária brasileira, contribuindo para um
+            ecossistema mais seguro e eficiente
+          </p>
         </div>
+        <div class="infos">
+          <div class="card-desc">
+            <p>
+              A Sys-Train-Track é uma empresa especializada em soluções
+              tecnológicas para monitoramento e gestão de infraestrutura
+              ferroviária crítica.
+            </p>
+            <p>
+              Nosso foco está no monitoramento de servidores responsáveis pelo
+              funcionamento do RBC (Radio Block Center), componente essencial do
+              ETCS Nível 2 (European Train Control System), tecnologia que vem
+              sendo implementada na modernização da malha ferroviária paulista.
+            </p>
+            <p>
+              Acreditamos que a transformação digital do transporte ferroviário
+              exige mais do que a adoção de sistemas avançados de sinalização,
+              demanda controle contínuo, visibilidade operacional e capacidade
+              de resposta estruturada. É nesse contexto que desenvolvemos uma
+              plataforma capaz de acompanhar métricas de desempenho, identificar
+              degradações de recursos, gerar alertas estratégicos e apoiar
+              decisões técnicas com base em dados históricos.
+            </p>
+          </div>
+          <div class="card-img desktop">
+            <img src="./assets/images/trem.png" alt="trem" />
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- nossos serviços -->
     <div class="container-servico" id="servico">
-        <div class="area-titulo">
-            <h1>Nosso Serviço</h1>
+      <div class="area-titulo">
+        <h1>Nosso Serviço</h1>
+      </div>
+      <div class="area-card-stt">
+        <!-- card -->
+        <div class="card-stt">
+          <div class="card-imagem-stt">
+            <div class="card-tipo-stt">
+              <p>Monitoramento</p>
+            </div>
+          </div>
+          <div class="card-infos-stt">
+            <h1>Monitoramento em Tempo Real</h1>
+            <p>
+              Nossa plataforma acompanha constantemente os servidores RBC,
+              monitorando CPU, memória, armazenamento e rede. Isso garante visão
+              clara do que está acontecendo no sistema a todo momento, ajudando
+              a manter estabilidade e evitar surpresas na operação.
+            </p>
+          </div>
         </div>
-        <div class="area-card-stt">
-            <!-- card -->
-            <div class="card-stt">
-                <div class="card-imagem-stt">
-                    <div class="card-tipo-stt">
-                        <p>Monitoramento</p>
-                    </div>
-                </div>
-                <div class="card-infos-stt">
-                    <h1>Monitoramento em Tempo Real</h1>
-                    <p>
-                        Nossa plataforma acompanha constantemente os servidores RBC, monitorando CPU, memória,
-                        armazenamento e rede. Isso garante visão clara do que está acontecendo no sistema a todo
-                        momento, ajudando a manter estabilidade e evitar surpresas na operação.
-                    </p>
-                </div>
+        <div class="card-stt">
+          <div class="card-imagem-stt">
+            <div class="card-tipo-stt">
+              <p>Detecção</p>
             </div>
-            <div class="card-stt">
-                <div class="card-imagem-stt">
-                    <div class="card-tipo-stt">
-                        <p>Detecção</p>
-                    </div>
-                </div>
-                <div class="card-infos-stt">
-                    <h1>Detecção Inteligente de Degradação</h1>
-                    <p>
-                        Nosso sistema interpreta padrões de comportamento e identifica sinais precoces de sobrecarga,
-                        travamentos ou queda de desempenho. Essa capacidade preventiva permite agir antes que o problema
-                        impacte a operação, preservando a capacidade da via e garantindo maior confiabilidade ao sistema
-                        ferroviário.
-                    </p>
-                </div>
-            </div>
-            <div class="card-stt">
-                <div class="card-imagem-stt">
-                    <div class="card-tipo-stt">
-                        <p>Alertas</p>
-                    </div>
-                </div>
-                <div class="card-infos-stt">
-                    <h1>Alertas e Suporte à Decisão</h1>
-                    <p>
-                        Transformamos dados técnicos em decisões estratégicas. A plataforma envia alertas automáticos
-                        classificados por criticidade e mantém registro histórico de eventos, facilitando respostas
-                        rápidas e análises de causa raiz. Com informações claras e organizadas, sua equipe atua com mais
-                        segurança, agilidade e eficiência.
-                    </p>
-                </div>
-            </div>
+          </div>
+          <div class="card-infos-stt">
+            <h1>Detecção Inteligente de Degradação</h1>
+            <p>
+              Nosso sistema interpreta padrões de comportamento e identifica
+              sinais precoces de sobrecarga, travamentos ou queda de desempenho.
+              Essa capacidade preventiva permite agir antes que o problema
+              impacte a operação, preservando a capacidade da via e garantindo
+              maior confiabilidade ao sistema ferroviário.
+            </p>
+          </div>
         </div>
+        <div class="card-stt">
+          <div class="card-imagem-stt">
+            <div class="card-tipo-stt">
+              <p>Alertas</p>
+            </div>
+          </div>
+          <div class="card-infos-stt">
+            <h1>Alertas e Suporte à Decisão</h1>
+            <p>
+              Transformamos dados técnicos em decisões estratégicas. A
+              plataforma envia alertas automáticos classificados por criticidade
+              e mantém registro histórico de eventos, facilitando respostas
+              rápidas e análises de causa raiz. Com informações claras e
+              organizadas, sua equipe atua com mais segurança, agilidade e
+              eficiência.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="container-acesso" id="contato">
-        <div class="desc">
-            <div>
-                <h1>Sua operação não pode parar e </h1>
-                <h1>Seu monitoramento também não.</h1>
-            </div>
-            <div>
-                <p>Entre na plataforma, faça seu cadastro e acompanhe seus</p>
-                <p>servidores em tempo real.</p>
-            </div>
-            <div class="acesso">
-                <a class="btn-login-2" href="./login.html">Faça seu Login</a>
-                <a class="btn-cad-2" href="./cadastro.html">Cadastre-se</a>
-            </div>
+      <div class="desc">
+        <div>
+          <h1>Sua operação não pode parar e</h1>
+          <h1>Seu monitoramento também não.</h1>
         </div>
+        <div>
+          <p>Entre na plataforma, faça seu cadastro e acompanhe seus</p>
+          <p>servidores em tempo real.</p>
+        </div>
+        <div class="acesso">
+          <a class="btn-login-2" href="./login.html">Faça seu Login</a>
+          <a class="btn-cad-2" href="./cadastro.html">Cadastre-se</a>
+        </div>
+      </div>
     </div>
     <footer>
-        <div class="links">
-            <div class="titulo">
-                <h1>Fale conosco</h1>
-            </div>
-            <div class="footer-infos">
-                <div class="midias">
-                    <a href="#">
-                        <img src="./assets/icons/x.png" alt="X">
-                    </a>
-                    <a href="#">
-                        <img src="./assets/icons/facebook.png" alt="F">
-                    </a>
-                    <a href="#">
-                        <img src="./assets/icons/youtube.png" alt="Y">
-                    </a>
-                </div>
-                <div class="termos">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-                <div class="copy">
-                    <p>Copyright © 2026 Sys-Train Track Software Limited | Registered in Brazil No. 10072356</p>
-                </div>
-                <div class="text-desc">
-                    <p>Apple, the Apple logo, and iPhone are trademarks of Apple Inc., registered in the U.S. and other
-                        countries. App Store is a service mark of Apple Inc. Android, Google Play and the Google Play
-                        logo are trademarks of Google LLC.</p>
-                </div>
-            </div>
+      <div class="links">
+        <div class="titulo">
+          <h1>Fale conosco</h1>
         </div>
-        <div class="contato">
-            <div class="card">
-                <h2>Dúvidas?</h2>
-                <p>Envie seu email, para entrar em contato e saber mais</p>
-                <div>
-                    <input type="text" placeholder="Email address">
-                    <button>Submit</button>
-                </div>
-            </div>
+
+        <div class="footer-infos">
+          <div class="midias">
+            <a href="#">
+              <img src="./assets/icons/x.png" alt="X" />
+            </a>
+            <a href="#">
+              <img src="./assets/icons/facebook.png" alt="F" />
+            </a>
+            <a href="#">
+              <img src="./assets/icons/youtube.png" alt="Y" />
+            </a>
+          </div>
+          <div class="termos">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+          </div>
+          <div class="copy">
+            <p>
+              Copyright © 2026 Sys-Train Track Software Limited | Registered in
+              Brazil No. 10072356
+            </p>
+          </div>
+          <div class="text-desc">
+            <p>
+              Apple, the Apple logo, and iPhone are trademarks of Apple Inc.,
+              registered in the U.S. and other countries. App Store is a service
+              mark of Apple Inc. Android, Google Play and the Google Play logo
+              are trademarks of Google LLC.
+            </p>
+          </div>
         </div>
+      </div>
+      <div class="contato">
+        <div class="card">
+          <h2>Dúvidas?</h2>
+          <p>Envie seu email, para entrar em contato e saber mais</p>
+          <div>
+            <input type="text" placeholder="Email address" />
+            <button>Submit</button>
+          </div>
+        </div>
+        <div class="redirecionar-footer">
+          <span>Funcionario? <a href="loginUsuario.html">Clique parar fazer login</a></span>
+        </div>
+      </div>
     </footer>
-
-
-</body>
-
+  </body>
 </html>
 <script src="./js/nav.js"></script>

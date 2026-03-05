@@ -1,0 +1,549 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Chewy&family=Figtree:ital,wght@0,300..900;1,300..900&family=Oxanium:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Chewy&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oxanium:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&display=swap');
+
+:root {
+    --laranja: #ff570a;
+    --amarelo: #FFC247;
+    --azul-claro: #449dd1;
+    --azul-escuro: #12355B;
+    --azul-titulos: #02033B;
+    --font-titulo: "Oxanium", sans-serif;
+    --font-texto: "inter", sans-serif;
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+html {
+    /* Scroll suave para a ancora */
+    scroll-behavior: smooth;
+}
+
+.d {
+    display: none;
+}
+
+body {
+    overflow-x: hidden;
+    font-family: var(--font-texto);
+    background-color: #02033B;
+}
+
+.container-sys {
+    width: 100vw;
+    height: 100vh;
+}
+
+.mobile {
+    display: none;
+}
+
+/* Navbar */
+
+.navbar {
+    z-index: 2;
+    width: 100%;
+    height: 10vh;
+    position: fixed;
+    background-color: #edf0ffd2;
+    border-bottom: solid 2px var(--azul-escuro);
+}
+
+.nav-bar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo {
+    width: 50%;
+    height: 100%;
+    /*mudar depois */
+}
+
+.nav-logo img {
+    width: 30vh;
+    margin-top: -7vh;
+    margin-left: 10%;
+}
+
+.nav-links {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-weight: 400;
+    color: var(--azul-escuro);
+    transition: .3s;
+}
+
+.nav-links a:hover {
+    color: var(--azul-claro);
+}
+
+.nav-acessos {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav-acessos .acessos {
+    border-radius: 20px;
+    background-color: var(--azul-escuro);
+    margin-right: 8%;
+    transition: .6s;
+}
+
+.nav-acessos .acessos:hover {
+    background-color: var(--azul-claro);
+}
+
+.nav-acessos .login {
+    width: 80px;
+    height: 30px;
+}
+
+.nav-acessos .cad {
+    width: 130px;
+    height: 30px;
+}
+
+.nav-acessos .acessos a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+}
+
+/* home */
+
+.container-sys {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  position: relative; 
+  justify-content: center;
+  overflow: hidden;
+}
+
+.container-sys::before {
+  content: "";
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  background-image: url(/public/assets/images/traveling-by-train-lifestyle.jpg);
+  background-size: cover;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+
+.centro {
+    display: flex;
+    position: relative;
+    width: 130vh;
+    height: 80vh;
+    align-self: center;
+    background-color: white;
+    justify-content: center;
+    border-radius: 5%;
+}
+
+.titulo-cad {
+    margin-top: 8vh;
+    font-family: var(--font-titulo);
+    font-size: 1.3rem;
+    color: black;
+    align-self: center;
+}
+
+h1 {
+    font-size: 3rem;
+    color: var(--azul-titulos);
+}
+
+.formulario {
+    font-family: var(--font-texto);
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-right: 5%;
+    color: rgba(0, 0, 0, 0.47);
+    font-weight: bold;
+}
+
+.formulario .campo span {
+    font-size: 1rem;
+}
+
+.formulario input {
+    margin-top: 1%;
+    width: 40vw;
+    padding: 2vh;
+    border-radius: 15px;
+    border: none;
+    background-color: rgb(225, 225, 225);
+}
+
+.redirecionar {
+    padding-top: 1vh;
+    padding-bottom: 6vh;
+    display: flex;
+    align-self: flex-start;
+}
+
+.redirecionar span {
+    align-self: center;
+    font-size: 0.8rem;
+}
+.redirecionar a {
+    font-size: 0.8rem;
+}
+
+.formulario button {
+    font-size: 1rem;
+    padding: 1.5vh;
+    align-self: center;
+    background-color: var(--azul-escuro);
+    color: white;
+    width: 9vw;
+    border-radius: 30px;
+}
+
+.campo {
+    margin-top: 20px;
+}
+
+.area-home .card-img {
+    width: 75%;
+    height: 75%;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 8px 15px 0px var(--azul-escuro);
+}
+
+/* footer */
+footer {
+    width: 100vw;
+    height: 75vh;
+    background-color: var(--azul-escuro);
+    display: flex;
+    align-items: center;
+}
+
+footer .links {
+    width: 55%;
+    height: 80%;
+    padding: 0% 5%;
+}
+
+footer .links .titulo h1 {
+    font-family: var(--font-titulo);
+    font-size: 60px;
+    font-weight: 600;
+    color: #FFF;
+}
+
+.footer-infos {
+    /* background-color: #449dd1; */
+    width: 100%;
+    height: 83%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 10%;
+}
+
+.midias img {
+    width: 30px;
+    height: 30px;
+    margin-right: 5%;
+    margin-top: 5%;
+}
+
+.termos a,
+.copy p,
+.text-desc p {
+    color: #FFF;
+    font-size: 15px;
+    margin-right: 5%;
+}
+
+.copy p {
+    margin-right: 20%;
+}
+
+footer .contato {
+    width: 45%;
+    height: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+footer .card {
+    width: 65%;
+    height: 225px;
+    border-radius: 30px;
+    background-color: var(--amarelo);
+    background-image: url(../assets/icons/c.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    padding: 5% 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: var(--azul-titulos)
+}
+
+footer .card h2 {
+    font-family: var(--font-titulo);
+}
+
+footer .card>div {
+    width: 100%;
+    height: 30px;
+    display: flex;
+}
+
+footer .card input {
+    width: 75%;
+    height: 100%;
+    padding: 0% 5%;
+    border: none;
+    border-radius: 20px 0px 0px 20px;
+}
+
+footer .card button {
+    width: 25%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    color: #fff;
+    background-color: var(--azul-titulos);
+    border-radius: 0px 20px 20px 0px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+
+    .titulo-nav {
+        font-family: var(--font-titulo);
+        color: var(--azul-escuro);
+    }
+
+    .nav-link {
+        font-family: var(--font-texto);
+    }
+
+    .area-titulo h1 {
+        font-size: 40px;
+    }
+
+    .nav-acessos {
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+    }
+    /* home */
+    .container-sys {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+    }
+
+
+    .formulario input {
+    margin-top: 1%;
+    width: 80vw;
+    padding: 2vh;
+    background-color: #2f5a88c5;
+    color: white;
+    box-shadow: 3px 8px 0 rgba(255, 201, 54, 0.788);
+    }
+        
+    .formulario input::placeholder {
+            color: white;
+    }
+
+    .formulario button {
+    font-size: 1rem;
+    padding: 1.5vh;
+    align-self: center;
+    background-color: var(--azul-escuro);
+    color: white;
+    width: 35vw;
+    border-radius: 30px;
+}
+
+.redirecionar {
+    padding-top: 1vh;
+    padding-bottom: 3vh;
+    display: flex;
+    align-self: flex-start;
+}
+
+
+    /* footer */
+    footer {
+        height: auto;
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 2vh;
+        padding-bottom: 5vh;
+    }
+
+    footer .contato {
+        width: 100%;
+        justify-content: center;
+    }
+
+    footer .card {
+        width: 100%;
+    }
+
+    footer .links {
+        width: 100%;
+    }
+
+    footer .links .titulo h1 {
+        margin-top: 2vh;
+        font-size: 45px;
+    }
+
+    .footer-infos {
+        height: 400px;
+    }
+}
+
+
+@media only screen and (max-width: 900px) {
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+
+    .titulo-nav {
+        font-family: var(--font-titulo);
+        color: var(--azul-escuro);
+    }
+
+    .nav-link {
+        font-family: var(--font-texto);
+    }
+
+    .area-titulo h1 {
+        font-size: 40px;
+    }
+
+    .nav-acessos {
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+    }
+    /* home */
+    .container-sys {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .lado {
+    padding-top: 2vh;
+    width: 100%;
+    min-height: 90vh;
+    justify-content: center;
+
+    }
+
+    .formulario input {
+    margin-top: 1%;
+    width: 70vw;
+    padding: 2vh;
+    background-color: #2f5a88c5;
+    color: white;
+    box-shadow: 3px 8px 0 rgba(255, 201, 54, 0.788);
+    }
+        .formulario input::placeholder {
+            color: white;
+    }
+
+    .formulario button {
+    font-size: 1rem;
+    padding: 1.5vh;
+    align-self: center;
+    background-color: var(--azul-escuro);
+    color: white;
+    width: 35vw;
+    border-radius: 30px;
+}
+
+.redirecionar {
+    padding-top: 1vh;
+    padding-bottom: 3vh;
+    display: flex;
+    align-self: flex-start;
+}
+
+
+    /* footer */
+    footer {
+        height: auto;
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 2vh;
+        padding-bottom: 5vh;
+    }
+
+    footer .contato {
+        width: 100%;
+        justify-content: center;
+    }
+
+    footer .card {
+        width: 100%;
+    }
+
+    footer .links {
+        width: 100%;
+    }
+
+    footer .links .titulo h1 {
+        margin-top: 2vh;
+        font-size: 45px;
+    }
+
+    .footer-infos {
+        height: 400px;
+    }
+}   

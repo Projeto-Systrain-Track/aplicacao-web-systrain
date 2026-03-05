@@ -63,6 +63,12 @@ nav {
     /*mudar depois */
 }
 
+.nav-logo img {
+    width: 30vh;
+    margin-top: -6vh;
+    margin-left: 10%;
+}
+
 .nav-links {
     width: 30%;
     height: 100%;
@@ -143,6 +149,7 @@ nav {
 }
 
 .titulo-cad {
+    margin-top: 20vh;
     font-family: var(--font-titulo);
     font-size: 1.3rem;
     color: black;
@@ -215,6 +222,7 @@ nav {
 
 /* footer */
 footer {
+    margin-top: 20vh;
     width: 100vw;
     height: 75vh;
     background-color: var(--azul-escuro);
