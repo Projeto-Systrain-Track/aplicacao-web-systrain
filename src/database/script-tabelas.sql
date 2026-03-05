@@ -29,11 +29,11 @@ FOREIGN KEY (fk_empresa) REFERENCES empresa(idEmpresa)
 );
 
 
-insert into empresa values
-      (DEFAULT, 'teste', '1234567891', DEFAULT, '123456789123', 'luiz@gmail', '119876523');
+insert into empresa values	
+	(DEFAULT, 'teste', '1234567891', DEFAULT, '123456789123', 'luiz@gmail', '119876523');
 
-insert into usuario(nome, email, senha, fk_empresa) values
-      ('Brandão', 'brandao@systrain', '12345', '2');
+insert into usuario(nome, email, senha, fk_empresa) values	
+	('Brandão', 'brandao@systrain', '12345', '2');
 
 CREATE TABLE endereco(
 idEndereco INT PRIMARY KEY AUTO_INCREMENT,
@@ -44,6 +44,16 @@ complemento VARCHAR(45),
 fk_end_empresa INT NOT NULL,
 CONSTRAINT fk_empresa_endereco FOREIGN KEY (fk_end_empresa) REFERENCES empresa(idEmpresa)
 );
+
+CREATE TABLE rbc(
+idRbc INT PRIMARY KEY AUTO_INCREMENT,
+modelo VARCHAR(45),
+versao VARCHAR(45),
+linhaResp VARCHAR(45),
+fkEmpresa INT,
+FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
+);
+
 
 SELECT * FROM empresa WHERE idEmpresa = 1; 
 select * from empresa;
