@@ -200,12 +200,17 @@ h1 {
     width: 75%;
 }
 
+.ipt-50{
+    width: 50%;
+}
+
 .ipt-25 {
     width: 25%;
 }
 
 
-.w-90 {
+.w-90,
+.w-90-m{
     width: 98%;
 }
 
@@ -242,12 +247,16 @@ h1 {
     }
 
     /* Mobile */
-    .ipt-75 {
+    .ipt-75,
+    .ipt-50 {
         width: 100%;
     }
-
+    
     .ipt-25 {
         width: 50%;
+    }
+    .w-90-m{
+        width: 100%;
     }
 
     .titulo-sys{

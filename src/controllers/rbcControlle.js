@@ -1,33 +1,33 @@
 var rbcModel = require("../models/rbcModel");
 
-function cadastrarRbc(req, res){
+function cadastrarRbc(req, res) {
 
     var modelo = req.body.modeloServer
     var versao = req.body.versaoServer
     var linhaResp = req.body.linhaRespServer
     var fkEmpresa = req.body.fkEmpresaServer
 
-    if(modelo == undefined){
+    if (modelo == undefined) {
         res.status(400).send("Modelo do RBC está undefined!")
-    }else if(versao == undefined){
+    } else if (versao == undefined) {
         res.status(400).send("versão do RBC está undefined!")
-    }else if(linhaResp == undefined){
+    } else if (linhaResp == undefined) {
         res.status(400).send("Linha do RBC está undefined!")
-    }else if(fkEmpresa == undefined){
+    } else if (fkEmpresa == undefined) {
         res.status(400).send("fkEmpresa do RBC está undefined!")
-    }else{
+    } else {
         console.log(modelo, versao, linhaResp, fkEmpresa)
         rbcModel.cadastrarRbc(modelo, versao, linhaResp, fkEmpresa)
             .then(
-                function(resultado){
+                function (resultado) {
                     res.json(resultado);
                     console.log("RBC cadastrado")
                 }
             ).catch(
-                function(erro){
+                function (erro) {
                     console.log(erro)
                     console.log(
-                        "\n44Houve um erro ao realizar o cadastro do RBC! Erro:"+
+                        "\n44Houve um erro ao realizar o cadastro do RBC! Erro:" +
                         erro.sqlMessage
                     )
                     res.status(500).json(erro.sqlMessage);
@@ -35,7 +35,15 @@ function cadastrarRbc(req, res){
             )
     }
 }
+function listarRbc(req, res) {
+    rbcModel.listarRbc().then((resultado) => {
+        res.status(200).json(resultado);
+    }).catch(
+        console.error("Erro ao buscar os RBCs")
+    );
+}
 
 module.exports = {
+    listarRbc,
     cadastrarRbc
 }

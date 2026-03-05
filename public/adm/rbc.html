@@ -16,20 +16,184 @@
 </head>
 
 <body>
-    <label>Modelo</label>
-    <input type="text" id="input_modelo" placeholder="Modelo XPTO">
-    <label>Versão</label>
-    <input type="text" id="input_versao" placeholder="V2">
-    <label>linha</label>
-    <input type="text" id="input_linha_resp" placeholder="11 Coral">
-    <label type="">Empresa</label>
-    <select id="select_fk_empresa">
-    </select>
-    <button onclick="cadastrar()">Cadastrar</button>
+
+
+    <div class="container-sys">
+        <!-- nav mobile -->
+        <div class="mobile">
+            <nav class="navbar fixed-top nav-mobile">
+                <div class="container-fluid">
+                    <a class="navbar-brand titulo-sys" href="./index.html">Sys-Train Track</a>
+                    <button class="navbar-toggler bg-menu" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon "></span>
+                    </button>
+                    <div class="offcanvas offcanvas-end nav-mobile" tabindex="-1" id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <div class="offcanvas-title " id="offcanvasNavbarLabel">
+                                <img class="imga" src="../assets/images/sys_logo.svg" alt="Sys-Train Track">
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <li class="nav-item">
+                                    <a class="nav-link link-ativo" aria-current="page" href="#">Empresa</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Link</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="nav-lateral desktop">
+            <div class="logo">
+                <img src="../assets/images/sys_logo - adm.svg" alt="Sys-train track">
+            </div>
+            <div class="links">
+                <a class="link-lateral " href="index.html">Empresa</a>
+                <a class="link-lateral " href="usuarios.html">Usuarios</a>
+                <a class="link-lateral ativo" href="rbc.html">RBC</a>
+                <a class="link-lateral " href="componentes.html">Componentes</a>
+            </div>
+            <div class="opcoes">
+                <div class="btn-lateral">
+                    <p>Luana</p>
+                </div>
+                <button onclick="sair()" class="btn-lateral ativo">
+                    <p>sair</p>
+                </button>
+            </div>
+        </div>
+        <div class="conteudo">
+            <div class="titulo">
+                <h1>RBC</h1>
+            </div>
+            <div class="opcao-add">
+                <button class="btn-add-desk desktop" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <div>
+                        <p>Adicionar RBC</p>
+                        <img src="../assets/icons/adicionar.png" alt="+">
+                    </div>
+                </button>
+                <button class="btn-add-mobile mobile" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <img src="../assets/icons/adicionar.png" alt="+">
+                </button>
+            </div>
+            <div class="tabela table-responsive">
+                <table class="table caption-top">
+                    <caption>Lista das RBC's</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Modelo do RBC</th>
+                            <th scope="col">Versão</th>
+                            <th scope="col">Empresa responsavel</th>
+                            <th scope="col">Linha</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaRbc">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar RBC</h1>
+                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="cadastro">
+                        <div class="w-100">
+                            <label>Modelo</label>
+                            <input type="text" id="input_modelo" placeholder="Modelo XPTO">
+                        </div>
+                        <div class="ipt-50 ">
+                            <label>Versão</label>
+                            <input class="w-90-m ipt-mobile-100" type="text" id="input_versao" placeholder="V2">
+                        </div>
+                        <div class="ipt-25">
+                            <label>linha</label>
+                            <input class="w-90" type="text" id="input_linha_resp" placeholder="11 Coral">
+                        </div>
+                        <div class="ipt-25 ">
+                            <label>Empresa</label>
+                            <select class="h-100" id="select_fk_empresa">
+                        </div>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </body>
+
 </html>
 <script>
+    listarRBC()
     listarEmpresas()
+
+
+    function listarRBC() {
+        var cont = 0
+        var rbcsCadastrados = ''
+        console.log("Buscando RBC:")
+        var tabela = document.getElementById("tabelaRbc")
+        fetch("/rbcs/listarRBC", {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                resposta.json().then((rbcs) => {
+                    rbcs.forEach(rbc => {
+                        cont++
+                        if (cont % 2 == 0) {
+                            rbcsCadastrados += `
+                                 <tr class="table-secondary">
+                                    <th scope="row">${rbc.idRbc}</th>
+                                    <td>${rbc.modelo}</td>
+                                    <td>${rbc.versao}</td>
+                                    <td>${rbc.empresa}</td>
+                                    <td>${rbc.linha}</td>
+                                </tr>
+                            `
+                        } else {
+                            rbcsCadastrados += `
+                                 <tr class="table-ligth">
+                                    <th scope="row">${rbc.idRbc}</th>
+                                    <td>${rbc.modelo}</td>
+                                    <td>${rbc.versao}</td>
+                                    <td>${rbc.empresa}</td>
+                                    <td>${rbc.linha}</td>
+                                </tr>
+                            `
+                        }
+                    })
+                    tabela.innerHTML = rbcsCadastrados
+                })
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
     function cadastrar() {
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
@@ -55,8 +219,8 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                modeloServer : modelo,
-                versaoServer : versao,
+                modeloServer: modelo,
+                versaoServer: versao,
                 linhaRespServer: linhaResp,
                 fkEmpresaServer: fkEmpresa
             }),
@@ -65,7 +229,7 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                        window.location.reload()
+                    window.location.reload()
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro do RBC!";
                 }
@@ -78,7 +242,8 @@
         return false;
     }
 
-    function listarEmpresas(){
+    // Listando empresas cadastradas 
+    function listarEmpresas() {
         var listaEmpresas = '<option value="0" selected disabled>Escolha a empresa</option>';
         var cont = 0;
         var selectEmpresa = document.getElementById("select_fk_empresa")
@@ -88,7 +253,7 @@
             .then(function (resposta) {
                 resposta.json().then((empresas) => {
                     empresas.forEach(empresa => {
-                        cont ++
+                        cont++
                         console.log(empresa)
                         listaEmpresas += `
                             <option value="${empresa.idEmpresa}">${empresa.razaoSocial}</option>
@@ -102,8 +267,6 @@
             });
     }
 
-    // Listando empresas cadastradas 
-    function listar() {
-    }
+
 
 </script>
