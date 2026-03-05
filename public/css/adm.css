@@ -44,6 +44,14 @@ h1 {
     background-color: var(--azul-escuro);
 }
 
+.logo{
+    width: 100%;
+    height: 150px;
+}
+.logo img{
+    width: 100%;
+}
+
 .links {
     width: 100%;
     height: 60%;
@@ -116,6 +124,9 @@ h1 {
     cursor: pointer;
     transition: .6s;
 }
+.opcao-add .btn-add-desk div{
+    display: flex;
+}
 
 .opcao-add p {
     font-family: var(--font-titulo);
@@ -137,22 +148,73 @@ h1 {
     padding: 2vh 0vw;
 }
 
-.modal-cad{
+.modal-cad {
     /* /* display: flex; */
     background-color: #ff570a;
     /* width: 100%; */
-    /* height: 50vh; */ 
+    /* height: 50vh; */
 }
-.cinza{
-    background-color: #d7d7d7;
+
+.cadastro {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; 
 }
+
+.cadastro div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    /* background-color: rebeccapurple; */
+}
+
+.modal-header{
+    background-color: var(--azul-escuro);
+    color: white;
+}
+
+.cadastro input,
+.cadastro select{
+    /* border-radius: 5px; */
+    padding: .3vh .4vw;
+    background-color: whitesmoke;
+    border: none;
+    border-bottom: solid 1px black;
+}
+.cadastro option{
+    background-color: whitesmoke;
+    border: none;
+}
+
+.btn-azul{
+    background-color: var(--azul-escuro);
+    color: white;
+}
+
+.btn-azul:hover{
+    background-color: #1b4d82;
+    color: white;
+}
+
+.ipt-75 {
+    width: 75%;
+}
+
+.ipt-25 {
+    width: 25%;
+}
+
+
+.w-90 {
+    width: 98%;
+}
+
+
 
 @media only screen and (max-width: 1000px) {
     .desktop {
         display: none;
     }
-
-
 
     .mobile {
         display: flex;
@@ -172,6 +234,52 @@ h1 {
     .opcao-add img {
         width: 35px;
     }
+
+
+    .btn-add-mobile{
+        border: none;
+        background-color: transparent;
+    }
+
+    /* Mobile */
+    .ipt-75 {
+        width: 100%;
+    }
+
+    .ipt-25 {
+        width: 50%;
+    }
+
+    .titulo-sys{
+        font-family: var(--font-titulo);
+        color: white;
+    }
+    .bg-menu{
+        background-color: #899AAD;
+        border: none;
+    }
+    .logo{
+        height: 150px;
+    }
+    .logo img{
+        height: 100%;
+    }
+    .nav-link{
+        background-color: #1e4875;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        padding-left: 15px;
+        color: white;
+    }
+    .link-ativo{
+        background-color: var(--laranja);
+    }
+
+    .imga{
+        width: 100%;
+        
+    }
+
 }
 
 .cinza {

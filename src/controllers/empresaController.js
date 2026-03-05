@@ -10,6 +10,7 @@ function cadastrarEmpresa(req, res) {
     var estado = req.body.estadoServer;
     var cep = req.body.cepServer;
     var numero = req.body.numeroServer;
+    var endereco = req.body.enderecoServer;
     var complemento = req.body.complementoServer;
 
 
@@ -28,6 +29,8 @@ function cadastrarEmpresa(req, res) {
         res.status(400).send("estado está undefined!");
     } else if (cep == undefined) {
         res.status(400).send("cep está undefined!");
+    } else if(endereco == undefined){
+        res.status(400).send("Endereco está undefined!");
     } else if (numero == undefined) {
         res.status(400).send("numero está undefined!");
     }else {
@@ -38,7 +41,7 @@ function cadastrarEmpresa(req, res) {
                 function (resultado) {
                     res.json(resultado);
                     var fk_end_empresa = resultado.insertId;
-                    empresaModel.cadastrarEndereco(estado, cep, numero, complemento, fk_end_empresa)
+                    empresaModel.cadastrarEndereco(estado, cep, numero, endereco, complemento, fk_end_empresa)
                     .then(
                         function () {
                             res.status(201).json({

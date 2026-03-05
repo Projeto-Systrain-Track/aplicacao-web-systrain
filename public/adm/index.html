@@ -22,47 +22,30 @@
         <div class="mobile">
             <nav class="navbar fixed-top nav-mobile">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Sys-Train Track</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    <a class="navbar-brand titulo-sys" href="./index.html">Sys-Train Track</a>
+                    <button class="navbar-toggler bg-menu" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
                         aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                        <span class="navbar-toggler-icon "></span>
                     </button>
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                    <div class="offcanvas offcanvas-end nav-mobile" tabindex="-1" id="offcanvasNavbar"
                         aria-labelledby="offcanvasNavbarLabel">
                         <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                            <div class="offcanvas-title " id="offcanvasNavbarLabel">
+                                <img class="imga" src="../assets/images/sys_logo.svg" alt="Sys-Train Track">
+                            </div>
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                    <a class="nav-link link-ativo" aria-current="page" href="#">Empresa</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Link</a>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        Dropdown
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </li>
                             </ul>
-                            <form class="d-flex mt-3" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Search"
-                                    aria-label="Search" />
-                                <button class="btn btn-outline-success" type="submit">Search</button>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -70,7 +53,7 @@
         </div>
         <div class="nav-lateral desktop">
             <div class="logo">
-                <img src="" alt="Sys-train track">
+                <img src="../assets/images/sys_logo - adm.svg" alt="Sys-train track">
             </div>
             <div class="links">
                 <a class="link-lateral ativo" href="#">Empresa</a>
@@ -92,13 +75,14 @@
             </div>
             <div class="opcao-add">
                 <button class="btn-add-desk desktop" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    <p>Adicionar Empresa
-                    <p>
+                    <div>
+                        <p>Adicionar Empresa</p>
                         <img src="../assets/icons/adicionar.png" alt="+">
+                    </div>
                 </button>
-                <div onclick="modalCad()" class="btn-add-mobile mobile">
+                <button class="btn-add-mobile mobile" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     <img src="../assets/icons/adicionar.png" alt="+">
-                </div>
+                </button>
             </div>
             <div class="tabela table-responsive">
                 <table class="table caption-top">
@@ -123,59 +107,67 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Empresa</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div>
-                        <div>
+                    <div class="cadastro">
+                        <div class="ipt-75">
                             <label>Razão social</label>
-                            <input id="input_razaoSocial" type="text" placeholder="Sys-Train Track">
+                            <input class="w-90" id="input_razaoSocial" type="text" placeholder="Sys-Train Track">
                         </div>
-                        <div>
+                        <div class="ipt-25">
                             <label>Token de cadastro</label>
-                            <input id="input_token" type="text" placeholder="aaaa">
+                            <input class="" id="input_token" type="text" placeholder="aaaa">
                         </div>
-                        <div>
+                        <div class="ipt-25">
                             <label>CNPJ</label>
-                            <input id="input_cnpj" type="text" placeholder="aaaaaaaaaaa">
+                            <input class="w-90" id="input_cnpj" type="text" placeholder="aaaaaaaaaaa">
                         </div>
-                        <div>
+                        <div class="ipt-75">
                             <label>Email</label>
                             <input id="input_email_empresa" type="text" placeholder="sys@">
                         </div>
-                        <div>
-                            <label>Telefone para contato</label>
-                            <input id="input_telefone" type="text" placeholder="40028922">
+                        <div class="ipt-25">
+                            <label>Telefone</label>
+                            <input class="w-90" id="input_telefone" type="text" placeholder="40028922">
                         </div>
-                        <div>
+                        <div class="ipt-25">
                             <label>Estado</label>
-                            <input id="input_estado" type="text" placeholder="Cansado">
+                            <select class="w-90 h-100" id="select-estado">
+                                <option value="São Paulo">São Paulo</option>
+                                <option >Frio de Janeiro</option>
+                                <option >Pará</option>
+                            </select>
+                            <!-- <input class="w-90" id="input_estado" type="text" placeholder="Cansado"> -->
                         </div>
-                        <div>
+                        <div class="ipt-25">
                             <label>CEP</label>
-                            <input id="input_cep" type="text" placeholder="XXXXXXXXXX">
+                            <input class="w-90" id="input_cep" type="text" placeholder="XXXXXXXXXX">
                         </div>
-                        <div>
+                        <div class="ipt-25">
                             <label>Numero Endereço</label>
                             <input id="input_numero" type="text" placeholder="XXX">
                         </div>
-                        <div>
+                        <div class="w-100">
+                            <label>Endereço</label>
+                            <input class="w-100" id="input_endereco" type="text" placeholder="Tangamandapio">
+                        </div>
+                        <div class="w-100">
                             <label>Complemento</label>
-                            <input id="input_complemento" type="text" placeholder="XXX">
+                            <input class="w-100" id="input_complemento" type="text" placeholder="XXX">
                         </div>
                         <div id="div_msg"></div>
-                        <button class="botao" onclick="cadastrar()">Cadastrar</button>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
                 </div>
             </div>
         </div>
@@ -199,6 +191,7 @@
         var estado = input_estado.value;
         var cep = input_cep.value;
         var numero = input_numero.value;
+        var endereco = input_endereco.value;
         var complemento = input_complemento.value;
 
         // Verificando se há algum campo em branco
@@ -211,10 +204,10 @@
             estado == "" ||
             cep == "" ||
             numero == "" ||
+            endereco == "" ||
             complemento == ""
         ) {
             alert('Mensagem de erro para todos os campos em branco');
-
         }
 
         // Enviando o valor da nova input
@@ -234,6 +227,7 @@
                 estadoServer: estado,
                 cepServer: cep,
                 numeroServer: numero,
+                enderecoServer: endereco,
                 complementoServer: complemento
             }),
         })
