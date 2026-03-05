@@ -427,22 +427,24 @@ h1 {
     background-color: #dadada;
 }
 
-
-
 /* footer */
-
 footer {
     width: 100vw;
-    height: 75vh;
+    min-height: 75vh;
     background-color: var(--azul-escuro);
     display: flex;
     align-items: center;
+    padding: 20px 0;
+    box-sizing: border-box;
 }
 
 footer .links {
     width: 55%;
     height: 80%;
-    padding: 0% 5%;
+    padding: 0 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 footer .links .titulo h1 {
@@ -450,23 +452,29 @@ footer .links .titulo h1 {
     font-size: 60px;
     font-weight: 600;
     color: #FFF;
+    margin: 0 0 20px 0;
 }
 
 .footer-infos {
-    /* background-color: #449dd1; */
     width: 100%;
     height: 83%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding-left: 10%;
+    gap: 20px;
 }
 
 .midias img {
     width: 30px;
     height: 30px;
-    margin-right: 5%;
+    margin-right: 15px;
     margin-top: 5%;
+    transition: transform 0.2s;
+}
+
+.midias img:hover {
+    transform: scale(1.1);
 }
 
 .termos a,
@@ -475,17 +483,26 @@ footer .links .titulo h1 {
     color: #FFF;
     font-size: 15px;
     margin-right: 5%;
+    text-decoration: none;
+}
+
+.termos a:hover {
+    text-decoration: underline;
 }
 
 .copy p {
     margin-right: 20%;
+    font-size: 14px;
 }
 
 footer .contato {
     width: 45%;
     height: 80%;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
 }
 
 footer .card {
@@ -501,48 +518,83 @@ footer .card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: var(--azul-titulos)
+    color: var(--azul-titulos);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 footer .card h2 {
     font-family: var(--font-titulo);
+    margin: 0 0 10px 0;
 }
 
-footer .card>div {
+footer .card > div {
     width: 100%;
-    height: 30px;
     display: flex;
+    gap: 10px;
+    align-items: flex-start; /* Alinha no topo pra não centralizar verticalmente */
+    flex-wrap: wrap; /* Pra quebrar linha em mobile */
 }
 
-footer .card input {
-    width: 75%;
-    height: 100%;
-    padding: 0% 5%;
+footer .card .caixa {
+    width: 100%;
+    height: 100px; /* Aumentei a altura do campo de dúvida */
+    padding: 15px;
     border: none;
-    border-radius: 20px 0px 0px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    resize: vertical; /* Permite redimensionar verticalmente (opcional) */
+    outline: none;
+    box-sizing: border-box;
+}
+
+footer .card input[type="email"] {
+    width: 60%;
+    height: 40px;
+    padding: 0 15px;
+    border: none;
+    border-radius: 20px 0 0 20px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
 }
 
 footer .card button {
-    width: 25%;
-    height: 100%;
+    width: 40%;
+    height: 40px;
     border: none;
     text-align: center;
     color: #fff;
     background-color: var(--azul-titulos);
-    border-radius: 0px 20px 20px 0px;
+    border-radius: 0 20px 20px 0;
     font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+footer .card button:hover {
+    background-color: var(--azul-escuro);
 }
 
 footer a {
     text-decoration: none;
 }
 
-.redirecionar-footer {
-    padding-top: 1vh;
-    padding-bottom: 6vh;
+.redirecionamento {
     display: flex;
-    align-self: flex-start;
+    align-self: flex-end;
+    margin-top: 20px;
+    color: white;
+    font-size: 0.8rem;
+    gap: 5px;
+}
+
+.redirecionamento a {
+    color: var(--amarelo);
+    text-decoration: underline;
+}
+
+.redirecionamento a:hover {
+    color: #fff;
 }
 
 @media only screen and (max-width: 600px) {
