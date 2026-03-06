@@ -9,6 +9,7 @@ comandos para mysql server
 CREATE DATABASE SysTrainTrack;
 USE SysTrainTrack;
 
+
 CREATE TABLE empresa(
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
 razaoSocial VARCHAR(100) NOT NULL,
@@ -28,18 +29,12 @@ fk_empresa INT NOT NULL,
 FOREIGN KEY (fk_empresa) REFERENCES empresa(idEmpresa)
 );
 
-
-insert into empresa values	
-	(DEFAULT, 'teste', '1234567891', DEFAULT, '123456789123', 'luiz@gmail', '119876523');
-
-insert into usuario(nome, email, senha, fk_empresa) values	
-	('Brandão', 'brandao@systrain', '12345', '2');
-
 CREATE TABLE endereco(
 idEndereco INT PRIMARY KEY AUTO_INCREMENT,
 estado VARCHAR(45) NOT NULL,
 cep VARCHAR(9) NOT NULL,
 numeroResidencial CHAR(9),
+rua VARCHAR(45),
 complemento VARCHAR(45),
 fk_end_empresa INT NOT NULL,
 CONSTRAINT fk_empresa_endereco FOREIGN KEY (fk_end_empresa) REFERENCES empresa(idEmpresa)
@@ -54,8 +49,14 @@ fkEmpresa INT,
 FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
+insert into empresa values	
+	(DEFAULT, 'teste', '1234567891', DEFAULT, '123456789123', 'luiz@gmail', '119876523');
+
+insert into usuario(nome, email, senha, fk_empresa) values	
+	('Brandão', 'brandao@systrain', '12345', 1);
 
 SELECT * FROM empresa WHERE idEmpresa = 1; 
 select * from empresa;
 select * from endereco;
 select * from usuario;
+select * from rbc;

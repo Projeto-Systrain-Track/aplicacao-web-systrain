@@ -8,11 +8,12 @@
 
   <title>Sys-Train Track</title>
   <!-- Link de conexão com o Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>  <link rel="stylesheet" href="./css/cadastro-login.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css/cadastro-login.css">
 </head>
 
 <body onload="listar()">
@@ -21,13 +22,13 @@
     <nav>
       <div class="nav-bar">
         <div class="nav-logo">
-                    <img src="/public/assets/images/sys_logo.svg" alt="">
+          <img src="/public/assets/images/sys_logo.svg" alt="">
         </div>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="index.html#sobre">Sobre</a>
-            <a href="index.html#servico">Serviço</a>
-            <a href="index.html#contato">Contato</a>
+          <a href="index.html">Home</a>
+          <a href="index.html#sobre">Sobre</a>
+          <a href="index.html#servico">Serviço</a>
+          <a href="index.html#contato">Contato</a>
         </div>
         <div class="nav-acessos">
           <div class="acessos login">
@@ -37,51 +38,50 @@
       </div>
     </nav>
   </div>
-          <!-- nav-mobile -->
-    <div class="mobile">
-        <nav class="navbar bg-body-tertiary fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand titulo-nav" href="index.html">Sys-Train Track</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                    aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title titulo-nav" id="offcanvasNavbarLabel">Links</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#home">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#sobre">Sobre</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#servico">Servico</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#contato">Contato</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="./login.html">Realize login</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="./cadastro.html">Cadastre-se</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
+  <!-- nav-mobile -->
+  <div class="mobile">
+    <nav class="navbar bg-body-tertiary fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand titulo-nav" href="index.html">Sys-Train Track</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title titulo-nav" id="offcanvasNavbarLabel">Links</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#sobre">Sobre</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#servico">Servico</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contato">Contato</a>
+              </li>
+              <li>
+                <a class="nav-link" href="./login.html">Realize login</a>
+              </li>
+              <li>
+                <a class="nav-link" href="./cadastro.html">Cadastre-se</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
   <!-- Home -->
   <div class="container-sys">
     <div class="cadastro-imagem desktop">
-      <img  class="img-cadastro" src="./assets/images/cadastro.jpg" alt="trem_cad">
+      <img class="img-cadastro" src="./assets/images/cadastro.jpg" alt="trem_cad">
     </div>
     <div class="lado">
       <div class="formulario">
@@ -192,25 +192,28 @@
       confirmacaoSenhaVar == "" ||
       codigoVar == ""
     ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+      // cardErro.style.display = "block";
+      // mensagem_erro.innerHTML =
+      //   "(Mensagem de erro para todos os campos em branco)";
 
-      finalizarAguardar();
+      // finalizarAguardar();
+      console.log("Campo esta vazio")
       return false;
     } else {
       setInterval(sumirMensagem, 5000);
+      console.log("pode Cadastrar")
     }
 
     for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
       if (listaEmpresasCadastradas[i].token == codigoVar) {
         idEmpresaVincular = listaEmpresasCadastradas[i].idEmpresa
-        console.log("Código de ativação válido.");
+        console.log("Código de ativação válido. Empresa: " + listaEmpresasCadastradas[i].razaoSocial);
         break;
       } else {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-        finalizarAguardar();
+        console.log("token da empresa invalido")
+        // cardErro.style.display = "block";
+        // mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+        // finalizarAguardar();
       }
     }
     // Enviando o valor da nova input
@@ -220,8 +223,6 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
@@ -233,24 +234,21 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
+          // cardErro.style.display = "block";
+          // mensagem_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          console.log("Cadastro realizado com sucesso! Redirecionando para tela de Login...")
           setTimeout(() => {
             window.location = "login.html";
           }, "2000");
-
           limparFormulario();
-          finalizarAguardar();
+          // finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
+        // finalizarAguardar();
       });
 
     return false;
@@ -264,15 +262,22 @@
         resposta.json().then((empresas) => {
           empresas.forEach((empresa) => {
             listaEmpresasCadastradas.push(empresa);
-
             console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].token)
+            // console.log(listaEmpresasCadastradas[empresa].token)
           });
         });
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
       });
+  }
+
+  function limparFormulario() {
+    nome_input.value = ""
+    email_input.value = ""
+    senha_input.value = ""
+    confirmacao_senha_input.value = ""
+    codigo_input.value = ""
   }
 
   function sumirMensagem() {

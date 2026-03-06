@@ -125,7 +125,7 @@
                         </div>
                         <div class="ipt-25">
                             <label>Token de cadastro</label>
-                            <input class="" id="input_token" type="text" placeholder="aaaa">
+                            <input class="" disabled id="input_token" type="text" placeholder="aaaa">
                         </div>
                         <div class="ipt-25">
                             <label>CNPJ</label>
@@ -174,7 +174,8 @@
                         </div>
                         <div class="ipt-25">
                             <label>CEP</label>
-                            <input class="w-90" id="input_cep" type="text" placeholder="XXXXXXXXXX">
+                            <input oninput="buscarCep()" class="w-90" id="input_cep" type="text"
+                                placeholder="XXXXXXXXXX">
                         </div>
                         <div class="ipt-25">
                             <label>Numero Endereço</label>
@@ -182,7 +183,7 @@
                         </div>
                         <div class="w-100">
                             <label>Endereço</label>
-                            <input class="w-100" id="input_endereco" type="text" placeholder="Tangamandapio">
+                            <input disabled class="w-100" id="input_endereco" type="text" placeholder="Tangamandapio">
                         </div>
                         <div class="w-100">
                             <label>Complemento</label>
@@ -203,11 +204,32 @@
 </html>
 <script>
     listar()
+    token()
     // Array para armazenar empresas cadastradas para validação de código de ativação 
     let listaEmpresasCadastradas = [];
 
-    function cadastrar() {
+    function token() {
+        var valor = ["0", "1", "2", "3", "4", "5",
+            "6", "7", "8", "9", "A", "B",
+            "C", "D", "E", "F", "G", "H",
+            "I", "J", "K", "L", "M", "N",
+            "O", "P", "Q", "R", "S", "T",
+            "U", "V", "W", "X", "Y", "Z",
+            "a", "b", "c", "d", "e", "f",
+            "g", "h", "i", "j", "k", "l",
+            "m", "n", "o", "p", "q", "r",
+            "s", "t", "u", "v", "w", "x",
+            "y", "z"]
+        var codigo = ''
+        for (var i = 0; i < 10; i++) {
+            var numAleatorio = parseInt(Math.random() * valor.length)
+            codigo += valor[numAleatorio]
+        }
+        input_token.value = codigo
 
+    }
+
+    function cadastrar() {
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
         var razaoSocial = input_razaoSocial.value;
@@ -326,6 +348,31 @@
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
+    }
+
+
+    // via cep
+    function buscarCep() {
+        var cep = input_cep.value
+        if (cep.length == 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(function (resposta) {
+                    resposta.json()
+                        .then(function (logradouro) {
+                            input_endereco.value = logradouro.logradouro
+                            input_estado.value = logradouro.estado
+                        })
+                        .catch(function (erro) {
+                            console.warn('Erro ocorrido JSON: ', erro)
+                        })
+                }
+                )
+                .catch(
+                    function (erro) {
+                        console.warn(erro)
+                    }
+                )
+        }
     }
 
     function sumirMensagem() {
