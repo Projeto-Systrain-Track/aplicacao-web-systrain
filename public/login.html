@@ -1,169 +1,161 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Sys-Train Track</title>
-    <!-- Link de conexão com o Bootstrap -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>   <link rel="stylesheet" href="./css/cadastro-login.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <body onload="listar()">
-    <!-- navbar -->
-    <div class="">
-      <nav>
-        <div class="nav-bar">
-          <div class="nav-logo">
-                    <img src="/public/assets/images/sys_logo.svg" alt="">
-          </div>
-          <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="index.html#sobre">Sobre</a>
-            <a href="index.html#servico">Serviço</a>
-            <a href="index.html#contato">Contato</a>
-          </div>
-          <div class="nav-acessos">
-            <div class="acessos cad">
-              <a href="./cadastro.html">Cadastre-se</a>
-            </div>
-          </div>
+  <title>Sys-Train Track</title>
+  <!-- Link de conexão com o Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css/cadastro-login.css" />
+</head>
+
+<body onload="listar()">
+  <!-- navbar -->
+  <div class="">
+    <nav>
+      <div class="nav-bar">
+        <div class="nav-logo">
+          <img src="/public/assets/images/sys_logo.svg" alt="">
         </div>
-      </nav>
-    </div>
-        <!-- nav-mobile -->
-    <div class="mobile">
-        <nav class="navbar bg-body-tertiary fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand titulo-nav" href="index.html">Sys-Train Track</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
-                    aria-labelledby="offcanvasNavbarLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title titulo-nav" id="offcanvasNavbarLabel">Links</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#home">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#sobre">Sobre</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#servico">Servico</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#contato">Contato</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="./login.html">Realize login</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" href="./cadastro.html">Cadastre-se</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <!-- Home -->
-    <div class="container-sys">
-      <div class="cadastro-imagem desktop">
-        <img
-          class="img-cadastro desktop"
-          src="./assets/images/login.jpg"
-          alt="trem_cad"
-        />
-      </div>
-      <div class="lado">
-        <div class="formulario">
-          <div class="titulo-cad">
-            <h1>Login</h1>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="index.html#sobre">Sobre</a>
+          <a href="index.html#servico">Serviço</a>
+          <a href="index.html#contato">Contato</a>
+        </div>
+        <div class="nav-acessos">
+          <div class="acessos cad">
+            <a href="./cadastro.html">Cadastre-se</a>
           </div>
-          <div class="campo">
-            <span>E-mail:</span> <br />
-            <input
-              id="email_input"
-              type="text"
-              placeholder="meuemail@provedor.com"
-            />
-          </div>
-          <div class="campo">
-            <span>Senha:</span> <br />
-            <input id="senha_input" type="password" placeholder="******" />
-          </div>
-          <div class="redirecionar">
-            <span
-              >Não tem conta ainda?
-              <a href="cadastro.html">cadastre-se</a></span
-            >
-          </div>
-          <button class="botao" onclick="entrar()">Login</button>
         </div>
       </div>
-    </div>
-  </body>
-  <!--footer inicio-->
-  <footer>
-    <div class="links">
-      <div class="titulo">
-        <h1>Fale conosco</h1>
-      </div>
-      <div class="footer-infos">
-        <div class="midias">
-          <a href="#">
-            <img src="./assets/icons/x.png" alt="X" />
-          </a>
-          <a href="#">
-            <img src="./assets/icons/facebook.png" alt="F" />
-          </a>
-          <a href="#">
-            <img src="./assets/icons/youtube.png" alt="Y" />
-          </a>
-        </div>
-        <div class="termos">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-        </div>
-        <div class="copy">
-          <p>
-            Copyright © 2026 Sys-Train Track Software Limited | Registered in
-            Brazil No. 10072356
-          </p>
-        </div>
-        <div class="text-desc">
-          <p>
-            Apple, the Apple logo, and iPhone are trademarks of Apple Inc.,
-            registered in the U.S. and other countries. App Store is a service
-            mark of Apple Inc. Android, Google Play and the Google Play logo are
-            trademarks of Google LLC.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="contato">
-      <div class="card">
-        <h2>Dúvidas?</h2>
-        <p>Envie seu email, para entrar em contato e saber mais</p>
-        <div>
-          <input type="text" placeholder="Email address" />
-          <button>Submit</button>
+    </nav>
+  </div>
+  <!-- nav-mobile -->
+  <div class="mobile">
+    <nav class="navbar bg-body-tertiary fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand titulo-nav" href="index.html">Sys-Train Track</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+          aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title titulo-nav" id="offcanvasNavbarLabel">Links</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#sobre">Sobre</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#servico">Servico</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contato">Contato</a>
+              </li>
+              <li>
+                <a class="nav-link" href="./login.html">Realize login</a>
+              </li>
+              <li>
+                <a class="nav-link" href="./cadastro.html">Cadastre-se</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
+    </nav>
+  </div>
+  <!-- Home -->
+  <div class="container-sys">
+    <div class="cadastro-imagem desktop">
+      <img class="img-cadastro desktop" src="./assets/images/login.jpg" alt="trem_cad" />
     </div>
-  </footer>
-  <!--footer fim-->
+    <div class="lado">
+      <div class="formulario">
+        <div class="titulo-cad">
+          <h1>Login</h1>
+        </div>
+        <div class="campo">
+          <span>E-mail:</span> <br />
+          <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+        </div>
+        <div class="campo">
+          <span>Senha:</span> <br />
+          <input id="senha_input" type="password" placeholder="******" />
+        </div>
+        <div class="redirecionar">
+          <span>Não tem conta ainda?
+            <a href="cadastro.html">cadastre-se</a></span>
+        </div>
+        <button class="botao" onclick="entrar()">Login</button>
+      </div>
+    </div>
+  </div>
+</body>
+<!--footer inicio-->
+<footer>
+  <div class="links">
+    <div class="titulo">
+      <h1>Fale conosco</h1>
+    </div>
+    <div class="footer-infos">
+      <div class="midias">
+        <a href="#">
+          <img src="./assets/icons/x.png" alt="X" />
+        </a>
+        <a href="#">
+          <img src="./assets/icons/facebook.png" alt="F" />
+        </a>
+        <a href="#">
+          <img src="./assets/icons/youtube.png" alt="Y" />
+        </a>
+      </div>
+      <div class="termos">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+      <div class="copy">
+        <p>
+          Copyright © 2026 Sys-Train Track Software Limited | Registered in
+          Brazil No. 10072356
+        </p>
+      </div>
+      <div class="text-desc">
+        <p>
+          Apple, the Apple logo, and iPhone are trademarks of Apple Inc.,
+          registered in the U.S. and other countries. App Store is a service
+          mark of Apple Inc. Android, Google Play and the Google Play logo are
+          trademarks of Google LLC.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="contato">
+    <div class="card">
+      <h2>Dúvidas?</h2>
+      <p>Envie seu email, para entrar em contato e saber mais</p>
+      <div>
+        <input type="text" placeholder="Email address" />
+        <button>Submit</button>
+      </div>
+    </div>
+  </div>
+</footer>
+<!--footer fim-->
+
 </html>
 
 <script>
@@ -208,7 +200,7 @@
             sessionStorage.NOME_USUARIO = json.nome;
             sessionStorage.ID_USUARIO = json.id;
             setTimeout(function () {
-              window.location = "./index.html";
+              window.location = "./dashboard/dashboard.html";
             }, 1000); // apenas para exibir o loading
           });
         } else {

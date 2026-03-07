@@ -92,6 +92,19 @@ button {
     background-color: var(--laranja);
 }
 
+.links .ativo {
+    background-color: var(--laranja);
+}
+
+.links .link-lateral:hover {
+    background-color: #1e4875;
+}
+
+.links .ativo:hover {
+    background-color: #ba4007;
+}
+
+
 .btn-lateral {
     width: 100%;
     padding: 12px;

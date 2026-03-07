@@ -71,42 +71,43 @@
                 </button>
             </div>
         </div>
-        <div class="conteudo">
-            <div class="titulo">
-                <h1>RBC</h1>
-            </div>
-            <div class="opcao-add">
-                <button class="btn-add-desk desktop" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <main class="conteudo">
+            <section class="topo-pagina">
+                <div>
+                    <p class="subtitulo">Sessão Administrativa</p>
+                    <h1 class="titulo">RBCs Cadatradas</h1>
+                    <p class="descricao">Gerenciamento dos RBCs cadastradas</p>
+                </div>
+                <!-- <button class="btn-add-desk desktop" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
+                <button class="btn-add-desk desktop" onclick="abrirModal()">
                     <div>
                         <p>Adicionar RBC</p>
-                        <img src="../assets/icons/adicionar.png" alt="+">
                     </div>
                 </button>
-                <button class="btn-add-mobile mobile" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                    <img src="../assets/icons/adicionar.png" alt="+">
-                </button>
-            </div>
-            <div class="tabela table-responsive">
-                <table class="table caption-top">
-                    <caption>Lista das RBC's</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Modelo do RBC</th>
-                            <th scope="col">Versão</th>
-                            <th scope="col">Empresa responsavel</th>
-                            <th scope="col">Linha</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabelaRbc">
+            </section>
+            <section class="painel-tabela">
+                <div class="tabela table-responsive">
+                    <table class="table caption-top">
+                        <caption class="subtitulo">Lista dos RBCs</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Modelo do RBC</th>
+                                <th scope="col">Versão</th>
+                                <th scope="col">Empresa responsavel</th>
+                                <th scope="col">Linha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaRbc">
 
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
     </div>
 
-    <div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade " id="modal_cadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -127,7 +128,12 @@
                         </div>
                         <div class="ipt-25">
                             <label>linha</label>
-                            <input class="w-90" type="text" id="input_linha_resp" placeholder="11 Coral">
+                            <select class="w-90 h-100" id="select_linha">
+                                <option disabled selected>Escolha a linha</option>
+                                <option value="Linha 7 - Rubi">Linha 7 - Rubi</option>
+                                <option value="Linha 9 - Esmeralda">Linha 9 - Esmeralda</option>
+                                <option value="Linha 10 - Turquesa">Linha 10 - Turquesa</option>
+                            </select>
                         </div>
                         <div class="ipt-25 ">
                             <label>Empresa</label>
@@ -151,7 +157,11 @@
 <script>
     listarRBC()
     listarEmpresas()
+    const modalCad = new bootstrap.Modal("#modal_cadastro")
 
+    function abrirModal() {
+        modalCad.show();
+    }
 
     function listarRBC() {
         var cont = 0
@@ -177,7 +187,7 @@
                             `
                         } else {
                             rbcsCadastrados += `
-                                 <tr class="table-ligth">
+                                 <tr>
                                     <th scope="row">${rbc.idRbc}</th>
                                     <td>${rbc.modelo}</td>
                                     <td>${rbc.versao}</td>
@@ -229,7 +239,10 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    window.location.reload()
+                    modalCad.hide()
+                    limparFormulario();
+                    listarRBC();
+                    status("Sucesso")
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro do RBC!";
                 }
@@ -267,6 +280,28 @@
             });
     }
 
+    function limparFormulario() {
+        input_modelo.value = ''
+        input_versao.value = ''
+        input_linha_resp.value = ''
+        select_fk_empresa.value = ''
+    }
+
+    function status(statusOperacao) {
+        mensagem_operacao.styele.display = "block"
+        if (statusOperacao == "Sucesso") {
+            cor_status.style.background = "#2DE846"
+            img_status.src = "../assets/icons/sucesso.png"
+            mensagem_operacao.innerHTML = "Cadastro realizado com sucesso "
+        } else {
+            cor_status.style.background = "#FC5C65"
+            img_status.src = "../assets/icons/erro.png"
+            mensagem_operacao.innerHTML = "Erro ao cadastrar"
+        }
+        setInterval(() => {
+            mensagem_operacao.styele.display = "none"
+        }, 3000)
+    }
 
 
 </script>
