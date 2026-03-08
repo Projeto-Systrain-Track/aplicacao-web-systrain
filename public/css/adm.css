@@ -225,6 +225,10 @@ p {
     color: white;
 }
 
+.modal-header h1{
+    font-family: var(--font-titulo);
+}
+
 .cadastro input,
 .cadastro select {
     /* border-radius: 5px; */
@@ -237,6 +241,11 @@ p {
 .cadastro option {
     background-color: whitesmoke;
     border: none;
+}
+
+.btn.btn-primary, .btn.btn-secondary{
+    font-family: var(--font-titulo);
+    font-weight: 600;
 }
 
 .btn-azul {
@@ -261,6 +270,11 @@ p {
     width: 25%;
 }
 
+.ipt-75 label, .ipt-50 label,
+.ipt-25 label, .w-100 label,
+.w-90 label {
+  font-family: var(--font-titulo);
+}
 
 .w-90,
 .w-90-m {
