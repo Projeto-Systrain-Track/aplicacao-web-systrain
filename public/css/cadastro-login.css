@@ -64,9 +64,9 @@ nav {
 }
 
 .nav-logo img {
-    width: 30vh;
-    margin-top: -6vh;
+    width: 20vh;
     margin-left: 10%;
+    margin-top: 1%;
 }
 
 .nav-links {
@@ -79,7 +79,8 @@ nav {
 
 .nav-links a {
     text-decoration: none;
-    font-weight: 400;
+    font-family: var(--font-titulo);
+    font-weight: 500;
     color: var(--azul-escuro);
 }
 
@@ -104,11 +105,13 @@ nav {
 .nav-acessos .login {
     width: 80px;
     height: 30px;
+    font-family: var(--font-titulo);
 }
 
 .nav-acessos .cad {
     width: 130px;
     height: 30px;
+    font-family: var(--font-titulo);
 }
 
 .nav-acessos .acessos a {
@@ -218,6 +221,11 @@ nav {
     justify-content: center;
     overflow: hidden;
     box-shadow: 8px 15px 0px var(--azul-escuro);
+}
+
+.botao {
+    font-family: var(--font-titulo);
+    font-weight: 500;
 }
 
 /* footer */
