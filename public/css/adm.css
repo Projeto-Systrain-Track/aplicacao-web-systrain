@@ -51,8 +51,10 @@ p {
 }
 
 .logo {
-    width: 100%;
+    width: 90%;
     height: 150px;
+    padding-top: 100px;
+    align-self: center;
 }
 
 .logo img {
@@ -73,6 +75,7 @@ p {
     border-radius: 6px;
     color: white;
     transition: 0.3s;
+    font-family: var(--font-titulo);
 }
 
 .ativo {
@@ -97,9 +100,14 @@ p {
     border-radius: 6px;
     color: white;
     border: none;
-    text-align: start;
+    text-align: center;
     background-color: #1e4875;
     margin-top: 10px;
+}
+
+.btn-lateral p {
+    font-family: var(--font-titulo);
+    font-weight: 500
 }
 
 
@@ -190,6 +198,10 @@ p {
     background-color: rgb(237, 237, 237);
 }
 
+.btn-add-desk p {
+    font-family: var(--font-titulo);
+}
+
 .painel-tabela {
     padding: 20px;
 }
@@ -246,6 +258,10 @@ p {
 .btn.btn-primary, .btn.btn-secondary{
     font-family: var(--font-titulo);
     font-weight: 600;
+}
+
+.btn.btn-primary {
+    background-color: var(--azul-escuro);
 }
 
 .btn-azul {
