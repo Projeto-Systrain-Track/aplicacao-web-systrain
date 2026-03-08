@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sys Train Track Adm | Usuarios</title>
+    <link rel="icon" href="../assets/images/sys-logo - adm2.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -16,7 +17,6 @@
 </head>
 
 <body>
-
 
     <div class="container-sys">
         <!-- nav mobile -->
@@ -54,20 +54,20 @@
         </div>
         <div class="nav-lateral desktop">
             <div class="logo">
-                <img src="../assets/images/sys_logo - adm.svg" alt="Sys-train track">
+                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track">
             </div>
             <div class="links">
-                <a class="link-lateral " href="index.html">Empresa</a>
-                <a class="link-lateral " href="usuarios.html">Usuarios</a>
-                <a class="link-lateral ativo" href="rbc.html">RBC</a>
+                <a class="link-lateral " href="index.html">Empresas</a>
+                <a class="link-lateral ativo" href="usuarios.html">Usuários</a>
+                <a class="link-lateral " href="rbc.html">RBC</a>
                 <a class="link-lateral " href="componentes.html">Componentes</a>
             </div>
             <div class="opcoes">
                 <div class="btn-lateral">
                     <p>Luana</p>
                 </div>
-                <button onclick="sair()" class="btn-lateral ativo">
-                    <p>sair</p>
+                <button onclick="sair()" class="btn-lateral">
+                    <p>Sair</p>
                 </button>
             </div>
         </div>
@@ -75,30 +75,29 @@
             <section class="topo-pagina">
                 <div>
                     <p class="subtitulo">Sessão Administrativa</p>
-                    <h1 class="titulo">RBCs Cadatradas</h1>
-                    <p class="descricao">Gerenciamento dos RBCs cadastradas</p>
+                    <h1 class="titulo">Usuário Cadastrados</h1>
+                    <p class="descricao">Gerenciamento dos usuários das empresas cadastradas</p>
                 </div>
                 <!-- <button class="btn-add-desk desktop" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
                 <button class="btn-add-desk desktop" onclick="abrirModal()">
                     <div>
-                        <p>Adicionar RBC</p>
+                        <p>Adicionar Usuário</p>
                     </div>
                 </button>
             </section>
             <section class="painel-tabela">
                 <div class="tabela table-responsive">
                     <table class="table caption-top">
-                        <caption class="subtitulo">Lista dos RBCs</caption>
+                        <caption class="subtitulo">Lista de Usuários</caption>
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Modelo do RBC</th>
-                                <th scope="col">Versão</th>
-                                <th scope="col">Empresa responsavel</th>
-                                <th scope="col">Linha</th>
+                                <th scope="col">Usuário</th>
+                                <th scope="col">E-mail de Contato</th>
+                                <th scope="col">Empresa Associada</th>
                             </tr>
                         </thead>
-                        <tbody id="tabelaRbc">
+                        <tbody id="tabelaUsuario">
 
                         </tbody>
                     </table>
@@ -106,40 +105,42 @@
             </section>
         </main>
     </div>
+    <!-- Button trigger modal -->
 
-    <div class="modal fade " id="modal_cadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal_cadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar RBC</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Empresa</h1>
                     <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="cadastro">
                         <div class="w-100">
-                            <label>Modelo</label>
-                            <input type="text" id="input_modelo" placeholder="Modelo XPTO">
+                            <label>Nome Completo:</label>
+                            <input id="nome_input" type="text" placeholder="Seu nome" />
                         </div>
-                        <div class="ipt-50 ">
-                            <label>Versão</label>
-                            <input class="w-90-m ipt-mobile-100" type="text" id="input_versao" placeholder="V2">
+                        <div class="ipt-75">
+                            <label>E-mail:</label>
+                            <input id="email_input" class="w-90" type="text" placeholder="meuemail@provedor.com" />
                         </div>
-                        <div class="ipt-25">
-                            <label>linha</label>
-                            <select class="w-90 h-100" id="select_linha">
-                                <option disabled selected>Escolha a linha</option>
-                                <option value="Linha 7 - Rubi">Linha 7 - Rubi</option>
-                                <option value="Linha 9 - Esmeralda">Linha 9 - Esmeralda</option>
-                                <option value="Linha 10 - Turquesa">Linha 10 - Turquesa</option>
-                            </select>
+                        <div class="ipt-25-m">
+                            <label>Empresa:</label>
+                            <select class="h-100" id="select_fk_empresa"></select>
                         </div>
-                        <div class="ipt-25 ">
-                            <label>Empresa</label>
-                            <select class="h-100" id="select_fk_empresa">
+                        <div class="ipt-50">
+                            <label>Senha:</label>
+                            <input id="senha_input" class="w-90" type="password" placeholder="******" />
                         </div>
-                        </select>
+                        <div class="ipt-50">
+                            <label>Confirmação da Senha:</label>
+                            <input id="confirmacao_senha_input" class="w-90" type="password" placeholder="******" />
+                        </div>
+                        <div id="div_msg"></div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -149,110 +150,66 @@
             </div>
         </div>
     </div>
+    <!-- mensagens -->
+    <div class="mensagens" id="mensagem_operacao">
+        <div class="notificacao">
+            <div class="status">
+                <div class="cor-status" id="cor_status"></div>
 
-
+                <img id="img_status" alt="statusIcon">
+            </div>
+            <div class="infos-notificacao">
+                <h1>Empresa</h1>
+                <p class="subtitulo" id="mensagem_operacao">Empresa cadastrada com sucesso!</p>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
 <script>
-    listarRBC()
-    listarEmpresas()
+    listarUsuarios()
+
+    let listaEmpresasCadastradas = [];
     const modalCad = new bootstrap.Modal("#modal_cadastro")
 
-    function abrirModal() {
-        modalCad.show();
-    }
-
-    function listarRBC() {
+    function listarUsuarios() {
         var cont = 0
-        var rbcsCadastrados = ''
-        console.log("Buscando RBC:")
-        var tabela = document.getElementById("tabelaRbc")
-        fetch("/rbcs/listarRBC", {
+        var usuariosCadastrados = ''
+        var tabela = document.getElementById("tabelaUsuario")
+        fetch("/usuarios/listarUsuarios", {
             method: "GET"
         })
             .then(function (resposta) {
-                resposta.json().then((rbcs) => {
-                    rbcs.forEach(rbc => {
+                resposta.json().then((usuarios) => {
+                    usuarios.forEach(usuario => {
                         cont++
                         if (cont % 2 == 0) {
-                            rbcsCadastrados += `
+                            usuariosCadastrados += `
                                  <tr class="table-secondary">
-                                    <th scope="row">${rbc.idRbc}</th>
-                                    <td>${rbc.modelo}</td>
-                                    <td>${rbc.versao}</td>
-                                    <td>${rbc.empresa}</td>
-                                    <td>${rbc.linha}</td>
+                                    <th scope="row">${usuario.idUsuario}</th>
+                                    <td>${usuario.nome}</td>
+                                    <td>${usuario.email}</td>
+                                    <td>${usuario.empresa}</td>
                                 </tr>
                             `
                         } else {
-                            rbcsCadastrados += `
+                            usuariosCadastrados += `
                                  <tr>
-                                    <th scope="row">${rbc.idRbc}</th>
-                                    <td>${rbc.modelo}</td>
-                                    <td>${rbc.versao}</td>
-                                    <td>${rbc.empresa}</td>
-                                    <td>${rbc.linha}</td>
+                                      <th scope="row">${usuario.idUsuario}</th>
+                                    <td>${usuario.nome}</td>
+                                    <td>${usuario.email}</td>
+                                    <td>${usuario.empresa}</td>
                                 </tr>
                             `
                         }
-                    })
-                    tabela.innerHTML = rbcsCadastrados
+                    });
+                    tabela.innerHTML = usuariosCadastrados
                 })
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
-            });
-    }
-    function cadastrar() {
-        //Recupere o valor da nova input pelo nome do id
-        // Agora vá para o método fetch logo abaixo
-        var modelo = input_modelo.value
-        var versao = input_versao.value
-        var linhaResp = select_linha.value
-        var fkEmpresa = select_fk_empresa.value
-
-        // Verificando se há algum campo em branco
-        if (
-            modelo == '' ||
-            versao == '' ||
-            linhaResp == '' ||
-            fkEmpresa == 0
-        ) {
-            alert('Mensagem de erro para todos os campos em branco');
-        }
-        console.log(fkEmpresa)
-        // Enviando o valor da nova input
-        fetch("/rbcs/cadastrarRbc", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                modeloServer: modelo,
-                versaoServer: versao,
-                linhaRespServer: linhaResp,
-                fkEmpresaServer: fkEmpresa
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-                    modalCad.hide()
-                    limparFormulario();
-                    listarRBC();
-                    // status("Sucesso")
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro do RBC!";
-                }
             })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                // finalizarAguardar();
-            });
-
-        return false;
     }
 
     // Listando empresas cadastradas 
@@ -280,27 +237,73 @@
             });
     }
 
-    function limparFormulario() {
-        input_modelo.value = ''
-        input_versao.value = ''
-        select_linha.selectedIndex = 0
-        select_fk_empresa.selectedIndex = 0
+    function abrirModal() {
+        modalCad.show();
+        listarEmpresas()
     }
 
-    function status(statusOperacao) {
-        mensagem_operacao.styele.display = "block"
-        if (statusOperacao == "Sucesso") {
-            cor_status.style.background = "#2DE846"
-            img_status.src = "../assets/icons/sucesso.png"
-            mensagem_operacao.innerHTML = "Cadastro realizado com sucesso "
-        } else {
-            cor_status.style.background = "#FC5C65"
-            img_status.src = "../assets/icons/erro.png"
-            mensagem_operacao.innerHTML = "Erro ao cadastrar"
+    function cadastrar() {
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+        var confirmacaoSenhaVar = confirmacao_senha_input.value;
+        var idEmpresaVincular = select_fk_empresa.value;
+
+
+
+        // Verificando se há algum campo em branco
+        if (
+            nomeVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" ||
+            confirmacaoSenhaVar == "" ||
+            idEmpresaVincular == 0
+        ) {
+            console.log("Campo esta vazio")
+            return false;
         }
-        setInterval(() => {
-            mensagem_operacao.styele.display = "none"
-        }, 3000)
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+                idEmpresaVincularServer: idEmpresaVincular,
+
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    limparFormulario();
+                    modalCad.hide()
+                    listarUsuarios()
+                    // finalizarAguardar();
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                // finalizarAguardar();
+            });
+
+        return false;
+    }
+
+
+    function limparFormulario() {
+        nome_input.value = "";
+        email_input.value = "";
+        senha_input.value = "";
+        confirmacao_senha_input.value = "";
+        select_fk_empresa.selectIndex = 0;
     }
 
 

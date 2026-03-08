@@ -40,7 +40,7 @@ p {
 
 .nav-lateral {
     width: 260px;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -282,7 +282,8 @@ p {
     width: 50%;
 }
 
-.ipt-25 {
+.ipt-25,
+.ipt-25-m {
     width: 25%;
 }
 
@@ -394,7 +395,8 @@ p {
 
     /* Mobile */
     .ipt-75,
-    .ipt-50 {
+    .ipt-50,
+    .ipt-25-m {
         width: 100%;
     }
 
