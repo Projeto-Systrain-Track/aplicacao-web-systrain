@@ -220,8 +220,8 @@
             fkEmpresa == 0
         ) {
             alert('Mensagem de erro para todos os campos em branco');
+            return;
         }
-        console.log(fkEmpresa)
         // Enviando o valor da nova input
         fetch("/rbcs/cadastrarRbc", {
             method: "POST",

@@ -287,6 +287,11 @@ p {
     width: 25%;
 }
 
+.ipt-33,
+.ipt-33-m{
+    width: 33.3%;
+}
+
 .ipt-75 label, .ipt-50 label,
 .ipt-25 label, .w-100 label,
 .w-90 label {
@@ -396,11 +401,13 @@ p {
     /* Mobile */
     .ipt-75,
     .ipt-50,
-    .ipt-25-m {
+    .ipt-33-m, 
+    .ipt-25-m{
         width: 100%;
     }
 
-    .ipt-25 {
+    .ipt-25,
+    .ipt-33 {
         width: 50%;
     }
 

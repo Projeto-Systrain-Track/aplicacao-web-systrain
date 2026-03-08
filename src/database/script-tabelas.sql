@@ -49,6 +49,14 @@ fkEmpresa INT,
 FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
 );
 
+CREATE TABLE componente(
+idComponente INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(45),
+tipo VARCHAR(45),
+unidadeMedida FLOAT,
+parametros INT
+);
+
 insert into empresa values	
 	(DEFAULT, 'teste', '1234567891', DEFAULT, '123456789123', 'luiz@gmail', '119876523');
 
@@ -60,3 +68,4 @@ select * from empresa;
 select * from endereco;
 select * from usuario;
 select * from rbc;
+select * from componente;

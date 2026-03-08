@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sys Train Track Adm | Empresa</title>
+    <title>Sys Train Track Adm | Componentes</title>
     <link rel="icon" href="../assets/images/sys-logo - adm2.svg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -57,10 +57,10 @@
                 <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track">
             </div>
             <div class="links">
-                <a class="link-lateral ativo" href="index.html">Empresas</a>
+                <a class="link-lateral " href="index.html">Empresas</a>
                 <a class="link-lateral " href="usuarios.html">Usuários</a>
                 <a class="link-lateral " href="rbc.html">RBC</a>
-                <a class="link-lateral " href="componentes.html">Componentes</a>
+                <a class="link-lateral ativo" href="componentes.html">Componentes</a>
             </div>
             <div class="opcoes">
                 <div class="btn-lateral">
@@ -75,30 +75,30 @@
             <section class="topo-pagina">
                 <div>
                     <p class="subtitulo">Sessão Administrativa</p>
-                    <h1 class="titulo">Empresas Cadastradas</h1>
-                    <p class="descricao">Gerenciamento das empresas cadastradas</p>
+                    <h1 class="titulo">Componentes Cadastradas</h1>
+                    <p class="descricao">Gerenciamento dos componentes que podem ser monitorados</p>
                 </div>
                 <!-- <button class="btn-add-desk desktop" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
                 <button class="btn-add-desk desktop" onclick="abrirModal()">
                     <div>
-                        <p>Adicionar Empresa</p>
+                        <p>Adicionar Componente</p>
                     </div>
                 </button>
             </section>
             <section class="painel-tabela">
                 <div class="tabela table-responsive">
                     <table class="table caption-top">
-                        <caption class="subtitulo">Lista das Empresa</caption>
+                        <caption class="subtitulo">Lista de Componentes</caption>
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Nome da Empresa</th>
-                                <th scope="col">E-mail de Contato</th>
-                                <th scope="col">CNPJ</th>
-                                <th scope="col">Token</th>
+                                <th scope="col">Nome do Componente</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Unidade de Medida</th>
+                                <th scope="col">Parametros</th>
                             </tr>
                         </thead>
-                        <tbody id="tabela">
+                        <tbody id="tabelaComponente">
 
                         </tbody>
                     </table>
@@ -115,131 +115,153 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Empresa</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Componente</h1>
                     <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="cadastro">
-                        <div class="ipt-75">
-                            <label>Razão social</label>
-                            <input class="w-90" id="input_razaoSocial" type="text" placeholder="Sys-Train Track">
-                        </div>
-                        <div class="ipt-25">
-                            <label>Token de cadastro</label>
-                            <input class="" disabled id="input_token" type="text" placeholder="aaaa">
-                        </div>
-                        <div class="ipt-25">
-                            <label>CNPJ</label>
-                            <input class="w-90" id="input_cnpj" type="text" placeholder="aaaaaaaaaaa">
-                        </div>
-                        <div class="ipt-75">
-                            <label>Email</label>
-                            <input id="input_email_empresa" type="text" placeholder="sys@">
-                        </div>
-                        <div class="ipt-25">
-                            <label>Telefone</label>
-                            <input class="w-90" id="input_telefone" type="text" placeholder="40028922">
-                        </div>
-                        <div class="ipt-25">
-                            <label>CEP</label>
-                            <input oninput="buscarCep()" class="w-90" id="input_cep" type="text"
-                                placeholder="XXXXXXXXXX">
-                        </div>
-                        <div class="ipt-25">
-                            <label>Estado</label>
-                            <select class="w-90 h-100" id="select_estado">
-                                <option value="Acre">Acre</option>
-                                <option value="Alagoas">Alagoas</option>
-                                <option value="Amapá">Amapá</option>
-                                <option value="Amazonas">Amazonas</option>
-                                <option value="Bahia">Bahia</option>
-                                <option value="Ceará">Ceará</option>
-                                <option value="Distrito Federal">Distrito Federal</option>
-                                <option value="Espírito Santo">Espírito Santo</option>
-                                <option value="Goiás">Goiás</option>
-                                <option value="Maranhão">Maranhão</option>
-                                <option value="Mato Grosso">Mato Grosso</option>
-                                <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
-                                <option value="Minas Gerais">Minas Gerais</option>
-                                <option value="Pará">Pará</option>
-                                <option value="Paraíba">Paraíba</option>
-                                <option value="Paraná">Paraná</option>
-                                <option value="Pernambuco">Pernambuco</option>
-                                <option value="Piauí">Piauí</option>
-                                <option value="Rio de Janeiro">Rio de Janeiro</option>
-                                <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-                                <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-                                <option value="Rondônia">Rondônia</option>
-                                <option value="Roraima">Roraima</option>
-                                <option value="Santa Catarina">Santa Catarina</option>
-                                <option value="São Paulo" selected>São Paulo</option>
-                                <option value="Sergipe">Sergipe</option>
-                                <option value="Tocantins">Tocantins</option>
-                            </select>
-                            <!-- <input class="w-90" id="input_estado" type="text" placeholder="Cansado"> -->
-                        </div>
-
-                        <div class="ipt-25">
-                            <label>Número</label>
-                            <input id="input_numero" type="text" placeholder="XXX">
-                        </div>
                         <div class="w-100">
-                            <label>Endereço</label>
-                            <input disabled class="w-100" id="input_endereco" type="text" placeholder="Tangamandapio">
+                            <label>Nome do Componente</label>
+                            <input id="input_nome" type="text" placeholder="Memoria de massa">
                         </div>
-                        <div class="w-100">
-                            <label>Complemento</label>
-                            <input class="w-100" id="input_complemento" type="text" placeholder="XXX">
+                        <div class="ipt-33-m">
+                            <label>Tipo</label>
+                            <input class="w-90"  id="input_tipo" type="text" placeholder="XPTO">
                         </div>
-                        <div id="div_msg"></div>
+                        <div class="ipt-33">
+                            <label>Unidade de Medida</label>
+                            <input class="w-90" id="input_unidade_medida" type="number" placeholder="40.56">
+                        </div>
+                        <div class="ipt-33">
+                            <label>Parametros</label>
+                            <input class="w-90" id="input_parametro" type="number" placeholder="3">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
+            </div>
+        </div>
+        <!-- mensagens -->
+        <div class="mensagens" id="mensagem_operacao">
+            <div class="notificacao">
+                <div class="status">
+                    <div class="cor-status" id="cor_status"></div>
+
+                    <img id="img_status" alt="statusIcon">
+                </div>
+                <div class="infos-notificacao">
+                    <h1>Empresa</h1>
+                    <p class="subtitulo" id="mensagem_operacao">Empresa cadastrada com sucesso!</p>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- mensagens -->
-    <div class="mensagens" id="mensagem_operacao">
-        <div class="notificacao">
-            <div class="status">
-                <div class="cor-status" id="cor_status"></div>
-
-                <img id="img_status" alt="statusIcon">
-            </div>
-            <div class="infos-notificacao">
-                <h1>Empresa</h1>
-                <p class="subtitulo" id="mensagem_operacao">Empresa cadastrada com sucesso!</p>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>
 <script>
-    listar()
+    listarComponentes()
     // Array para armazenar empresas cadastradas para validação de código de ativação 
     let listaEmpresasCadastradas = [];
     const modalCad = new bootstrap.Modal("#modal_cadastro")
+
+    function listarComponentes() {
+        var cont = 0;
+        var componentesCad = ''
+        var tabela = document.getElementById("tabelaComponente")
+        fetch('/componentes/listarComponentes', {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                resposta.json().then((componentes) => {
+                    componentes.forEach(componente => {
+                        cont++
+                        if (cont % 2 == 0) {
+                            componentesCad += `
+                                 <tr class="table-secondary">
+                                    <th scope="row">${componente.idComponente}</th>
+                                    <td>${componente.nome}</td>
+                                    <td>${componente.tipo}</td>
+                                    <td>${componente.unidadeMedida}</td>
+                                    <td>${componente.parametros}</td>
+                                </tr>
+                            `
+                        } else {
+                            componentesCad += `
+                                 <tr>
+                                    <th scope="row">${componente.idComponente}</th>
+                                    <td>${componente.nome}</td>
+                                    <td>${componente.tipo}</td>
+                                    <td>${componente.unidadeMedida}</td>
+                                    <td>${componente.parametros}</td>
+                                </tr>
+                            `
+                        }
+                    });
+                    tabela.innerHTML = componentesCad
+                })
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function cadastrar() {
+        var nome = input_nome.value
+        var tipo = input_tipo.value
+        var unidadeMedida = Number(input_unidade_medida.value)
+        var parametro = Number(input_parametro.value)
+
+        if (
+            nome == '' ||
+            tipo == '' ||
+            unidadeMedida == 0 ||
+            parametro == 0
+        ) {
+            alert('Mensagem de erro para todos os campos em branco');
+            return;
+        }
+        fetch("/componentes/cadastrarComponente", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServer: nome,
+                tipoServer: tipo,
+                unidadeMedidaServer: unidadeMedida,
+                parametroServer: parametro
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta)
+
+                if (resposta.ok) {
+                    modalCad.hide()
+                    limparFormulario()
+                    listarComponentes()
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro do Componente"
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`)
+            })
+        return false
+    }
+
     function abrirModal() {
         modalCad.show();
-        token()
     }
 
     function limparFormulario() {
-        input_razaoSocial.value = ""
-        input_token.value = ""
-        input_cnpj.value = ""
-        input_email_empresa.value = ""
-        input_telefone.value = ""
-        select_estado.value = ""
-        input_cep.value = ""
-        input_numero.value = ""
-        input_endereco.value = ""
-        input_complemento.value = ""
+        input_nome.value = ""
+        input_tipo.value = ""
+        input_unidade_medida.value = ""
+        input_parametro.value = ""
     }
 
 </script>
