@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <script src="./js/sessao.js"></script>
     <title>Sys-Train Track</title>
     <!-- Link de conexão com o Bootstrap -->
     <link
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="./css/login-usuario.css" />
   </head>
 
-  <body onload="listar()">
+  <body>
     <!-- navbar -->
     <div class=""></div>
     <!-- nav-mobile -->
@@ -123,13 +123,13 @@
       finalizarAguardar();
       return false;
     } else {
-      setInterval(sumirMensagem, 5000);
+      // setInterval(sumirMensagem, 5000);
     }
 
     console.log("FORM LOGIN: ", emailVar);
     console.log("FORM SENHA: ", senhaVar);
 
-    fetch("/usuarios/autenticar", {
+    fetch("/adm/autenticar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -147,9 +147,7 @@
           resposta.json().then((json) => {
             console.log(json);
             console.log(JSON.stringify(json));
-            sessionStorage.EMAIL_USUARIO = json.email;
-            sessionStorage.NOME_USUARIO = json.nome;
-            sessionStorage.ID_USUARIO = json.id;
+            iniciarSessaoAdm(json.nome, json.email, json.nivel)
             setTimeout(function () {
               window.location = "./adm/index.html";
             }, 1000); // apenas para exibir o loading

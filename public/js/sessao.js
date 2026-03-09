@@ -14,7 +14,7 @@ function validarSessao() {
 
 function limparSessao() {
     sessionStorage.clear();
-    window.location = "../login.html";
+    window.location = "../index.html";
 }
 
 // carregamento (loading)
@@ -23,14 +23,28 @@ function aguardar() {
     divAguardar.style.display = "flex";
 }
 
-function finalizarAguardar(texto) {
-    var divAguardar = document.getElementById("div_aguardar");
-    divAguardar.style.display = "none";
 
-    var divErrosLogin = document.getElementById("div_erros_login");
-    if (texto) {
-        divErrosLogin.style.display = "flex";
-        divErrosLogin.innerHTML = texto;
-    }
+// sessão adm
+function iniciarSessaoAdm(nome, email, nivel) {
+    sessionStorage.NOME_ADM = nome
+    sessionStorage.EMAIL_ADM = email
+    sessionStorage.NIVEL_ADM = nivel
 }
 
+function validarSessaoAdm() {
+    var nomeAdm = sessionStorage.NOME_ADM
+    var emailAdm = sessionStorage.EMAIL_ADM
+    var nivelAdm = sessionStorage.NIVEL_ADM
+    if (
+        nomeAdm != null  &&  
+        emailAdm != null  &&
+        nivelAdm != null  
+    ) {
+        var identificacao = document.getElementById("nome_adm")
+        var identificacaoMobile = document.getElementById("nome_adm_m")
+        identificacao.innerHTML = nomeAdm + " | N"+nivelAdm
+        identificacaoMobile.innerHTML = nomeAdm + " | N"+nivelAdm
+    } else {
+        window.location = "../loginUsuario.html";
+    }
+}

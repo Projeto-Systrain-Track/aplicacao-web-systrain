@@ -57,11 +57,25 @@ unidadeMedida FLOAT,
 parametros INT
 );
 
+CREATE TABLE administrador(
+idAdministrador INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(45) NOT NULL,
+email VARCHAR(50) UNIQUE NOT NULL,
+senha VARCHAR(45),
+nivel INT 
+);
+
+
 insert into empresa values	
 	(DEFAULT, 'teste', '1234567891', DEFAULT, '123456789123', 'luiz@gmail', '119876523');
 
 insert into usuario(nome, email, senha, fk_empresa) values	
 	('Brandão', 'brandao@systrain', '12345', 1);
+
+insert into administrador(nome, email, senha, nivel) values
+	('Geraldo', 'geraldo@systrain', 'systrain_adm', 3);
+
+
 
 SELECT * FROM empresa WHERE idEmpresa = 1; 
 select * from empresa;
@@ -69,3 +83,4 @@ select * from endereco;
 select * from usuario;
 select * from rbc;
 select * from componente;
+select * from administrador;

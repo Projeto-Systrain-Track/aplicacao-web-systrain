@@ -11,8 +11,7 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/adm.css" />
-    <style>
-    </style>
+    <script src="../js/sessao.js"></script>
 </head>
 
 <body>
@@ -20,7 +19,7 @@
 
     <div class="container-sys">
         <!-- nav mobile -->
-        <div class="mobile">
+         <div class="mobile">
             <nav class="navbar fixed-top nav-mobile">
                 <div class="container-fluid">
                     <a class="navbar-brand titulo-sys" href="./index.html">Sys-Train Track</a>
@@ -33,7 +32,7 @@
                         aria-labelledby="offcanvasNavbarLabel">
                         <div class="offcanvas-header">
                             <div class="offcanvas-title " id="offcanvasNavbarLabel">
-                                <img class="imga" src="../assets/images/sys_logo.svg" alt="Sys-Train Track">
+                                <img class="imga" src="../assets/images/sys-logo - adm2.svg" alt="Sys-Train Track">
                             </div>
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
                                 aria-label="Close"></button>
@@ -41,10 +40,26 @@
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                                 <li class="nav-item">
-                                    <a class="nav-link link-ativo" aria-current="page" href="#">Empresa</a>
+                                    <a class="nav-link " aria-current="page" href="#">Empresa</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Link</a>
+                                    <a class="nav-link" href="usuarios.html">Usúario</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link link-ativo" href="rbc.html">RBC</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="componentes.html">Componentes</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="offcanvas-body outros">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <li class="nav-item">
+                                    <p class="nav-link" id="nome_adm_m" aria-current="page"></p>
+                                </li>
+                                <li class="nav-item">
+                                    <p class="nav-link" onclick="limparSessao()">Sair</p>
                                 </li>
                             </ul>
                         </div>
@@ -54,20 +69,20 @@
         </div>
         <div class="nav-lateral desktop">
             <div class="logo">
-                <img src="../assets/images/sys_logo - adm.svg" alt="Sys-train track">
+                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track">
             </div>
             <div class="links">
-                <a class="link-lateral " href="index.html">Empresa</a>
-                <a class="link-lateral " href="usuarios.html">Usuarios</a>
-                <a class="link-lateral ativo" href="rbc.html">RBC</a>
+                <a class="link-lateral " href="index.html">Empresas</a>
+                <a class="link-lateral " href="usuarios.html">Usuários</a>
+                <a class="link-lateral ativo " href="rbc.html">RBC</a>
                 <a class="link-lateral " href="componentes.html">Componentes</a>
             </div>
             <div class="opcoes">
                 <div class="btn-lateral">
-                    <p>Luana</p>
+                    <p id="nome_adm"></p>
                 </div>
-                <button onclick="sair()" class="btn-lateral ativo">
-                    <p>sair</p>
+                <button onclick="limparSessao()" class="btn-lateral">
+                    <p>Sair</p>
                 </button>
             </div>
         </div>
@@ -155,12 +170,14 @@
 
 </html>
 <script>
+    validarSessaoAdm()
     listarRBC()
-    listarEmpresas()
+    
     const modalCad = new bootstrap.Modal("#modal_cadastro")
 
     function abrirModal() {
         modalCad.show();
+        listarEmpresas()
     }
 
     function listarRBC() {

@@ -446,12 +446,18 @@ p {
     }
 
     .imga {
-        width: 100%;
-
+        width: 200px;
+        margin-top: 2vh;
     }
 
     .topo-pagina .btn-add-desk {
         width: 100%;
+    }
+
+    .outros{
+        display: flex;
+        justify-content: end;
+        padding-bottom: 5vh;
     }
 }
 
