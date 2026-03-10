@@ -32,18 +32,19 @@ function iniciarSessaoAdm(nome, email, nivel) {
 }
 
 function validarSessaoAdm() {
-    var nomeAdm = sessionStorage.NOME_ADM
-    var emailAdm = sessionStorage.EMAIL_ADM
-    var nivelAdm = sessionStorage.NIVEL_ADM
-    if (
-        nomeAdm != null  &&  
-        emailAdm != null  &&
-        nivelAdm != null  
-    ) {
-        var identificacao = document.getElementById("nome_adm")
-        var identificacaoMobile = document.getElementById("nome_adm_m")
-        identificacao.innerHTML = nomeAdm + " | N"+nivelAdm
-        identificacaoMobile.innerHTML = nomeAdm + " | N"+nivelAdm
+    var nomeAdm = sessionStorage.NOME_ADM;
+    var emailAdm = sessionStorage.EMAIL_ADM;
+    var nivelAdm = sessionStorage.NIVEL_ADM;
+
+    if (nomeAdm != null && emailAdm != null && nivelAdm != null) {
+        var identificacao = document.getElementById("nome_adm");
+        var identificacaoMobile = document.getElementById("nome_adm_m");
+        if (identificacao != null) {
+            identificacao.innerHTML = nomeAdm + " | N" + nivelAdm;
+        }
+        if (identificacaoMobile != null) {
+            identificacaoMobile.innerHTML = nomeAdm + " | N" + nivelAdm;
+        }
     } else {
         window.location = "../loginUsuario.html";
     }

@@ -353,7 +353,162 @@ p {
     font-size: 1.5rem;
 }
 
+.resumo-geral {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
 
+.card-kpi {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.card-kpi p {
+    color: #4e6479;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.card-kpi h2 {
+    font-family: var(--font-titulo);
+    color: var(--azul-titulos);
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.card-kpi a {
+    text-decoration: none;
+    color: var(--azul-claro);
+    font-weight: 600;
+}
+
+.destaque-alerta {
+    border-left: 6px solid var(--laranja);
+}
+
+.atalhos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.card-atalho {
+    background-color: white;
+    border-radius: 10px;
+    padding: 22px;
+    text-decoration: none;
+    color: inherit;
+    transition: 0.6s ease;
+}
+
+.card-atalho:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    background-color: var(--azul-escuro);
+    color: white;
+    transition: 0.6s ease;
+}
+.card-atalho:hover h3 {
+    color: white;
+    transition: 0.6s ease;
+}
+
+.card-atalho:hover p {
+    color: rgb(234, 134, 53);
+    transition: 0.6s ease;
+}
+
+.card-atalho h3 {
+    font-family: var(--font-titulo);
+    color: var(--azul-titulos);
+    margin-bottom: 8px;
+}
+
+.card-atalho p {
+    color: #4e6479;
+}
+
+.titulo-bloco {
+    font-family: var(--font-titulo);
+    color: var(--azul-titulos);
+    font-size: 26px;
+    margin-bottom: 16px;
+}
+
+.lista-duvidas-home {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.duvida-item {
+    border: 1px solid #dbe4ec;
+    border-radius: 8px;
+    padding: 14px;
+    background-color: #f9fbfd;
+}
+
+.duvida-item strong {
+    color: var(--azul-titulos);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.duvida-item p {
+    color: #4e6479;
+}
+
+.painel-rapido {
+    margin-bottom: 24px;
+}
+
+.painel-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.card-rapido {
+    background-color: white;
+    border: 1px solid #dbe4ec;
+    border-radius: 12px;
+    padding: 18px 20px;
+}
+
+.card-rapido p {
+    color: #4e6479;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.card-rapido h3 {
+    font-family: var(--font-titulo);
+    color: var(--azul-titulos);
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 1100px) {
+    .resumo-geral {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .painel-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .resumo-geral,
+    .atalhos-grid {
+        grid-template-columns: 1fr;
+    }
+    .painel-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
 
 @media only screen and (max-width: 1100px) {
     .nav-lateral {
@@ -529,12 +684,9 @@ p {
 .mensagem-duvida {
     color: #33495f;
     line-height: 1.5;
-    white-space: pre-wrap;
-    word-break: break-word;
 }
 
 .card-duvida.vazio {
-    grid-column: 1 / -1;
     text-align: center;
     padding: 40px 20px;
 }
