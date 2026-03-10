@@ -243,106 +243,163 @@ h1 {
 
 /* footer */
 footer {
-    width: 100vw;
-    height: 75vh;
+    width: 100%;
+    min-height: 75vh;
     background-color: var(--azul-escuro);
     display: flex;
+    flex-wrap: wrap; 
     align-items: center;
+    padding: 40px 0;
+    box-sizing: border-box;
 }
+
 
 footer .links {
     width: 55%;
-    height: 80%;
-    padding: 0% 5%;
+    padding: 0 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
 footer .links .titulo h1 {
     font-family: var(--font-titulo);
-    font-size: 60px;
     font-weight: 600;
     color: #FFF;
+    margin: 0;
 }
 
 .footer-infos {
-    /* background-color: #449dd1; */
-    width: 100%;
-    height: 83%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding-left: 10%;
+    gap: 20px;
+}
+
+.midias {
+    display: flex;
+    gap: 15px;
 }
 
 .midias img {
     width: 30px;
     height: 30px;
-    margin-right: 5%;
-    margin-top: 5%;
+    transition: transform 0.2s;
+}
+
+.midias img:hover {
+    transform: scale(1.1);
+}
+
+.termos {
+    display: flex;
+    gap: 20px;
 }
 
 .termos a,
 .copy p,
 .text-desc p {
     color: #FFF;
-    font-size: 15px;
-    margin-right: 5%;
+    font-size: 14px;
+    text-decoration: none;
+    line-height: 1.5;
 }
 
-.copy p {
-    margin-right: 20%;
+.termos a:hover {
+    text-decoration: underline;
 }
 
 footer .contato {
     width: 45%;
-    height: 80%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 5%;
+    gap: 20px;
 }
 
 footer .card {
-    width: 65%;
-    height: 225px;
+    width: 100%;
+    max-width: 400px;
+    min-height: 250px;
     border-radius: 30px;
     background-color: var(--amarelo);
     background-image: url(../assets/icons/c.png);
     background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    padding: 5% 5%;
+    background-size: 40%;
+    background-position: bottom right;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: var(--azul-titulos)
+    color: var(--azul-titulos);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    box-sizing: border-box;
 }
 
 footer .card h2 {
     font-family: var(--font-titulo);
+    margin: 0;
 }
 
-footer .card>div {
-    width: 100%;
-    height: 30px;
+.form-container {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
 }
 
-footer .card input {
-    width: 75%;
-    height: 100%;
-    padding: 0% 5%;
+footer .card .caixa {
+    width: 100%;
+    height: 60px;
+    padding: 12px;
     border: none;
-    border-radius: 20px 0px 0px 20px;
+    border-radius: 15px;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.campo-grupo {
+    display: flex;
+    width: 100%;
+}
+
+footer .card input[type="email"] {
+    flex: 1; 
+    height: 45px;
+    padding: 0 15px;
+    border: none;
+    border-radius: 20px 0 0 20px;
+    font-size: 14px;
+    outline: none;
 }
 
 footer .card button {
-    width: 25%;
-    height: 100%;
+    height: 45px;
+    padding: 0 20px;
     border: none;
-    text-align: center;
     color: #fff;
     background-color: var(--azul-titulos);
-    border-radius: 0px 20px 20px 0px;
+    border-radius: 0 20px 20px 0;
     font-weight: 600;
     cursor: pointer;
+}
+
+footer .card button:hover {
+    background-color: #1a2a4a;
+}
+
+.redirecionamento {
+    color: white;
+    font-size: 14px;
+    text-align: right;
+    width: 100%;
+    max-width: 400px;
+}
+
+.redirecionamento a {
+    color: var(--amarelo);
+    font-weight: bold;
 }
 
 @media only screen and (max-width: 600px) {

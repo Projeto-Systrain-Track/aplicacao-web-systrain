@@ -142,24 +142,23 @@
                         </div>
                         <div class="ipt-25">
                             <label>Token de cadastro</label>
-                            <input class="" disabled id="input_token" type="text" placeholder="aaaa">
+                            <input class="" disabled id="input_token" type="text" placeholder="">
                         </div>
                         <div class="ipt-25">
                             <label>CNPJ</label>
-                            <input class="w-90" id="input_cnpj" type="text" placeholder="aaaaaaaaaaa">
+                            <input class="w-90" id="input_cnpj" type="text" placeholder="00.000.000/0000-00" maxlength="18" oninput="formatarCNPJ(this)">
                         </div>
                         <div class="ipt-75">
                             <label>Email</label>
-                            <input id="input_email_empresa" type="text" placeholder="sys@">
+                            <input id="input_email_empresa" type="text" placeholder="usuario@systrain">
                         </div>
                         <div class="ipt-25">
                             <label>Telefone</label>
-                            <input class="w-90" id="input_telefone" type="text" placeholder="40028922">
+                            <input class="w-90" id="input_telefone" type="text" placeholder="(11) 99999-9999" maxlength="15" oninput="formatarTelefone(this)">
                         </div>
                         <div class="ipt-25">
                             <label>CEP</label>
-                            <input oninput="buscarCep()" class="w-90" id="input_cep" type="text"
-                                placeholder="XXXXXXXXXX">
+                            <input oninput="buscarCep()" class="w-90" id="input_cep" type="text" placeholder="00000-000 ">
                         </div>
                         <div class="ipt-25">
                             <label>Estado</label>
@@ -197,7 +196,7 @@
 
                         <div class="ipt-25">
                             <label>Número</label>
-                            <input id="input_numero" type="text" placeholder="XXX">
+                            <input id="input_numero" type="text" placeholder="123">
                         </div>
                         <div class="w-100">
                             <label>Endereço</label>
@@ -205,7 +204,7 @@
                         </div>
                         <div class="w-100">
                             <label>Complemento</label>
-                            <input class="w-100" id="input_complemento" type="text" placeholder="XXX">
+                            <input class="w-100" id="input_complemento" type="text" placeholder="Prédio Lado B">
                         </div>
                         <div id="div_msg"></div>
                     </div>
@@ -235,6 +234,26 @@
 
 </html>
 <script>
+
+    function formatarCNPJ(input) {
+    var valor = input.value.replace(/\D/g, ""); 
+    valor = valor.replace(/^(\d{2})(\d)/, "$1.$2");
+    valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+    valor = valor.replace(/\.(\d{3})(\d)/, ".$1/$2");
+    valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
+    input.value = valor.substring(0, 18);
+    }
+    function formatarTelefone(input) {
+        let valor = input.value.replace(/\D/g, "");
+        valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
+        if (valor.length > 13) {
+        valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
+        } else {
+        valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
+    }
+    
+    input.value = valor.substring(0, 15);
+    }
     validarSessaoAdm()
     listar()
     // Array para armazenar empresas cadastradas para validação de código de ativação 
@@ -362,28 +381,28 @@
     }
 
     // via cep
-    function buscarCep() {
-        var cep = input_cep.value
-        if (cep.length == 8) {
-            fetch(`https://viacep.com.br/ws/${cep}/json/`)
-                .then(function (resposta) {
-                    resposta.json()
-                        .then(function (logradouro) {
+function buscarCep() {
+    var valor_cep = input_cep.value.replace(/\D/g, "");
+    input_cep.value = valor_cep.replace(/^(\d{5})(\d)/, "$1-$2").substring(0, 9);
+    if (valor_cep.length == 8) {
+        fetch(`https://viacep.com.br/ws/${valor_cep}/json/`)
+            .then(function (resposta) {
+                resposta.json()
+                    .then(function (logradouro) {
+                        if (!logradouro.erro) {
                             input_endereco.value = logradouro.logradouro
                             select_estado.value = logradouro.estado
-                        })
-                        .catch(function (erro) {
-                            console.warn('Erro ocorrido JSON: ', erro)
-                        })
-                }
-                )
-                .catch(
-                    function (erro) {
-                        console.warn(erro)
-                    }
-                )
-        }
+                        }
+                    })
+                    .catch(function (erro) {
+                        console.warn('Erro ocorrido JSON: ', erro);
+                    });
+            })
+            .catch(function (erro) {
+                console.warn(erro);
+            });
     }
+}
 
     function abrirModal() {
         modalCad.show();
