@@ -258,7 +258,7 @@
       </div>
     </div>
 
-    
+
     <footer>
       <div class="links">
         <div class="titulo">
@@ -310,10 +310,10 @@
           <h2>Dúvidas?</h2>
           <p>Envie seu email, para entrar em contato e saber mais</p>
           <div class="form-container">
-            <textarea class="caixa" placeholder="Sua Dúvida"></textarea>
+            <textarea class="caixa" id="input_mensagem" placeholder="Sua Dúvida"></textarea>
             <div class="campo-grupo">
-              <input type="email" placeholder="Email" />
-              <button>Enviar</button>
+              <input type="email" id="input_emailContato" placeholder="Email" />
+              <button onclick="enviarDuvida()" >Enviar</button>
             </div>
           </div>
         </div>
@@ -326,4 +326,44 @@
     </footer>
   </body>
 </html>
-<script src="./js/nav.js"></script>
+<script src="./js/nav.js">
+</script>
+<script>
+ function enviarDuvida() {
+  var mensagem = input_mensagem.value;
+  var emailContato = input_emailContato.value;
+  // Verificando se há algum campo em branco
+  if (
+      mensagem == "" ||
+      emailContato == ""
+  ) {
+      alert('Mensagem de erro para todos os campos em branco');
+  }
+  // Enviando o valor da nova input
+  fetch("/adm/enviarDuvida", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          mensagemServer: mensagem,
+          emailContatoServer: emailContato
+      }),
+  })
+      .then(function (resposta) {
+          console.log("resposta: ", resposta);
+          if (resposta.ok) {
+              // status("Sucesso")
+          } else {
+              throw "Houve um erro ao tentar realizar o envio!";
+          }
+      })
+      .catch(function (resposta) {
+          // status("Erro")
+          console.log(`#ERRO: ${resposta}`);
+      });
+  return false;
+  }
+</script>

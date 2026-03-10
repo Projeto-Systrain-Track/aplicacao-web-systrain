@@ -65,6 +65,12 @@ senha VARCHAR(45),
 nivel INT 
 );
 
+CREATE TABLE faleConosco(
+idMensagem INT PRIMARY KEY AUTO_INCREMENT,
+mensagem VARCHAR(400) NOT NULL,
+emailContato VARCHAR(100) NOT NULL
+);
+
 
 insert into empresa values	
 	(DEFAULT, 'teste', '1234567891', DEFAULT, '123456789123', 'luiz@gmail', '119876523');
@@ -84,3 +90,4 @@ select * from usuario;
 select * from rbc;
 select * from componente;
 select * from administrador;
+select * from faleConosco;

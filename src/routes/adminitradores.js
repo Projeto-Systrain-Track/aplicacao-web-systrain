@@ -7,4 +7,12 @@ router.post("/autenticar", function (req, res) {
     admController.autenticar(req, res);
 });
 
-module.exports = router
+router.post("/enviarDuvida", function (req, res) {
+    admController.enviarDuvida(req, res);
+});
+
+router.get("/listarDuvidas", function (req, res) {
+    admController.listarDuvidas(req, res);
+});
+
+module.exports = router;

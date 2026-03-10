@@ -302,4 +302,42 @@
   function sumirMensagem() {
     cardErro.style.display = "none";
   }
+
+  function enviarDuvida() {
+  var mensagem = input_mensagem.value;
+  var emailContato = input_emailContato.value;
+  // Verificando se há algum campo em branco
+  if (
+      mensagem == "" ||
+      emailContato == ""
+  ) {
+      alert('Mensagem de erro para todos os campos em branco');
+  }
+  // Enviando o valor da nova input
+  fetch("/administrador/enviarDuvida", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          // crie um atributo que recebe o valor recuperado aqui
+          // Agora vá para o arquivo routes/usuario.js
+          mensagemServer: mensagem,
+          emailContatoServer: emailContato
+      }),
+  })
+      .then(function (resposta) {
+          console.log("resposta: ", resposta);
+          if (resposta.ok) {
+              // status("Sucesso")
+          } else {
+              throw "Houve um erro ao tentar realizar o envio!";
+          }
+      })
+      .catch(function (resposta) {
+          // status("Erro")
+          console.log(`#ERRO: ${resposta}`);
+      });
+  return false;
+  }
 </script>

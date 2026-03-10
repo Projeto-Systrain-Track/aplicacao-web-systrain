@@ -463,3 +463,78 @@ p {
 .cinza {
     background-color: #02033B;
 }
+
+.painel-duvidas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.card-duvida {
+    background-color: white;
+    border: 1px solid #dbe4ec;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: 0.3s;
+}
+
+.topo-card-duvida {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.badge-duvida {
+    background-color: var(--azul-escuro);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-family: var(--font-titulo);
+}
+
+.id-duvida {
+    color: #6b7d8d;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.conteudo-duvida {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.bloco-info-duvida {
+    background-color: #f5f7fa;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.label-duvida {
+    font-size: 0.85rem;
+    color: var(--azul-claro);
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.valor-duvida {
+    color: var(--azul-titulos);
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.mensagem-duvida {
+    color: #33495f;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.card-duvida.vazio {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px 20px;
+}
