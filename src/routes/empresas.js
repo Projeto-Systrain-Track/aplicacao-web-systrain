@@ -19,4 +19,8 @@ router.get("/buscar/:id", function (req, res) {
   empresaController.buscarPorId(req, res);
 });
 
+router.get("/buscarPorToken/:token", function (req, res) {
+  empresaController.buscarPorToken(req, res);
+});
+
 module.exports = router;

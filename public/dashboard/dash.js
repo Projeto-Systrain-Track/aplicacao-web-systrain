@@ -1,14 +1,14 @@
 const dadosLinhas = {
-  7: {
-    nome: "Rubi",
+  12: {
+    nome: "Safira",
     subtitulo: "Estrutura simplificada da linha selecionada",
     status: "Atenção moderada em uma estação",
     descricao:
       "Esqueleto para exibir resumo da operação e indicadores principais da linha.",
-    estacoes: 17,
+    estacoes: 13,
     incidentes: 3,
     disponibilidade: "92%",
-    cor: "#9B1B6D",
+    cor: "#0b0f4b",
     metricas: {
       cpu: {
         valor: "57%",
@@ -113,16 +113,16 @@ const dadosLinhas = {
     },
   },
 
-  10: {
-    nome: "Turquesa",
+  11: {
+    nome: "Coral",
     subtitulo: "Estrutura simplificada da linha selecionada",
     status: "Monitoramento de trecho final",
     descricao:
       "Esqueleto para exibir resumo da operação e indicadores principais da linha.",
-    estacoes: 15,
+    estacoes: 16,
     incidentes: 1,
     disponibilidade: "91%",
-    cor: "#0099AD",
+    cor: "#de6712",
     metricas: {
       cpu: {
         valor: "49%",
@@ -152,7 +152,7 @@ const dadosLinhas = {
   },
 };
 
-const ordem = [7, 8, 9, 10];
+const ordem = [12, 8, 9, 11];
 let indiceLinha = 2;
 let graficoMetrica = null;
 

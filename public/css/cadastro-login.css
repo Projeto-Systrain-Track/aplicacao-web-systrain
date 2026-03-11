@@ -163,12 +163,31 @@ nav {
     font-family: var(--font-texto);
     margin-top: 5%;
     display: flex;
-    flex-direction: column;
     align-items: end;
     margin-right: 5%;
     color: rgba(0, 0, 0, 0.47);
     font-weight: bold;
+    flex-direction: column;
 }
+
+.label-email {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.label-email label {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.desativado:disabled{
+    background-color: #afafafcc;
+    color: rgba(74, 74, 74, 0.909);
+    font-weight: bold;
+}
+
 
 .formulario .campo span {
     font-size: 1rem;
@@ -226,12 +245,16 @@ nav {
 
 .email {
     width: 100%;
+    display: block;
 }
 
 .email input {
     display: flex;
-    width: 48%;
+    width: 100%;
+    flex-direction: row;
 }
+
+
 
 .botao {
     font-family: var(--font-titulo);

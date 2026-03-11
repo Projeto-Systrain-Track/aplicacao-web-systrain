@@ -32,6 +32,12 @@ function buscarPorId(id) {
   return database.executar(instrucaoSql);
 }
 
+function buscarPorToken(token) {
+  var instrucaoSql = `SELECT * FROM empresa WHERE token = '${token}'`;
+
+  return database.executar(instrucaoSql);
+}
+
 function listar() {
   var instrucaoSql = `SELECT idEmpresa, razaoSocial, cnpj, token, email FROM empresa`;
 
@@ -44,4 +50,4 @@ function buscarPorCnpj(cnpj) {
   return database.executar(instrucaoSql);
 }
 
-module.exports = { cadastrarEndereco, cadastrarEmpresa, buscarPorCnpj, buscarPorId, listar };
+module.exports = { cadastrarEndereco, cadastrarEmpresa, buscarPorCnpj, buscarPorId, listar, buscarPorToken };

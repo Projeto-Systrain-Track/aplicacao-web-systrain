@@ -89,11 +89,19 @@ function buscarPorId(req, res) {
   });
 }
 
+function buscarPorToken(req, res) {
+  var token = req.params.token;
+  empresaModel.buscarPorToken(token).then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
 
 
 module.exports = {
   cadastrarEmpresa,
   buscarPorCnpj,
   buscarPorId,
+  buscarPorToken,
   listar,
 };
