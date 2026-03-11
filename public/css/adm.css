@@ -397,10 +397,11 @@ p {
 }
 
 .card-atalho {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border-radius: 10px;
     padding: 22px;
     text-decoration: none;
+    box-shadow: 0 5px 13px rgba(0, 0, 0, 0.115);
     color: inherit;
     transition: 0.6s ease;
 }
@@ -418,7 +419,7 @@ p {
 }
 
 .card-atalho:hover p {
-    color: rgb(234, 134, 53);
+    color: rgb(246, 154, 78);
     transition: 0.6s ease;
 }
 
@@ -429,7 +430,7 @@ p {
 }
 
 .card-atalho p {
-    color: #4e6479;
+    color: var(--azul-escuro);
 }
 
 .titulo-bloco {
@@ -462,34 +463,6 @@ p {
     color: #4e6479;
 }
 
-.painel-rapido {
-    margin-bottom: 24px;
-}
-
-.painel-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-}
-
-.card-rapido {
-    background-color: white;
-    border: 1px solid #dbe4ec;
-    border-radius: 12px;
-    padding: 18px 20px;
-}
-
-.card-rapido p {
-    color: #4e6479;
-    font-size: 14px;
-    margin-bottom: 8px;
-}
-
-.card-rapido h3 {
-    font-family: var(--font-titulo);
-    color: var(--azul-titulos);
-    font-size: 20px;
-}
 
 @media only screen and (max-width: 1100px) {
     .resumo-geral {

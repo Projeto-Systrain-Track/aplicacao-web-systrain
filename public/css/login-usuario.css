@@ -146,7 +146,7 @@ body {
   left: 0;
   width: 100%; 
   height: 100%;
-  background-image: url(/public/assets/images/traveling-by-train-lifestyle.jpg);
+  background-image: url(../assets/images/traveling-by-train-lifestyle.jpg);
   background-size: cover;
   opacity: 0.3;
   z-index: -1;

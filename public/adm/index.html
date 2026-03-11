@@ -1,283 +1,383 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sys Train Track Adm | Empresa</title>
-    <link rel="icon" href="../assets/images/sys-logo - adm2.svg">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+    <link rel="icon" href="../assets/images/sys-logo - adm2.svg" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="../css/adm.css" />
     <script src="../js/sessao.js"></script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div class="container-sys">
-        <!-- nav mobile -->
-        <div class="mobile">
-            <nav class="navbar fixed-top nav-mobile">
-                <div class="container-fluid">
-                    <a class="navbar-brand titulo-sys" href="./index.html">Sys-Train Track</a>
-                    <button class="navbar-toggler bg-menu" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon "></span>
-                    </button>
-                    <div class="offcanvas offcanvas-end nav-mobile" tabindex="-1" id="offcanvasNavbar"
-                        aria-labelledby="offcanvasNavbarLabel">
-                        <div class="offcanvas-header">
-                            <div class="offcanvas-title " id="offcanvasNavbarLabel">
-                                <img class="imga" src="../assets/images/sys-logo - adm2.svg" alt="Sys-Train Track">
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                <li class="nav-item">
-                                    <a class="nav-link link-ativo" aria-current="page" href="#">Empresa</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="usuarios.html">Usúario</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="rbc.html">RBC</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="componentes.html">Componentes</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="offcanvas-body outros">
-                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                <li class="nav-item">
-                                    <p class="nav-link" id="nome_adm_m" aria-current="page"></p>
-                                </li>
-                                <li class="nav-item">
-                                    <p class="nav-link" onclick="limparSessao()">Sair</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+      <!-- nav mobile -->
+      <div class="mobile">
+        <nav class="navbar fixed-top nav-mobile">
+          <div class="container-fluid">
+            <a class="navbar-brand titulo-sys" href="./index.html"
+              >Sys-Train Track</a
+            >
+            <button
+              class="navbar-toggler bg-menu"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasNavbar"
+              aria-controls="offcanvasNavbar"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div
+              class="offcanvas offcanvas-end nav-mobile"
+              tabindex="-1"
+              id="offcanvasNavbar"
+              aria-labelledby="offcanvasNavbarLabel"
+            >
+              <div class="offcanvas-header">
+                <div class="offcanvas-title" id="offcanvasNavbarLabel">
+                  <img
+                    class="imga"
+                    src="../assets/images/sys-logo - adm2.svg"
+                    alt="Sys-Train Track"
+                  />
                 </div>
-            </nav>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link-ativo" aria-current="page" href="#">Empresa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="usuarios.html">Usúario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rbc.html">RBC</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="componentes.html">Componentes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="duvidas.html">Componentes</a>
+                </li>
+            </ul>
+              </div>
+              <div class="offcanvas-body outros">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <p class="nav-link" id="nome_adm_m" aria-current="page"></p>
+                  </li>
+                  <li class="nav-item">
+                    <p class="nav-link" onclick="limparSessao()">Sair</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-lateral desktop">
+        <div class="logo">
+          <img
+            src="../assets/images/sys-logo - adm2.svg"
+            alt="Sys-train track"
+          />
         </div>
-        <div class="nav-lateral desktop">
-            <div class="logo">
-                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track">
-            </div>
-            <div class="links">
-                <a class="link-lateral" href="home.html">Central</a>
-                <a class="link-lateral ativo" href="index.html">Empresas</a>
-                <a class="link-lateral " href="usuarios.html">Usuários</a>
-                <a class="link-lateral " href="rbc.html">RBC</a>
-                <a class="link-lateral " href="componentes.html">Componentes</a>
-                <a class="link-lateral " href="duvidas.html">Dúvidas</a>
-            </div>
-            <div class="opcoes">
-                <div class="btn-lateral">
-                    <p id="nome_adm"></p>
-                </div>
-                <button onclick="limparSessao()" class="btn-lateral">
-                    <p>Sair</p>
-                </button>
-            </div>
+        <div class="links">
+          <a class="link-lateral" href="home.html">Central</a>
+          <a class="link-lateral ativo" href="index.html">Empresas</a>
+          <a class="link-lateral" href="usuarios.html">Usuários</a>
+          <a class="link-lateral" href="rbc.html">RBC</a>
+          <a class="link-lateral" href="componentes.html">Componentes</a>
+          <a class="link-lateral" href="duvidas.html">Dúvidas</a>
         </div>
-        <main class="conteudo">
-            <section class="topo-pagina">
-                <div>
-                    <p class="subtitulo">Sessão Administrativa</p>
-                    <h1 class="titulo">Empresas Cadastradas</h1>
-                    <p class="descricao">Gerenciamento das empresas cadastradas</p>
-                </div>
-                <!-- <button class="btn-add-desk desktop" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
-                <button class="btn-add-desk desktop" onclick="abrirModal()">
-                    <div>
-                        <p>Adicionar Empresa</p>
-                    </div>
-                </button>
-            </section>
-            <section class="painel-tabela">
-                <div class="tabela table-responsive">
-                    <table class="table caption-top">
-                        <caption class="subtitulo">Lista das Empresa</caption>
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nome da Empresa</th>
-                                <th scope="col">E-mail de Contato</th>
-                                <th scope="col">CNPJ</th>
-                                <th scope="col">Token</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabela">
-
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
+        <div class="opcoes">
+          <div class="btn-lateral">
+            <p id="nome_adm"></p>
+          </div>
+          <button onclick="limparSessao()" class="btn-lateral">
+            <p>Sair</p>
+          </button>
+        </div>
+      </div>
+      <main class="conteudo">
+        <section class="topo-pagina">
+          <div>
+            <p class="subtitulo">Sessão Administrativa</p>
+            <h1 class="titulo">Empresas Cadastradas</h1>
+            <p class="descricao">Gerenciamento das empresas cadastradas</p>
+          </div>
+          <!-- <button class="btn-add-desk desktop" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
+          <button class="btn-add-desk desktop" onclick="abrirModal()">
+            <div>
+              <p>Adicionar Empresa</p>
+            </div>
+          </button>
+        </section>
+        <section class="painel-tabela">
+          <div class="tabela table-responsive">
+            <table class="table caption-top">
+              <caption class="subtitulo">
+                Lista das Empresa
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Nome da Empresa</th>
+                  <th scope="col">E-mail de Contato</th>
+                  <th scope="col">CNPJ</th>
+                  <th scope="col">Token</th>
+                </tr>
+              </thead>
+              <tbody id="tabela"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
     </div>
     <!-- Button trigger modal -->
 
-
     <!-- Modal -->
-    <div class="modal fade" id="modal_cadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Empresa</h1>
-                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="cadastro">
-                        <div class="ipt-75">
-                            <label>Razão social</label>
-                            <input class="w-90" id="input_razaoSocial" type="text" placeholder="Sys-Train Track">
-                        </div>
-                        <div class="ipt-25">
-                            <label>Token de cadastro</label>
-                            <input class="" disabled id="input_token" type="text" placeholder="">
-                        </div>
-                        <div class="ipt-25">
-                            <label>CNPJ</label>
-                            <input class="w-90" id="input_cnpj" type="text" placeholder="00.000.000/0000-00" maxlength="18" oninput="formatarCNPJ(this)">
-                        </div>
-                        <div class="ipt-75">
-                            <label>Email</label>
-                            <input id="input_email_empresa" type="text" placeholder="usuario@systrain">
-                        </div>
-                        <div class="ipt-25">
-                            <label>Telefone</label>
-                            <input class="w-90" id="input_telefone" type="text" placeholder="(11) 99999-9999" maxlength="15" oninput="formatarTelefone(this)">
-                        </div>
-                        <div class="ipt-25">
-                            <label>CEP</label>
-                            <input oninput="buscarCep()" class="w-90" id="input_cep" type="text" placeholder="00000-000 ">
-                        </div>
-                        <div class="ipt-25">
-                            <label>Estado</label>
-                            <select class="w-90 h-100" id="select_estado">
-                                <option value="Acre">Acre</option>
-                                <option value="Alagoas">Alagoas</option>
-                                <option value="Amapá">Amapá</option>
-                                <option value="Amazonas">Amazonas</option>
-                                <option value="Bahia">Bahia</option>
-                                <option value="Ceará">Ceará</option>
-                                <option value="Distrito Federal">Distrito Federal</option>
-                                <option value="Espírito Santo">Espírito Santo</option>
-                                <option value="Goiás">Goiás</option>
-                                <option value="Maranhão">Maranhão</option>
-                                <option value="Mato Grosso">Mato Grosso</option>
-                                <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
-                                <option value="Minas Gerais">Minas Gerais</option>
-                                <option value="Pará">Pará</option>
-                                <option value="Paraíba">Paraíba</option>
-                                <option value="Paraná">Paraná</option>
-                                <option value="Pernambuco">Pernambuco</option>
-                                <option value="Piauí">Piauí</option>
-                                <option value="Rio de Janeiro">Rio de Janeiro</option>
-                                <option value="Rio Grande do Norte">Rio Grande do Norte</option>
-                                <option value="Rio Grande do Sul">Rio Grande do Sul</option>
-                                <option value="Rondônia">Rondônia</option>
-                                <option value="Roraima">Roraima</option>
-                                <option value="Santa Catarina">Santa Catarina</option>
-                                <option value="São Paulo" selected>São Paulo</option>
-                                <option value="Sergipe">Sergipe</option>
-                                <option value="Tocantins">Tocantins</option>
-                            </select>
-                            <!-- <input class="w-90" id="input_estado" type="text" placeholder="Cansado"> -->
-                        </div>
+    <div
+      class="modal fade"
+      id="modal_cadastro"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+              Adicionar Empresa
+            </h1>
+            <button
+              type="button"
+              class="btn-close bg-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="cadastro">
+              <div class="ipt-75">
+                <label>Razão social</label>
+                <input
+                  class="w-90"
+                  id="input_razaoSocial"
+                  type="text"
+                  placeholder="Sys-Train Track"
+                />
+              </div>
+              <div class="ipt-25">
+                <label>Token de cadastro</label>
+                <input
+                  class=""
+                  disabled
+                  id="input_token"
+                  type="text"
+                  placeholder=""
+                />
+              </div>
+              <div class="ipt-25">
+                <label>CNPJ</label>
+                <input
+                  class="w-90"
+                  id="input_cnpj"
+                  type="text"
+                  placeholder="00.000.000/0000-00"
+                  maxlength="18"
+                  oninput="formatarCNPJ(this)"
+                />
+              </div>
+              <div class="ipt-75">
+                <label>Email</label>
+                <input
+                  id="input_email_empresa"
+                  type="text"
+                  placeholder="usuario@systrain"
+                />
+              </div>
+              <div class="ipt-25">
+                <label>Telefone</label>
+                <input
+                  class="w-90"
+                  id="input_telefone"
+                  type="text"
+                  placeholder="(11) 99999-9999"
+                  maxlength="15"
+                  oninput="formatarTelefone(this)"
+                />
+              </div>
+              <div class="ipt-25">
+                <label>CEP</label>
+                <input
+                  oninput="buscarCep()"
+                  class="w-90"
+                  id="input_cep"
+                  type="text"
+                  placeholder="00000-000 "
+                />
+              </div>
+              <div class="ipt-25">
+                <label>Estado</label>
+                <select class="w-90 h-100" id="select_estado">
+                  <option value="Acre">Acre</option>
+                  <option value="Alagoas">Alagoas</option>
+                  <option value="Amapá">Amapá</option>
+                  <option value="Amazonas">Amazonas</option>
+                  <option value="Bahia">Bahia</option>
+                  <option value="Ceará">Ceará</option>
+                  <option value="Distrito Federal">Distrito Federal</option>
+                  <option value="Espírito Santo">Espírito Santo</option>
+                  <option value="Goiás">Goiás</option>
+                  <option value="Maranhão">Maranhão</option>
+                  <option value="Mato Grosso">Mato Grosso</option>
+                  <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                  <option value="Minas Gerais">Minas Gerais</option>
+                  <option value="Pará">Pará</option>
+                  <option value="Paraíba">Paraíba</option>
+                  <option value="Paraná">Paraná</option>
+                  <option value="Pernambuco">Pernambuco</option>
+                  <option value="Piauí">Piauí</option>
+                  <option value="Rio de Janeiro">Rio de Janeiro</option>
+                  <option value="Rio Grande do Norte">
+                    Rio Grande do Norte
+                  </option>
+                  <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                  <option value="Rondônia">Rondônia</option>
+                  <option value="Roraima">Roraima</option>
+                  <option value="Santa Catarina">Santa Catarina</option>
+                  <option value="São Paulo" selected>São Paulo</option>
+                  <option value="Sergipe">Sergipe</option>
+                  <option value="Tocantins">Tocantins</option>
+                </select>
+                <!-- <input class="w-90" id="input_estado" type="text" placeholder="Cansado"> -->
+              </div>
 
-                        <div class="ipt-25">
-                            <label>Número</label>
-                            <input id="input_numero" type="text" placeholder="123">
-                        </div>
-                        <div class="w-100">
-                            <label>Endereço</label>
-                            <input disabled class="w-100" id="input_endereco" type="text" placeholder="Tangamandapio">
-                        </div>
-                        <div class="w-100">
-                            <label>Complemento</label>
-                            <input class="w-100" id="input_complemento" type="text" placeholder="Prédio Lado B">
-                        </div>
-                        <div id="div_msg"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
-                </div>
+              <div class="ipt-25">
+                <label>Número</label>
+                <input id="input_numero" type="text" placeholder="123" />
+              </div>
+              <div class="w-100">
+                <label>Endereço</label>
+                <input
+                  disabled
+                  class="w-100"
+                  id="input_endereco"
+                  type="text"
+                  placeholder="Tangamandapio"
+                />
+              </div>
+              <div class="w-100">
+                <label>Complemento</label>
+                <input
+                  class="w-100"
+                  id="input_complemento"
+                  type="text"
+                  placeholder="Prédio Lado B"
+                />
+              </div>
+              <div id="div_msg"></div>
             </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" onclick="cadastrar()">
+              Cadastrar
+            </button>
+          </div>
         </div>
+      </div>
     </div>
     <!-- mensagens -->
     <div class="mensagens" id="mensagem_operacao">
-        <div class="notificacao">
-            <div class="status">
-                <div class="cor-status" id="cor_status"></div>
+      <div class="notificacao">
+        <div class="status">
+          <div class="cor-status" id="cor_status"></div>
 
-                <img id="img_status" alt="statusIcon">
-            </div>
-            <div class="infos-notificacao">
-                <h1>Empresa</h1>
-                <p class="subtitulo" id="mensagem_operacao">Empresa cadastrada com sucesso!</p>
-            </div>
+          <img id="img_status" alt="statusIcon" />
         </div>
+        <div class="infos-notificacao">
+          <h1>Empresa</h1>
+          <p class="subtitulo" id="mensagem_operacao">
+            Empresa cadastrada com sucesso!
+          </p>
+        </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
 <script>
-
-    function formatarCNPJ(input) {
-    var valor = input.value.replace(/\D/g, ""); 
+  function formatarCNPJ(input) {
+    var valor = input.value.replace(/\D/g, "");
     valor = valor.replace(/^(\d{2})(\d)/, "$1.$2");
     valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
     valor = valor.replace(/\.(\d{3})(\d)/, ".$1/$2");
     valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
     input.value = valor.substring(0, 18);
+  }
+  function formatarTelefone(input) {
+    let valor = input.value.replace(/\D/g, "");
+    valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
+    if (valor.length > 13) {
+      valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
+    } else {
+      valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
     }
-    function formatarTelefone(input) {
-        let valor = input.value.replace(/\D/g, "");
-        valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
-        if (valor.length > 13) {
-        valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
-        } else {
-        valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
-    }
-    
-    input.value = valor.substring(0, 15);
-    }
-    validarSessaoAdm()
-    listar()
-    // Array para armazenar empresas cadastradas para validação de código de ativação 
-    let listaEmpresasCadastradas = [];
-    const modalCad = new bootstrap.Modal("#modal_cadastro")
 
-    // Listando empresas cadastradas 
-    function listar() {
-        console.log("Buscando para atualizar")
-        var empresasCad = '';
-        var cont = 0;
-        var tabela = document.getElementById("tabela")
-        fetch("/empresas/listar", {
-            method: "GET",
-        })
-            .then(function (resposta) {
-                resposta.json().then((empresas) => {
-                    empresas.forEach(empresa => {
-                        cont++
-                        console.log(empresa)
-                        if (cont % 2 === 0) {
-                            empresasCad += `
+    input.value = valor.substring(0, 15);
+  }
+  validarSessaoAdm();
+  listar();
+  // Array para armazenar empresas cadastradas para validação de código de ativação
+  let listaEmpresasCadastradas = [];
+  const modalCad = new bootstrap.Modal("#modal_cadastro");
+
+  // Listando empresas cadastradas
+  function listar() {
+    console.log("Buscando para atualizar");
+    var empresasCad = "";
+    var cont = 0;
+    var tabela = document.getElementById("tabela");
+    fetch("/empresas/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((empresas) => {
+          empresas.forEach((empresa) => {
+            cont++;
+            console.log(empresa);
+            if (cont % 2 === 0) {
+              empresasCad += `
                                 <tr class="table-secondary">
                                     <th scope="row">${empresa.idEmpresa}</th>
                                     <td>${empresa.razaoSocial}</td>
@@ -285,9 +385,9 @@
                                     <td>${empresa.cnpj}</td>
                                     <td>${empresa.token}</td>
                                 </tr>
-                            `
-                        } else {
-                            empresasCad += `
+                            `;
+            } else {
+              empresasCad += `
                                 <tr>
                                     <th scope="row">${empresa.idEmpresa}</th>
                                     <td>${empresa.razaoSocial}</td>
@@ -295,171 +395,225 @@
                                     <td>${empresa.cnpj}</td>
                                     <td>${empresa.token}</td>
                                 </tr>
-                            `
-                        }
+                            `;
+            }
 
-                        // listaEmpresasCadastradas.push(empresa);
+            // listaEmpresasCadastradas.push(empresa);
 
-                        // console.log("listaEmpresasCadastradas")
-                        // console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-                    });
-                    tabela.innerHTML = empresasCad
-                });
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
+            // console.log("listaEmpresasCadastradas")
+            // console.log(listaEmpresasCadastradas[0].codigo_ativacao)
+          });
+          tabela.innerHTML = empresasCad;
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function cadastrar() {
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var razaoSocial = input_razaoSocial.value;
+    var token = input_token.value;
+    var cnpj = input_cnpj.value;
+    var email_empresa = input_email_empresa.value;
+    var telefone = input_telefone.value;
+    var estado = select_estado.value;
+    var cep = input_cep.value;
+    var numero = input_numero.value;
+    var endereco = input_endereco.value;
+    var complemento = input_complemento.value;
+
+    // Verificando se há algum campo em branco
+    if (
+      razaoSocial == "" ||
+      token == "" ||
+      cnpj == "" ||
+      email_empresa == "" ||
+      telefone == "" ||
+      estado == "" ||
+      cep == "" ||
+      numero == "" ||
+      endereco == "" ||
+      complemento == ""
+    ) {
+      alert("Mensagem de erro para todos os campos em branco");
     }
 
-    function cadastrar() {
-        //Recupere o valor da nova input pelo nome do id
-        // Agora vá para o método fetch logo abaixo
-        var razaoSocial = input_razaoSocial.value;
-        var token = input_token.value;
-        var cnpj = input_cnpj.value;
-        var email_empresa = input_email_empresa.value;
-        var telefone = input_telefone.value;
-        var estado = select_estado.value;
-        var cep = input_cep.value;
-        var numero = input_numero.value;
-        var endereco = input_endereco.value;
-        var complemento = input_complemento.value;
+    // Enviando o valor da nova input
+    fetch("/empresas/cadastrarEmpresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        razaoSocialServer: razaoSocial,
+        tokenServer: token,
+        cnpjServer: cnpj,
+        email_empresaServer: email_empresa,
+        telefoneServer: telefone,
+        estadoServer: estado,
+        cepServer: cep,
+        numeroServer: numero,
+        enderecoServer: endereco,
+        complementoServer: complemento,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
 
-        // Verificando se há algum campo em branco
-        if (
-            razaoSocial == "" ||
-            token == "" ||
-            cnpj == "" ||
-            email_empresa == "" ||
-            telefone == "" ||
-            estado == "" ||
-            cep == "" ||
-            numero == "" ||
-            endereco == "" ||
-            complemento == ""
-        ) {
-            alert('Mensagem de erro para todos os campos em branco');
+        if (resposta.ok) {
+          modalCad.hide();
+          limparFormulario();
+          listar();
+          // status("Sucesso")
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
         }
+      })
+      .catch(function (resposta) {
+        // status("Erro")
+        console.log(`#ERRO: ${resposta}`);
+      });
 
-        // Enviando o valor da nova input
-        fetch("/empresas/cadastrarEmpresa", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
-                razaoSocialServer: razaoSocial,
-                tokenServer: token,
-                cnpjServer: cnpj,
-                email_empresaServer: email_empresa,
-                telefoneServer: telefone,
-                estadoServer: estado,
-                cepServer: cep,
-                numeroServer: numero,
-                enderecoServer: endereco,
-                complementoServer: complemento
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
+    return false;
+  }
 
-                if (resposta.ok) {
-                    modalCad.hide()
-                    limparFormulario();
-                    listar();
-                    // status("Sucesso")
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .catch(function (resposta) {
-                // status("Erro")
-                console.log(`#ERRO: ${resposta}`);
-            });
-
-        return false;
-    }
-
-    // via cep
-function buscarCep() {
+  // via cep
+  function buscarCep() {
     var valor_cep = input_cep.value.replace(/\D/g, "");
-    input_cep.value = valor_cep.replace(/^(\d{5})(\d)/, "$1-$2").substring(0, 9);
+    input_cep.value = valor_cep
+      .replace(/^(\d{5})(\d)/, "$1-$2")
+      .substring(0, 9);
     if (valor_cep.length == 8) {
-        fetch(`https://viacep.com.br/ws/${valor_cep}/json/`)
-            .then(function (resposta) {
-                resposta.json()
-                    .then(function (logradouro) {
-                        if (!logradouro.erro) {
-                            input_endereco.value = logradouro.logradouro
-                            select_estado.value = logradouro.estado
-                        }
-                    })
-                    .catch(function (erro) {
-                        console.warn('Erro ocorrido JSON: ', erro);
-                    });
+      fetch(`https://viacep.com.br/ws/${valor_cep}/json/`)
+        .then(function (resposta) {
+          resposta
+            .json()
+            .then(function (logradouro) {
+              if (!logradouro.erro) {
+                input_endereco.value = logradouro.logradouro;
+                select_estado.value = logradouro.estado;
+              }
             })
             .catch(function (erro) {
-                console.warn(erro);
+              console.warn("Erro ocorrido JSON: ", erro);
             });
+        })
+        .catch(function (erro) {
+          console.warn(erro);
+        });
     }
-}
+  }
 
-    function abrirModal() {
-        modalCad.show();
-        token()
+  function abrirModal() {
+    modalCad.show();
+    token();
+  }
+
+  function limparFormulario() {
+    input_razaoSocial.value = "";
+    input_token.value = "";
+    input_cnpj.value = "";
+    input_email_empresa.value = "";
+    input_telefone.value = "";
+    select_estado.value = "";
+    input_cep.value = "";
+    input_numero.value = "";
+    input_endereco.value = "";
+    input_complemento.value = "";
+  }
+
+  function status(statusOperacao) {
+    mensagem_operacao.styele.display = "block";
+    if (statusOperacao == "Sucesso") {
+      cor_status.style.background = "#2DE846";
+      img_status.src = "../assets/icons/sucesso.png";
+      mensagem_operacao.innerHTML = "Cadastro realizado com sucesso ";
+    } else {
+      cor_status.style.background = "#FC5C65";
+      img_status.src = "../assets/icons/erro.png";
+      mensagem_operacao.innerHTML = "Erro ao cadastrar";
     }
+    setInterval(() => {
+      mensagem_operacao.styele.display = "none";
+    }, 3000);
+  }
 
-    function limparFormulario() {
-        input_razaoSocial.value = ""
-        input_token.value = ""
-        input_cnpj.value = ""
-        input_email_empresa.value = ""
-        input_telefone.value = ""
-        select_estado.value = ""
-        input_cep.value = ""
-        input_numero.value = ""
-        input_endereco.value = ""
-        input_complemento.value = ""
+  // gerar token
+  function token() {
+    var valor = [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "U",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z",
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "u",
+      "v",
+      "w",
+      "x",
+      "y",
+      "z",
+    ];
+    var codigo = "";
+    for (var i = 0; i < 10; i++) {
+      var numAleatorio = parseInt(Math.random() * valor.length);
+      codigo += valor[numAleatorio];
     }
-
-    function status(statusOperacao) {
-        mensagem_operacao.styele.display = "block"
-        if (statusOperacao == "Sucesso") {
-            cor_status.style.background = "#2DE846"
-            img_status.src = "../assets/icons/sucesso.png"
-            mensagem_operacao.innerHTML = "Cadastro realizado com sucesso "
-        } else {
-            cor_status.style.background = "#FC5C65"
-            img_status.src = "../assets/icons/erro.png"
-            mensagem_operacao.innerHTML = "Erro ao cadastrar"
-        }
-        setInterval(() => {
-            mensagem_operacao.styele.display = "none"
-        }, 3000)
-    }
-
-    // gerar token
-    function token() {
-        var valor = ["0", "1", "2", "3", "4", "5",
-            "6", "7", "8", "9", "A", "B",
-            "C", "D", "E", "F", "G", "H",
-            "I", "J", "K", "L", "M", "N",
-            "O", "P", "Q", "R", "S", "T",
-            "U", "V", "W", "X", "Y", "Z",
-            "a", "b", "c", "d", "e", "f",
-            "g", "h", "i", "j", "k", "l",
-            "m", "n", "o", "p", "q", "r",
-            "s", "t", "u", "v", "w", "x",
-            "y", "z"]
-        var codigo = ''
-        for (var i = 0; i < 10; i++) {
-            var numAleatorio = parseInt(Math.random() * valor.length)
-            codigo += valor[numAleatorio]
-        }
-        input_token.value = codigo
-
-    }
-
+    input_token.value = codigo;
+  }
 </script>

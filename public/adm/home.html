@@ -1,17 +1,18 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sys Train Track Adm | Central</title>
-    <link rel="icon" href="../assets/images/sys-logo - adm2.svg" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sys Train Track Adm | Dúvidas</title>
+    <link rel="icon" href="../assets/images/sys-logo - adm2.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/adm.css" />
     <script src="../js/sessao.js"></script>
-  </head>
+</head>
   <body
     onload="
       validarSessaoAdm();
@@ -19,6 +20,64 @@
     "
   >
     <div class="container-sys">
+                <!-- nav mobile -->
+        <div class="mobile">
+            <nav class="navbar fixed-top nav-mobile">
+                <div class="container-fluid">
+                    <a class="navbar-brand titulo-sys" href="./index.html">Sys-Train Track</a>
+                    <button class="navbar-toggler bg-menu" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="offcanvas offcanvas-end nav-mobile" tabindex="-1" id="offcanvasNavbar"
+                        aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <div class="offcanvas-title" id="offcanvasNavbarLabel">
+                                <img class="imga" src="../assets/images/sys-logo - adm2.svg" alt="Sys-Train Track">
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <li class="nav-item">
+                                    <a class="nav-link link-ativo" aria-current="page" href="#">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.html">Empresa</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="usuarios.html">Usuário</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="rbc.html">RBC</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="componentes.html">Componentes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="duvidas.html">Dúvidas</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="offcanvas-body outros">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <li class="nav-item">
+                                    <p class="nav-link" id="nome_adm_m"></p>
+                                </li>
+                                <li class="nav-item">
+                                    <p class="nav-link" onclick="limparSessao()">Sair</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
       <div class="nav-lateral desktop">
         <div class="logo">
           <img
@@ -59,7 +118,7 @@
         </section>
 
         <section class="resumo-geral">
-          <div class="card-kpi">
+          <div class="card-kpi destaque-alerta">
             <p>Empresas</p>
             <h2 id="kpi_empresas">--</h2>
             <a href="index.html">Ver mais</a>
@@ -91,52 +150,27 @@
         </section>
 
         <section class="atalhos-grid">
-          <a class="card-atalho" href="index.html">
+          <a class="card-atalho destaque-alerta" href="index.html">
             <h3>Empresas</h3>
             <p>Gerencie empresas cadastradas e visualize informações gerais.</p>
           </a>
 
-          <a class="card-atalho" href="usuarios.html">
+          <a class="card-atalho destaque-alerta" href="usuarios.html">
             <h3>Usuários</h3>
             <p>Consulte usuários ativos e acompanhe vínculos com empresas.</p>
           </a>
 
-          <a class="card-atalho" href="rbc.html">
+          <a class="card-atalho destaque-alerta" href="rbc.html">
             <h3>RBC</h3>
             <p>
               Acesse os RBCs cadastrados e acompanhe a estrutura do sistema.
             </p>
           </a>
 
-          <a class="card-atalho" href="componentes.html">
+          <a class="card-atalho destaque-alerta" href="componentes.html">
             <h3>Componentes</h3>
             <p>Visualize os componentes cadastrados para monitoramento.</p>
           </a>
-        </section>
-        <section class="painel-rapido">
-          <h2 class="titulo-bloco">Visão rápida</h2>
-
-          <div class="painel-grid">
-            <div class="card-rapido">
-              <p>Última empresa cadastrada</p>
-              <h3 id="ultima_empresa">--</h3>
-            </div>
-
-            <div class="card-rapido">
-              <p>Último usuário cadastrado</p>
-              <h3 id="ultimo_usuario">--</h3>
-            </div>
-
-            <div class="card-rapido">
-              <p>Último RBC cadastrado</p>
-              <h3 id="ultimo_rbc">--</h3>
-            </div>
-
-            <div class="card-rapido">
-              <p>Última dúvida recebida</p>
-              <h3 id="ultima_duvida">--</h3>
-            </div>
-          </div>
         </section>
         <section class="painel-tabela">
           <h2 class="titulo-bloco">Dúvidas recentes</h2>
