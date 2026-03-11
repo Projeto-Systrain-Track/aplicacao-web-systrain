@@ -15,6 +15,7 @@
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./css/cadastro-login.css">
     <link rel="icon" href="../assets/icons/logo.svg" />
+  <script src="../js/limpar.js"></script>
 </head>
 
 
@@ -98,9 +99,13 @@
           <span>Token:</span> <br>
           <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
         </div>
-        <div class="campo">
-          <span>E-mail:</span> <br>
-          <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+        <div class="campo email">
+          <label>
+            <span>E-mail:</span>
+            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
+            <span>Provedor:</span>
+            <input id="email_input" type="text" placeholder="@provedor.com" />
+          </label>
         </div>
         <div class="campo">
           <span>Senha:</span> <br>

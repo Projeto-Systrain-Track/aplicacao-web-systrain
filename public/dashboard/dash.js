@@ -9,7 +9,6 @@ const dadosLinhas = {
     incidentes: 3,
     disponibilidade: "92%",
     cor: "#9B1B6D",
-    arquivoPng: "linhas/linha-7-rubi.png",
     metricas: {
       cpu: {
         valor: "57%",
@@ -48,7 +47,6 @@ const dadosLinhas = {
     incidentes: 1,
     disponibilidade: "95%",
     cor: "#9A9A9A",
-    arquivoPng: "linhas/linha-8-diamante.png",
     metricas: {
       cpu: {
         valor: "45%",
@@ -87,7 +85,6 @@ const dadosLinhas = {
     incidentes: 2,
     disponibilidade: "96%",
     cor: "#00A88E",
-    arquivoPng: "linhas/linha-9-esmeralda.png",
     metricas: {
       cpu: {
         valor: "42%",
@@ -126,7 +123,6 @@ const dadosLinhas = {
     incidentes: 1,
     disponibilidade: "91%",
     cor: "#0099AD",
-    arquivoPng: "linhas/linha-10-turquesa.png",
     metricas: {
       cpu: {
         valor: "49%",
@@ -186,7 +182,7 @@ function renderizarLinha() {
   document.getElementById("valorIncidentes").textContent =
     dados.metricas.incidentes.valor;
 
-  document.getElementById("imagemLinha").src = dados.arquivoPng;
+  document.getElementById("imagemLinha").style.background = dados.cor;
   document.getElementById("imagemLinha").alt =
     "Mapa simplificado da Linha " + chave + " - " + dados.nome;
 

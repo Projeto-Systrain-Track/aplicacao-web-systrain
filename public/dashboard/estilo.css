@@ -31,6 +31,12 @@ button {
     display: flex;
 }
 
+.container-sys {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+}
+
 .nav-lateral {
     width: 260px;
     height: 100vh;
@@ -42,6 +48,8 @@ button {
     padding: 24px 18px;
     background-color: var(--azul-escuro);
 }
+
+
 
 .logo-area {
     display: flex;
@@ -103,9 +111,15 @@ button {
     border-radius: 6px;
     color: white;
     border: none;
-    text-align: start;
+    text-align: center;
     background-color: #1e4875;
     margin-top: 10px;
+}
+
+.btn-lateral p {
+    font-family: var(--font-titulo);
+    font-weight: 500;
+    font-size: 18px;
 }
 
 .conteudo {
@@ -113,13 +127,13 @@ button {
     padding: 28px;
 }
 
+
 .topo-pagina,
 .painel-mapa,
 .resumo-card,
 .card-indicador,
 .modal-content {
     background-color: white;
-    border: 1px solid #dbe4ec;
     border-radius: 10px;
 }
 
@@ -177,6 +191,8 @@ button {
     margin-right: 15vh;
 }
 
+
+
 .troca-linha {
     display: flex;
     align-items: center;
@@ -224,17 +240,15 @@ button {
 }
 
 .estacao {
-    background: white;
-    border: 2px solid #7e8d9b;
+    background: rgb(247, 53, 53);
 }
 
 .mapa-box {
-    width: 80%;
+    width: 100%;
     overflow: hidden;
     border: 1px solid #e3ebf2;
     border-radius: 8px;
     padding: 12px;
-    background: #ffffff;
 }
 
 .imagem-linha {
@@ -291,6 +305,13 @@ button {
     padding: 18px;
     text-align: left;
     background: white;
+    transition: 0.5s ease;
+}
+
+.card-indicador:hover {
+    transform: translateY(-4px);
+    transition: 0.5s ease;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.047);
 }
 
 .card-indicador p {

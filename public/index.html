@@ -18,6 +18,7 @@
     ></script>
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="icon" href="../assets/icons/logo.svg" />
+  <script src="../js/limpar.js"></script>
   </head>
 
   <body>
@@ -358,6 +359,7 @@
       .then(function (resposta) {
           console.log("resposta: ", resposta);
           if (resposta.ok) {
+            limparDuvida()
               // status("Sucesso")
           } else {
               throw "Houve um erro ao tentar realizar o envio!";

@@ -49,3 +49,7 @@ function validarSessaoAdm() {
         window.location = "../loginUsuario.html";
     }
 }
+function limparDuvida() {
+  input_mensagem.value = "";
+  input_emailContato.value = "";
+  }

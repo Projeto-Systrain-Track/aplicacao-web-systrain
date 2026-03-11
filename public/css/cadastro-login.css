@@ -224,6 +224,15 @@ nav {
     box-shadow: 8px 15px 0px var(--azul-escuro);
 }
 
+.email {
+    width: 100%;
+}
+
+.email input {
+    display: flex;
+    width: 48%;
+}
+
 .botao {
     font-family: var(--font-titulo);
     font-weight: 500;
