@@ -1,0 +1,27 @@
+<svg viewBox="0 0 220 760" xmlns="http://www.w3.org/2000/svg">
+  <path d="M110 40
+       V700" fill="none" stroke="#00A88E" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <!-- 21 estações -->
+  <circle cx="110" cy="40" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="73" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="106" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="139" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="172" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="205" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="238" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="271" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="304" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="337" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="370" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="403" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="436" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="469" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="502" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="535" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="568" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="601" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="634" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="667" r="5.5" fill="#ffffff"></circle>
+  <circle cx="110" cy="700" r="5.5" fill="#ffffff"></circle>
+</svg>

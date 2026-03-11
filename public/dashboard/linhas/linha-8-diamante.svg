@@ -1,0 +1,34 @@
+<svg viewBox="0 0 620 220" xmlns="http://www.w3.org/2000/svg">
+  <path d="M40 120
+       H360
+       L470 120
+       V150
+       H560" fill="none" stroke="#8B8B8B" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <!-- estações do trecho oeste -->
+  <circle cx="40" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="65" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="90" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="115" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="140" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="165" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="190" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="215" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="240" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="265" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="290" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="315" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="340" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="360" cy="120" r="5.5" fill="#ffffff"></circle>
+
+  <!-- trecho até o centro -->
+  <circle cx="387" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="414" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="441" cy="120" r="5.5" fill="#ffffff"></circle>
+  <circle cx="470" cy="120" r="5.5" fill="#ffffff"></circle>
+
+  <!-- descida e terminal -->
+  <circle cx="470" cy="150" r="5.5" fill="#ffffff"></circle>
+  <circle cx="515" cy="150" r="5.5" fill="#ffffff"></circle>
+  <circle cx="560" cy="150" r="5.5" fill="#ffffff"></circle>
+</svg>

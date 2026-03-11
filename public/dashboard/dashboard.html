@@ -1,154 +1,156 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sys Train Track | Dashboard</title>
-    <link rel="stylesheet" href="estilo.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
-  <body>
-    <div class="container-sys">
-      <aside class="nav-lateral desktop">
-        <div class="logo-area">
-          <div>
-            <h2>Sys-Train Track</h2>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sys Train Track | Dashboard</title>
+  <link rel="icon" href="../assets/images/sys-logo - adm2.svg" />
+  <link rel="stylesheet" href="estilo.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/sessao.js"></script>
+</head>
+<body>
+  <div class="container-sys">
+    <aside class="nav-lateral desktop">
+            <div class="logo">
+                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track">
+            </div>
+
+      <nav class="links">
+        <a class="link-lateral ativo" href="dashboard.html">Visão geral</a>
+        <a class="link-lateral" href="linhas.html">Linhas</a>
+        <a class="link-lateral" href="incidentes.html">Incidentes</a>
+        <a class="link-lateral" href="relatorios.html">Relatórios</a>
+      </nav>
+
+      <div class="opcoes">
+        <div class="btn-lateral">
+          <p>Luana</p>
         </div>
-
-        <nav class="links">
-          <a class="link-lateral ativo" href="#">Visão geral</a>
-          <a class="link-lateral" href="#">Linhas</a>
-          <a class="link-lateral" href="#">Incidentes</a>
-          <a class="link-lateral" href="#">Estações</a>
-          <a class="link-lateral" href="#">Relatórios</a>
-        </nav>
-
-        <div class="opcoes">
-          <div class="btn-lateral">
-            <p>Luana</p>
-          </div>
-          <button class="btn-lateral ativo">
+          <button onclick="limparSessao()" class="btn-lateral">
             <p>Sair</p>
           </button>
+      </div>
+    </aside>
+
+    <main class="conteudo">
+      <section class="topo-pagina">
+        <div>
+          <p class="subtitulo">Monitoramento metropolitano</p>
+          <h1 class="titulo">Mapa Metropolitano</h1>
+          <p class="descricao">
+            Acompanhe a linha atual, os indicadores rápidos e o detalhamento
+            operacional da infraestrutura monitorada.
+          </p>
         </div>
-      </aside>
+        <div class="status-topo">Baixar Relatório | Última hora</div>
+      </section>
 
-      <main class="conteudo">
-        <section class="topo-pagina">
+      <section class="painel-mapa">
+        <div class="cabecalho-mapa">
           <div>
-            <p class="subtitulo">Monitoramento metropolitano</p>
-            <h1 class="titulo">Mapa Metropolitano</h1>
-            <p class="descricao">pensar em coisa pra colocar aqui de</p>
-          </div>
-          <div class="status-topo">Baixar dados da ultima hora</div>
-        </section>
+            <p class="subtitulo">Linha atual</p>
 
-        <section class="painel-mapa">
-          <div class="cabecalho-mapa">
+            <div class="troca-linha">
+              <button id="btnAnterior" class="btn-seta" aria-label="Linha anterior">
+                &#8249;
+              </button>
+
+              <div>
+                <h2 id="tituloLinha">Linha 9 - Esmeralda</h2>
+                <p id="subtituloLinha">Estrutura simplificada da linha selecionada</p>
+              </div>
+
+              <button id="btnProxima" class="btn-seta" aria-label="Próxima linha">
+                &#8250;
+              </button>
+            </div>
+          </div>
+
+          <div class="legenda">
+            <div><span class="amostra linha-cor"></span> Linha</div>
+            <div><span class="amostra estacao"></span> Estação</div>
+          </div>
+        </div>
+
+        <div class="mapa-box">
+          <img
+            id="imagemLinha"
+            class="imagem-linha"
+            src="linhas/linha-9-esmeralda.png"
+            alt="Mapa simplificado da linha atual"
+          />
+        </div>
+      </section>
+
+      <section class="resumo-grid">
+        <div class="resumo-card">
+          <p class="subtitulo">Resumo</p>
+          <h3 id="statusLinha">Operação estável</h3>
+          <p id="descricaoLinha">Indicadores gerais da linha selecionada.</p>
+        </div>
+
+        <div class="resumo-card">
+          <p class="subtitulo">Indicadores rápidos</p>
+          <div class="mini-lista">
             <div>
-              <p class="subtitulo">Linha atual</p>
-              <div class="troca-linha">
-                <button
-                  id="btnAnterior"
-                  class="btn-seta"
-                  aria-label="Linha anterior"
-                >
-                  &#8249;
-                </button>
-                <div>
-                  <h2 id="tituloLinha">Linha 9 - Esmeralda</h2>
-                  <p id="subtituloLinha">Resumo</p>
-                </div>
-                <button
-                  id="btnProxima"
-                  class="btn-seta"
-                  aria-label="Próxima linha"
-                >
-                  &#8250;
-                </button>
-              </div>
+              <span>Estações</span>
+              <strong id="valorEstacoes">21</strong>
             </div>
-
-            <div class="legenda">
-              <div><span class="amostra linha-ativa"></span> Linha ativa</div>
-              <div><span class="amostra estacao"></span> Estação</div>
-              <div><span class="amostra alerta"></span> Alerta</div>
+            <div>
+              <span>Incidentes</span>
+              <strong id="incidentesResumo">2</strong>
+            </div>
+            <div>
+              <span>Disponibilidade</span>
+              <strong id="disponibilidadeResumo">96%</strong>
             </div>
           </div>
-
-          <div class="mapa-box"></div>
-        </section>
-
-        <section class="resumo-grid">
-          <div class="resumo-card">
-            <p class="subtitulo">Resumo</p>
-            <h3 id="statusLinha">Operação estável</h3>
-            <p id="descricaoLinha">Indicadores gerais da linha selecionada.</p>
-          </div>
-
-          <div class="resumo-card">
-            <p class="subtitulo">Indicadores rápidos</p>
-            <div class="mini-lista">
-              <div>
-                <span>Estações</span><strong id="valorEstacoes">21</strong>
-              </div>
-              <div>
-                <span>Incidentes</span><strong id="incidentesResumo">2</strong>
-              </div>
-              <div>
-                <span>Disponibilidade</span
-                ><strong id="disponibilidadeResumo">96%</strong>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="cards-indicadores">
-          <button class="card-indicador" data-metrica="cpu">
-            <p>CPU</p>
-            <strong id="valorCpu">42%</strong>
-          </button>
-
-          <button class="card-indicador" data-metrica="ram">
-            <p>RAM</p>
-            <strong id="valorRam">61%</strong>
-          </button>
-
-          <button class="card-indicador" data-metrica="latencia">
-            <p>Rede</p>
-            <strong id="valorLatencia">84 ms</strong>
-          </button>
-
-          <button class="card-indicador" data-metrica="incidentes">
-            <p>Incidentes</p>
-            <strong id="valorIncidentes">2</strong>
-          </button>
-        </section>
-      </main>
-    </div>
-
-    <div id="modalMetrica" class="modal">
-      <div class="modal-content">
-        <div class="modal-topo">
-          <div>
-            <p class="subtitulo">Detalhamento</p>
-            <h3 id="tituloModal">CPU - Linha 9</h3>
-          </div>
-          <button id="fecharModal" class="fechar-modal">Fechar</button>
         </div>
+      </section>
 
-        <div class="modal-strip" id="faixaResumoModal"></div>
+      <section class="cards-indicadores">
+        <button class="card-indicador" data-metrica="cpu">
+          <p>CPU</p>
+          <strong id="valorCpu">42%</strong>
+        </button>
 
-        <div class="grafico-wrap">
-          <canvas id="graficoMetrica"></canvas>
+        <button class="card-indicador" data-metrica="ram">
+          <p>RAM</p>
+          <strong id="valorRam">61%</strong>
+        </button>
+
+        <button class="card-indicador" data-metrica="latencia">
+          <p>Rede</p>
+          <strong id="valorLatencia">84 ms</strong>
+        </button>
+
+        <button class="card-indicador" data-metrica="incidentes">
+          <p>Incidentes</p>
+          <strong id="valorIncidentes">2</strong>
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <div id="modalMetrica" class="modal">
+    <div class="modal-content">
+      <div class="modal-topo">
+        <div>
+          <p class="subtitulo">Detalhamento</p>
+          <h3 id="tituloModal">CPU - Linha 9</h3>
         </div>
+        <button id="fecharModal" class="fechar-modal">Fechar</button>
+      </div>
+
+      <div class="modal-strip" id="faixaResumoModal"></div>
+
+      <div class="grafico-wrap">
+        <canvas id="graficoMetrica"></canvas>
       </div>
     </div>
+  </div>
 
 </body>
 </html>
-
-<script src="dash.js">
-
-</script>
+<script src="dash.js"></script>

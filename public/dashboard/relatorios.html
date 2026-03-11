@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sys Train Track | Relatórios</title>
+    <link rel="stylesheet" href="estilo.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/sessao.js"></script>
+
+  </head>
+
+  <body>
+    <div class="container-sys">
+      <aside class="nav-lateral desktop">
+            <div class="logo">
+                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track">
+            </div>
+
+        <nav class="links">
+          <a class="link-lateral" href="dashboard.html">Visão geral</a>
+          <a class="link-lateral" href="linhas.html">Linhas</a>
+          <a class="link-lateral" href="incidentes.html">Incidentes</a>
+          <a class="link-lateral ativo" href="#">Relatórios</a>
+        </nav>
+
+        <div class="opcoes">
+          <div class="btn-lateral">
+            <p>Luana</p>
+          </div>
+
+          <button onclick="limparSessao()" class="btn-lateral">
+            <p>Sair</p>
+          </button>
+        </div>
+      </aside>
+
+      <main class="conteudo">
+        <section class="topo-pagina">
+          <div>
+            <p class="subtitulo">Monitoramento</p>
+            <h1 class="titulo">Relatórios</h1>
+            <p class="descricao">Indicadores gerais do sistema.</p>
+          </div>
+        </section>
+
+        <section class="painel-mapa">
+          <div class="grafico-wrap">
+            <canvas id="graficoRelatorio"></canvas>
+          </div>
+        </section>
+      </main>
+    </div>
+
+</body>
+</html>
+
+<script src="dash.js"></script>
