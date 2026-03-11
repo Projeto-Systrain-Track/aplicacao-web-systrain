@@ -58,14 +58,14 @@ nav {
 
 .nav-logo {
     width: 50%;
-    height: 100%;
     /*mudar depois */
+    cursor: pointer;
 }
 
 .nav-logo img {
     width: 20vh;
+    /* margin-top: -7vh; */
     margin-left: 10%;
-    margin-top: 1%;
 }
 
 .nav-links {
@@ -81,6 +81,7 @@ nav {
     font-family: var(--font-titulo);
     font-weight: 500;
     color: var(--azul-escuro);
+    transition: .3s;
 }
 
 .nav-acessos {
@@ -184,7 +185,7 @@ nav {
 
 .redirecionar {
     padding-top: 1vh;
-    padding-bottom: 6vh;
+    padding-bottom: 4vh;
     display: flex;
     align-self: flex-start;
 }
@@ -205,6 +206,7 @@ nav {
     color: white;
     width: 9vw;
     border-radius: 30px;
+    margin-bottom: 5vh;
 }
 
 .campo {
