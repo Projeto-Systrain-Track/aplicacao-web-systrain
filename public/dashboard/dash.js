@@ -164,23 +164,17 @@ function renderizarLinha() {
   const chave = obterLinhaAtual();
   const dados = dadosLinhas[chave];
 
-  document.getElementById("tituloLinha").textContent =
-    "Linha " + chave + " - " + dados.nome;
+  document.getElementById("tituloLinha").textContent = "Linha " + chave + " - " + dados.nome;
   document.getElementById("subtituloLinha").textContent = dados.subtitulo;
   document.getElementById("statusLinha").textContent = dados.status;
   document.getElementById("descricaoLinha").textContent = dados.descricao;
-
   document.getElementById("valorEstacoes").textContent = dados.estacoes;
   document.getElementById("incidentesResumo").textContent = dados.incidentes;
-  document.getElementById("disponibilidadeResumo").textContent =
-    dados.disponibilidade;
-
+  document.getElementById("disponibilidadeResumo").textContent = dados.disponibilidade;
   document.getElementById("valorCpu").textContent = dados.metricas.cpu.valor;
   document.getElementById("valorRam").textContent = dados.metricas.ram.valor;
-  document.getElementById("valorLatencia").textContent =
-    dados.metricas.latencia.valor;
-  document.getElementById("valorIncidentes").textContent =
-    dados.metricas.incidentes.valor;
+  document.getElementById("valorLatencia").textContent = dados.metricas.latencia.valor;
+  document.getElementById("valorIncidentes").textContent = dados.metricas.incidentes.valor;
 
   document.getElementById("imagemLinha").style.background = dados.cor;
   document.getElementById("imagemLinha").alt =

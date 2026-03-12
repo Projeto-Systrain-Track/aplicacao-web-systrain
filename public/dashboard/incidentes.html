@@ -5,16 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sys Train Track | Incidentes</title>
     <link rel="stylesheet" href="estilo.css" />
-  <script src="../js/sessao.js"></script>
+    <script src="../js/sessao.js"></script>
     <link rel="icon" href="../assets/icons/logo.svg" />
   </head>
 
   <body>
     <div class="container-sys">
       <aside class="nav-lateral desktop">
-            <div class="logo">
-                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track">
-            </div>
+        <div class="logo">
+          <img
+            src="../assets/images/sys-logo - adm2.svg"
+            alt="Sys-train track"
+          />
+        </div>
+
         <nav class="links">
           <a class="link-lateral" href="dashboard.html">Visão geral</a>
           <a class="link-lateral" href="linhas.html">Linhas</a>
@@ -39,16 +43,43 @@
             <p class="subtitulo">Monitoramento</p>
             <h1 class="titulo">Incidentes</h1>
             <p class="descricao">
-              Eventos detectados pelo sistema de monitoramento.
+              Resumo dos incidentes identificados pelo sistema.
             </p>
+            <br />
+          </div>
+        </section>
+        <section class="metricas-incidentes">
+          <div class="card-incidente-metricas nivel-alto">
+            <div class="card-incidente-topo">
+              <span class="nivel-badge nivel-alto">Alto </span>
+              <p class="descricao">
+                Incidente de Alto nível: Requer atenção imediata para análise e
+                solução
+              </p>
+            </div>
+          </div>
+          <div class="card-incidente-metricas nivel-medio">
+            <div class="card-incidente-topo">
+              <span class="nivel-badge nivel-medio">Médio </span>
+              <p class="descricao">
+                Incidente de Médio nível: Atenção moderada. Indicado solicitar suporte.
+              </p>
+            </div>
+          </div>
+          <div class="card-incidente-metricas nivel-baixo">
+            <div class="card-incidente-topo">
+              <span class="nivel-badge nivel-baixo">Baixo </span>
+              <p class="descricao">
+                Incidente de Baixo nível: Incidente de pouco impacto.
+              </p>
+            </div>
           </div>
         </section>
 
-        <section class="cards-incidentes" id="listaIncidentes"></section>
+        <section class="painel-incidentes" id="listaIncidentes"></section>
       </main>
     </div>
-
-</body>
+  </body>
 </html>
 
-<script src="dash.js"></script>
+<script src="incidentes.js"></script>
