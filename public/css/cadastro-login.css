@@ -146,7 +146,7 @@ nav {
 .cadastro-imagem {
     display: flex;
     justify-content: left;
-    background-size: cover; 
+    background-size: cover;
     width: 50%;
     overflow: hidden;
 }
@@ -169,9 +169,15 @@ nav {
     font-weight: bold;
     flex-direction: column;
 }
+.area-form{
+    width: auto;
+}
+
+
 
 .label-email {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
 }
@@ -179,10 +185,10 @@ nav {
 .label-email label {
     display: flex;
     flex-direction: column;
-    width: 48%;
+    width: 49%;
 }
 
-.desativado:disabled{
+.desativado:disabled {
     background-color: #afafafcc;
     color: rgba(74, 74, 74, 0.909);
     font-weight: bold;
@@ -193,6 +199,7 @@ nav {
     font-size: 1rem;
 }
 
+
 .formulario input {
     margin-top: 1%;
     width: 40vw;
@@ -201,6 +208,7 @@ nav {
     border: none;
     background-color: rgb(225, 225, 225);
 }
+
 
 .redirecionar {
     padding-top: 1vh;
@@ -213,6 +221,7 @@ nav {
     align-self: center;
     font-size: 0.8rem;
 }
+
 .redirecionar a {
     font-size: 0.8rem;
 }
@@ -243,16 +252,28 @@ nav {
     box-shadow: 8px 15px 0px var(--azul-escuro);
 }
 
-.email {
-    width: 100%;
+/* .email {
     display: block;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+} */
+
+
+.formulario .campos-email {
+    display: flex;
+    flex-wrap: wrap;
+    width: 40vw;
 }
 
-.email input {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
+.formulario .campos-email .campo-email {
+    width: 50%;
 }
+
+.campo-email input {
+    width: 95%;
+}
+
 
 
 
@@ -268,7 +289,7 @@ footer {
     min-height: 75vh;
     background-color: var(--azul-escuro);
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     align-items: center;
     padding: 40px 0;
     box-sizing: border-box;
@@ -353,7 +374,7 @@ footer .card {
     flex-direction: column;
     justify-content: space-between;
     color: var(--azul-titulos);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
 }
 
@@ -386,7 +407,7 @@ footer .card .caixa {
 }
 
 footer .card input[type="email"] {
-    flex: 1; 
+    flex: 1;
     height: 45px;
     padding: 0 15px;
     border: none;
@@ -450,6 +471,7 @@ footer .card button:hover {
         width: 100%;
         justify-content: center;
     }
+
     /* home */
     .container-sys {
         display: flex;
@@ -458,41 +480,65 @@ footer .card button:hover {
     }
 
     .lado {
-    padding-top: 2vh;
-    width: 100%;
-    min-height: 90vh;
+        padding-top: 2vh;
+        width: 100%;
+        min-height: 90vh;
 
     }
 
-    .formulario input {
-    margin-top: 1%;
-    width: 80vw;
-    padding: 2vh;
-    background-color: #2f5a88c5;
-    color: white;
-    box-shadow: 3px 8px 0 rgba(255, 201, 54, 0.788);
+    .formulario .area-form input {
+        margin-top: 1%;
+        width: 100%;
+        padding: 2vh;
+        background-color: #2f5a88c5;
+        color: white;
+        box-shadow: 3px 8px 0 rgba(255, 201, 54, 0.788);
     }
-        .formulario input::placeholder {
-            color: white;
+
+    .formulario input::placeholder {
+        color: white;
     }
 
     .formulario button {
-    font-size: 1rem;
-    padding: 1.5vh;
-    align-self: center;
-    background-color: var(--azul-escuro);
-    color: white;
-    width: 35vw;
-    border-radius: 30px;
-}
+        font-size: 1rem;
+        padding: 1.5vh;
+        align-self: center;
+        background-color: var(--azul-escuro);
+        color: white;
+        width: 35vw;
+        border-radius: 30px;
 
-.redirecionar {
-    padding-top: 1vh;
-    padding-bottom: 3vh;
-    display: flex;
-    align-self: flex-start;
-}
+    }
 
+    .formulario .campos-email {
+        display: flex;
+        flex-wrap: wrap;
+        width: 80vw;
+        margin: 0;
+    }
+
+    .formulario .campos-email .campo-email {
+        margin-top: 20px;
+    }
+    .formulario .campos-email .campo-email input{
+        width: 80vw;
+    }
+
+
+    .redirecionar {
+        padding-top: 1vh;
+        padding-bottom: 3vh;
+        display: flex;
+        align-self: flex-start;
+    }
+
+
+
+    .desativado:disabled {
+    background-color: #afafafcc;
+    color: rgba(74, 74, 74, 0.909);
+    font-weight: bold;
+}
 
     /* footer */
     footer {
@@ -554,6 +600,7 @@ footer .card button:hover {
         width: 100%;
         justify-content: center;
     }
+
     /* home */
     .container-sys {
         display: flex;
@@ -562,40 +609,72 @@ footer .card button:hover {
     }
 
     .lado {
-    padding-top: 2vh;
-    width: 100%;
-    min-height: 90vh;
-    justify-content: center;
+        padding-top: 2vh;
+        width: 100%;
+        min-height: 90vh;
+        justify-content: center;
 
     }
 
     .formulario input {
-    margin-top: 1%;
-    width: 70vw;
-    padding: 2vh;
-    background-color: #2f5a88c5;
-    color: white;
-    box-shadow: 3px 8px 0 rgba(255, 201, 54, 0.788);
+        margin-top: 1%;
+        width: 100%;
+        padding: 2vh;
+        background-color: #2f5a88c5;
+        color: white;
+        box-shadow: 3px 8px 0 rgba(255, 201, 54, 0.788);
     }
-        .formulario input::placeholder {
-            color: white;
+
+    .formulario input::placeholder {
+        color: white;
     }
 
     .formulario button {
-    font-size: 1rem;
-    padding: 1.5vh;
-    align-self: center;
-    background-color: var(--azul-escuro);
-    color: white;
-    width: 35vw;
-    border-radius: 30px;
-}
+        font-size: 1rem;
+        padding: 1.5vh;
+        align-self: center;
+        background-color: var(--azul-escuro);
+        color: white;
+        width: 35vw;
+        border-radius: 30px;
+    }
 
-.redirecionar {
-    padding-top: 1vh;
-    padding-bottom: 3vh;
-    display: flex;
-    align-self: flex-start;
+    .redirecionar {
+        padding-top: 1vh;
+        padding-bottom: 3vh;
+        display: flex;
+        align-self: flex-start;
+    }
+
+    .formulario .campos-email {
+        display: flex;
+        flex-wrap: wrap;
+        width: 80vw;
+    }
+
+    .formulario .campos-email .campo-email {
+        width: auto;
+    }
+
+    
+    .formulario .campos-email {
+        display: flex;
+        flex-wrap: wrap;
+        width: 80vw;
+        margin: 0;
+    }
+
+    .formulario .campos-email .campo-email {
+        margin-top: 20px;
+    }
+    .formulario .campos-email .campo-email input{
+        width: 80vw;
+    }
+
+    .desativado:disabled {
+    background-color: #afafafcc;
+    color: rgba(74, 74, 74, 0.909);
+    font-weight: bold;
 }
 
 
