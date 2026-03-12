@@ -111,8 +111,8 @@
             </section>
             <section class="painel-tabela">
                 <div class="tabela table-responsive">
-                    <table class="table caption-top">
-                        <caption class="subtitulo">Lista dos RBCs</caption>
+                    <span class="subtitulo">Lista dos RBCs</span>
+                    <table class="tabela-adm">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
@@ -203,7 +203,7 @@
                         cont++
                         if (cont % 2 == 0) {
                             rbcsCadastrados += `
-                                 <tr class="table-secondary">
+                                 <tr>
                                     <th scope="row">${rbc.idRbc}</th>
                                     <td>${rbc.modelo}</td>
                                     <td>${rbc.versao}</td>

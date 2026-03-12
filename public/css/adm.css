@@ -464,6 +464,38 @@ p {
 }
 
 
+.tabela-adm {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.tabela-adm thead tr {
+    background-color: #eef3f8;
+}
+
+.tabela-adm th {
+    text-align: left;
+    padding: 14px 16px;
+    font-family: var(--font-titulo);
+    color: var(--azul-titulos);
+    font-size: 15px;
+}
+
+.tabela-adm td {
+    padding: 14px 16px;
+    border-top: 1px solid #e7edf3;
+    color: #31475c;
+    font-size: 14px;
+    vertical-align: middle;
+    background-color: #ffffff;
+}
+
+.tabela-adm tbody tr:hover td {
+    background-color: #e8e8e858;
+}
+
+
 @media only screen and (max-width: 1100px) {
     .resumo-geral {
         grid-template-columns: repeat(3, 1fr);

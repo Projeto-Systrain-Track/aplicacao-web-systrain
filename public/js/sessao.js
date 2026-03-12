@@ -1,28 +1,33 @@
 // sessão
-function validarSessao() {
-    var email = sessionStorage.EMAIL_USUARIO;
-    var nome = sessionStorage.NOME_USUARIO;
-
-    var b_usuario = document.getElementById("b_usuario");
-
-    if (email != null && nome != null) {
-        b_usuario.innerHTML = nome;
-    } else {
-        window.location = "../login.html";
-    }
-}
 
 function limparSessao() {
     sessionStorage.clear();
     window.location = "../index.html";
 }
 
-// carregamento (loading)
-function aguardar() {
-    var divAguardar = document.getElementById("div_aguardar");
-    divAguardar.style.display = "flex";
-}
+// sessao usuario
 
+function validarSessaoUsuario() {
+    var nomeUser = sessionStorage.NOME_USUARIO
+    var emailUser = sessionStorage.EMAIL_USUARIO
+    var idUser = sessionStorage.ID_USUARIO
+
+    if (nomeUser != null && emailUser != null && idUser != null) {
+        var identificacao = document.getElementById("nome_user");
+        var identificacaoMobile = document.getElementById("nome_user_m");
+
+        if (identificacao != null) {
+            identificacao.innerHTML = nomeUser;
+        }
+        if (identificacaoMobile != null) {
+            identificacaoMobile.innerHTML =  nomeUser;
+        }
+
+    }else {
+        window.location = "../loginUsuario.html";
+    }
+
+}
 
 // sessão adm
 function iniciarSessaoAdm(nome, email, nivel) {
@@ -50,6 +55,6 @@ function validarSessaoAdm() {
     }
 }
 function limparDuvida() {
-  input_mensagem.value = "";
-  input_emailContato.value = "";
-  }
+    input_mensagem.value = "";
+    input_emailContato.value = "";
+}
