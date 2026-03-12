@@ -1,63 +1,57 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./js/sessao.js"></script>
-    <title>Sys-Train Track</title>
-    <!-- Link de conexão com o Bootstrap -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="./css/login-usuario.css" />
-    <link rel="icon" href="../assets/icons/logo.svg" />
-  </head>
 
-  <body>
-    <!-- navbar -->
-    <div class=""></div>
-    <!-- nav-mobile -->
-    <div class="mobile"></div>
-    <!-- Home -->
-    <div class="container-sys">
-      <div class="centro">
-        <div class="formulario">
-          <div class="titulo-cad">
-            <h1><span style="color: orange">Bem-vindo </span> de volta!</h1>
-          </div>
-          <div class="campo">
-            <span>E-mail de funcionário:</span> <br />
-            <input
-              id="email_input"
-              type="text"
-              placeholder="meuemail@systrain.com"
-            />
-          </div>
-          <div class="campo">
-            <span>Senha:</span> <br />
-            <input id="senha_input" type="password" placeholder="******" />
-          </div>
-          <div class="redirecionar"></div>
-          <button class="botao" onclick="entrar()">Login</button>
-          <div class="redirecionar">
-            <span
-              >Não é funcionario?
-              <a href="index.html">Voltar para home</a></span
-            >
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="./js/sessao.js"></script>
+  <title>Sys-Train Track</title>
+  <!-- Link de conexão com o Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css/login-usuario.css" />
+  <link rel="icon" href="../assets/icons/logo.svg" />
+</head>
+
+<body>
+  <!-- navbar -->
+  <div class=""></div>
+  <!-- nav-mobile -->
+  <div class="mobile"></div>
+  <!-- Home -->
+  <div class="container-sys">
+    <div class="centro">
+      <div class="formulario">
+        <div class="titulo-cad">
+          <h1><span style="color: orange">Bem-vindo </span> de volta!</h1>
+        </div>
+        <div class="campo">
+          <span>E-mail de funcionário:</span> <br />
+          <input id="email_input" type="text" placeholder="meuemail@systrain.com" />
+        </div>
+        <div class="campo">
+          <span>Senha:</span> <br />
+          <input id="senha_input" type="password" placeholder="******" />
+        </div>
+        <!-- <div class="erro-form" id="erro_form">
+        </div> -->
+        <div class="redirecionar erro-form" id="erro_form">
+          
+        </div>
+        <button class="botao" onclick="entrar()">Login</button>
+        <div class="redirecionar">
+          <span>Não é funcionario?
+            <a href="index.html">Voltar para home</a></span>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
 
 <script>
@@ -68,10 +62,9 @@
     var senhaVar = senha_input.value;
 
     if (emailVar == "" || senhaVar == "") {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-      finalizarAguardar();
+      // cardErro.style.display = "block";
+      erro_form.innerHTML = `<span>Preencha todos os campos.</span>`
+      // finalizarAguardar();
       return false;
     } else {
       // setInterval(sumirMensagem, 5000);
@@ -105,7 +98,7 @@
           });
         } else {
           console.log("Houve um erro ao tentar realizar o login!");
-
+          erro_form.innerHTML = `<span>Email ou senha incorretos</span>`
           resposta.text().then((texto) => {
             console.error(texto);
             finalizarAguardar(texto);

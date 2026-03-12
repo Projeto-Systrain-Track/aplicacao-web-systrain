@@ -99,6 +99,8 @@
           <span>Senha:</span> <br />
           <input id="senha_input" type="password" placeholder="******" />
         </div>
+        <div class="erro-form" id="erro_form">
+        </div>
         <div class="redirecionar">
           <span>Não tem conta ainda?
             <a href="cadastro.html">cadastre-se</a></span>
@@ -186,10 +188,12 @@
     var senhaVar = senha_input.value;
 
     if (emailVar == "" || senhaVar == "") {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
-      finalizarAguardar();
+      // cardErro.style.display = "block";
+      // mensagem_erro.innerHTML =
+      //   "(Mensagem de erro para todos os campos em branco)";
+      // finalizarAguardar();
+      erro_form.innerHTML = `<span>Preencha todos os campos.</span>`
+
       return false;
     } else {
       setInterval(sumirMensagem, 5000);
@@ -225,7 +229,7 @@
           });
         } else {
           console.log("Houve um erro ao tentar realizar o login!");
-
+          erro_form.innerHTML = `<span>Email ou senha incorretos</span>`
           resposta.text().then((texto) => {
             console.error(texto);
             finalizarAguardar(texto);

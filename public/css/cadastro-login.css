@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Chewy&family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oxanium:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&display=swap');
 
 :root {
+    --cor-erro: rgb(244, 88, 88);
     --laranja: #ff570a;
     --amarelo: #FFC247;
     --azul-claro: #449dd1;
@@ -169,7 +170,8 @@ nav {
     font-weight: bold;
     flex-direction: column;
 }
-.area-form{
+
+.area-form {
     width: auto;
 }
 
@@ -281,6 +283,13 @@ nav {
     font-family: var(--font-titulo);
     font-weight: 500;
 }
+
+
+.erro-form {
+    color: var(--cor-erro);
+    animation: shake 3s infinite ;
+}
+
 
 /* footer */
 /* footer */
@@ -520,7 +529,8 @@ footer .card button:hover {
     .formulario .campos-email .campo-email {
         margin-top: 20px;
     }
-    .formulario .campos-email .campo-email input{
+
+    .formulario .campos-email .campo-email input {
         width: 80vw;
     }
 
@@ -535,10 +545,14 @@ footer .card button:hover {
 
 
     .desativado:disabled {
-    background-color: #afafafcc;
-    color: rgba(74, 74, 74, 0.909);
-    font-weight: bold;
-}
+        background-color: #afafafcc;
+        color: rgba(74, 74, 74, 0.909);
+        font-weight: bold;
+    }
+
+    .erro-form {
+        margin-top: 10px;
+    }
 
     /* footer */
     footer {
@@ -656,7 +670,7 @@ footer .card button:hover {
         width: auto;
     }
 
-    
+
     .formulario .campos-email {
         display: flex;
         flex-wrap: wrap;
@@ -667,16 +681,20 @@ footer .card button:hover {
     .formulario .campos-email .campo-email {
         margin-top: 20px;
     }
-    .formulario .campos-email .campo-email input{
+
+    .formulario .campos-email .campo-email input {
         width: 80vw;
     }
 
     .desativado:disabled {
-    background-color: #afafafcc;
-    color: rgba(74, 74, 74, 0.909);
-    font-weight: bold;
-}
+        background-color: #afafafcc;
+        color: rgba(74, 74, 74, 0.909);
+        font-weight: bold;
+    }
 
+    .erro-form {
+        margin-top: 15px;
+    }
 
     /* footer */
     footer {
@@ -708,4 +726,12 @@ footer .card button:hover {
     .footer-infos {
         height: 400px;
     }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
 }

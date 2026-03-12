@@ -120,6 +120,8 @@
             <input id="confirmacao_senha_input" type="password" placeholder="******" />
           </div>
         </div>
+        <div class="erro-form" id="erro_form">
+        </div>
         <div class="redirecionar">
           <span>Você já tem uma conta? <a href="login.html">Log in</a></span>
         </div>
@@ -243,8 +245,11 @@
       //   "(Mensagem de erro para todos os campos em branco)";
 
       // finalizarAguardar();
+      erro_form.innerHTML = `<span>Preencha todos os campos.</span>`
       console.log("Campo esta vazio");
       return false;
+    } else if(senhaVar != confirmacaoSenhaVar){
+      erro_form.innerHTML = `<span>As senhas não coincidem</span>`
     } else {
       setInterval(sumirMensagem, 5000);
       console.log("pode Cadastrar");
@@ -260,6 +265,7 @@
         break;
       } else {
         console.log("token da empresa invalido");
+        erro_form.innerHTML = `<span>Token da empresa inválido.</span>`
         // cardErro.style.display = "block";
         // mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
         // finalizarAguardar();
