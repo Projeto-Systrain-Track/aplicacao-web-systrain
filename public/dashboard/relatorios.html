@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="estilo.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../js/sessao.js"></script>
+  <!-- <script src="./relatorio.js"></script> -->
   <link rel="icon" href="../assets/icons/logo.svg" />
 </head>
 
@@ -44,36 +45,29 @@
           <p class="descricao">Indicadores gerais do sistema.</p>
         </div>
       </section>
-      <!-- <section>
-        <div class="painel-reatorio-linhas">
-          <div class="card-linha">
-            <div class="card-incidente-topo">
-              <div class="incidente-linha">
-                <span class="linha-cor-bolinha" style="background-color: red;"></span>
-                <span>${incidentes[i].linha}</span>
-              </div>
-              <span class="nivel-badge ${classeNivel} nivel-baixo">
-                ${incidentes[i].nivel}
-              </span>
-            </div>
-            <div class="card-incidente-conteudo">
-              <h3>Informações</h3>
-              <div class="card-incidente-infos">
-                <span>Incidentes: ${incidentes[i].descricao}</span>
-                <span>Disponibilidade: </span>
-                <span>Ultima coleta: </span>
-              </div>
-            </div>
-
-          </div>
-
-
+      <section>
+        <div class="painel-reatorio-linhas" id="painelCardLinhas">
         </div>
-      </section> -->
+      </section>
       <section class="painel-mapa">
-        <div class="grafico-wrap">
+        <!-- <div class="grafico-wrap">
           <canvas id="graficoRelatorio"></canvas>
-        </div>
+        </div> -->
+        <table class="tabela-linhas">
+          <thead>
+            <!-- <p class="subtitulo">Histórico dos Últimos Relatórios</p> -->
+            <tr>
+              <th>Linha</th>
+              <th>Status</th>
+              <th>Último Relatório</th>
+              <th>Usuário</th>
+            </tr>
+          </thead>
+
+          <tbody id="tabelaRelatorios">
+           
+          </tbody>
+        </table>
       </section>
     </main>
   </div>
@@ -82,7 +76,7 @@
 
 </html>
 
-<script src="dash.js"></script>
+<script src="./relatorio.js"></script>
 <script>
   validarSessaoUsuario()
 </script>
