@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SysTrain Track | Administrativo</title>
     <link rel="icon" href="../assets/icons/logo.svg" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -20,7 +20,7 @@
 
     <div class="container-sys">
         <!-- nav mobile -->
-         <div class="mobile">
+        <div class="mobile">
             <nav class="navbar fixed-top nav-mobile">
                 <div class="container-fluid">
                     <a class="navbar-brand titulo-sys" href="./index.html">Sys-Train Track</a>
@@ -58,6 +58,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="duvidas.html">Dúvidas</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="linha.html">Linhas</a>
+                                </li>
                             </ul>
                         </div>
                         <div class="offcanvas-body outros">
@@ -85,6 +88,7 @@
                 <a class="link-lateral ativo " href="rbc.html">RBC</a>
                 <a class="link-lateral " href="componentes.html">Componentes</a>
                 <a class="link-lateral" href="duvidas.html">Dúvidas</a>
+                <a class="link-lateral" href="linha.html">Linhas</a>
             </div>
             <div class="opcoes">
                 <div class="btn-lateral">
@@ -99,7 +103,7 @@
             <section class="topo-pagina">
                 <div>
                     <p class="subtitulo">Sessão Administrativa</p>
-                    <h1 class="titulo">RBCs Cadatradas</h1>
+                    <h1 class="titulo">RBCs Cadastradas</h1>
                     <p class="descricao">Gerenciamento dos RBCs cadastradas</p>
                 </div>
                 <!-- <button class="btn-add-desk desktop" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
@@ -154,16 +158,12 @@
                             <label>linha</label>
                             <select class="w-90 h-100" id="select_linha">
                                 <option disabled selected>Escolha a linha</option>
-                                <option value="Linha 7 - Rubi">Linha 7 - Rubi</option>
-                                <option value="Linha 9 - Esmeralda">Linha 9 - Esmeralda</option>
-                                <option value="Linha 10 - Turquesa">Linha 10 - Turquesa</option>
                             </select>
                         </div>
                         <div class="ipt-25 ">
                             <label>Empresa</label>
-                            <select class="h-100" id="select_fk_empresa">
+                            <select class="h-100" id="select_fk_empresa"></select>
                         </div>
-                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -181,12 +181,13 @@
 <script>
     validarSessaoAdm()
     listarRBC()
-    
+
     const modalCad = new bootstrap.Modal("#modal_cadastro")
 
     function abrirModal() {
         modalCad.show();
         listarEmpresas()
+        listarLinhas()
     }
 
     function listarRBC() {
@@ -200,30 +201,42 @@
             .then(function (resposta) {
                 resposta.json().then((rbcs) => {
                     rbcs.forEach(rbc => {
-                        cont++
-                        if (cont % 2 == 0) {
-                            rbcsCadastrados += `
-                                 <tr>
-                                    <th scope="row">${rbc.idRbc}</th>
-                                    <td>${rbc.modelo}</td>
-                                    <td>${rbc.versao}</td>
-                                    <td>${rbc.empresa}</td>
-                                    <td>${rbc.linha}</td>
-                                </tr>
-                            `
-                        } else {
-                            rbcsCadastrados += `
-                                 <tr>
-                                    <th scope="row">${rbc.idRbc}</th>
-                                    <td>${rbc.modelo}</td>
-                                    <td>${rbc.versao}</td>
-                                    <td>${rbc.empresa}</td>
-                                    <td>${rbc.linha}</td>
-                                </tr>
-                            `
-                        }
+                        rbcsCadastrados += `
+                             <tr>
+                                <th scope="row">${rbc.idRbc}</th>
+                                <td>${rbc.modelo}</td>
+                                <td>${rbc.versao}</td>
+                                <td>${rbc.empresa}</td>
+                                <td>
+                                    <div class="cont-linha-rbc"><div class="circulo-cor-linha" style="background-color: ${rbc.corLinha};"></div>Linha ${rbc.numeroLinha} - ${rbc.nomeLinha}</div>
+                                </td>
+                            </tr>
+                        `
                     })
                     tabela.innerHTML = rbcsCadastrados
+                })
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+    function listarLinhas() {
+        var linhasCadastradas = ''
+        console.log("Buscando RBC:")
+        fetch("/linha/listar", {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                resposta.json().then((linhas) => {
+                    console.log(linhas);
+                    var linhasListadas = linhas.listaLinhas
+
+                    linhasListadas.forEach(linha => {
+                        linhasCadastradas += `
+                                <option value="${linha.idLinha}">Linha ${linha.numeroLinha} - ${linha.nomeLinha}</option>
+                        `
+                    })
+                    document.getElementById("select_linha").innerHTML = linhasCadastradas
                 })
             })
             .catch(function (resposta) {

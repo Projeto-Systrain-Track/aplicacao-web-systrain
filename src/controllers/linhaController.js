@@ -1,0 +1,48 @@
+
+var linhaModel = require("../models/linhaModel")
+async function cadastrar(req, res) {
+    var nome = req.body.nomeServer;
+    var numero = req.body.numeroServer;
+    var cor = req.body.corServer;
+    var empresa = req.body.empresaServer;
+
+    if (nome == undefined) {
+        return res.status(400).send("nome está undefined!");
+    } else if (numero == undefined) {
+        return res.status(400).send("numero está undefined!");
+    } else if (cor == undefined) {
+        return res.status(400).send("cor está undefined!");
+    } else if (empresa == undefined) {
+        return res.status(400).send("empresa está undefined!");
+    }
+    try {
+        var requisicaoBd = await linhaModel.cadastrar(nome, numero, cor, empresa)
+        if (requisicaoBd.affectedRows == 1) {
+            return res.status(200).json({ mensagem: "O cadastro da linha foi feito com sucesso!", idLinhaCadastrada: requisicaoBd.insertId });
+        } else {
+            throw new Error("O cadastro da linha não foi feito!");
+        }
+    } catch (error) {
+        return res.status(400).json({ mensagem: error });
+    }
+
+}
+
+async function listar(req, res) {
+    var requisicaoBd = await linhaModel.listar()
+    console.log("Linhas: ", requisicaoBd);
+    console.log("requisicaoBd.length", requisicaoBd.length );
+    
+
+    if (requisicaoBd.length > 0) {
+        return res.status(200).json({ listaLinhas: requisicaoBd });
+    } else {
+        return res.status(400).json({ mensagem: "Não foi possível listar as linhas" });
+    }
+
+}
+
+module.exports = {
+    cadastrar,
+    listar
+}

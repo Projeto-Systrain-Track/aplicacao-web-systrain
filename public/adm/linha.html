@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sys Train Track Adm | Usuarios</title>
+    <title>SysTrain Track | Administrativo</title>
     <link rel="icon" href="../assets/icons/logo.svg" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -16,6 +16,7 @@
 </head>
 
 <body>
+
 
     <div class="container-sys">
         <!-- nav mobile -->
@@ -46,7 +47,7 @@
                                     <a class="nav-link " aria-current="page" href="#">Empresa</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link link-ativo" href="usuarios.html">Usúario</a>
+                                    <a class="nav-link" href="usuarios.html">Usúario</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="rbc.html">RBC</a>
@@ -58,7 +59,7 @@
                                     <a class="nav-link" href="duvidas.html">Dúvidas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="linha.html">Linhas</a>
+                                    <a class="nav-link link-ativo" href="linha.html">Linhas</a>
                                 </li>
                             </ul>
                         </div>
@@ -81,13 +82,14 @@
                 <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track">
             </div>
             <div class="links">
-                <a class="link-lateral" href="home.html">Central</a>
-                <a class="link-lateral" href="index.html">Empresas</a>
-                <a class="link-lateral ativo " href="usuarios.html">Usuários</a>
-                <a class="link-lateral" href="rbc.html">RBC</a>
-                <a class="link-lateral" href="componentes.html">Componentes</a>
-                <a class="link-lateral" href="duvidas.html">Dúvidas</a>
-                <a class="link-lateral" href="linha.html">Linhas</a>
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <a class="link-lateral" href="home.html">Central</a>
+                    <a class="link-lateral " href="index.html">Empresas</a>
+                    <a class="link-lateral " href="usuarios.html">Usuários</a>
+                    <a class="link-lateral" href="rbc.html">RBC</a>
+                    <a class="link-lateral" href="componentes.html">Componentes</a>
+                    <a class="link-lateral" href="duvidas.html">Dúvidas</a>
+                    <a class="link-lateral ativo" href="linha.html">Linhas</a>
             </div>
             <div class="opcoes">
                 <div class="btn-lateral">
@@ -102,149 +104,173 @@
             <section class="topo-pagina">
                 <div>
                     <p class="subtitulo">Sessão Administrativa</p>
-                    <h1 class="titulo">Usuário Cadastrados</h1>
-                    <p class="descricao">Gerenciamento dos usuários das empresas cadastradas</p>
+                    <h1 class="titulo">Linhas Cadastradas</h1>
+                    <p class="descricao">Gerenciamento das linhas cadastradas</p>
                 </div>
                 <!-- <button class="btn-add-desk desktop" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
                 <button class="btn-add-desk desktop" onclick="abrirModal()">
                     <div>
-                        <p>Adicionar Usuário</p>
+                        <p>Adicionar linha</p>
                     </div>
                 </button>
             </section>
             <section class="painel-tabela">
                 <div class="tabela table-responsive">
-                    <span class="subtitulo">Lista de Usuários</span>
+                    <span class="subtitulo">Lista das linhas</span>
                     <table class="tabela-adm">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Usuário</th>
-                                <th scope="col">E-mail de Contato</th>
-                                <th scope="col">Empresa Associada</th>
+                                <th scope="col">Nome da linha</th>
+                                <th scope="col">Número da linha</th>
+                                <th scope="col">Cor da linha</th>
+                                <th scope="col">Empresa</th>
                             </tr>
                         </thead>
-                        <tbody id="tabelaUsuario">
-
-                        </tbody>
+                        <tbody id="tabelaRbc"></tbody>
                     </table>
                 </div>
             </section>
         </main>
     </div>
-    <!-- Button trigger modal -->
 
-
-    <!-- Modal -->
-    <div class="modal fade" id="modal_cadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <div class="modal fade " id="modal_cadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Usuário</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar linha</h1>
                     <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="cadastro">
                         <div class="w-100">
-                            <label>Nome Completo:</label>
-                            <input id="nome_input" type="text" placeholder="Seu nome" />
-                        </div>
-                        <div class="ipt-75">
-                            <label>E-mail:</label>
-                            <input id="email_input" class="w-90" type="text" placeholder="meuemail@provedor.com" />
-                        </div>
-                        <div class="ipt-25-m">
-                            <label>Empresa:</label>
-                            <select class="h-100" id="select_fk_empresa"></select>
+                            <label>Nome da linha</label>
+                            <input type="text" id="input_nome_linha" placeholder="Esmeralda">
                         </div>
                         <div class="ipt-50">
-                            <label>Senha:</label>
-                            <input id="senha_input" class="w-90" type="password" placeholder="******" />
+                            <label>Número da linha</label>
+                            <input class="w-90-m ipt-mobile-100" type="text" id="input_numero_linha" placeholder="1">
                         </div>
-                        <div class="ipt-50">
-                            <label>Confirmação da Senha:</label>
-                            <input id="confirmacao_senha_input" class="w-90" type="password" placeholder="******" />
+                        <div class="ipt-25">
+                            <label>Cor da linha</label>
+                            <input type="color" class="w-90-m ipt-mobile-100" id="input_cor_linha"
+                                placeholder="Selecione uma cor">
                         </div>
-                        <div id="div_msg"></div>
+                        <div class="ipt-25 ">
+                            <label>Empresa</label>
+                            <select class="h-100" id="select_empresa">
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- mensagens -->
-    <div class="mensagens" id="mensagem_operacao">
-        <div class="notificacao">
-            <div class="status">
-                <div class="cor-status" id="cor_status"></div>
 
-                <img id="img_status" alt="statusIcon">
-            </div>
-            <div class="infos-notificacao">
-                <h1>Empresa</h1>
-                <p class="subtitulo" id="mensagem_operacao">Empresa cadastrada com sucesso!</p>
             </div>
         </div>
     </div>
+
+
 </body>
 
 </html>
 <script>
     validarSessaoAdm()
-    listarUsuarios()
 
-    let listaEmpresasCadastradas = [];
+    listarLinhas()
     const modalCad = new bootstrap.Modal("#modal_cadastro")
 
-    function listarUsuarios() {
-        var cont = 0
-        var usuariosCadastrados = ''
-        var tabela = document.getElementById("tabelaUsuario")
-        fetch("/usuarios/listarUsuarios", {
+    function abrirModal() {
+        modalCad.show();
+        listarEmpresas()
+    }
+
+    function listarLinhas() {
+        var linhasCadastradas = ''
+        console.log("Buscando RBC:")
+        var tabela = document.getElementById("tabelaRbc")
+        fetch("/linha/listar", {
             method: "GET"
         })
             .then(function (resposta) {
-                resposta.json().then((usuarios) => {
-                    usuarios.forEach(usuario => {
-                        cont++
-                        if (cont % 2 == 0) {
-                            usuariosCadastrados += `
-                                 <tr class="table-secondary">
-                                    <th scope="row">${usuario.idUsuario}</th>
-                                    <td>${usuario.nome}</td>
-                                    <td>${usuario.email}</td>
-                                    <td>${usuario.empresa}</td>
-                                </tr>
-                            `
-                        } else {
-                            usuariosCadastrados += `
-                                 <tr>
-                                      <th scope="row">${usuario.idUsuario}</th>
-                                    <td>${usuario.nome}</td>
-                                    <td>${usuario.email}</td>
-                                    <td>${usuario.empresa}</td>
-                                </tr>
-                            `
-                        }
-                    });
-                    tabela.innerHTML = usuariosCadastrados
+                resposta.json().then((linhas) => {
+                    console.log(linhas);
+                    var linhasListadas = linhas.listaLinhas
+
+                    linhasListadas.forEach(linha => {
+                        linhasCadastradas += `
+                             <tr>
+                                <th scope="row">${linha.idLinha}</th>
+                                <td>${linha.nomeLinha}</td>
+                                <td>${linha.numeroLinha}</td>
+                                <td><div class="circulo-cor-linha" style="background-color: ${linha.corLinha};"></div></td>
+                                <td>${linha.nomeEmpresa}</td>
+                            </tr>
+                        `
+                    })
+                    tabela.innerHTML = linhasCadastradas
                 })
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
+            });
+    }
+    function cadastrar() {
+        var nome_linha = input_nome_linha.value
+        var numero_linha = input_numero_linha.value
+        var cor_linha = input_cor_linha.value
+        var empresa = select_empresa.value
+
+        if (
+            nome_linha == '' ||
+            numero_linha == '' ||
+            cor_linha == '' ||
+            empresa == 0
+        ) {
+            alert('Erro ao cadastrar, responda todos os campos');
+            return;
+        }
+        // Enviando o valor da nova input
+        fetch("/linha/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeServer: nome_linha,
+                numeroServer: numero_linha,
+                corServer: cor_linha,
+                empresaServer: empresa
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+                if (resposta.ok) {
+                    modalCad.hide()
+                    limparFormulario();
+                    listarLinhas();
+                    // status("Sucesso")
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro das Linhas!";
+                }
             })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                // finalizarAguardar();
+            });
+
+        return false;
     }
 
     // Listando empresas cadastradas 
     function listarEmpresas() {
         var listaEmpresas = '<option value="0" selected disabled>Escolha a empresa</option>';
         var cont = 0;
-        var selectEmpresa = document.getElementById("select_fk_empresa")
+        var selectEmpresa = document.getElementById("select_empresa")
         fetch("/empresas/listar", {
             method: "GET",
         })
@@ -265,73 +291,26 @@
             });
     }
 
-    function abrirModal() {
-        modalCad.show();
-        listarEmpresas()
-    }
-
-    function cadastrar() {
-        var nomeVar = nome_input.value;
-        var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
-        var confirmacaoSenhaVar = confirmacao_senha_input.value;
-        var idEmpresaVincular = select_fk_empresa.value;
-
-
-
-        // Verificando se há algum campo em branco
-        if (
-            nomeVar == "" ||
-            emailVar == "" ||
-            senhaVar == "" ||
-            confirmacaoSenhaVar == "" ||
-            idEmpresaVincular == 0
-        ) {
-            console.log("Campo esta vazio")
-            return false;
-        }
-
-        // Enviando o valor da nova input
-        fetch("/usuarios/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar,
-                idEmpresaVincularServer: idEmpresaVincular,
-
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-                    limparFormulario();
-                    modalCad.hide()
-                    listarUsuarios()
-                    // finalizarAguardar();
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                // finalizarAguardar();
-            });
-
-        return false;
-    }
-
-
     function limparFormulario() {
-        nome_input.value = "";
-        email_input.value = "";
-        senha_input.value = "";
-        confirmacao_senha_input.value = "";
-        select_fk_empresa.selectIndex = 0;
+        input_nome_linha.value = ''
+        input_numero_linha.value = ''
+        select_empresa.selectedIndex = 0
+    }
+
+    function status(statusOperacao) {
+        mensagem_operacao.styele.display = "block"
+        if (statusOperacao == "Sucesso") {
+            cor_status.style.background = "#2DE846"
+            img_status.src = "../assets/icons/sucesso.png"
+            mensagem_operacao.innerHTML = "Cadastro realizado com sucesso "
+        } else {
+            cor_status.style.background = "#FC5C65"
+            img_status.src = "../assets/icons/erro.png"
+            mensagem_operacao.innerHTML = "Erro ao cadastrar"
+        }
+        setInterval(() => {
+            mensagem_operacao.styele.display = "none"
+        }, 3000)
     }
 
 

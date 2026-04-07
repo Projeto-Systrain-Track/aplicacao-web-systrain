@@ -695,3 +695,13 @@ p {
     text-align: center;
     padding: 40px 20px;
 }
+.cont-linha-rbc{
+    display: flex;
+    gap: 20px;
+
+}
+.circulo-cor-linha {
+    height: 25px;
+    width: 25px;
+    border-radius: 100%;
+}
