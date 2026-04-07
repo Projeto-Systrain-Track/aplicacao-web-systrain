@@ -1,9 +1,11 @@
 var database = require("../database/config");
 
-function cadastrar(nome, numero, cor, empresa) {
+function cadastrar(nome, numero, cor, empresa, trecho) {
+    console.log("ENTREI NO MODEL", nome, numero, cor, empresa, trecho);
+    
     var instrucaoSql = `
-        INSERT INTO linha (nomeLinha, corLinha, numeroLinha, fkEmpresa) VALUES 
-        ('${nome}', '${cor}', '${numero}', '${empresa}');
+        INSERT INTO linha (nomeLinha, corLinha, numeroLinha, fkEmpresa, trecho) VALUES 
+        ('${nome}', '${cor}', '${numero}', ${empresa}, '${trecho}');
     `;
     return database.executar(instrucaoSql);
 }

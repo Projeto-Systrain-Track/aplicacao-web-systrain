@@ -145,9 +145,13 @@
                 </div>
                 <div class="modal-body">
                     <div class="cadastro">
-                        <div class="w-100">
+                        <div class="w-50">
                             <label>Nome da linha</label>
                             <input type="text" id="input_nome_linha" placeholder="Esmeralda">
+                        </div>
+                        <div class="w-50">
+                            <label>Trecho</label>
+                            <input type="text" id="input_trecho_linha" placeholder="Osasco - Bruno Covas">
                         </div>
                         <div class="ipt-50">
                             <label>Número da linha</label>
@@ -224,12 +228,14 @@
         var numero_linha = input_numero_linha.value
         var cor_linha = input_cor_linha.value
         var empresa = select_empresa.value
+        var trecho = input_trecho_linha.value
 
         if (
             nome_linha == '' ||
             numero_linha == '' ||
             cor_linha == '' ||
-            empresa == 0
+            empresa == 0 ||
+            trecho == ''
         ) {
             alert('Erro ao cadastrar, responda todos os campos');
             return;
@@ -244,7 +250,8 @@
                 nomeServer: nome_linha,
                 numeroServer: numero_linha,
                 corServer: cor_linha,
-                empresaServer: empresa
+                empresaServer: empresa,
+                trechoServer: trecho
             }),
         })
             .then(function (resposta) {

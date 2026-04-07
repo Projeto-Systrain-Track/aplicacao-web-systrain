@@ -1,3 +1,5 @@
+
+create database systraintrack;
 use systraintrack;
 CREATE TABLE IF NOT EXISTS empresa (
   idEmpresa INT NOT NULL AUTO_INCREMENT,
@@ -8,13 +10,12 @@ CREATE TABLE IF NOT EXISTS empresa (
   email VARCHAR(100) NOT NULL,
   telefone VARCHAR(15) NULL DEFAULT NULL,
   PRIMARY KEY (idEmpresa));
-
 CREATE TABLE IF NOT EXISTS linha (
-  idLinha INT NOT NULL,
+  idLinha INT NOT NULL AUTO_INCREMENT,
   nomeLinha VARCHAR(45) NULL,
   corLinha VARCHAR(45) NULL,
   numeroLinha VARCHAR(45) NULL,
-  extensaoEmKm VARCHAR(45) NULL,
+  trecho VARCHAR(45) NULL,
   fkEmpresa INT NOT NULL,
   PRIMARY KEY (idLinha),
   CONSTRAINT fkEmpresa
@@ -37,14 +38,11 @@ CREATE TABLE IF NOT EXISTS rbc (
     
     
 CREATE TABLE IF NOT EXISTS eventoOperacional (
-  idEventoOperacional INT NOT NULL,
+  idEventoOperacional INT NOT NULL AUTO_INCREMENT,
   titulo VARCHAR(45) NULL,
   descricao VARCHAR(45) NULL,
   classificacao VARCHAR(45) NULL,
   PRIMARY KEY (idEventoOperacional));
-
-
-
 
 CREATE TABLE IF NOT EXISTS administrador (
   idAdministrador INT NOT NULL AUTO_INCREMENT,
@@ -78,7 +76,7 @@ CREATE TABLE IF NOT EXISTS endereco (
     FOREIGN KEY (fk_end_empresa)
     REFERENCES systraintrack.empresa (idEmpresa));
 
-CREATE TABLE IF NOT EXISTS faleconosco (
+CREATE TABLE IF NOT EXISTS faleConosco (
   idMensagem INT NOT NULL AUTO_INCREMENT,
   mensagem VARCHAR(400) NOT NULL,
   emailContato VARCHAR(100) NOT NULL,

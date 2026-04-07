@@ -5,6 +5,7 @@ async function cadastrar(req, res) {
     var numero = req.body.numeroServer;
     var cor = req.body.corServer;
     var empresa = req.body.empresaServer;
+    var trecho = req.body.trechoServer;
 
     if (nome == undefined) {
         return res.status(400).send("nome está undefined!");
@@ -14,9 +15,13 @@ async function cadastrar(req, res) {
         return res.status(400).send("cor está undefined!");
     } else if (empresa == undefined) {
         return res.status(400).send("empresa está undefined!");
+    } else if (trecho == undefined) {
+        return res.status(400).send("empresa está undefined!");
     }
     try {
-        var requisicaoBd = await linhaModel.cadastrar(nome, numero, cor, empresa)
+        console.log("Nome: ", nome,  "Numero: ", numero,"Cor: ",  cor,"Empresa: ", empresa, "Trecho: ", trecho);
+    
+        var requisicaoBd = await linhaModel.cadastrar(nome, numero, cor, empresa, trecho)
         if (requisicaoBd.affectedRows == 1) {
             return res.status(200).json({ mensagem: "O cadastro da linha foi feito com sucesso!", idLinhaCadastrada: requisicaoBd.insertId });
         } else {
