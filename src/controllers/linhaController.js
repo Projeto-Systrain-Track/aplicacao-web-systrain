@@ -37,17 +37,44 @@ async function listar(req, res) {
     var requisicaoBd = await linhaModel.listar()
     console.log("Linhas: ", requisicaoBd);
     console.log("requisicaoBd.length", requisicaoBd.length );
-    
-
     if (requisicaoBd.length > 0) {
         return res.status(200).json({ listaLinhas: requisicaoBd });
     } else {
         return res.status(400).json({ mensagem: "Não foi possível listar as linhas" });
     }
-
 }
+async function listarLinhasEmpresa(req, res) {
+    var idEmpresa = req.params.idEmpresa
+    if (idEmpresa == undefined) {
+        return res.status(400).json({mensagem: "O seu idEmpresa está undefined"})
+    }
+    idEmpresa = idEmpresa.replace(":", "")
+
+    var requisicaoBd = await linhaModel.listarLinhasEmpresa(idEmpresa)
+    console.log("Linhas: ", requisicaoBd);
+    console.log("requisicaoBd.length", requisicaoBd.length);
+    if (requisicaoBd.length > 0) {
+
+        for (var i = 0; i < requisicaoBd.length; i++) {
+            requisicaoBd[i].status = "Operando"
+            console.log("requisicaoBd[i].status", requisicaoBd[i].status);            
+            var incidentes = Math.round(Math.random() * 10)
+            var disponibilidade = Math.round(Math.random() * 10) + 90
+            requisicaoBd[i].status = "Operando"
+            requisicaoBd[i].incidentes = incidentes
+            requisicaoBd[i].disponibilidade = disponibilidade          
+        }
+
+        return res.status(200).json(requisicaoBd);
+    } else {
+        return res.status(400).json({ mensagem: "Não foi possível listar as linhas" });
+    }
+}
+
+
 
 module.exports = {
     cadastrar,
-    listar
+    listar,
+    listarLinhasEmpresa
 }

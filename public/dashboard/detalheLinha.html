@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysTrain Track | Detalhamento Linha</title>
+    <link rel="stylesheet" href="estilo.css" />
+    <script src="../js/sessao.js"></script>
+    <link rel="icon" href="../assets/icons/logo.svg" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container-sys">
+        <aside class="nav-lateral desktop">
+            <div class="logo">
+                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" />
+            </div>
+
+            <nav class="links">
+                <a class="link-lateral" href="dashboard.html">Visão geral</a>
+                <a class="link-lateral ativo" href="linhas.html">Linhas</a>
+                <a class="link-lateral" href="incidentes.html">Incidentes</a>
+                <a class="link-lateral" href="relatorios.html">Relatórios</a>
+            </nav>
+
+            <div class="opcoes">
+                <div class="btn-lateral" id="nome_user">
+
+                </div>
+
+                <button onclick="limparSessao()" class="btn-lateral">
+                    <p>Sair</p>
+                </button>
+            </div>
+        </aside>
+
+        <main class="conteudo">
+            <section class="topo-pagina">
+                <div>
+                    <p class="subtitulo">Detalhamento da linha</p>
+                    <div class="titulo" id="nome_linha">Linhas Monitoradas</div>
+                    <p class="descricao" id="trecho_linha">Osasco - Bruno Covas</p>
+                </div>
+            </section>
+
+
+            <section class="container-kpis w-100 d-flex flex-row h-25">
+                <div class="card-kpi d-flex flex-row w-25 m-2 p-3 justify-content-evenly align-items-center">
+                    <div class="cont-textos">
+                        <h4 class="descricao-kpi" id="descricao_total_servidores">Total de servidores ativos</h4>
+                        <p class="metrica-kpi" id="metrica_total_servidores"></p>
+                    </div>
+                    <img src="../assets/icons/icon-servidor.jpg" class="icon-kpi h-25 " alt="">
+                </div>
+                <div class="card-kpi d-flex flex-row w-25 m-2 p-3 justify-content-evenly align-items-center">
+                    <div class="cont-textos">
+                        <h4 class="descricao-kpi" id="descricao_status_sistema">Status do sistema</h4>
+                        <p class="metrica-kpi" id="metrica_status_sistema"></p>
+                    </div>
+                    <img src="../assets/icons/icon-status.jpg" class="icon-kpi h-25 " alt="">
+                </div>
+                <div class="card-kpi d-flex flex-row w-25 m-2 p-3 justify-content-evenly align-items-center">
+                    <div class="cont-textos">
+                        <h4 class="descricao-kpi" id="descricao_latencia_media">Latência média</h4>
+                        <p class="metrica-kpi" id="metrica_latencia_media"></p>
+                    </div>
+                    <img src="../assets/icons/icon-wifi.jpg" class="icon-kpi h-25 " alt="">
+                </div>
+                <div class="card-kpi d-flex flex-row w-25 m-2 p-3 justify-content-evenly align-items-center">
+                    <div class="cont-textos">
+                        <h4 class="descricao-kpi" id="descricao_pico_latencia">Pico de latência</h4>
+                        <p class="metrica-kpi" id="metrica_pico_latencia"></p>
+                    </div>
+                    <img src="../assets/icons/icon-alerta.jpg" class="icon-kpi h-25 " alt="">
+                </div>
+            </section>
+
+
+        </main>
+    </div>
+</body>
+<script>
+    var parametrosUrl = new URLSearchParams(window.location.search)
+    var idLinha = parametrosUrl.get("id")
+
+
+
+
+</script>
+
+</html>

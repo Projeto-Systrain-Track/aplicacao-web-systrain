@@ -9,6 +9,9 @@ router.post("/cadastrar", function(req, res){
 router.get("/listar", function(req, res){
     linhaController.listar(req, res)
 })
+router.get("/listarLinhasEmpresa/:idEmpresa", function(req, res){
+    linhaController.listarLinhasEmpresa(req, res)
+})
 
 
 module.exports = router;
