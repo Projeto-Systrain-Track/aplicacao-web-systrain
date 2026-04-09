@@ -137,8 +137,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar RBC</h1>
-                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
-                        aria-label="Close" onclick="fecharModal()"></button>
+                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"
+                        onclick="fecharModal()"></button>
                 </div>
                 <div class="modal-body">
                     <div class="cadastro">
@@ -146,19 +146,15 @@
                             <label>Modelo</label>
                             <input type="text" id="input_modelo" placeholder="Modelo XPTO">
                         </div>
-                        <div class="ipt-50 ">
-                            <label>Versão</label>
-                            <input class="w-90-m ipt-mobile-100" type="text" id="input_versao" placeholder="V2">
-                        </div>
-                        <div class="ipt-25">
+                        <div class="ipt-50">
                             <label>Linha</label>
-                            <select class="w-90 h-100" id="select_linha">
+                            <select class="w-90 h-100" id="select_linha" onchange="inserirEmpresa()">
                                 <option disabled selected>Escolha a linha</option>
                             </select>
                         </div>
-                        <div class="ipt-25 ">
+                        <div class="ipt-50">
                             <label>Empresa</label>
-                            <select class="h-100" id="select_fk_empresa"></select>
+                            <select disabled class="h-100" id="select_fk_empresa"></select>
                         </div>
                         <div class="w-100" id="cont_componentes">
                             <label>Componente</label>
@@ -169,7 +165,7 @@
                                 <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
                                     <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
                                 </select>
-                                <input class="h-100 ipt-25 m-1" id="input_limite_${}" placeholder="Insira um limite">
+                                <input class="h-100 ipt-25 m-1" id="input_limite_${}" placeholder="Insira um limite: ">
                             </div>
                             <div class="d-flex flex-row">
                                 <select disabled class="ipt-25 h-100 m-1 select-componente">
@@ -178,7 +174,7 @@
                                 <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
                                     <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
                                 </select>
-                                <input class="h-100 ipt-25 m-1" id="input_limite_${}" placeholder="Insira um limite">
+                                <input class="h-100 ipt-25 m-1" id="input_limite_${}" placeholder="Insira um limite: ">
                             </div>
                             <div class="d-flex flex-row">
                                 <select disabled class="ipt-25 h-100 m-1 select-componente">
@@ -188,17 +184,48 @@
                                     <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
                                 </select>
                                 <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso"
-                                    placeholder="Insira um limite">
+                                    placeholder="Insira um limite: ">
                             </div>
+                            <div class="d-flex flex-row">
+                                <select disabled class="ipt-25 h-100 m-1 select-componente">
+                                    <option value="processos" selected>Processos</option>
+                                </select>
+                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                                    <option value="porcentagem_cpu_processos">Uso de CPU (%)</option>
+                                </select>
+                                <input class="h-100 ipt-25 m-1" id="input_limite_processos_cpu_porcentagem_uso"
+                                    placeholder="Insira um limite: ">
+                            </div>
+                            <div class="d-flex flex-row">
+                                <select disabled class="ipt-25 h-100 m-1 select-componente">
+                                    <option value="processos" selected>Processos</option>
+                                </select>
+                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                                    <option value="porcentagem_memoria_ram_processos">Uso de Memória RAM (%)</option>
+                                </select>
+                                <input class="h-100 ipt-25 m-1" id="input_limite_processos_memoria_ram_porcentagem_uso"
+                                    placeholder="Insira um limite: ">
+                            </div>
+                            <div class="d-flex flex-row">
+                                <select disabled class="ipt-25 h-100 m-1 select-componente">
+                                    <option value="processos" selected>Processos</option>
+                                </select>
+                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                                    <option value="porcentagem_disco_processos">Uso de disco (%)</option>
+                                </select>
+                                <input class="h-100 ipt-25 m-1" id="input_limite_processos_disco_porcentagem_uso"
+                                    placeholder="Insira um limite: ">
+                            </div>
+
                             <div class="d-flex flex-row">
                                 <select disabled class="ipt-25 h-100 m-1 select-componente">
                                     <option value="Latência" selected>Latência</option>
                                 </select>
                                 <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                                    <option value="Porcentagem de uso">Transmissão de dados</option>
+                                    <option value="velocidade_transmissao_mbps">Velocidade de Transmissão (Mbps)</option>
                                 </select>
-                                <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso"
-                                    placeholder="Insira um limite">
+                                <input class="h-100 ipt-25 m-1" id="input_limite_latencia_velocidade_transmissao"
+                                    placeholder="Insira um limite: ">
                             </div>
                         </div>
                         <button class="w-25  m-2 btn-add" onclick="adicionarSelectComponente()" type="button">
@@ -208,7 +235,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="fecharModal()">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        onclick="fecharModal()">Cancelar</button>
                     <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
                 </div>
             </div>
@@ -222,14 +250,18 @@
 <script>
     validarSessaoAdm()
     listarRBC()
+    var linhasListadas = []
+    var empresasListadas = []
+
 
     const modalCad = new bootstrap.Modal("#modal_cadastro")
 
     function abrirModal() {
         modalCad.show();
-        listarEmpresas()
         listarLinhas()
     }
+
+
 
     function fecharModal() {
         contComponente = 1
@@ -243,7 +275,7 @@
                     <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
                         <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
                     </select>
-                    <input class="h-100 ipt-25 m-1" id="input_limite" placeholder="Insira um limite">
+                    <input class="h-100 ipt-25 m-1" id="input_limite" placeholder="Insira um limite: ">
                 </div>
                 <div class="d-flex flex-row">
                     <select disabled class="ipt-25 h-100 m-1 select-componente">
@@ -252,7 +284,7 @@
                     <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
                         <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
                     </select>
-                    <input class="h-100 ipt-25 m-1" id="input_limite" placeholder="Insira um limite">
+                    <input class="h-100 ipt-25 m-1" id="input_limite" placeholder="Insira um limite: ">
                 </div>
                 <div class="d-flex flex-row">
                     <select disabled class="ipt-25 h-100 m-1 select-componente">
@@ -261,7 +293,7 @@
                     <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
                         <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
                     </select>
-                    <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso" placeholder="Insira um limite">
+                    <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso" placeholder="Insira um limite: ">
                 </div>
                 <div class="d-flex flex-row">
                     <select disabled class="ipt-25 h-100 m-1 select-componente">
@@ -270,7 +302,7 @@
                     <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
                         <option value="Porcentagem de uso">Transmissão de dados</option>
                     </select>
-                    <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso" placeholder="Insira um limite">
+                    <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso" placeholder="Insira um limite: ">
                 </div>
         `
     }
@@ -293,7 +325,7 @@
                                 <td>${rbc.versao}</td>
                                 <td>${rbc.empresa}</td>
                                 <td>
-                                    <div class="cont-linha-rbc"><div class="circulo-cor-linha" style="background-color: ${rbc.corLinha};"></div>Linha ${rbc.numeroLinha} - ${rbc.nomeLinha}</div>
+                                     <div class="cont-linha-rbc"><div class="circulo-cor-linha" style="background-color: ${rbc.corLinha};"></div>Linha ${rbc.numeroLinha} - ${rbc.nomeLinha}</div>
                                 </td>
                             </tr>
                         `
@@ -305,6 +337,41 @@
                 console.log(`#ERRO: ${resposta}`);
             });
     }
+
+    function inserirEmpresa() {
+        var idLinha = select_linha.value
+        var selectEmpresa = document.getElementById("select_fk_empresa")
+        console.log("INSERIR ", idLinha, linhasListadas, empresasListadas);
+        for (var i = 0; i < linhasListadas.length; i++) {
+            var linha_atual = linhasListadas[i];
+            if (linha_atual[0] == idLinha) {
+                var idEmpresa = linha_atual[1]
+                selectEmpresa.innerHTML = `
+                        <option selected disabled value="${linha_atual[1]}">${linha_atual[2]}</option>
+                `
+            }
+        }
+    }
+    // Listando empresas cadastradas - Atualização: Esse trecho não é necessário pois a empresa é inserida automaticamente ao selecionar a linha, visto que cada linha tem uma empresa vinculada. Deixarei comentado caso seja necessário futuramente.
+    // function listarEmpresas() {
+    //     var cont = 0;
+    //     var selectEmpresa = document.getElementById("select_fk_empresa")
+    //     fetch("/empresas/listar", {
+    //         method: "GET",
+    //     })
+    //         .then(function (resposta) {
+    //             resposta.json().then((empresas) => {
+    //                 empresas.forEach(empresa => {
+    //                     cont++
+    //                     console.log(empresa)
+    //                     empresasListadas.push([empresa.idEmpresa, empresa.nomeFantasia])
+    //                 });
+    //             });
+    //         })
+    //         .catch(function (resposta) {
+    //             console.log(`#ERRO: ${resposta}`);
+    //         });
+    // }
     function listarLinhas() {
         var linhasCadastradas = ''
         console.log("Buscando RBC:")
@@ -314,12 +381,13 @@
             .then(function (resposta) {
                 resposta.json().then((linhas) => {
                     console.log(linhas);
-                    var linhasListadas = linhas.listaLinhas
-
-                    linhasListadas.forEach(linha => {
+                    var listaLinhas = linhas.listaLinhas
+                    linhasCadastradas = `<option disabled selected value="#">Escolha a linha</option>`
+                    listaLinhas.forEach(linha => {
                         linhasCadastradas += `
                                 <option value="${linha.idLinha}">Linha ${linha.numeroLinha} - ${linha.nomeLinha}</option>
                         `
+                        linhasListadas.push([linha.idLinha, linha.fkEmpresa, linha.nomeEmpresa])
                     })
                     document.getElementById("select_linha").innerHTML = linhasCadastradas
                 })
@@ -335,14 +403,12 @@
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
         var modelo = input_modelo.value
-        var versao = input_versao.value
         var linhaResp = select_linha.value
         var fkEmpresa = select_fk_empresa.value
 
         // Verificando se há algum campo em branco
         if (
             modelo == '' ||
-            versao == '' ||
             linhaResp == '' ||
             fkEmpresa == 0
         ) {
@@ -357,7 +423,6 @@
             },
             body: JSON.stringify({
                 modeloServer: modelo,
-                versaoServer: versao,
                 linhaRespServer: linhaResp,
                 fkEmpresaServer: fkEmpresa
             }),
@@ -396,36 +461,13 @@
                 <select name="" class="ipt-50 h-100 m-1" id="select-unidade-medida">
                     <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
                 </select>
-                <input class="h-100 ipt-25 m-1" id="input_limite_${contComponente}" placeholder="Insira um limite">
+                <input class="h-100 ipt-25 m-1" id="input_limite_${contComponente}" placeholder="Insira um limite: ">
             </div>
         `;
 
         contComponente++
     }
-    // Listando empresas cadastradas 
-    function listarEmpresas() {
-        var listaEmpresas = '<option value="0" selected disabled>Escolha a empresa</option>';
-        var cont = 0;
-        var selectEmpresa = document.getElementById("select_fk_empresa")
-        fetch("/empresas/listar", {
-            method: "GET",
-        })
-            .then(function (resposta) {
-                resposta.json().then((empresas) => {
-                    empresas.forEach(empresa => {
-                        cont++
-                        console.log(empresa)
-                        listaEmpresas += `
-                            <option value="${empresa.idEmpresa}">${empresa.razaoSocial}</option>
-                        `
-                    });
-                    selectEmpresa.innerHTML = listaEmpresas
-                });
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-    }
+    
 
     function limparFormulario() {
         input_modelo.value = ''
