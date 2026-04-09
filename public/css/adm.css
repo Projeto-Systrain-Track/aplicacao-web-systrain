@@ -705,3 +705,10 @@ p {
     width: 25px;
     border-radius: 100%;
 }
+.btn-add{
+    background-color: var(--azul-titulos);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    
+}

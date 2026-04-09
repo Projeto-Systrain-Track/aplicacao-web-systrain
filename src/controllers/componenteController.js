@@ -1,6 +1,5 @@
 var componentesModel = require("../models/componenteModel")
 
-
 function cadastrarComponente(req, res) {
     var nome = req.body.nomeServer;
     var tipo = req.body.tipoServer;

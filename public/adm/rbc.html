@@ -53,9 +53,6 @@
                                     <a class="nav-link link-ativo" href="rbc.html">RBC</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="componentes.html">Componentes</a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" href="duvidas.html">Dúvidas</a>
                                 </li>
                                 <li class="nav-item">
@@ -82,11 +79,10 @@
                 <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track">
             </div>
             <div class="links">
-                <a class="link-lateral" href="home.html">Central</a>
+                <a class="link-lateral" href="home.html">Visão geral</a>
                 <a class="link-lateral " href="index.html">Empresas</a>
                 <a class="link-lateral " href="usuarios.html">Usuários</a>
                 <a class="link-lateral ativo " href="rbc.html">RBC</a>
-                <a class="link-lateral " href="componentes.html">Componentes</a>
                 <a class="link-lateral" href="duvidas.html">Dúvidas</a>
                 <a class="link-lateral" href="linha.html">Linhas</a>
             </div>
@@ -142,7 +138,7 @@
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar RBC</h1>
                     <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+                        aria-label="Close" onclick="fecharModal()"></button>
                 </div>
                 <div class="modal-body">
                     <div class="cadastro">
@@ -164,10 +160,55 @@
                             <label>Empresa</label>
                             <select class="h-100" id="select_fk_empresa"></select>
                         </div>
+                        <div class="w-100" id="cont_componentes">
+                            <label>Componente</label>
+                            <div class="d-flex flex-row">
+                                <select disabled class="ipt-25 h-100 m-1 select-componente">
+                                    <option value="CPU" selected>CPU</option>
+                                </select>
+                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                                    <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
+                                </select>
+                                <input class="h-100 ipt-25 m-1" id="input_limite_${}" placeholder="Insira um limite">
+                            </div>
+                            <div class="d-flex flex-row">
+                                <select disabled class="ipt-25 h-100 m-1 select-componente">
+                                    <option value="Memória Ram" selected>Memória Ram</option>
+                                </select>
+                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                                    <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
+                                </select>
+                                <input class="h-100 ipt-25 m-1" id="input_limite_${}" placeholder="Insira um limite">
+                            </div>
+                            <div class="d-flex flex-row">
+                                <select disabled class="ipt-25 h-100 m-1 select-componente">
+                                    <option value="Disco" selected>Disco</option>
+                                </select>
+                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                                    <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
+                                </select>
+                                <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso"
+                                    placeholder="Insira um limite">
+                            </div>
+                            <div class="d-flex flex-row">
+                                <select disabled class="ipt-25 h-100 m-1 select-componente">
+                                    <option value="Latência" selected>Latência</option>
+                                </select>
+                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                                    <option value="Porcentagem de uso">Transmissão de dados</option>
+                                </select>
+                                <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso"
+                                    placeholder="Insira um limite">
+                            </div>
+                        </div>
+                        <button class="w-25  m-2 btn-add" onclick="adicionarSelectComponente()" type="button">
+                            + Adicionar componente
+                        </button>
+
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="fecharModal()">Cancelar</button>
                     <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
                 </div>
             </div>
@@ -188,6 +229,50 @@
         modalCad.show();
         listarEmpresas()
         listarLinhas()
+    }
+
+    function fecharModal() {
+        contComponente = 1
+        const container = document.getElementById("cont_componentes");
+        container.innerHTML = `
+            <label>Componente</label>
+                <div class="d-flex flex-row">
+                    <select disabled class="ipt-25 h-100 m-1 select-componente">
+                        <option value="CPU" selected>CPU</option>
+                    </select>
+                    <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                        <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
+                    </select>
+                    <input class="h-100 ipt-25 m-1" id="input_limite" placeholder="Insira um limite">
+                </div>
+                <div class="d-flex flex-row">
+                    <select disabled class="ipt-25 h-100 m-1 select-componente">
+                        <option value="Memória Ram" selected>Memória Ram</option>
+                    </select>
+                    <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                        <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
+                    </select>
+                    <input class="h-100 ipt-25 m-1" id="input_limite" placeholder="Insira um limite">
+                </div>
+                <div class="d-flex flex-row">
+                    <select disabled class="ipt-25 h-100 m-1 select-componente">
+                        <option value="Disco" selected>Disco</option>
+                    </select>
+                    <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                        <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
+                    </select>
+                    <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso" placeholder="Insira um limite">
+                </div>
+                <div class="d-flex flex-row">
+                    <select disabled class="ipt-25 h-100 m-1 select-componente">
+                        <option value="Latência" selected>Latência</option>
+                    </select>
+                    <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                        <option value="Porcentagem de uso">Transmissão de dados</option>
+                    </select>
+                    <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso" placeholder="Insira um limite">
+                </div>
+        `
     }
 
     function listarRBC() {
@@ -243,6 +328,9 @@
                 console.log(`#ERRO: ${resposta}`);
             });
     }
+
+
+
     function cadastrar() {
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
@@ -293,7 +381,27 @@
 
         return false;
     }
+    var contComponente = 1
+    function adicionarSelectComponente() {
+        const container = document.getElementById("cont_componentes");
+        container.innerHTML += `
+            <div class="d-flex flex-row">
+                <select class="ipt-25 h-100 m-1 select-componente">
+                    <option value="#" selected>Selecione o tipo de componente:</option>
+                    <option value="CPU">CPU</option>
+                    <option value="Disco">Disco</option>
+                    <option value="Memória Ram">Memória Ram</option>
+                    <option value="Latência">Latência</option>
+                </select>
+                <select name="" class="ipt-50 h-100 m-1" id="select-unidade-medida">
+                    <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
+                </select>
+                <input class="h-100 ipt-25 m-1" id="input_limite_${contComponente}" placeholder="Insira um limite">
+            </div>
+        `;
 
+        contComponente++
+    }
     // Listando empresas cadastradas 
     function listarEmpresas() {
         var listaEmpresas = '<option value="0" selected disabled>Escolha a empresa</option>';
