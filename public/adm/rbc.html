@@ -113,7 +113,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Modelo do RBC</th>
+                                <th scope="col">Nome do servidor</th>
                                 <th scope="col">Linha</th>
                                 <th scope="col">Empresa responsável</th>
                                 <th scope="col">Trecho</th>
@@ -140,10 +140,15 @@
                     </div>
                     <div class="modal-body">
                         <div class="cadastro">
-                            <div class="w-100">
+                            <div class="w-100 m-1">
                                 <label>Nome de servidor</label>
                                 <input type="text" id="input_servidor" required placeholder="Insira o nome do servidor:"
                                     name="nome_servidor">
+                            </div>
+                            <div class="w-100 m-1">
+                                <label>MAC Address</label>
+                                <input type="text" id="input_mac" required placeholder="Insira o MAC do servidor:"
+                                    name="mac_address">
                             </div>
 
                             <div class="ipt-50">
@@ -210,7 +215,7 @@
                         rbcsCadastrados += `
                              <tr>
                                 <th scope="row">${rbc.idRbc}</th>
-                                <td>${rbc.nome_servidor}</td>
+                                <td>${rbc.nomeServidor}</td>
                                 <td>
                                      <div class="cont-linha-rbc"><div class="circulo-cor-linha" style="background-color: ${rbc.corLinha};"></div>Linha ${rbc.numeroLinha} - ${rbc.nomeLinha}</div>
                                 </td>
@@ -302,15 +307,13 @@
     );
 
     function cadastrar() {
-        const formulario = document.getElementById("form_cadastro_rbc");
-        const dadosDoFormulario = new FormData(formulario)
-        console.log(dadosDoFormulario);
-        var listaFormulario = []
-        dadosDoFormulario.forEach((valorAtual, nomeAtual) => {
-            listaFormulario.push([nomeAtual, valorAtual])
-        })
+        var formulario = document.getElementById("form_cadastro_rbc");
+        var dadosDoFormulario = new FormData(formulario)
+        var objetoFormulario = Object.fromEntries(dadosDoFormulario)
 
-        console.log("Lista: ", listaFormulario);
+        console.log(objetoFormulario);
+    
+        console.log("objetoFormulario: ", objetoFormulario);
 
         fetch("/rbcs/cadastrarRbc", {
             method: "POST",
@@ -318,7 +321,7 @@
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                listaFormularioServer: listaFormulario,
+                objetoFormularioServer: objetoFormulario,
             }),
         })
             .then(function (resposta) {
@@ -328,6 +331,7 @@
                     modalCad.hide()
                     listarRBC();
                     // status("Sucesso")
+                    formulario.reset()
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro do RBC!";
                 }

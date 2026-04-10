@@ -1,5 +1,5 @@
-create database SysTrainTrack;
-use SysTrainTrack;
+create database systraintrack;
+use systraintrack;
 CREATE TABLE IF NOT EXISTS empresa (
   idEmpresa INT NOT NULL AUTO_INCREMENT,
   razaoSocial VARCHAR(100) UNIQUE NOT NULL,
@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS linha (
 
 CREATE TABLE IF NOT EXISTS rbc (
   idRbc INT NOT NULL AUTO_INCREMENT,
-  nome_servidor VARCHAR(45) NULL DEFAULT NULL,
+  nomeServidor VARCHAR(45) NULL DEFAULT NULL,
+  macAdress VARCHAR(45) NULL DEFAULT NULL,
   fkLinha INT NULL DEFAULT NULL,
   CONSTRAINT fkLinha
     FOREIGN KEY (fkLinha)

@@ -6,11 +6,11 @@ function listarRbc(){
     return database.executar(instrucaoSql)
 }
 
-function cadastrarRbc(nome_servidor, linha_responsavel, empresa_responsavel) {
+function cadastrarRbc(nome_servidor, mac_address, linha_responsavel, empresa_responsavel) {
     console.log("ACESSEI O RBC MODEL")
     var instrucaoSql = `
-        INSERT INTO rbc(nome_servidor, fkLinha, fkEmpresa) VALUES
-            ('${nome_servidor}', '${linha_responsavel}', ${empresa_responsavel});
+        INSERT INTO rbc(nomeServidor, macAdress, fkLinha, fkEmpresa) VALUES
+            ('${nome_servidor}', '${mac_address}', '${linha_responsavel}', ${empresa_responsavel});
         `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
