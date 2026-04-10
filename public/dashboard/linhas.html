@@ -51,13 +51,14 @@
               <th>Linha</th>
               <th>Trecho</th>
               <th>Status</th>
-              <th>Estações</th>
               <th>Incidentes</th>
               <th>Disponibilidade</th>
             </tr>
           </thead>
 
-          <tbody id="tabelaLinhas"></tbody>
+          <tbody id="tabelaLinhas">
+
+          </tbody>
         </table>
       </section>
     </main>
@@ -66,9 +67,47 @@
 
 </html>
 
-<script src="linhas.js"></script>
 <script>
-  validarSessaoUsuario()
-  mostrarLinha()
 
+  function irParaDetalhe(idLinha) {
+    window.location = `detalheLinha.html?id=${idLinha}`
+  }
+
+  function montarTabelaLinhas() {
+    var idEmpresa = sessionStorage.ID_EMPRESA
+    var tabela = document.getElementById("tabelaLinhas")
+    var conteudoTabela = ""
+    try {
+      fetch(`/linha/listarLinhasEmpresa/:${idEmpresa}`, {
+        method: "GET"
+      })
+        .then(function (resposta) {
+          resposta.json().then((linhas) => {
+            console.log("Linhas: ", linhas);
+            linhas.forEach(linha => {
+              conteudoTabela += `
+                  <tr onclick="irParaDetalhe(${linha.idLinha})">
+                    <td>${linha.numeroLinha}</td>
+                    <td>${linha.trecho}</td>
+                    <td>${linha.status}</td>
+                    <td>${linha.incidentes}</td>
+                    <td>${linha.disponibilidade}%</td>
+                  </tr>
+              `
+            });
+
+            tabela.innerHTML = conteudoTabela
+          })
+        })
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+        });
+    } catch (error) {
+
+    }
+
+
+  }
+
+  montarTabelaLinhas()
 </script>

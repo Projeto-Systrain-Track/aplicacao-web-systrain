@@ -1,84 +1,117 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+create database SysTrainTrack;
+use SysTrainTrack;
+CREATE TABLE IF NOT EXISTS empresa (
+  idEmpresa INT NOT NULL AUTO_INCREMENT,
+  razaoSocial VARCHAR(100) UNIQUE NOT NULL,
+  token CHAR(10) UNIQUE NOT NULL,
+  dataCadastro DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  cnpj VARCHAR(40) UNIQUE NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  telefone VARCHAR(15) NULL DEFAULT NULL,
+  PRIMARY KEY (idEmpresa));
 
-/*
-comandos para mysql server
-*/
+CREATE TABLE IF NOT EXISTS linha (
+  idLinha INT NOT NULL AUTO_INCREMENT,
+  nomeLinha VARCHAR(45) NULL,
+  corLinha VARCHAR(45) NULL,
+  numeroLinha VARCHAR(45) NULL,
+  trecho VARCHAR(45) NULL,
+  fkEmpresa INT NOT NULL,
+  PRIMARY KEY (idLinha),
+  CONSTRAINT fkEmpresa
+    FOREIGN KEY (fkEmpresa)
+    REFERENCES empresa (idEmpresa));
 
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+CREATE TABLE IF NOT EXISTS rbc (
+  idRbc INT NOT NULL AUTO_INCREMENT,
+  nome_servidor VARCHAR(45) NULL DEFAULT NULL,
+  fkLinha INT NULL DEFAULT NULL,
+  CONSTRAINT fkLinha
+    FOREIGN KEY (fkLinha)
+    REFERENCES linha (idLinha),
+  fkEmpresa INT NULL DEFAULT NULL,
+  PRIMARY KEY (idRbc),
+  CONSTRAINT rbc_ibfk_1
+    FOREIGN KEY (fkEmpresa)
+    REFERENCES empresa (idEmpresa));
+    
+CREATE TABLE IF NOT EXISTS eventoOperacional (
+  idEventoOperacional INT NOT NULL AUTO_INCREMENT,
+  titulo VARCHAR(45) NULL,
+  descricao VARCHAR(45) NULL,
+  classificacao VARCHAR(45) NULL,
+  PRIMARY KEY (idEventoOperacional));
 
-/*
-comandos para mysql server
-*/
+CREATE TABLE IF NOT EXISTS administrador (
+  idAdministrador INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(45) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  senha VARCHAR(45) NULL DEFAULT NULL,
+  nivel INT NULL DEFAULT NULL,
+  PRIMARY KEY (idAdministrador),
+  UNIQUE INDEX email (email ASC) VISIBLE);
+  
+CREATE TABLE IF NOT EXISTS componente (
+  idComponente INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(45) NULL DEFAULT NULL,
+  tipo VARCHAR(45) NULL DEFAULT NULL,
+  unidadeMedida VARCHAR(45) NULL DEFAULT NULL,
+  campoWeb VARCHAR(45) NULL,
+  parametros VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (idComponente));
 
-CREATE DATABASE SysTrainTrack;
-USE SysTrainTrack;
+
+CREATE TABLE IF NOT EXISTS endereco (
+  idEndereco INT NOT NULL AUTO_INCREMENT,
+  estado VARCHAR(45) NOT NULL,
+  cep VARCHAR(9) NOT NULL,
+  numeroResidencial CHAR(9) NULL DEFAULT NULL,
+  rua VARCHAR(45) NULL DEFAULT NULL,
+  complemento VARCHAR(45) NULL DEFAULT NULL,
+  fk_end_empresa INT NOT NULL,
+  PRIMARY KEY (idEndereco),
+  INDEX fk_empresa_endereco (fk_end_empresa ASC) VISIBLE,
+  CONSTRAINT fk_empresa_endereco
+    FOREIGN KEY (fk_end_empresa)
+    REFERENCES systraintrack.empresa (idEmpresa));
+
+CREATE TABLE IF NOT EXISTS faleConosco (
+  idMensagem INT NOT NULL AUTO_INCREMENT,
+  mensagem VARCHAR(400) NOT NULL,
+  emailContato VARCHAR(100) NOT NULL,
+  PRIMARY KEY (idMensagem));
 
 
-CREATE TABLE empresa(
-idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
-razaoSocial VARCHAR(100) NOT NULL,
-token CHAR(10) NOT NULL UNIQUE,
-dataCadastro DATETIME DEFAULT current_timestamp,
-cnpj VARCHAR(40) NOT NULL UNIQUE,
-email VARCHAR(100) NOT NULL UNIQUE,
-telefone VARCHAR(15) UNIQUE
-);
 
-CREATE TABLE usuario (
-idUsuario INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(45) NOT NULL,
-email VARCHAR(45) NOT NULL UNIQUE,
-senha VARCHAR(200) NOT NULL,
-fk_empresa INT NOT NULL,
-FOREIGN KEY (fk_empresa) REFERENCES empresa(idEmpresa)
-);
-
-CREATE TABLE endereco(
-idEndereco INT PRIMARY KEY AUTO_INCREMENT,
-estado VARCHAR(45) NOT NULL,
-cep VARCHAR(9) NOT NULL,
-numeroResidencial CHAR(9),
-rua VARCHAR(45),
-complemento VARCHAR(45),
-fk_end_empresa INT NOT NULL,
-CONSTRAINT fk_empresa_endereco FOREIGN KEY (fk_end_empresa) REFERENCES empresa(idEmpresa)
-);
-
-CREATE TABLE rbc(
-idRbc INT PRIMARY KEY AUTO_INCREMENT,
-modelo VARCHAR(45),
-versao VARCHAR(45),
-linhaResp VARCHAR(45),
-fkEmpresa INT,
-FOREIGN KEY (fkEmpresa) REFERENCES empresa(idEmpresa)
-);
-
-CREATE TABLE componente(
-idComponente INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(45),
-tipo VARCHAR(45),
-unidadeMedida FLOAT,
-parametros INT
-);
-
-CREATE TABLE administrador(
-idAdministrador INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(45) NOT NULL,
-email VARCHAR(50) UNIQUE NOT NULL,
-senha VARCHAR(45),
-nivel INT 
-);
-
-CREATE TABLE faleConosco(
-idMensagem INT PRIMARY KEY AUTO_INCREMENT,
-mensagem VARCHAR(400) NOT NULL,
-emailContato VARCHAR(100) NOT NULL
-);
-
+CREATE TABLE IF NOT EXISTS usuario (
+  idUsuario INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(45) NOT NULL,
+  email VARCHAR(45) NOT NULL,
+  senha VARCHAR(200) NOT NULL,
+  fk_empresa INT NOT NULL,
+  PRIMARY KEY (idUsuario),
+  UNIQUE INDEX email (email ASC) VISIBLE,
+  INDEX fk_empresa (fk_empresa ASC) VISIBLE,
+  CONSTRAINT usuario_ibfk_1
+    FOREIGN KEY (fk_empresa)
+    REFERENCES empresa (idEmpresa));
+    
+CREATE TABLE IF NOT EXISTS rbcComponente (
+  fkRbc INT NOT NULL,
+  fkEmpresa INT NOT NULL,
+  fkCompRbc INT NOT NULL,
+  limite INT NULL,
+  PRIMARY KEY (fkRbc, fkEmpresa, fkCompRbc),
+  CONSTRAINT fk_rbc_has_componentes_rbc1
+    FOREIGN KEY (fkRbc)
+    REFERENCES rbc (idRbc),
+  CONSTRAINT fk_rbc_has_componentes_componentes1
+    FOREIGN KEY (fkCompRbc)
+    REFERENCES componente (idComponente),
+    CONSTRAINT fkRbcComponenteEmpresa
+		FOREIGN KEY (fkEmpresa)
+        REFERENCES empresa (idEmpresa)
+    );
 
 insert into administrador(nome, email, senha, nivel) values
 	('Geraldo', 'geraldo@systrain', 'systrain_adm', 3);
@@ -107,7 +140,7 @@ INSERT INTO endereco (estado, cep, numeroResidencial, rua, complemento, fk_end_e
 ('SP', '09009-000', '92', 'Rua Teodoro Sampaio', 'Sala 5', 9),
 ('SP', '10010-000', '640', 'Avenida Faria Lima', 'Andar 9', 10);
 
-    INSERT INTO usuario (nome, email, senha, fk_empresa) VALUES
+INSERT INTO usuario (nome, email, senha, fk_empresa) VALUES
 ('Brandão', 'brandao@viapaulista.com', '12345', 1),
 ('Marina Souza', 'marina.souza@viapaulista.com', '12345', 1),
 ('Carlos Henrique', 'carlos.henrique@ferrobandeirante.com', '12345', 2),
@@ -128,42 +161,14 @@ INSERT INTO endereco (estado, cep, numeroResidencial, rua, complemento, fk_end_e
 ('Aline Fernandes', 'aline.fernandes@novamalha.com', '12345', 9),
 ('Pedro Oliveira', 'pedro.oliveira@rbcconnect.com', '12345', 10),
 ('Beatriz Santos', 'beatriz.santos@rbcconnect.com', '12345', 10);
-
-INSERT INTO rbc (modelo, versao, linhaResp, fkEmpresa) VALUES
-('Siemens Trainguard', 'v2.1', 'Linha 7-Rubi', 1),
-('Alstom Atlas RBC', 'v3.0', 'Linha 8-Diamante', 1),
-('Hitachi Rail RBC', 'v1.9', 'Linha 9-Esmeralda', 2),
-('Siemens Trainguard', 'v2.3', 'Linha 10-Turquesa', 2),
-('Alstom Atlas RBC', 'v3.1', 'Linha 11-Coral', 3),
-('Hitachi Rail RBC', 'v2.0', 'Linha 12-Safira', 4),
-('Siemens Trainguard', 'v2.5', 'Linha 13-Jade', 5),
-('Alstom Atlas RBC', 'v3.2', 'Linha 7-Rubi', 6),
-('Hitachi Rail RBC', 'v2.2', 'Linha 8-Diamante', 7),
-('Siemens Trainguard', 'v2.6', 'Linha 9-Esmeralda', 8),
-('Alstom Atlas RBC', 'v3.3', 'Linha 10-Turquesa', 9),
-('Hitachi Rail RBC', 'v2.4', 'Linha 11-Coral', 10);
-
-INSERT INTO componente (nome, tipo, unidadeMedida, parametros) VALUES
-('Processador Intel Xeon Silver', 'CPU', 85.5, 90),
-('Processador Intel Xeon Gold', 'CPU', 78.2, 88),
-('Memória ECC 32GB', 'RAM', 24.7, 80),
-('Memória ECC 64GB', 'RAM', 47.9, 85),
-('SSD NVMe 1TB', 'Armazenamento', 68.3, 90),
-('SSD SATA 480GB', 'Armazenamento', 55.1, 80),
-('HD Enterprise 4TB', 'Armazenamento', 72.4, 85),
-('Placa de Rede Intel X520', 'Rede', 61.8, 75),
-('Placa de Rede Broadcom NetXtreme', 'Rede', 58.6, 75),
-('Fonte Redundante 750W', 'Energia', 43.2, 70),
-('Fonte Redundante 1000W', 'Energia', 49.1, 72),
-('Controladora RAID PERC H730', 'Controladora', 65.7, 82),
-('Sensor de Temperatura Interna', 'Temperatura', 38.5, 65),
-('Cooler Industrial 120mm', 'Refrigeração', 51.0, 68),
-('Módulo UPS Rack', 'Energia', 44.8, 70),
-('Servidor Dell PowerEdge', 'Servidor', 79.9, 92),
-('Servidor HPE ProLiant', 'Servidor', 81.4, 92),
-('Interface Serial de Comunicação', 'Comunicação', 57.3, 73),
-('Switch Gerenciável Cisco', 'Rede', 63.5, 78),
-('Módulo de Processamento RBC', 'Processamento', 88.9, 95);
+INSERT INTO componente (nome, tipo, unidadeMedida, parametros, campoWeb) VALUES
+('Processador do servidor', 'CPU', '%', 'Porcentagem de Uso', 'componentes_cpu'),
+('Memória RAM do servidor', 'RAM', '%', 'Porcentagem de Uso', 'componentes_memoria'),
+('Disco do servidor', 'Disco', '%', 'Porcentagem de Uso', 'componentes_disco'),
+('Tipo de métrica para processo', 'Processos', '%', 'Uso de CPU', 'componentes_proc_cpu'),
+('Tipo de métrica para processo', 'Processos', '%', 'Uso de Memória RAM', 'componentes_proc_memoria'),
+('Tipo de métrica para processo', 'Processos', '%', 'Uso de Disco', 'componentes_proc_disco'),
+('Latência de rede', 'Rede', 'Mbps', 'Velocidade de Transmissão', 'componentes_latencia');
 
 INSERT INTO faleConosco (mensagem, emailContato) VALUES
 ('Gostaria de entender melhor como funciona o monitoramento em tempo real do RBC.', 'contato1@gmail.com'),
@@ -182,11 +187,3 @@ INSERT INTO faleConosco (mensagem, emailContato) VALUES
 ('Quero saber se a solução atende operação 24x7.', 'operacao24h@yahoo.com'),
 ('É possível monitorar mais de um RBC por empresa?', 'rbc.multi@gmail.com');
 
-SELECT * FROM empresa WHERE idEmpresa = 1; 
-select * from empresa;
-select * from endereco;
-select * from usuario;
-select * from rbc;
-select * from componente;
-select * from administrador;
-select * from faleConosco;
