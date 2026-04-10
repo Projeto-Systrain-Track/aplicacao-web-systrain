@@ -16,8 +16,6 @@
 </head>
 
 <body>
-
-
     <div class="container-sys">
         <!-- nav mobile -->
         <div class="mobile">
@@ -29,8 +27,7 @@
                         aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon "></span>
                     </button>
-                    <div class="offcanvas offcanvas-end nav-mobile" tabindex="-1" id="offcanvasNavbar"
-                        aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas offcanvas-end nav-mobile" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                         <div class="offcanvas-header">
                             <div class="offcanvas-title " id="offcanvasNavbarLabel">
                                 <img class="imga" src="../assets/images/sys-logo - adm2.svg" alt="Sys-Train Track">
@@ -117,9 +114,9 @@
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Modelo do RBC</th>
-                                <th scope="col">Versão</th>
-                                <th scope="col">Empresa responsavel</th>
                                 <th scope="col">Linha</th>
+                                <th scope="col">Empresa responsável</th>
+                                <th scope="col">Trecho</th>
                             </tr>
                         </thead>
                         <tbody id="tabelaRbc">
@@ -131,117 +128,54 @@
         </main>
     </div>
 
-    <div class="modal fade " id="modal_cadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar RBC</h1>
-                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"
-                        onclick="fecharModal()"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="cadastro">
-                        <div class="w-100">
-                            <label>Modelo</label>
-                            <input type="text" id="input_modelo" placeholder="Modelo XPTO">
-                        </div>
-                        <div class="ipt-50">
-                            <label>Linha</label>
-                            <select class="w-90 h-100" id="select_linha" onchange="inserirEmpresa()">
-                                <option disabled selected>Escolha a linha</option>
-                            </select>
-                        </div>
-                        <div class="ipt-50">
-                            <label>Empresa</label>
-                            <select disabled class="h-100" id="select_fk_empresa"></select>
-                        </div>
-                        <div class="w-100" id="cont_componentes">
-                            <label>Componente</label>
-                            <div class="d-flex flex-row">
-                                <select disabled class="ipt-25 h-100 m-1 select-componente">
-                                    <option value="CPU" selected>CPU</option>
-                                </select>
-                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                                    <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
-                                </select>
-                                <input class="h-100 ipt-25 m-1" id="input_limite_${}" placeholder="Insira um limite: ">
-                            </div>
-                            <div class="d-flex flex-row">
-                                <select disabled class="ipt-25 h-100 m-1 select-componente">
-                                    <option value="Memória Ram" selected>Memória Ram</option>
-                                </select>
-                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                                    <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
-                                </select>
-                                <input class="h-100 ipt-25 m-1" id="input_limite_${}" placeholder="Insira um limite: ">
-                            </div>
-                            <div class="d-flex flex-row">
-                                <select disabled class="ipt-25 h-100 m-1 select-componente">
-                                    <option value="Disco" selected>Disco</option>
-                                </select>
-                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                                    <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
-                                </select>
-                                <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso"
-                                    placeholder="Insira um limite: ">
-                            </div>
-                            <div class="d-flex flex-row">
-                                <select disabled class="ipt-25 h-100 m-1 select-componente">
-                                    <option value="processos" selected>Processos</option>
-                                </select>
-                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                                    <option value="porcentagem_cpu_processos">Uso de CPU (%)</option>
-                                </select>
-                                <input class="h-100 ipt-25 m-1" id="input_limite_processos_cpu_porcentagem_uso"
-                                    placeholder="Insira um limite: ">
-                            </div>
-                            <div class="d-flex flex-row">
-                                <select disabled class="ipt-25 h-100 m-1 select-componente">
-                                    <option value="processos" selected>Processos</option>
-                                </select>
-                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                                    <option value="porcentagem_memoria_ram_processos">Uso de Memória RAM (%)</option>
-                                </select>
-                                <input class="h-100 ipt-25 m-1" id="input_limite_processos_memoria_ram_porcentagem_uso"
-                                    placeholder="Insira um limite: ">
-                            </div>
-                            <div class="d-flex flex-row">
-                                <select disabled class="ipt-25 h-100 m-1 select-componente">
-                                    <option value="processos" selected>Processos</option>
-                                </select>
-                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                                    <option value="porcentagem_disco_processos">Uso de disco (%)</option>
-                                </select>
-                                <input class="h-100 ipt-25 m-1" id="input_limite_processos_disco_porcentagem_uso"
-                                    placeholder="Insira um limite: ">
-                            </div>
-
-                            <div class="d-flex flex-row">
-                                <select disabled class="ipt-25 h-100 m-1 select-componente">
-                                    <option value="Latência" selected>Latência</option>
-                                </select>
-                                <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                                    <option value="velocidade_transmissao_mbps">Velocidade de Transmissão (Mbps)</option>
-                                </select>
-                                <input class="h-100 ipt-25 m-1" id="input_limite_latencia_velocidade_transmissao"
-                                    placeholder="Insira um limite: ">
-                            </div>
-                        </div>
-                        <button class="w-25  m-2 btn-add" onclick="adicionarSelectComponente()" type="button">
-                            + Adicionar componente
-                        </button>
-
+    <form id="form_cadastro_rbc">
+        <div class="modal fade " id="modal_cadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar RBC</h1>
+                        <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        onclick="fecharModal()">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="cadastrar()">Cadastrar</button>
+                    <div class="modal-body">
+                        <div class="cadastro">
+                            <div class="w-100">
+                                <label>Nome de servidor</label>
+                                <input type="text" id="input_servidor" required placeholder="Insira o nome do servidor:"
+                                    name="nome_servidor">
+                            </div>
+
+                            <div class="ipt-50">
+                                <label>Linha</label>
+                                <select class="w-90 h-100" id="select_linha" name="linha_responsavel" required
+                                    onchange="inserirEmpresa()">
+                                </select>
+                            </div>
+
+                            <div class="ipt-50">
+                                <label>Empresa</label>
+                                <select class="h-100" id="select_id_empresa" name="empresa_responsavel"
+                                    required></select>
+                            </div>
+
+                            <div class="w-100" id="cont_componentes">
+                                <label>Componente</label>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            onclick="fecharModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
 
 </body>
@@ -253,59 +187,14 @@
     var linhasListadas = []
     var empresasListadas = []
 
-
     const modalCad = new bootstrap.Modal("#modal_cadastro")
 
     function abrirModal() {
         modalCad.show();
         listarLinhas()
+        listarComponentes()
     }
 
-
-
-    function fecharModal() {
-        contComponente = 1
-        const container = document.getElementById("cont_componentes");
-        container.innerHTML = `
-            <label>Componente</label>
-                <div class="d-flex flex-row">
-                    <select disabled class="ipt-25 h-100 m-1 select-componente">
-                        <option value="CPU" selected>CPU</option>
-                    </select>
-                    <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                        <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
-                    </select>
-                    <input class="h-100 ipt-25 m-1" id="input_limite" placeholder="Insira um limite: ">
-                </div>
-                <div class="d-flex flex-row">
-                    <select disabled class="ipt-25 h-100 m-1 select-componente">
-                        <option value="Memória Ram" selected>Memória Ram</option>
-                    </select>
-                    <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                        <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
-                    </select>
-                    <input class="h-100 ipt-25 m-1" id="input_limite" placeholder="Insira um limite: ">
-                </div>
-                <div class="d-flex flex-row">
-                    <select disabled class="ipt-25 h-100 m-1 select-componente">
-                        <option value="Disco" selected>Disco</option>
-                    </select>
-                    <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                        <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
-                    </select>
-                    <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso" placeholder="Insira um limite: ">
-                </div>
-                <div class="d-flex flex-row">
-                    <select disabled class="ipt-25 h-100 m-1 select-componente">
-                        <option value="Latência" selected>Latência</option>
-                    </select>
-                    <select name="" disabled class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                        <option value="Porcentagem de uso">Transmissão de dados</option>
-                    </select>
-                    <input class="h-100 ipt-25 m-1" id="input_limite_disco_porcentagem_uso" placeholder="Insira um limite: ">
-                </div>
-        `
-    }
 
     function listarRBC() {
         var cont = 0
@@ -321,12 +210,12 @@
                         rbcsCadastrados += `
                              <tr>
                                 <th scope="row">${rbc.idRbc}</th>
-                                <td>${rbc.modelo}</td>
-                                <td>${rbc.versao}</td>
-                                <td>${rbc.empresa}</td>
+                                <td>${rbc.nome_servidor}</td>
                                 <td>
                                      <div class="cont-linha-rbc"><div class="circulo-cor-linha" style="background-color: ${rbc.corLinha};"></div>Linha ${rbc.numeroLinha} - ${rbc.nomeLinha}</div>
                                 </td>
+                                <td>${rbc.empresa}</td>
+                                <td>${rbc.trecho}</td>
                             </tr>
                         `
                     })
@@ -340,38 +229,46 @@
 
     function inserirEmpresa() {
         var idLinha = select_linha.value
-        var selectEmpresa = document.getElementById("select_fk_empresa")
+        var selectEmpresa = document.getElementById("select_id_empresa")
         console.log("INSERIR ", idLinha, linhasListadas, empresasListadas);
         for (var i = 0; i < linhasListadas.length; i++) {
             var linha_atual = linhasListadas[i];
             if (linha_atual[0] == idLinha) {
                 var idEmpresa = linha_atual[1]
                 selectEmpresa.innerHTML = `
-                        <option selected disabled value="${linha_atual[1]}">${linha_atual[2]}</option>
+                        <option selected value="${linha_atual[1]}">${linha_atual[2]}</option>
                 `
             }
         }
     }
-    // Listando empresas cadastradas - Atualização: Esse trecho não é necessário pois a empresa é inserida automaticamente ao selecionar a linha, visto que cada linha tem uma empresa vinculada. Deixarei comentado caso seja necessário futuramente.
-    // function listarEmpresas() {
-    //     var cont = 0;
-    //     var selectEmpresa = document.getElementById("select_fk_empresa")
-    //     fetch("/empresas/listar", {
-    //         method: "GET",
-    //     })
-    //         .then(function (resposta) {
-    //             resposta.json().then((empresas) => {
-    //                 empresas.forEach(empresa => {
-    //                     cont++
-    //                     console.log(empresa)
-    //                     empresasListadas.push([empresa.idEmpresa, empresa.nomeFantasia])
-    //                 });
-    //             });
-    //         })
-    //         .catch(function (resposta) {
-    //             console.log(`#ERRO: ${resposta}`);
-    //         });
-    // }
+
+    function listarComponentes() {
+        var componentesCadastrados = ""
+        var cont_componentes = document.getElementById("cont_componentes")
+
+        fetch("/componentes/listarComponentes", {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                resposta.json().then((componentes) => {
+                    componentes.forEach(componente => {
+                        componentesCadastrados += `
+                            <div class="d-flex flex-row">
+                                <input type="text" value="${componente.idComponente}" name="${componente.campoWeb}_id_${componente.idComponente}" readonly class="ipt-10 h-100 m-1">
+                                <input type="text" value="${componente.tipo}" readonly class="ipt-25 h-100 m-1">
+                                <input type="text" value="${componente.parametros} (${componente.unidadeMedida})" readonly class="ipt-50 h-100 m-1">
+                                <input class="h-100 ipt-25 m-1" name="${componente.campoWeb}_limite" required placeholder="Insira um limite: ">
+                            </div>
+                        `
+                    })
+                    cont_componentes.innerHTML = componentesCadastrados
+                })
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
     function listarLinhas() {
         var linhasCadastradas = ''
         console.log("Buscando RBC:")
@@ -397,34 +294,31 @@
             });
     }
 
-
+    document.getElementById("form_cadastro_rbc")
+        .addEventListener("submit", function (eventoDeEnviar) {
+            eventoDeEnviar.preventDefault();
+            cadastrar();
+        }
+    );
 
     function cadastrar() {
-        //Recupere o valor da nova input pelo nome do id
-        // Agora vá para o método fetch logo abaixo
-        var modelo = input_modelo.value
-        var linhaResp = select_linha.value
-        var fkEmpresa = select_fk_empresa.value
+        const formulario = document.getElementById("form_cadastro_rbc");
+        const dadosDoFormulario = new FormData(formulario)
+        console.log(dadosDoFormulario);
+        var listaFormulario = []
+        dadosDoFormulario.forEach((valorAtual, nomeAtual) => {
+            listaFormulario.push([nomeAtual, valorAtual])
+        })
 
-        // Verificando se há algum campo em branco
-        if (
-            modelo == '' ||
-            linhaResp == '' ||
-            fkEmpresa == 0
-        ) {
-            alert('Mensagem de erro para todos os campos em branco');
-            return;
-        }
-        // Enviando o valor da nova input
+        console.log("Lista: ", listaFormulario);
+
         fetch("/rbcs/cadastrarRbc", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                modeloServer: modelo,
-                linhaRespServer: linhaResp,
-                fkEmpresaServer: fkEmpresa
+                listaFormularioServer: listaFormulario,
             }),
         })
             .then(function (resposta) {
@@ -432,7 +326,6 @@
 
                 if (resposta.ok) {
                     modalCad.hide()
-                    limparFormulario();
                     listarRBC();
                     // status("Sucesso")
                 } else {
@@ -446,35 +339,7 @@
 
         return false;
     }
-    var contComponente = 1
-    function adicionarSelectComponente() {
-        const container = document.getElementById("cont_componentes");
-        container.innerHTML += `
-            <div class="d-flex flex-row">
-                <select class="ipt-25 h-100 m-1 select-componente">
-                    <option value="#" selected>Selecione o tipo de componente:</option>
-                    <option value="CPU">CPU</option>
-                    <option value="Disco">Disco</option>
-                    <option value="Memória Ram">Memória Ram</option>
-                    <option value="Latência">Latência</option>
-                </select>
-                <select name="" class="ipt-50 h-100 m-1" id="select-unidade-medida">
-                    <option value="Porcentagem de uso">Porcentagem de Uso (%)</option>
-                </select>
-                <input class="h-100 ipt-25 m-1" id="input_limite_${contComponente}" placeholder="Insira um limite: ">
-            </div>
-        `;
 
-        contComponente++
-    }
-    
-
-    function limparFormulario() {
-        input_modelo.value = ''
-        input_versao.value = ''
-        select_linha.selectedIndex = 0
-        select_fk_empresa.selectedIndex = 0
-    }
 
     function status(statusOperacao) {
         mensagem_operacao.styele.display = "block"

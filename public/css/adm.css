@@ -242,11 +242,17 @@ p {
 
 .cadastro input,
 .cadastro select {
-    /* border-radius: 5px; */
+    outline: none;
+    border-radius: 5px;
     padding: .3vh .4vw;
     background-color: whitesmoke;
     border: none;
-    border-bottom: solid 1px black;
+}
+.cadastro input:focus,
+.cadastro select:focus {
+    outline: none;
+    box-shadow: 0 0 4.5px var(--azul-claro);
+    border: none;
 }
 
 .cadastro option {
@@ -284,6 +290,10 @@ p {
 .ipt-25,
 .ipt-25-m {
     width: 25%;
+}
+.ipt-10 {
+    width: 10%;
+    text-align: center;
 }
 
 .ipt-33,

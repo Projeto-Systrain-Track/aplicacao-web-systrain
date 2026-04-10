@@ -22,6 +22,8 @@ async function cadastrar(req, res) {
         console.log("Nome: ", nome,  "Numero: ", numero,"Cor: ",  cor,"Empresa: ", empresa, "Trecho: ", trecho);
     
         var requisicaoBd = await linhaModel.cadastrar(nome, numero, cor, empresa, trecho)
+        console.log(requisicaoBd);
+        
         if (requisicaoBd.affectedRows == 1) {
             return res.status(200).json({ mensagem: "O cadastro da linha foi feito com sucesso!", idLinhaCadastrada: requisicaoBd.insertId });
         } else {
@@ -37,11 +39,7 @@ async function listar(req, res) {
     var requisicaoBd = await linhaModel.listar()
     console.log("Linhas: ", requisicaoBd);
     console.log("requisicaoBd.length", requisicaoBd.length );
-    if (requisicaoBd.length > 0) {
-        return res.status(200).json({ listaLinhas: requisicaoBd });
-    } else {
-        return res.status(400).json({ mensagem: "Não foi possível listar as linhas" });
-    }
+    return res.status(200).json({ listaLinhas: requisicaoBd });
 }
 async function listarLinhasEmpresa(req, res) {
     var idEmpresa = req.params.idEmpresa

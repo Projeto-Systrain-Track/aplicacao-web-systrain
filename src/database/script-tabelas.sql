@@ -1,6 +1,5 @@
-
-create database systraintrack;
-use systraintrack;
+create database SysTrainTrack;
+use SysTrainTrack;
 CREATE TABLE IF NOT EXISTS empresa (
   idEmpresa INT NOT NULL AUTO_INCREMENT,
   razaoSocial VARCHAR(100) UNIQUE NOT NULL,
@@ -10,6 +9,7 @@ CREATE TABLE IF NOT EXISTS empresa (
   email VARCHAR(100) NOT NULL,
   telefone VARCHAR(15) NULL DEFAULT NULL,
   PRIMARY KEY (idEmpresa));
+
 CREATE TABLE IF NOT EXISTS linha (
   idLinha INT NOT NULL AUTO_INCREMENT,
   nomeLinha VARCHAR(45) NULL,
@@ -24,8 +24,7 @@ CREATE TABLE IF NOT EXISTS linha (
 
 CREATE TABLE IF NOT EXISTS rbc (
   idRbc INT NOT NULL AUTO_INCREMENT,
-  modelo VARCHAR(45) NULL DEFAULT NULL,
-  versao VARCHAR(45) NULL DEFAULT NULL,
+  nome_servidor VARCHAR(45) NULL DEFAULT NULL,
   fkLinha INT NULL DEFAULT NULL,
   CONSTRAINT fkLinha
     FOREIGN KEY (fkLinha)
@@ -35,7 +34,6 @@ CREATE TABLE IF NOT EXISTS rbc (
   CONSTRAINT rbc_ibfk_1
     FOREIGN KEY (fkEmpresa)
     REFERENCES empresa (idEmpresa));
-    
     
 CREATE TABLE IF NOT EXISTS eventoOperacional (
   idEventoOperacional INT NOT NULL AUTO_INCREMENT,
@@ -57,8 +55,9 @@ CREATE TABLE IF NOT EXISTS componente (
   idComponente INT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(45) NULL DEFAULT NULL,
   tipo VARCHAR(45) NULL DEFAULT NULL,
-  unidadeMedida FLOAT NULL DEFAULT NULL,
-  parametros INT NULL DEFAULT NULL,
+  unidadeMedida VARCHAR(45) NULL DEFAULT NULL,
+  campoWeb VARCHAR(45) NULL,
+  parametros VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (idComponente));
 
 
@@ -141,7 +140,7 @@ INSERT INTO endereco (estado, cep, numeroResidencial, rua, complemento, fk_end_e
 ('SP', '09009-000', '92', 'Rua Teodoro Sampaio', 'Sala 5', 9),
 ('SP', '10010-000', '640', 'Avenida Faria Lima', 'Andar 9', 10);
 
-    INSERT INTO usuario (nome, email, senha, fk_empresa) VALUES
+INSERT INTO usuario (nome, email, senha, fk_empresa) VALUES
 ('Brandão', 'brandao@viapaulista.com', '12345', 1),
 ('Marina Souza', 'marina.souza@viapaulista.com', '12345', 1),
 ('Carlos Henrique', 'carlos.henrique@ferrobandeirante.com', '12345', 2),
@@ -162,42 +161,14 @@ INSERT INTO endereco (estado, cep, numeroResidencial, rua, complemento, fk_end_e
 ('Aline Fernandes', 'aline.fernandes@novamalha.com', '12345', 9),
 ('Pedro Oliveira', 'pedro.oliveira@rbcconnect.com', '12345', 10),
 ('Beatriz Santos', 'beatriz.santos@rbcconnect.com', '12345', 10);
-
-INSERT INTO rbc (modelo, versao, fkEmpresa) VALUES
-('Siemens Trainguard', 'v2.1', 1),
-('Alstom Atlas RBC', 'v3.0', 1),
-('Hitachi Rail RBC', 'v1.9', 2),
-('Siemens Trainguard', 'v2.3', 2),
-('Alstom Atlas RBC', 'v3.1', 3),
-('Hitachi Rail RBC', 'v2.0', 4),
-('Siemens Trainguard', 'v2.5', 5),
-('Alstom Atlas RBC', 'v3.2', 6),
-('Hitachi Rail RBC', 'v2.2', 7),
-('Siemens Trainguard', 'v2.6', 8),
-('Alstom Atlas RBC', 'v3.3', 9),
-('Hitachi Rail RBC', 'v2.4', 10);
-
-INSERT INTO componente (nome, tipo, unidadeMedida, parametros) VALUES
-('Processador Intel Xeon Silver', 'CPU', 85.5, 90),
-('Processador Intel Xeon Gold', 'CPU', 78.2, 88),
-('Memória ECC 32GB', 'RAM', 24.7, 80),
-('Memória ECC 64GB', 'RAM', 47.9, 85),
-('SSD NVMe 1TB', 'Armazenamento', 68.3, 90),
-('SSD SATA 480GB', 'Armazenamento', 55.1, 80),
-('HD Enterprise 4TB', 'Armazenamento', 72.4, 85),
-('Placa de Rede Intel X520', 'Rede', 61.8, 75),
-('Placa de Rede Broadcom NetXtreme', 'Rede', 58.6, 75),
-('Fonte Redundante 750W', 'Energia', 43.2, 70),
-('Fonte Redundante 1000W', 'Energia', 49.1, 72),
-('Controladora RAID PERC H730', 'Controladora', 65.7, 82),
-('Sensor de Temperatura Interna', 'Temperatura', 38.5, 65),
-('Cooler Industrial 120mm', 'Refrigeração', 51.0, 68),
-('Módulo UPS Rack', 'Energia', 44.8, 70),
-('Servidor Dell PowerEdge', 'Servidor', 79.9, 92),
-('Servidor HPE ProLiant', 'Servidor', 81.4, 92),
-('Interface Serial de Comunicação', 'Comunicação', 57.3, 73),
-('Switch Gerenciável Cisco', 'Rede', 63.5, 78),
-('Módulo de Processamento RBC', 'Processamento', 88.9, 95);
+INSERT INTO componente (nome, tipo, unidadeMedida, parametros, campoWeb) VALUES
+('Processador do servidor', 'CPU', '%', 'Porcentagem de Uso', 'componentes_cpu'),
+('Memória RAM do servidor', 'RAM', '%', 'Porcentagem de Uso', 'componentes_memoria'),
+('Disco do servidor', 'Disco', '%', 'Porcentagem de Uso', 'componentes_disco'),
+('Tipo de métrica para processo', 'Processos', '%', 'Uso de CPU', 'componentes_proc_cpu'),
+('Tipo de métrica para processo', 'Processos', '%', 'Uso de Memória RAM', 'componentes_proc_memoria'),
+('Tipo de métrica para processo', 'Processos', '%', 'Uso de Disco', 'componentes_proc_disco'),
+('Latência de rede', 'Rede', 'Mbps', 'Velocidade de Transmissão', 'componentes_latencia');
 
 INSERT INTO faleConosco (mensagem, emailContato) VALUES
 ('Gostaria de entender melhor como funciona o monitoramento em tempo real do RBC.', 'contato1@gmail.com'),
@@ -215,3 +186,4 @@ INSERT INTO faleConosco (mensagem, emailContato) VALUES
 ('Vocês trabalham com relatórios exportáveis?', 'dados.export@outlook.com'),
 ('Quero saber se a solução atende operação 24x7.', 'operacao24h@yahoo.com'),
 ('É possível monitorar mais de um RBC por empresa?', 'rbc.multi@gmail.com');
+

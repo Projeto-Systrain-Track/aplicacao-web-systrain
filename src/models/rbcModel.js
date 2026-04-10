@@ -6,11 +6,20 @@ function listarRbc(){
     return database.executar(instrucaoSql)
 }
 
-function cadastrarRbc(modelo, versao, linhaResp, fkEmpresa) {
+function cadastrarRbc(nome_servidor, linha_responsavel, empresa_responsavel) {
     console.log("ACESSEI O RBC MODEL")
     var instrucaoSql = `
-        INSERT INTO rbc(modelo, versao, fkLinha, fkEmpresa) VALUES
-            ('${modelo}','${versao}', '${linhaResp}', ${fkEmpresa});
+        INSERT INTO rbc(nome_servidor, fkLinha, fkEmpresa) VALUES
+            ('${nome_servidor}', '${linha_responsavel}', ${empresa_responsavel});
+        `
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+function cadastrarRbcComponente(idServidor, idEmpresa, idComponente, limite) {
+    console.log("ACESSEI O RBC MODEL")
+    var instrucaoSql = `
+        INSERT INTO rbcComponente(fkRbc, fkEmpresa, fkCompRbc, limite) VALUES
+            (${idServidor}, ${idEmpresa}, ${idComponente}, ${limite});
         `
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -18,5 +27,6 @@ function cadastrarRbc(modelo, versao, linhaResp, fkEmpresa) {
 
 module.exports = {
     listarRbc,
-    cadastrarRbc
+    cadastrarRbc,
+    cadastrarRbcComponente
 }
