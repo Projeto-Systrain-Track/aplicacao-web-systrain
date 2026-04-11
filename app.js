@@ -23,6 +23,8 @@ var componentesRouter = require("./src/routes/componentes");
 var admRouter = require("./src/routes/adminitradores")
 var linhaRouter = require("./src/routes/linha")
 
+var visaoGeralRouter = require("./src/routes/dashVisaoGeral")
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -36,6 +38,11 @@ app.use("/rbcs", rbcRouter)
 app.use("/componentes", componentesRouter)
 app.use("/adm", admRouter)
 app.use("/linha", linhaRouter)
+
+app.use("/visaoGeral", visaoGeralRouter);
+
+
+
 
 
 app.listen(PORTA_APP, function () {
