@@ -78,7 +78,10 @@
                     <a class="nav-link" href="componentes.html">Componentes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="duvidas.html">Componentes</a>
+                    <a class="nav-link" href="duvidas.html">Dúvidas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="linha.html">Linhas</a>
                 </li>
             </ul>
               </div>
@@ -104,12 +107,12 @@
           />
         </div>
         <div class="links">
-          <a class="link-lateral" href="home.html">Central</a>
+          <a class="link-lateral" href="home.html">Visão geral</a>
           <a class="link-lateral ativo" href="index.html">Empresas</a>
           <a class="link-lateral" href="usuarios.html">Usuários</a>
           <a class="link-lateral" href="rbc.html">RBC</a>
-          <a class="link-lateral" href="componentes.html">Componentes</a>
           <a class="link-lateral" href="duvidas.html">Dúvidas</a>
+          <a class="link-lateral" href="linha.html">Linhas</a>
         </div>
         <div class="opcoes">
           <div class="btn-lateral">
@@ -282,13 +285,13 @@
                 <input id="input_numero" type="text" placeholder="123" />
               </div>
               <div class="w-100">
-                <label>Endereço</label>
+                <label>Rua</label>
                 <input
                   disabled
                   class="w-100"
-                  id="input_endereco"
+                  id="input_rua"
                   type="text"
-                  placeholder="Tangamandapio"
+                  placeholder="Haddock Lobo"
                 />
               </div>
               <div class="w-100">
@@ -422,7 +425,7 @@
     var estado = select_estado.value;
     var cep = input_cep.value;
     var numero = input_numero.value;
-    var endereco = input_endereco.value;
+    var endereco = input_rua.value;
     var complemento = input_complemento.value;
 
     // Verificando se há algum campo em branco
@@ -495,7 +498,7 @@
             .json()
             .then(function (logradouro) {
               if (!logradouro.erro) {
-                input_endereco.value = logradouro.logradouro;
+                input_rua.value = logradouro.logradouro;
                 select_estado.value = logradouro.estado;
               }
             })
@@ -523,7 +526,7 @@
     select_estado.value = "";
     input_cep.value = "";
     input_numero.value = "";
-    input_endereco.value = "";
+    input_rua.value = "";
     input_complemento.value = "";
   }
 

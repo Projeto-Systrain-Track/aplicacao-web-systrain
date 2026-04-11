@@ -14,10 +14,11 @@ function cadastrarComponente(nome, tipo, unidadeMedida, parametro){
 function listarComponentes(){
     var instrucaoSql = `select * from componente`
     return database.executar(instrucaoSql)
-
 }
+
 
 module.exports = {
     cadastrarComponente,
-    listarComponentes
+    listarComponentes,
+    
 }

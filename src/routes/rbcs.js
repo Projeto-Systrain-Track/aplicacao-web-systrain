@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var rbcController = require("../controllers/rbcControlle")
+var rbcController = require("../controllers/rbcController")
 
 router.get("/listarRBC", function(req, res){
     rbcController.listarRbc(req, res)
