@@ -29,14 +29,18 @@
         <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
       </div>
 
-      <nav class="links">
-        <a class="link-lateral " href="dashboard.html">
+      <nav class="links" id="links_sidebar">
+        <a class="link-lateral" href="dashboard.html">
           <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
           <span>Visão geral</span>
         </a>
         <a class="link-lateral" href="linhas.html">
           <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
           <span>Linhas</span>
+        </a>
+        <a class="link-lateral " href="servidores.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+          <span>Servidores</span>
         </a>
         <a class="link-lateral" href="incidentes.html">
           <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
@@ -64,7 +68,7 @@
       </div>
     </aside>
 
-    <main class="conteudo">
+    <main class="conteudo" id="conteudo_pagina">
       <section class="topo-pagina">
         <div>
           <p class="subtitulo">Monitoramento</p>
@@ -102,9 +106,26 @@
 </body>
 
 </html>
-
 <script src="./relatorio.js"></script>
+
 <script>
+
+  function validarTipoUsuario() {
+    var links_sidebar = document.getElementById("links_sidebar")
+    if (!links_sidebar) return;
+
+    if (sessionStorage.TIPO_USUARIO == "Gestor") {
+      links_sidebar.innerHTML += `
+          <a class="link-lateral " href="usuarios.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+            <span>Usuários</span>
+          </a>
+        `
+    }
+  }
+
+
+  validarTipoUsuario()
   document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
   document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
   window.onload = function () {

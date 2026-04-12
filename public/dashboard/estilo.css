@@ -29,6 +29,29 @@ button {
     cursor: pointer;
 }
 
+.solicita-gestor {
+    width: 25%;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-padrao {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #cfd9e3;
+    background-color: white;
+}
+
+.btn-padrao img {
+    height: 75%;
+}
+
 .container-sys {
     width: 100%;
     min-height: 100vh;
@@ -221,6 +244,7 @@ button {
     display: none;
 }
 
+
 .topo-pagina,
 .painel-mapa,
 .resumo-card,
@@ -233,11 +257,11 @@ button {
 
 .topo-pagina {
     border: 1px solid #dbe4ecb1;
-
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: start;
+    height: 20%;
     gap: 16px;
     margin-bottom: 20px;
 }
@@ -841,16 +865,84 @@ button {
     display: flex;
     justify-content: end;
 }
+/*MODAL*/
+modal-header {
+  background-color: var(--azul-escuro);
+  color: white;
+}
 
+.modal-header h1 {
+  font-family: var(--font-titulo);
+}
+
+/* FORMULÁRIO */
+.cadastro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cadastro div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* INPUTS */
+.cadastro input,
+.cadastro select {
+  outline: none;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: whitesmoke;
+  border: none;
+  width: 100%;
+}
+
+.cadastro input:focus,
+.cadastro select:focus {
+  box-shadow: 0 0 4px var(--azul-claro);
+}
+
+/* LABELS */
+.cadastro label {
+  font-family: var(--font-titulo);
+  margin-bottom: 4px;
+}
+
+/* TAMANHOS */
+.w-100 {
+  width: 100%;
+}
+
+.ipt-50 {
+  width: calc(50% - 5px);
+}
+
+/* BOTÕES */
+.btn.btn-primary {
+  background-color: var(--azul-escuro);
+  border: none;
+  font-family: var(--font-titulo);
+}
+
+.btn.btn-primary:hover {
+  background-color: #1b4d82;
+}
+
+.btn.btn-secondary {
+  font-family: var(--font-titulo);
+}
+
+/* RESPONSIVO */
 @media only screen and (min-width: 901px) {
     .fundo_cinza_sidebar {
         display: none;
     }
-
+    
     .fundo_cinza_sidebar.mobile {
         display: none;
     }
-
+    
 }
 
 @media only screen and (max-width: 900px) {
@@ -858,38 +950,38 @@ button {
         flex-direction: column;
         width: 100%;
     }
-
+    
     .conteudo {
         width: 100%;
         margin-top: 10vh;
         margin-bottom: 10vh;
         padding: 20px;
     }
-
-
+    
+    
     .conteudo.expandido {
         width: 100%;
         margin-top: 10vh;
         margin-bottom: 10vh;
         padding: 20px;
     }
-
+    
     .card-incidente {
         width: 100%;
     }
-
+    
     .mobile {
         display: flex;
     }
-
+    
     .logo {
         width: 80%;
     }
-
+    
     .logo-sidebar {
         width: 70%;
     }
-
+    
     .nav-hamburguer {
         height: 15vh;
         display: flex;
@@ -898,11 +990,11 @@ button {
         align-items: center;
         background-color: var(--azul-escuro);
     }
-
+    
     .logo-nav-hamburguer {
         width: 20%;
     }
-
+    
     .nav-lateral {
         width: 100%;
         display: none;
@@ -910,7 +1002,7 @@ button {
         min-height: auto;
         position: relative;
     }
-
+    
     .nav-lateral.mobile {
         width: 40%;
         display: flex;
@@ -919,6 +1011,7 @@ button {
         min-height: auto;
         position: absolute;
     }
+    
     .nav-lateral.compactada.mobile {
         width: 40%;
         display: flex;
@@ -927,53 +1020,56 @@ button {
         min-height: auto;
         position: absolute;
     }
-
+    
     .nav-lateral.compactada {
         transition: 0.5s ease;
         width: 100%;
         min-height: auto;
         position: relative;
     }
-
+    
     .nav-lateral.compactada .links .link-lateral span,
     .nav-lateral.compactada .logo,
     .opcoes,
     .nav-lateral.compactada .btn-lateral p {
         display: flex;
     }
-
+    
     .cont-icon-sidebar {
         display: none;
     }
-
+    
     .conteudo {
         width: 100%;
     }
-
-    .topo-pagina,
-    .cabecalho-mapa,
-    .resumo-grid {
-        grid-template-columns: 1fr;
-        display: grid;
-    }
-
+    
+    
     .cards-indicadores {
         grid-template-columns: 1fr;
     }
-
+    
     .modal-strip {
         grid-template-columns: 1fr;
     }
-
+    
     .metricas-incidentes {
         overflow-x: auto;
     }
-
+    
     .card-incidente-metricas {
         width: 200vw;
         margin-right: 15px;
     }
+    
+}
 
+@media only screen and (max-width: 700px) {
+    .ipt-50 {
+      width: 100%;
+    }
+    .btn-padrao img {
+        display: none;
+    }
 }
 
 /*COISAS ADICIONADAS NA SPRINT2---------------------------------------------------------*/

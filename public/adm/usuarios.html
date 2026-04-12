@@ -117,6 +117,7 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Usuário</th>
                                 <th scope="col">E-mail de Contato</th>
+                                <th scope="col">Tipo de usuário</th>
                                 <th scope="col">Empresa Associada</th>
                             </tr>
                         </thead>
@@ -147,11 +148,18 @@
                             <label>Nome Completo:</label>
                             <input id="nome_input" type="text" placeholder="Seu nome" />
                         </div>
-                        <div class="ipt-75">
+                        <div class="ipt-50">
                             <label>E-mail:</label>
                             <input id="email_input" class="w-90" type="text" placeholder="meuemail@provedor.com" />
                         </div>
-                        <div class="ipt-25-m">
+                        <div class="ipt-50">
+                            <label>Tipo de usuário:</label>
+                            <select name="tipo_usuario" id="tipo_usuario_select">
+                                <option value="Gestor">Gestor</option>
+                                <option value="Analista">Analista</option>
+                            </select>
+                        </div>
+                        <div class="ipt-50">
                             <label>Empresa:</label>
                             <select class="h-100" id="select_fk_empresa"></select>
                         </div>
@@ -214,15 +222,17 @@
                                     <th scope="row">${usuario.idUsuario}</th>
                                     <td>${usuario.nome}</td>
                                     <td>${usuario.email}</td>
+                                    <td>${usuario.tipoUsuario}</td>
                                     <td>${usuario.empresa}</td>
-                                </tr>
-                            `
-                        } else {
-                            usuariosCadastrados += `
-                                 <tr>
-                                      <th scope="row">${usuario.idUsuario}</th>
-                                    <td>${usuario.nome}</td>
-                                    <td>${usuario.email}</td>
+                                    </tr>
+                                    `
+                                } else {
+                                    usuariosCadastrados += `
+                                    <tr>
+                                        <th scope="row">${usuario.idUsuario}</th>
+                                        <td>${usuario.nome}</td>
+                                        <td>${usuario.email}</td>
+                                        <td>${usuario.tipoUsuario}</td>
                                     <td>${usuario.empresa}</td>
                                 </tr>
                             `
@@ -270,6 +280,7 @@
         var nomeVar = nome_input.value;
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
+        var tipoUsuarioVar = tipo_usuario_select.value;
         var confirmacaoSenhaVar = confirmacao_senha_input.value;
         var idEmpresaVincular = select_fk_empresa.value;
 
@@ -280,6 +291,7 @@
             nomeVar == "" ||
             emailVar == "" ||
             senhaVar == "" ||
+            tipoUsuarioVar == "" ||
             confirmacaoSenhaVar == "" ||
             idEmpresaVincular == 0
         ) {
@@ -297,6 +309,7 @@
                 nomeServer: nomeVar,
                 emailServer: emailVar,
                 senhaServer: senhaVar,
+                tipoUsuarioServer: tipoUsuarioVar,
                 idEmpresaVincularServer: idEmpresaVincular,
 
             }),

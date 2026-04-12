@@ -119,8 +119,18 @@
 <script>
     var parametrosUrl = new URLSearchParams(window.location.search)
     var idLinha = parametrosUrl.get("id")
-
-
+    function validarTipoUsuario() {
+        var links_sidebar = document.getElementById("links_sidebar")
+        if (sessionStorage.TIPO_USUARIO == "Gestor") {
+            links_sidebar.innerHTML += `
+          <a class="link-lateral " href="usuarios.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+            <span>Usuários</span>
+          </a>
+        `
+        }
+    }
+    validarTipoUsuario()
 
 
 </script>

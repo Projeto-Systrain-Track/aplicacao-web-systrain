@@ -24,6 +24,7 @@ function autenticar(req, res) {
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,
                             empresaId: resultadoAutenticar[0].empresaId,
+                            razaoSocial: resultadoAutenticar[0].razaoSocial,
                             tipoUsuario: resultadoAutenticar[0].tipoUsuario,
                         });
                     } else if (resultadoAutenticar.length == 0) {
@@ -89,9 +90,18 @@ function listarUsuarios(req, res){
         res.status(200).json(resultado)
     })
 }
+function listarUsuariosEmpresa(req, res){
+
+    var fkEmpresa = req.params.idEmpresa
+
+    usuarioModel.listarUsuariosEmpresa(fkEmpresa).then((resultado) =>{
+        res.status(200).json(resultado)
+    })
+}
 
 module.exports = {
     autenticar,
     cadastrar,
-    listarUsuarios
+    listarUsuarios,
+    listarUsuariosEmpresa
 }

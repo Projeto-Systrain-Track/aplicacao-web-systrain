@@ -28,14 +28,18 @@
           <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
         </div>
 
-        <nav class="links">
-          <a class="link-lateral " href="dashboard.html">
+        <nav class="links" id="links_sidebar">
+          <a class="link-lateral" href="dashboard.html">
             <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
             <span>Visão geral</span>
           </a>
           <a class="link-lateral ativo" href="linhas.html">
-            <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+            <img class="icon-sidebar " src="../assets/icons/icon-linha-white.png" alt="">
             <span>Linhas</span>
+          </a>
+          <a class="link-lateral" href="servidores.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+            <span>Servidores</span>
           </a>
           <a class="link-lateral" href="incidentes.html">
             <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
@@ -45,22 +49,23 @@
             <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
             <span>Relatórios</span>
           </a>
-        </nav>
 
-        <div class="opcoes">
-          <div class="btn-lateral usuario">
-            <img src="../assets/icons/icon-avatar-masc.png" alt="">
-            <div class="cont-user">
-              <p id="cargo_user"></p>
-              <p id="nome_user"></p>
+          </nav>
+
+          <div class="opcoes">
+            <div class="btn-lateral usuario">
+              <img src="../assets/icons/icon-avatar-masc.png" alt="">
+              <div class="cont-user">
+                <p id="cargo_user"></p>
+                <p id="nome_user"></p>
+              </div>
+
             </div>
-
+            <button onclick="limparSessao()" class="btn-lateral">
+              <img src="../assets/icons/icon-logout-white.png" alt="">
+              <p>Sair</p>
+            </button>
           </div>
-          <button onclick="limparSessao()" class="btn-lateral">
-            <img src="../assets/icons/icon-logout-white.png" alt="">
-            <p>Sair</p>
-          </button>
-        </div>
       </aside>
 
       <main class="conteudo" id="conteudo_pagina">
@@ -69,6 +74,13 @@
             <p class="subtitulo">Monitoramento</p>
             <h1 class="titulo">Linhas Monitoradas</h1>
             <p class="descricao">Resumo das linhas monitoradas pelo sistema.</p>
+          </div>
+          <div class="solicita-gestor">
+            <button class="btn-padrao"
+              onclick="window.open('https://sptech-systrain-track.atlassian.net/jira/software/form/a3f91f9f-14e2-428c-89a2-dd20acf61317')">
+              <img src="../assets/icons/adicionar.png" alt="">
+              Solicitar cadastro de linha
+            </button>
           </div>
         </section>
 
@@ -96,6 +108,19 @@
 </html>
 
 <script>
+  function validarTipoUsuario() {
+    var links_sidebar = document.getElementById("links_sidebar")
+    if (sessionStorage.TIPO_USUARIO == "Gestor") {
+      links_sidebar.innerHTML += `
+          <a class="link-lateral " href="usuarios.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+            <span>Usuários</span>
+          </a>
+        `
+    }
+  }
+  validarTipoUsuario()
+
   document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
   document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
   window.onload = function () {

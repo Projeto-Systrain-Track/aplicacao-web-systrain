@@ -39,7 +39,7 @@
         <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
       </div>
 
-      <nav class="links">
+      <nav class="links" id="links_sidebar">
         <a class="link-lateral ativo" href="dashboard.html">
           <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
           <span>Visão geral</span>
@@ -47,6 +47,10 @@
         <a class="link-lateral" href="linhas.html">
           <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
           <span>Linhas</span>
+        </a>
+        <a class="link-lateral " href="servidores.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+          <span>Servidores</span>
         </a>
         <a class="link-lateral" href="incidentes.html">
           <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
@@ -56,6 +60,7 @@
           <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
           <span>Relatórios</span>
         </a>
+        
       </nav>
 
       <div class="opcoes">
@@ -193,6 +198,18 @@
 <script src="dash.js"></script>
 
 <script>
+  function validarTipoUsuario() {
+    var links_sidebar = document.getElementById("links_sidebar")
+    if (sessionStorage.TIPO_USUARIO == "Gestor") {
+      links_sidebar.innerHTML += `
+          <a class="link-lateral " href="usuarios.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+            <span>Usuários</span>
+          </a>
+        `
+    }
+  }
+  validarTipoUsuario()
   document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
   document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
   window.onload = function () {
@@ -226,8 +243,6 @@
     conteudo.classList.toggle("expandido")
   }
   function carregarDados() {
-
-
     fetch("/visaoGeral/visaoGeral") //nao sei mais
       .then(function (res) {
         return res.json();

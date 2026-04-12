@@ -15,5 +15,8 @@ router.post("/autenticar", function (req, res) {
 router.get("/listarUsuarios", function (req, res){
     usuarioController.listarUsuarios(req, res);
 })
+router.get("/listarUsuarios/:idEmpresa", function (req, res){
+    usuarioController.listarUsuariosEmpresa(req, res);
+})
 
 module.exports = router;
