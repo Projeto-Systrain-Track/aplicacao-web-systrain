@@ -230,6 +230,7 @@
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
     var codigoVar = codigo_input.value;
+    var tipoUsuarioVar = "Analista";
     var idEmpresaVincular;
 
     // Verificando se há algum campo em branco
@@ -281,6 +282,7 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
+        tipoUsuarioServer: tipoUsuarioVar,
         idEmpresaVincularServer: idEmpresaVincular,
       }),
     })

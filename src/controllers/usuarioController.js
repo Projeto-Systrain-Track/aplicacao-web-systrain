@@ -24,6 +24,7 @@ function autenticar(req, res) {
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,
                             empresaId: resultadoAutenticar[0].empresaId,
+                            tipoUsuario: resultadoAutenticar[0].tipoUsuario,
                         });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -48,22 +49,23 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
     var fkEmpresa = req.body.idEmpresaVincularServer;
+    var tipoUsuario = req.body.tipoUsuarioServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
+    } else if (tipoUsuario == undefined) {
+        res.status(400).send("Seu tipo de usuário está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
     } else if (fkEmpresa == undefined) {
         res.status(400).send("Sua empresa a vincular está undefined!");
-        console.log(fkEmpresa + ' 2')
-
+        console.log(fkEmpresa + '2')
     } else {
-
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, fkEmpresa)
+        usuarioModel.cadastrar(nome, email, senha, fkEmpresa, tipoUsuario)
             .then(
                 function (resultado) {
                     res.json(resultado);

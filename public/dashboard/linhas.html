@@ -12,63 +12,123 @@
 
 <body>
   <div class="container-sys">
-    <aside class="nav-lateral desktop">
-      <div class="logo">
-        <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" />
+    <div class="container-sys">
+      <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
+      <div class="nav-hamburguer">
+        <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
+        <img src="../assets/icons/icon-menu-white.png" alt="Sys-train track" class="icon-menu"
+          onclick="abrirSideBarMobile()">
       </div>
 
-      <nav class="links">
-        <a class="link-lateral" href="dashVisaoGeral.html">Visão geral</a>
-        <a class="link-lateral ativo" href="#">Linhas</a>
-        <a class="link-lateral" href="incidentes.html">Incidentes</a>
-        <a class="link-lateral" href="relatorios.html">Relatórios</a>
-      </nav>
-
-      <div class="opcoes">
-        <div class="btn-lateral" id="nome_user">
-
+      <aside class="nav-lateral desktop" id="nav_lateral">
+        <div class="cont-icon-sidebar">
+          <img src="../assets/icons/icon-sidebar-white.png" id="icone-sidebar" onclick="fecharSidebar()" alt="">
+        </div>
+        <div class="logo">
+          <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
         </div>
 
-        <button onclick="limparSessao()" class="btn-lateral">
-          <p>Sair</p>
-        </button>
-      </div>
-    </aside>
+        <nav class="links">
+          <a class="link-lateral " href="dashboard.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+            <span>Visão geral</span>
+          </a>
+          <a class="link-lateral ativo" href="linhas.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+            <span>Linhas</span>
+          </a>
+          <a class="link-lateral" href="incidentes.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
+            <span>Incidentes</span>
+          </a>
+          <a class="link-lateral" href="relatorios.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
+            <span>Relatórios</span>
+          </a>
+        </nav>
 
-    <main class="conteudo">
-      <section class="topo-pagina">
-        <div>
-          <p class="subtitulo">Monitoramento</p>
-          <h1 class="titulo">Linhas Monitoradas</h1>
-          <p class="descricao">Resumo das linhas monitoradas pelo sistema.</p>
+        <div class="opcoes">
+          <div class="btn-lateral usuario">
+            <img src="../assets/icons/icon-avatar-masc.png" alt="">
+            <div class="cont-user">
+              <p id="cargo_user"></p>
+              <p id="nome_user"></p>
+            </div>
+
+          </div>
+          <button onclick="limparSessao()" class="btn-lateral">
+            <img src="../assets/icons/icon-logout-white.png" alt="">
+            <p>Sair</p>
+          </button>
         </div>
-      </section>
+      </aside>
 
-      <section class="painel-mapa">
-        <table class="tabela-linhas">
-          <thead>
-            <tr>
-              <th>Linha</th>
-              <th>Trecho</th>
-              <th>Status</th>
-              <th>Incidentes</th>
-              <th>Disponibilidade</th>
-            </tr>
-          </thead>
+      <main class="conteudo" id="conteudo_pagina">
+        <section class="topo-pagina">
+          <div>
+            <p class="subtitulo">Monitoramento</p>
+            <h1 class="titulo">Linhas Monitoradas</h1>
+            <p class="descricao">Resumo das linhas monitoradas pelo sistema.</p>
+          </div>
+        </section>
 
-          <tbody id="tabelaLinhas">
+        <section class="painel-mapa">
+          <table class="tabela-linhas">
+            <thead>
+              <tr>
+                <th>Linha</th>
+                <th>Trecho</th>
+                <th>Status</th>
+                <th>Incidentes</th>
+                <th>Disponibilidade</th>
+              </tr>
+            </thead>
 
-          </tbody>
-        </table>
-      </section>
-    </main>
-  </div>
+            <tbody id="tabelaLinhas">
+
+            </tbody>
+          </table>
+        </section>
+      </main>
+    </div>
 </body>
 
 </html>
 
 <script>
+  document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
+  document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
+  window.onload = function () {
+    validarSessaoUsuario();
+    carregarDados();
+  };
 
+  window.addEventListener("resize", function () {
+    var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+    var sidebar = document.getElementById("nav_lateral")
+
+    if (window.innerWidth > 900) {
+      if (fundo_cinza_sidebar.classList.contains("mobile")) {
+        console.log("Tem a classe mobile");
+        sidebar.classList.toggle("mobile")
+        fundo_cinza_sidebar.classList.toggle("mobile")
+      }
+    }
+  });
+
+  function abrirSideBarMobile() {
+    var sidebar = document.getElementById("nav_lateral")
+    var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+    sidebar.classList.toggle("mobile")
+    fundo_cinza_sidebar.classList.toggle("mobile")
+  }
+  function fecharSidebar() {
+
+    var sidebar = document.getElementById("nav_lateral")
+    var conteudo = document.getElementById("conteudo_pagina")
+    sidebar.classList.toggle("compactada")
+    conteudo.classList.toggle("expandido")
+  }
   function irParaDetalhe(idLinha) {
     window.location = `detalheLinha.html?id=${idLinha}`
   }
