@@ -18,83 +18,68 @@
 <body>
 
     <div class="container-sys">
-        <!-- nav mobile -->
-        <div class="mobile">
-            <nav class="navbar fixed-top nav-mobile">
-                <div class="container-fluid">
-                    <a class="navbar-brand titulo-sys" href="./index.html">Sys-Train Track</a>
-                    <button class="navbar-toggler bg-menu" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon "></span>
-                    </button>
-                    <div class="offcanvas offcanvas-end nav-mobile" tabindex="-1" id="offcanvasNavbar"
-                        aria-labelledby="offcanvasNavbarLabel">
-                        <div class="offcanvas-header">
-                            <div class="offcanvas-title " id="offcanvasNavbarLabel">
-                                <img class="imga" src="../assets/images/sys-logo - adm2.svg" alt="Sys-Train Track">
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="home.html">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link " aria-current="page" href="#">Empresa</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link link-ativo" href="usuarios.html">Usúario</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="rbc.html">RBC</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="duvidas.html">Dúvidas</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="linha.html">Linhas</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="offcanvas-body outros">
-                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                <li class="nav-item">
-                                    <p class="nav-link" id="nome_adm_m" aria-current="page"></p>
-                                </li>
-                                <li class="nav-item">
-                                    <p class="nav-link" onclick="limparSessao()">Sair</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+        <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
+        <div class="nav-hamburguer">
+            <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
+            <img src="../assets/icons/icon-menu-white.png" alt="Sys-train track" class="icon-menu"
+                onclick="abrirSideBarMobile()">
         </div>
-        <div class="nav-lateral desktop">
+        <aside class="nav-lateral desktop" id="nav_lateral">
+            <div class="cont-icon-sidebar">
+                <img src="../assets/icons/icon-sidebar-white.png" id="icone-sidebar" onclick="fecharSidebar()" alt="">
+            </div>
             <div class="logo">
-                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track">
+                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
             </div>
-            <div class="links">
-                <a class="link-lateral" href="home.html">Visão geral</a>
-                <a class="link-lateral" href="index.html">Empresas</a>
-                <a class="link-lateral ativo " href="usuarios.html">Usuários</a>
-                <a class="link-lateral" href="rbc.html">RBC</a>
-                <a class="link-lateral" href="duvidas.html">Dúvidas</a>
-                <a class="link-lateral" href="linha.html">Linhas</a>
-            </div>
+            <nav class="links" id="links_sidebar">
+                <a class="link-lateral" href="home.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+                    <span>Visão geral</span>
+
+                </a>
+                <a class="link-lateral" href="empresas.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-empresa-white.png" alt="">
+                    <span>Empresas</span>
+
+                </a>
+                <a class="link-lateral" href="linha.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+                    <span>Linhas</span>
+
+                </a>
+                <a class="link-lateral" href="rbc.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+                    <span>Servidores</span>
+
+                </a>
+                <a class="link-lateral " href="duvidas.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
+                    <span>Dúvidas</span>
+
+                </a>
+                <a class="link-lateral ativo" href="usuarios.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+                    <span>Usuário</span>
+                </a>
+
+            </nav>
+
             <div class="opcoes">
-                <div class="btn-lateral">
-                    <p id="nome_adm"></p>
+                <div class="btn-lateral usuario">
+                    <img src="../assets/icons/icon-avatar-masc.png" alt="">
+                    <div class="cont-user">
+                        <p id="cargo_user"></p>
+                        <p id="nome_user"></p>
+                    </div>
+
                 </div>
                 <button onclick="limparSessao()" class="btn-lateral">
+                    <img src="../assets/icons/icon-logout-white.png" alt="">
                     <p>Sair</p>
                 </button>
             </div>
-        </div>
-        <main class="conteudo">
+        </aside>
+        <main class="conteudo" id="conteudo_pagina">
             <section class="topo-pagina">
                 <div>
                     <p class="subtitulo">Sessão Administrativa</p>
@@ -204,7 +189,34 @@
 
     let listaEmpresasCadastradas = [];
     const modalCad = new bootstrap.Modal("#modal_cadastro")
+    document.getElementById("cargo_user").innerHTML = `Adm nível ${sessionStorage.NIVEL_ADM}`
+    document.getElementById("nome_user").innerHTML = sessionStorage.NOME_ADM
+    window.addEventListener("resize", function () {
+        var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+        var sidebar = document.getElementById("nav_lateral")
 
+        if (window.innerWidth > 900) {
+            if (fundo_cinza_sidebar.classList.contains("mobile")) {
+                console.log("Tem a classe mobile");
+                sidebar.classList.toggle("mobile")
+                fundo_cinza_sidebar.classList.toggle("mobile")
+            }
+        }
+    });
+
+    function abrirSideBarMobile() {
+        var sidebar = document.getElementById("nav_lateral")
+        var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+        sidebar.classList.toggle("mobile")
+        fundo_cinza_sidebar.classList.toggle("mobile")
+    }
+    function fecharSidebar() {
+
+        var sidebar = document.getElementById("nav_lateral")
+        var conteudo = document.getElementById("conteudo_pagina")
+        sidebar.classList.toggle("compactada")
+        conteudo.classList.toggle("expandido")
+    }
     function listarUsuarios() {
         var cont = 0
         var usuariosCadastrados = ''
@@ -226,8 +238,8 @@
                                     <td>${usuario.empresa}</td>
                                     </tr>
                                     `
-                                } else {
-                                    usuariosCadastrados += `
+                        } else {
+                            usuariosCadastrados += `
                                     <tr>
                                         <th scope="row">${usuario.idUsuario}</th>
                                         <td>${usuario.nome}</td>

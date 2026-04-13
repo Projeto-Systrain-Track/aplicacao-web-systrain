@@ -38,28 +38,8 @@ p {
     display: flex;
 }
 
-.nav-lateral {
-    width: 260px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    padding: 24px 18px;
-    background-color: var(--azul-escuro);
-}
 
-.logo {
-    width: 90%;
-    height: 150px;
-    padding-top: 100px;
-    align-self: center;
-}
 
-.logo img {
-    width: 100%;
-}
 
 .links {
     display: flex;
@@ -112,8 +92,12 @@ p {
 
 
 .conteudo {
-    width: calc(100% - 260px);
+    width: calc(100% - 17.5%);
     padding: 28px;
+}
+
+.conteudo.expandido {
+    width: calc(100% - 10%);
 }
 
 .topo-pagina,
@@ -236,7 +220,7 @@ p {
     color: white;
 }
 
-.modal-header h1{
+.modal-header h1 {
     font-family: var(--font-titulo);
 }
 
@@ -248,6 +232,7 @@ p {
     background-color: whitesmoke;
     border: none;
 }
+
 .cadastro input:focus,
 .cadastro select:focus {
     outline: none;
@@ -260,7 +245,8 @@ p {
     border: none;
 }
 
-.btn.btn-primary, .btn.btn-secondary{
+.btn.btn-primary,
+.btn.btn-secondary {
     font-family: var(--font-titulo);
     font-weight: 600;
 }
@@ -291,20 +277,23 @@ p {
 .ipt-25-m {
     width: 25%;
 }
+
 .ipt-10 {
     width: 10%;
     text-align: center;
 }
 
 .ipt-33,
-.ipt-33-m{
+.ipt-33-m {
     width: 33.3%;
 }
 
-.ipt-75 label, .ipt-50 label,
-.ipt-25 label, .w-100 label,
+.ipt-75 label,
+.ipt-50 label,
+.ipt-25 label,
+.w-100 label,
 .w-90 label {
-  font-family: var(--font-titulo);
+    font-family: var(--font-titulo);
 }
 
 .w-90,
@@ -350,11 +339,12 @@ p {
     width: 40px;
 }
 
-.infos-notificacao{
+.infos-notificacao {
     display: flex;
     flex-direction: column;
     padding: 2px 5px;
 }
+
 .infos-notificacao h1 {
     font-family: var(--font-titulo);
     color: var(--azul-titulos);
@@ -418,11 +408,12 @@ p {
 
 .card-atalho:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
     background-color: var(--azul-escuro);
     color: white;
     transition: 0.6s ease;
 }
+
 .card-atalho:hover h3 {
     color: white;
     transition: 0.6s ease;
@@ -484,6 +475,7 @@ p {
     background-color: #eef3f8;
 }
 
+
 .tabela-adm th {
     text-align: left;
     padding: 14px 16px;
@@ -506,55 +498,231 @@ p {
 }
 
 
+
+.logo {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-sidebar {
+    width: 70%;
+}
+
+.nav-hamburguer {
+    display: none;
+}
+
+.nav-lateral {
+    width: 17.5%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: sticky;
+    align-items: center;
+    top: 0;
+    background-color: var(--azul-escuro);
+    transition: 0.5s ease;
+}
+
+#fundo_cinza_sidebar {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 9;
+    background-color: #00000025;
+}
+
+#fundo_cinza_sidebar.mobile {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 9;
+    background-color: #00000025;
+    display: flex;
+}
+
+.links {
+    display: flex;
+    width: 80%;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.link-lateral {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    border: 0.5px solid wheat;
+    color: white;
+}
+
+.nav-lateral.compactada {
+    transition: 0.5s ease;
+    width: 10%;
+    min-height: auto;
+    position: relative;
+}
+
+.nav-lateral.compactada.mobile {
+    width: 40%;
+    display: flex;
+    transition: 0.5s ease;
+    z-index: 1000;
+    min-height: auto;
+    position: absolute;
+}
+
+.nav-lateral.compactada .links .link-lateral span,
+.nav-lateral.compactada .logo,
+.opcoes,
+.nav-lateral.compactada .btn-lateral p {
+    display: none;
+}
+
+.icon-sidebar {
+    width: 30px;
+    height: 30px;
+}
+
+.ativo {
+    border: none;
+    background-color: var(--laranja);
+}
+
+.opcoes {
+    width: 80%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.opcoes .usuario {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: transparent;
+}
+
+.btn-lateral {
+    width: 100%;
+    height: 45%;
+    border-radius: 6px;
+    color: white;
+    display: flex;
+    border: none;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #1e4875;
+}
+
+.btn-lateral p {
+    font-family: var(--font-titulo);
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    width: 70%;
+    height: auto;
+    text-align: start;
+}
+
+.cont-user {
+    width: 70%;
+    text-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+}
+
+.nav-lateral.mobile {
+    width: 40%;
+    display: flex;
+    transition: 0.5s ease;
+    z-index: 1000;
+    min-height: auto;
+    position: absolute;
+}
+
 @media only screen and (max-width: 1100px) {
     .resumo-geral {
         grid-template-columns: repeat(3, 1fr);
     }
+
     .painel-grid {
         grid-template-columns: 1fr 1fr;
     }
 }
 
 @media only screen and (max-width: 800px) {
+
     .resumo-geral,
     .atalhos-grid {
         grid-template-columns: 1fr;
     }
+
     .painel-grid {
         grid-template-columns: 1fr 1fr;
     }
 }
 
-@media only screen and (max-width: 1100px) {
-    .nav-lateral {
-        width: 220px;
-    }
-
-    .conteudo {
-        width: calc(100% - 220px);
-        padding: 18px;
-    }
-}
-
 
 @media only screen and (max-width: 900px) {
-    .desktop {
+    .nav-lateral {
         display: none;
     }
 
-    .mobile {
-        display: flex;
+    .nav-lateral.desktop {
+        display: none;
+    }
+
+    .container-sys {
+        flex-direction: column;
     }
 
     .conteudo {
+        width: 100%;
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+        padding: 20px;
+    }
+
+
+    .conteudo.expandido {
+        width: 100%;
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+        padding: 20px;
+    }
+
+    .nav-lateral.desktop.compactada.mobile .link-lateral .conteudo.expandido {
         margin-top: 5vh;
         width: 100%;
         height: auto;
         padding: 5vh 3vw;
     }
 
-    .nav-mobile {
+    .nav-lateral.compactada.mobile .links .link-lateral span,
+    .nav-lateral.compactada.mobile .logo,
+    .opcoes,
+    .nav-lateral.compactada.mobile .btn-lateral p {
+        display: flex;
+    }
+
+    .nav-hamburguer {
         background-color: var(--azul-escuro);
+        display: flex;
     }
 
     .opcao-add img {
@@ -570,8 +738,8 @@ p {
     /* Mobile */
     .ipt-75,
     .ipt-50,
-    .ipt-33-m, 
-    .ipt-25-m{
+    .ipt-33-m,
+    .ipt-25-m {
         width: 100%;
     }
 
@@ -623,11 +791,46 @@ p {
         width: 100%;
     }
 
-    .outros{
+    .outros {
         display: flex;
         justify-content: end;
         padding-bottom: 5vh;
     }
+
+    .nav-hamburguer {
+        height: 15vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        background-color: var(--azul-escuro);
+    }
+
+    .logo-nav-hamburguer {
+        width: 20%;
+    }
+
+    .nav-lateral {
+        width: 100%;
+        display: none;
+        transition: 0.5s ease;
+        min-height: auto;
+        position: relative;
+    }
+
+    .nav-lateral.mobile {
+        width: 40%;
+        display: flex;
+        transition: 0.5s ease;
+        z-index: 1000;
+        min-height: auto;
+        position: absolute;
+    }
+
+    .cont-icon-sidebar {
+        display: none;
+    }
+
 }
 
 .cinza {
@@ -705,20 +908,23 @@ p {
     text-align: center;
     padding: 40px 20px;
 }
-.cont-linha-rbc{
+
+.cont-linha-rbc {
     display: flex;
     gap: 20px;
 
 }
+
 .circulo-cor-linha {
     height: 25px;
     width: 25px;
     border-radius: 100%;
 }
-.btn-add{
+
+.btn-add {
     background-color: var(--azul-titulos);
     color: #fff;
     border: none;
     border-radius: 20px;
-    
+
 }

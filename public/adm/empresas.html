@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sys Train Track Adm | Empresa</title>
+  <link rel="icon" href="../assets/icons/logo.svg" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../css/adm.css" />
+  <script src="../js/sessao.js"></script>
+</head>
+
+<body>
+  <div class="container-sys">
+    <!-- nav mobile -->
+    <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
+    <div class="nav-hamburguer">
+      <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
+      <img src="../assets/icons/icon-menu-white.png" alt="Sys-train track" class="icon-menu"
+        onclick="abrirSideBarMobile()">
+    </div>
+    <aside class="nav-lateral desktop" id="nav_lateral">
+      <div class="cont-icon-sidebar">
+        <img src="../assets/icons/icon-sidebar-white.png" id="icone-sidebar" onclick="fecharSidebar()" alt="">
+      </div>
+      <div class="logo">
+        <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
+      </div>
+      <nav class="links" id="links_sidebar">
+        <a class="link-lateral" href="home.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+          <span>Visão geral</span>
+
+        </a>
+        <a class="link-lateral ativo" href="empresas.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-empresa-white.png" alt="">
+          <span>Empresas</span>
+
+        </a>
+        <a class="link-lateral" href="linha.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+          <span>Linhas</span>
+
+        </a>
+        <a class="link-lateral" href="rbc.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+          <span>Servidores</span>
+
+        </a>
+        <a class="link-lateral" href="duvidas.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
+          <span>Dúvidas</span>
+
+        </a>
+        <a class="link-lateral" href="usuarios.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+          <span>Usuário</span>
+        </a>
+
+      </nav>
+
+      <div class="opcoes">
+        <div class="btn-lateral usuario">
+          <img src="../assets/icons/icon-avatar-masc.png" alt="">
+          <div class="cont-user">
+            <p id="cargo_user"></p>
+            <p id="nome_user"></p>
+          </div>
+
+        </div>
+        <button onclick="limparSessao()" class="btn-lateral">
+          <img src="../assets/icons/icon-logout-white.png" alt="">
+          <p>Sair</p>
+        </button>
+      </div>
+    </aside>
+
+
+    <main class="conteudo" id="conteudo_pagina">
+      <section class="topo-pagina">
+        <div>
+          <p class="subtitulo">Sessão Administrativa</p>
+          <h1 class="titulo">Empresas Cadastradas</h1>
+          <p class="descricao">Gerenciamento das empresas cadastradas</p>
+        </div>
+        <!-- <button class="btn-add-desk desktop" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> -->
+        <button class="btn-add-desk desktop" onclick="abrirModal()">
+          <div>
+            <p>Adicionar Empresa</p>
+          </div>
+        </button>
+      </section>
+      <section class="painel-tabela">
+        <div class="tabela table-responsive">
+          <span class="subtitulo">
+            Lista das Empresa
+          </span>
+          <table class="tabela-adm">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nome da Empresa</th>
+                <th scope="col">E-mail de Contato</th>
+                <th scope="col">CNPJ</th>
+                <th scope="col">Token</th>
+              </tr>
+            </thead>
+            <tbody id="tabela"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- Button trigger modal -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal_cadastro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            Adicionar Empresa
+          </h1>
+          <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="cadastro">
+            <div class="ipt-75">
+              <label>Razão social</label>
+              <input class="w-90" id="input_razaoSocial" type="text" placeholder="Sys-Train Track" />
+            </div>
+            <div class="ipt-25">
+              <label>Token de cadastro</label>
+              <input class="" disabled id="input_token" type="text" placeholder="" />
+            </div>
+            <div class="ipt-25">
+              <label>CNPJ</label>
+              <input class="w-90" id="input_cnpj" type="text" placeholder="00.000.000/0000-00" maxlength="18"
+                oninput="formatarCNPJ(this)" />
+            </div>
+            <div class="ipt-75">
+              <label>Email</label>
+              <input id="input_email_empresa" type="text" placeholder="usuario@systrain" />
+            </div>
+            <div class="ipt-25">
+              <label>Telefone</label>
+              <input class="w-90" id="input_telefone" type="text" placeholder="(11) 99999-9999" maxlength="15"
+                oninput="formatarTelefone(this)" />
+            </div>
+            <div class="ipt-25">
+              <label>CEP</label>
+              <input oninput="buscarCep()" class="w-90" id="input_cep" type="text" placeholder="00000-000 " />
+            </div>
+            <div class="ipt-25">
+              <label>Estado</label>
+              <select class="w-90 h-100" id="select_estado">
+                <option value="Acre">Acre</option>
+                <option value="Alagoas">Alagoas</option>
+                <option value="Amapá">Amapá</option>
+                <option value="Amazonas">Amazonas</option>
+                <option value="Bahia">Bahia</option>
+                <option value="Ceará">Ceará</option>
+                <option value="Distrito Federal">Distrito Federal</option>
+                <option value="Espírito Santo">Espírito Santo</option>
+                <option value="Goiás">Goiás</option>
+                <option value="Maranhão">Maranhão</option>
+                <option value="Mato Grosso">Mato Grosso</option>
+                <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                <option value="Minas Gerais">Minas Gerais</option>
+                <option value="Pará">Pará</option>
+                <option value="Paraíba">Paraíba</option>
+                <option value="Paraná">Paraná</option>
+                <option value="Pernambuco">Pernambuco</option>
+                <option value="Piauí">Piauí</option>
+                <option value="Rio de Janeiro">Rio de Janeiro</option>
+                <option value="Rio Grande do Norte">
+                  Rio Grande do Norte
+                </option>
+                <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                <option value="Rondônia">Rondônia</option>
+                <option value="Roraima">Roraima</option>
+                <option value="Santa Catarina">Santa Catarina</option>
+                <option value="São Paulo" selected>São Paulo</option>
+                <option value="Sergipe">Sergipe</option>
+                <option value="Tocantins">Tocantins</option>
+              </select>
+              <!-- <input class="w-90" id="input_estado" type="text" placeholder="Cansado"> -->
+            </div>
+
+            <div class="ipt-25">
+              <label>Número</label>
+              <input id="input_numero" type="text" placeholder="123" />
+            </div>
+            <div class="w-100">
+              <label>Rua</label>
+              <input disabled class="w-100" id="input_rua" type="text" placeholder="Haddock Lobo" />
+            </div>
+            <div class="w-100">
+              <label>Complemento</label>
+              <input class="w-100" id="input_complemento" type="text" placeholder="Prédio Lado B" />
+            </div>
+            <div id="div_msg"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-primary" onclick="cadastrar()">
+            Cadastrar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- mensagens -->
+  <div class="mensagens" id="mensagem_operacao">
+    <div class="notificacao">
+      <div class="status">
+        <div class="cor-status" id="cor_status"></div>
+
+        <img id="img_status" alt="statusIcon" />
+      </div>
+      <div class="infos-notificacao">
+        <h1>Empresa</h1>
+        <p class="subtitulo" id="mensagem_operacao">
+          Empresa cadastrada com sucesso!
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+<script>
+  document.getElementById("cargo_user").innerHTML = `Adm nível ${sessionStorage.NIVEL_ADM}`
+  document.getElementById("nome_user").innerHTML = sessionStorage.NOME_ADM
+  window.addEventListener("resize", function () {
+    var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+    var sidebar = document.getElementById("nav_lateral")
+
+    if (window.innerWidth > 900) {
+      if (fundo_cinza_sidebar.classList.contains("mobile")) {
+        console.log("Tem a classe mobile");
+        sidebar.classList.toggle("mobile")
+        fundo_cinza_sidebar.classList.toggle("mobile")
+      }
+    }
+  });
+
+  function abrirSideBarMobile() {
+    var sidebar = document.getElementById("nav_lateral")
+    var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+    sidebar.classList.toggle("mobile")
+    fundo_cinza_sidebar.classList.toggle("mobile")
+  }
+  function fecharSidebar() {
+
+    var sidebar = document.getElementById("nav_lateral")
+    var conteudo = document.getElementById("conteudo_pagina")
+    sidebar.classList.toggle("compactada")
+    conteudo.classList.toggle("expandido")
+  }
+
+  function formatarCNPJ(input) {
+    var valor = input.value.replace(/\D/g, "");
+    valor = valor.replace(/^(\d{2})(\d)/, "$1.$2");
+    valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+    valor = valor.replace(/\.(\d{3})(\d)/, ".$1/$2");
+    valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
+    input.value = valor.substring(0, 18);
+  }
+  function formatarTelefone(input) {
+    let valor = input.value.replace(/\D/g, "");
+    valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
+    if (valor.length > 13) {
+      valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
+    } else {
+      valor = valor.replace(/(\d{4})(\d)/, "$1-$2");
+    }
+
+    input.value = valor.substring(0, 15);
+  }
+  validarSessaoAdm();
+  listar();
+  // Array para armazenar empresas cadastradas para validação de código de ativação
+  let listaEmpresasCadastradas = [];
+  const modalCad = new bootstrap.Modal("#modal_cadastro");
+
+  // Listando empresas cadastradas
+  function listar() {
+    console.log("Buscando para atualizar");
+    var empresasCad = "";
+    var cont = 0;
+    var tabela = document.getElementById("tabela");
+    fetch("/empresas/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((empresas) => {
+          empresas.forEach((empresa) => {
+            cont++;
+            console.log(empresa);
+            if (cont % 2 === 0) {
+              empresasCad += `
+                                <tr class="table-secondary">
+                                    <th scope="row">${empresa.idEmpresa}</th>
+                                    <td>${empresa.razaoSocial}</td>
+                                    <td>${empresa.email}</td>
+                                    <td>${empresa.cnpj}</td>
+                                    <td>${empresa.token}</td>
+                                </tr>
+                            `;
+            } else {
+              empresasCad += `
+                                <tr>
+                                    <th scope="row">${empresa.idEmpresa}</th>
+                                    <td>${empresa.razaoSocial}</td>
+                                    <td>${empresa.email}</td>
+                                    <td>${empresa.cnpj}</td>
+                                    <td>${empresa.token}</td>
+                                </tr>
+                            `;
+            }
+
+            // listaEmpresasCadastradas.push(empresa);
+
+            // console.log("listaEmpresasCadastradas")
+            // console.log(listaEmpresasCadastradas[0].codigo_ativacao)
+          });
+          tabela.innerHTML = empresasCad;
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function cadastrar() {
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var razaoSocial = input_razaoSocial.value;
+    var token = input_token.value;
+    var cnpj = input_cnpj.value;
+    var email_empresa = input_email_empresa.value;
+    var telefone = input_telefone.value;
+    var estado = select_estado.value;
+    var cep = input_cep.value;
+    var numero = input_numero.value;
+    var endereco = input_rua.value;
+    var complemento = input_complemento.value;
+
+    // Verificando se há algum campo em branco
+    if (
+      razaoSocial == "" ||
+      token == "" ||
+      cnpj == "" ||
+      email_empresa == "" ||
+      telefone == "" ||
+      estado == "" ||
+      cep == "" ||
+      numero == "" ||
+      endereco == "" ||
+      complemento == ""
+    ) {
+      alert("Mensagem de erro para todos os campos em branco");
+    }
+
+    // Enviando o valor da nova input
+    fetch("/empresas/cadastrarEmpresa", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        razaoSocialServer: razaoSocial,
+        tokenServer: token,
+        cnpjServer: cnpj,
+        email_empresaServer: email_empresa,
+        telefoneServer: telefone,
+        estadoServer: estado,
+        cepServer: cep,
+        numeroServer: numero,
+        enderecoServer: endereco,
+        complementoServer: complemento,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          modalCad.hide();
+          limparFormulario();
+          listar();
+          // status("Sucesso")
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        // status("Erro")
+        console.log(`#ERRO: ${resposta}`);
+      });
+
+    return false;
+  }
+
+  // via cep
+  function buscarCep() {
+    var valor_cep = input_cep.value.replace(/\D/g, "");
+    input_cep.value = valor_cep
+      .replace(/^(\d{5})(\d)/, "$1-$2")
+      .substring(0, 9);
+    if (valor_cep.length == 8) {
+      fetch(`https://viacep.com.br/ws/${valor_cep}/json/`)
+        .then(function (resposta) {
+          resposta
+            .json()
+            .then(function (logradouro) {
+              if (!logradouro.erro) {
+                input_rua.value = logradouro.logradouro;
+                select_estado.value = logradouro.estado;
+              }
+            })
+            .catch(function (erro) {
+              console.warn("Erro ocorrido JSON: ", erro);
+            });
+        })
+        .catch(function (erro) {
+          console.warn(erro);
+        });
+    }
+  }
+
+  function abrirModal() {
+    modalCad.show();
+    token();
+  }
+
+  function limparFormulario() {
+    input_razaoSocial.value = "";
+    input_token.value = "";
+    input_cnpj.value = "";
+    input_email_empresa.value = "";
+    input_telefone.value = "";
+    select_estado.value = "";
+    input_cep.value = "";
+    input_numero.value = "";
+    input_rua.value = "";
+    input_complemento.value = "";
+  }
+
+  function status(statusOperacao) {
+    mensagem_operacao.styele.display = "block";
+    if (statusOperacao == "Sucesso") {
+      cor_status.style.background = "#2DE846";
+      img_status.src = "../assets/icons/sucesso.png";
+      mensagem_operacao.innerHTML = "Cadastro realizado com sucesso ";
+    } else {
+      cor_status.style.background = "#FC5C65";
+      img_status.src = "../assets/icons/erro.png";
+      mensagem_operacao.innerHTML = "Erro ao cadastrar";
+    }
+    setInterval(() => {
+      mensagem_operacao.styele.display = "none";
+    }, 3000);
+  }
+
+  // gerar token
+  function token() {
+    var valor = [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "U",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z",
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "u",
+      "v",
+      "w",
+      "x",
+      "y",
+      "z",
+    ];
+    var codigo = "";
+    for (var i = 0; i < 10; i++) {
+      var numAleatorio = parseInt(Math.random() * valor.length);
+      codigo += valor[numAleatorio];
+    }
+    input_token.value = codigo.toUpperCase();
+  }
+</script>

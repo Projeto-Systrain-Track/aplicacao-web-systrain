@@ -86,15 +86,37 @@
                     <p class="subtitulo">Monitoramento</p>
                     <h1 class="titulo">Servidores Monitorados</h1>
                     <p class="descricao">Resumo dos servidores monitorados pelo sistema</p>
+                    <p class="descricao" id="mensagem_aviso"></p>
                 </div>
                 <div class="solicita-gestor">
-                    <button class="btn-padrao" onclick="window.open('https://sptech-systrain-track.atlassian.net/jira/software/form/38e65750-08db-4575-9c92-ef2ce01f52ca')">
+                    <button class="btn-padrao"
+                        onclick="window.open('https://sptech-systrain-track.atlassian.net/jira/software/form/38e65750-08db-4575-9c92-ef2ce01f52ca')">
                         <img src="../assets/icons/adicionar.png" alt="">
                         Solicitar cadastro de servidor
                     </button>
                 </div>
             </section>
+            <section class="painel-mapa">
+                <table class="tabela-linhas">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome servidor</th>
+                            <th>Status</th>
+                            <th>Linha</th>
+                            <th>Incidentes</th>
+                            <th>Disponibilidade</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabelaLinhas">
+
+                    </tbody>
+                </table>
+            </section>
         </main>
+
+       
 </body>
 <script>
     function validarTipoUsuario() {
@@ -138,4 +160,36 @@
         sidebar.classList.toggle("compactada")
         conteudo.classList.toggle("expandido")
     }
+
+
+    function listarServidores() {
+        var tabela = document.getElementById("tabelaLinhas")
+        fetch(`/rbcs/listarRbcEmpresa/${sessionStorage.ID_EMPRESA}`, { method: "GET" })
+            .then(function (rbcs) {
+                if (rbcs.status == 200) {
+                    rbcs.json().then(function (rbcsJson) {
+                        console.log(rbcsJson);
+                        if (rbcsJson.length == 0) {
+                            document.getElementById("mensagem_aviso").innerHTML = "Nenhum servidor cadastrado até o momento!"
+                        } else {
+                            document.getElementById("mensagem_aviso").innerHTML = ""
+                            var cont = 1
+                            rbcsJson.forEach(rbc => {
+                                tabela.innerHTML = `
+                                    <tr>
+                                        <th scope="row">${cont++}</th>
+                                        <td>${rbc.nomeServidor}</th>
+                                        <td>Operando</td>
+                                        <td><div class="circulo-cor-linha" style="background-color: ${rbc.corLinha};"></div>Linha ${rbc.numeroLinha} - ${rbc.trecho}</td>
+                                        <td>15</td>
+                                        <td>98%</td>
+                                    </tr>
+                                `
+                            });
+                        }
+                    })
+                }
+            })
+    }
+    listarServidores()
 </script>

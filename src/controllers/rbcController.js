@@ -4,7 +4,7 @@ async function cadastrarRbc(req, res) {
     var objetoFormulario = req.body.objetoFormularioServer
     if (objetoFormulario == undefined) {
         res.status(400).send("Formulário está undefined!")
-    } 
+    }
     console.log("Lista de formulário: ", objetoFormulario);
     var nome_servidor = objetoFormulario.nome_servidor;
     var mac_address = objetoFormulario.mac_address;
@@ -22,13 +22,13 @@ async function cadastrarRbc(req, res) {
 }
 
 async function cadastrarRbcComponente(idServidor, idEmpresa, objetoFormulario) {
-    cpu = { idComponente: objetoFormulario.componentes_cpu_id_1, limite: objetoFormulario.componentes_cpu_limite}
-    memoria_ram = { idComponente: objetoFormulario.componentes_memoria_id_2, limite: objetoFormulario.componentes_memoria_limite}
-    disco = { idComponente: objetoFormulario.componentes_disco_id_3, limite: objetoFormulario.componentes_disco_limite}
-    processo_cpu = { idComponente: objetoFormulario.componentes_proc_cpu_id_4, limite: objetoFormulario.componentes_proc_cpu_limite}
-    processo_ram = { idComponente: objetoFormulario.componentes_proc_memoria_id_5, limite: objetoFormulario.componentes_proc_memoria_limite}
-    processo_disco = { idComponente: objetoFormulario.componentes_proc_disco_id_6, limite: objetoFormulario.componentes_proc_disco_limite}
-    latencia = { idComponente: objetoFormulario.componentes_latencia_id_7, limite: objetoFormulario.componentes_latencia_limite}
+    cpu = { idComponente: objetoFormulario.componentes_cpu_id_1, limite: objetoFormulario.componentes_cpu_limite }
+    memoria_ram = { idComponente: objetoFormulario.componentes_memoria_id_2, limite: objetoFormulario.componentes_memoria_limite }
+    disco = { idComponente: objetoFormulario.componentes_disco_id_3, limite: objetoFormulario.componentes_disco_limite }
+    processo_cpu = { idComponente: objetoFormulario.componentes_proc_cpu_id_4, limite: objetoFormulario.componentes_proc_cpu_limite }
+    processo_ram = { idComponente: objetoFormulario.componentes_proc_memoria_id_5, limite: objetoFormulario.componentes_proc_memoria_limite }
+    processo_disco = { idComponente: objetoFormulario.componentes_proc_disco_id_6, limite: objetoFormulario.componentes_proc_disco_limite }
+    latencia = { idComponente: objetoFormulario.componentes_latencia_id_7, limite: objetoFormulario.componentes_latencia_limite }
 
     console.log(cpu);
     console.log(memoria_ram);
@@ -37,7 +37,7 @@ async function cadastrarRbcComponente(idServidor, idEmpresa, objetoFormulario) {
     console.log(processo_ram);
     console.log(processo_disco);
     console.log(latencia);
-    
+
 
     var componentes = {
         cpu: cpu,
@@ -48,7 +48,7 @@ async function cadastrarRbcComponente(idServidor, idEmpresa, objetoFormulario) {
         processo_disco: processo_disco,
         latencia: latencia,
     }
-    
+
 
 
     var requisicao_cpu = await rbcModel.cadastrarRbcComponente(idServidor, idEmpresa, cpu.idComponente, cpu.limite)
@@ -79,8 +79,23 @@ function listarRbc(req, res) {
         console.error("Erro ao buscar os RBCs")
     );
 }
+async function listarRbcEmpresa(req, res) {
+    var idEmpresa = req.params.idEmpresa
+    if (idEmpresa == undefined) {
+        return res.status(400).json({ mensagem: "O idEmpresa está undefined" })
+    }
+    try {
+        var listarRbcBd =  await rbcModel.listarRbcEmpresa(idEmpresa)
+        console.log("Listar ", listarRbcBd);
+        return res.status(200).json(listarRbcBd)
+    } catch (error) {
+        console.error("Erro ao buscar os RBCs")
+        return res.status(400).json(error)
+    }
+}
 
 module.exports = {
     listarRbc,
-    cadastrarRbc
+    cadastrarRbc,
+    listarRbcEmpresa
 }

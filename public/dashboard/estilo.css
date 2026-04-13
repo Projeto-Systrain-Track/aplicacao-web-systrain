@@ -63,7 +63,9 @@ button {
     min-height: 100vh;
     display: flex;
 }
-
+#mensagem_aviso{
+    color: rgb(255, 166, 0);
+}
 .logo {
     width: 80%;
     display: flex;

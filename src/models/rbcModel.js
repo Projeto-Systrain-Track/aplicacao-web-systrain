@@ -5,6 +5,11 @@ function listarRbc(){
     console.log("Executando a instrução SQL: \n" + instrucaoSql)
     return database.executar(instrucaoSql)
 }
+function listarRbcEmpresa(idEmpresa){
+    var instrucaoSql = `select rbc.*, empresa.razaoSocial as empresa, linha.* from rbc join empresa ON fkEmpresa = idEmpresa join linha on linha.idLinha = rbc.fkLinha WHERE empresa.idEmpresa = ${idEmpresa} order by idRbc;`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql)
+    return database.executar(instrucaoSql)
+}
 
 function cadastrarRbc(nome_servidor, mac_address, linha_responsavel, empresa_responsavel) {
     console.log("ACESSEI O RBC MODEL")
@@ -28,5 +33,6 @@ function cadastrarRbcComponente(idServidor, idEmpresa, idComponente, limite) {
 module.exports = {
     listarRbc,
     cadastrarRbc,
-    cadastrarRbcComponente
+    cadastrarRbcComponente,
+    listarRbcEmpresa
 }
