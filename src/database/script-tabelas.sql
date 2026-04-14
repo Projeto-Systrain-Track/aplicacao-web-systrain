@@ -1,3 +1,4 @@
+
 create database systraintrack;
 use systraintrack;
 CREATE TABLE IF NOT EXISTS empresa (
@@ -90,6 +91,7 @@ CREATE TABLE IF NOT EXISTS usuario (
   email VARCHAR(45) NOT NULL,
   senha VARCHAR(200) NOT NULL,
   fk_empresa INT NOT NULL,
+  tipoUsuario VARCHAR(45) DEFAULT "Analista",
   PRIMARY KEY (idUsuario),
   UNIQUE INDEX email (email ASC) VISIBLE,
   INDEX fk_empresa (fk_empresa ASC) VISIBLE,
