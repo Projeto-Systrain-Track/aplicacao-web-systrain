@@ -1076,4 +1076,41 @@ modal-header {
 
 /*COISAS ADICIONADAS NA SPRINT2---------------------------------------------------------*/
 
-/* TELA DE VISAO GERAL DE LINHAS */
+.bolinha-verde {
+    width: 10px;
+    height: 10px;
+    background: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.alerta-card {
+    border: 1px solid #facc15;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #fff8db;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.tabela-servidor {
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.tabela-servidor th {
+    background: #f1f5f9;
+    padding: 10px;
+}
+
+.tabela-servidor tbody tr:hover td {
+    background-color: #e8e8e858;
+}
+
+.tabela-servidor td {
+    padding: 10px;
+    border-top: 1px solid #eee;
+}

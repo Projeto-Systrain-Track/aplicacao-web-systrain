@@ -24,6 +24,7 @@ var admRouter = require("./src/routes/adminitradores")
 var linhaRouter = require("./src/routes/linha")
 
 var visaoGeralRouter = require("./src/routes/dashVisaoGeral")
+var dashLinhasRoutes = require("./src/routes/dashLinhas");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,6 +41,8 @@ app.use("/adm", admRouter)
 app.use("/linha", linhaRouter)
 
 app.use("/visaoGeral", visaoGeralRouter);
+
+app.use("/dashLinhas", dashLinhasRoutes);
 
 
 
