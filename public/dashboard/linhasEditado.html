@@ -327,6 +327,21 @@
                 const listaResumo = document.getElementById("listaResumo");
                 listaResumo.innerHTML = "";
 
+                //coisa p anotação
+                // for(var i = 0; i < dados.resumo.length; i++){
+                //     var item = dados.resumo[i];
+
+                //     listaResumo.innerHTML += `
+                //     <div class="d-flex justify-content-between align-items-center mb-2">
+                //         <div class="d-flex align-items-center gap-2">
+                //             <span class="bolinha-verde"></span>
+                //             ${item.nome}
+                //         </div>
+                //         <strong>${item.valor}</strong>
+                //     </div>
+                // `;
+
+                // }
                 dados.resumo.forEach(item => {
                     listaResumo.innerHTML += `
                     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -343,8 +358,8 @@
                 const listaAlertas = document.getElementById("listaALertas");
                 listaAlertas.innerHTML = "";
 
-                for (let i = 0; i < dados.alertas.length; i++) {
-                    const alerta = dados.alertas[i];
+                for (var i = 0; i < dados.alertas.length; i++) {
+                    var alerta = dados.alertas[i];
 
                     listaAlertas.innerHTML += `
                         <div class="alerta-card mb-2">
@@ -358,10 +373,10 @@
                 const tabela = document.getElementById("tabelaServidor");
                 tabela.innerHTML = "";
 
-                for (let i = 0; i < dados.servidores.length; i++) {
-                    const s = dados.servidores[i];
+                for (var i = 0; i < dados.servidores.length; i++) {
+                    var s = dados.servidores[i];
 
-                    let cor = "bg-success";
+                    var cor = "bg-success";
                     if (s.status === "Degradado") cor = "bg-warning";
                     if (s.status === "Crítico") cor = "bg-danger";
 
@@ -386,7 +401,7 @@
     }
 
     function barra(valor) {
-        let cor = "bg-success";
+        var cor = "bg-success";
         if (valor > 70) cor = "bg-warning";
         if (valor > 85) cor = "bg-danger";
 
@@ -404,7 +419,7 @@
     const labels = [];
     const valores = [];
 
-    for (let i = 0; i < dados.length; i++) {
+    for (var i = 0; i < dados.length; i++) {
         labels.push(dados[i].tempo);
         valores.push(dados[i].valor);
     }
