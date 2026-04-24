@@ -76,14 +76,14 @@
                 </div>
             </aside>
             <main class="conteudo" id="conteudo_pagina">
-                <section class="topo-pagina m-2">
+                <section class="topo-pagina ">
                     <div class="">
-                        <p class="titulo">Detalhamento do RBC</p>
+                        <p class="titulo fw-bold">Detalhamento do RBC</p>
                         <p class="descricao" id="trecho_linha">Métricas de hardware detalhadas</p>
                     </div>
                 </section>
                 <section class="cont-detalhes-metricas mb-4 w-100 d-flex ">
-                    <div class="cont-detalhes border rounded  d-flex flex-column h-100">
+                    <div class="cont-detalhes border rounded bg-white d-flex flex-column h-100">
                         <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center justify-content-between">
                             <span id="nome_servidor" class="font-titulo fw-bold">RBC-01</span>
                             <span id="status_servidor" class="font-titulo bg-danger">Crítico</span>
@@ -99,7 +99,7 @@
                             <span id="trecho_servidor" class="font-titulo ">Última atualização: 31/03/2026 19:05</span>
                         </div>
                     </div>
-                    <div class="cont-metrica border rounded  d-flex flex-column h-100">
+                    <div class="cont-metrica border rounded bg-white  d-flex flex-column h-100">
                         <span class="font-titulo w-100 p-4 fw-bold">Métricas de hardware</span>
                         <div class="cont-porcentagens d-flex h-75 flex-column justify-content-evenly w-100 mb-1">
                             <div class="cont-porcentagem d-flex  align-items-center flex-column">
@@ -107,8 +107,8 @@
                                     <span class="font-titulo">CPU</span>
                                     <span class="font-titulo" id="porcentagem_cpu">75%</span>
                                 </div>
-                                <div class="barra_porcentagem">
-                                    <div class="porcentagem_colorida w-75 bg-danger" id="porcentagem_cpu"></div>
+                                <div class="barra_porcentagem progress">
+                                    <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-75 bg-danger" id="porcentagem_cpu"></div>
                                 </div>
                             </div>
                             <div class="cont-porcentagem d-flex align-items-center flex-column">
@@ -116,8 +116,8 @@
                                     <span class="font-titulo">Memória RAM</span>
                                     <span class="font-titulo" id="porcentagem_cpu">50%</span>
                                 </div>
-                                <div class="barra_porcentagem">
-                                    <div class="porcentagem_colorida w-50 bg-warning" id="porcentagem_ram"></div>
+                                <div class="barra_porcentagem progress">
+                                    <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-50 bg-warning" id="porcentagem_ram"></div>
                                 </div>
                             </div>
                             <div class="cont-porcentagem d-flex align-items-center flex-column">
@@ -125,8 +125,8 @@
                                     <span class="font-titulo">Disco</span>
                                     <span class="font-titulo" id="porcentagem_cpu">25%</span>
                                 </div>
-                                <div class="barra_porcentagem">
-                                    <div class="porcentagem_colorida w-25 bg-success" id="porcentagem_disco"></div>
+                                <div class="barra_porcentagem progress">
+                                    <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-25 bg-success" id="porcentagem_disco"></div>
                                 </div>
                             </div>
                             <div class="cont-porcentagem d-flex align-items-center flex-column">
@@ -134,8 +134,8 @@
                                     <span class="font-titulo">Latência</span>
                                     <span class="font-titulo" id="latencia_servidor">100ms</span>
                                 </div>
-                                <div class="barra_porcentagem">
-                                    <div class="porcentagem_colorida bg-success" id="porcentagem_cpu"></div>
+                                <div class="barra_porcentagem progress">
+                                    <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-100 bg-success" id="porcentagem_cpu"></div>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +143,7 @@
                 </section>
                 <section class="cont-grafico mb-4 p-3">
                     <div
-                        class="cont-grafico border rounded justify-content-evenly align-items-center w-100 d-flex flex-column h-75">
+                        class="cont-grafico border rounded bg-white justify-content-evenly align-items-center w-100 d-flex flex-column h-75">
                         <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
                             <span class="font-titulo">Latência ao longo do tempo</span>
                             <span class="font-titulo">24h</span>
@@ -155,7 +155,7 @@
                 </section>
                 <section class="cont-graficos-cpu-ram mb-4 p-3 justify-content-evenly align-items-center w-100 d-flex ">
                     <div
-                        class="cont-grafico m-1 justify-content-evenly align-items-center border rounded d-flex flex-column h-100">
+                        class="cont-grafico m-1 justify-content-evenly align-items-center border rounded bg-white d-flex flex-column h-100">
                         <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
                             <span class="font-titulo">CPU ao longo do tempo</span>
                             <span class="font-titulo">24h</span>
@@ -165,7 +165,7 @@
                         </div>
                     </div>
                     <div
-                        class="cont-grafico m-1 justify-content-evenly align-items-center border rounded d-flex flex-column h-100">
+                        class="cont-grafico m-1 justify-content-evenly align-items-center border rounded bg-white d-flex flex-column h-100">
                         <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
                             <span class="font-titulo">Memória RAM ao longo do tempo</span>
                             <span class="font-titulo">24h</span>
@@ -177,7 +177,7 @@
                 </section>
                 <section class="cont-grafico w-100 h-75 p-3">
                     <div
-                        class="cont-grafico border rounded justify-content-evenly align-items-center w-100 d-flex flex-column h-100">
+                        class="cont-grafico border rounded bg-white justify-content-evenly align-items-center w-100 d-flex flex-column h-100">
                         <div class="cont-txts w-100 px-5 justify-content-between  d-flex flex-row ">
                             <span class="font-titulo">Top 5 processos com mais uso de hardware</span>
                         </div>
@@ -367,17 +367,17 @@
                 {
                     label: 'CPU (%)',
                     data: [30, 20, 40, 25, 35],
-                    backgroundColor: '#DC2828'
+                    backgroundColor: '#12355B'
                 },
                 {
                     label: 'RAM (%)',
                     data: [25, 30, 20, 35, 25],
-                    backgroundColor: '#EE9D0B'
+                    backgroundColor: '#ff570a'
                 },
                 {
                     label: 'Disco (%)',
                     data: [15, 10, 20, 15, 10],
-                    backgroundColor: '#21A656'
+                    backgroundColor: '#02033B'
                 }
             ]
         };

@@ -1,132 +1,288 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SysTrain Track | Detalhamento Linha</title>
-    <link rel="stylesheet" href="estilo.css" />
-    <script src="../js/sessao.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sys Train Track | Dashboard</title>
     <link rel="icon" href="../assets/icons/logo.svg" />
+    <link rel="stylesheet" href="estilo.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f5f7fa !important;
+        }
 
+        .conteudo {
+            background-color: #f5f7fa;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container-sys">
-        <div class="container-sys">
-            <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
-            <div class="nav-hamburguer">
-                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
-                <img src="../assets/icons/icon-menu-white.png" alt="Sys-train track" class="icon-menu"
-                    onclick="abrirSideBarMobile()">
+        <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
+        <div class="nav-hamburguer">
+            <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
+            <img src="../assets/icons/icon-menu-white.png" alt="Sys-train track" class="icon-menu"
+                onclick="abrirSideBarMobile()">
+        </div>
+
+        <aside class="nav-lateral desktop" id="nav_lateral">
+            <div class="cont-icon-sidebar">
+                <img src="../assets/icons/icon-sidebar-white.png" id="icone-sidebar" onclick="fecharSidebar()" alt="">
+            </div>
+            <div class="logo">
+                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
             </div>
 
-            <aside class="nav-lateral desktop" id="nav_lateral">
-                <div class="cont-icon-sidebar">
-                    <img src="../assets/icons/icon-sidebar-white.png" id="icone-sidebar" onclick="fecharSidebar()"
-                        alt="">
+            <nav class="links" id="links_sidebar">
+                <a class="link-lateral" href="dashboard.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+                    <span>Visão geral</span>
+                </a>
+                <a class="link-lateral ativo" href="linhas.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+                    <span>Linhas</span>
+                </a>
+                <a class="link-lateral " href="servidores.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+                    <span>Servidores</span>
+                </a>
+                <a class="link-lateral" href="incidentes.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
+                    <span>Incidentes</span>
+                </a>
+                <a class="link-lateral" href="relatorios.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
+                    <span>Relatórios</span>
+                </a>
+
+            </nav>
+
+            <div class="opcoes">
+                <div class="btn-lateral usuario">
+                    <img src="../assets/icons/icon-avatar-masc.png" alt="">
+                    <div class="cont-user">
+                        <p id="cargo_user"></p>
+                        <p id="nome_user"></p>
+                    </div>
+
                 </div>
-                <div class="logo">
-                    <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
+                <button onclick="limparSessao()" class="btn-lateral">
+                    <img src="../assets/icons/icon-logout-white.png" alt="">
+                    <p>Sair</p>
+                </button>
+            </div>
+        </aside>
+
+
+        <main class="conteudo" id="conteudo_pagina">
+            <section class="topo-pagina">
+                <div>
+                    <p class="subtitulo">Monitoramento</p>
+                    <h2 class="titulo fw-bolder">Linhas</h2> <!--trocar pelo nome da linha atual-->
+                    <p class="descricao">Resumo das linhas monitoradas pelo sistema.</p>
                 </div>
 
-                <nav class="links" id="links_sidebar">
-                    <a class="link-lateral" href="dashboard.html">
-                        <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
-                        <span>Visão geral</span>
-                    </a>
-                    <a class="link-lateral ativo" href="linhas.html">
-                        <img class="icon-sidebar " src="../assets/icons/icon-linha-white.png" alt="">
-                        <span>Linhas</span>
-                    </a>
-                    <a class="link-lateral" href="servidores.html">
-                        <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
-                        <span>Servidores</span>
-                    </a>
-                    <a class="link-lateral" href="incidentes.html">
-                        <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
-                        <span>Incidentes</span>
-                    </a>
-                    <a class="link-lateral" href="relatorios.html">
-                        <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
-                        <span>Relatórios</span>
-                    </a>
+            </section>
 
-                </nav>
+            <!-- seletor da linha -->
+            <!-- <section class="painel-mapa">
+        <div class="cabecalho-mapa">
+          <div>
+            <p class="subtitulo">Linha atual</p>
 
-                <div class="opcoes">
-                    <div class="btn-lateral usuario">
-                        <img src="../assets/icons/icon-avatar-masc.png" alt="">
-                        <div class="cont-user">
-                            <p id="cargo_user"></p>
-                            <p id="nome_user"></p>
-                        </div>
+            <div class="troca-linha">
+              <button id="btnAnterior" class="btn-seta" aria-label="Linha anterior">
+                &#8249;
+              </button>
 
-                    </div>
-                    <button onclick="limparSessao()" class="btn-lateral">
-                        <img src="../assets/icons/icon-logout-white.png" alt="">
-                        <p>Sair</p>
-                    </button>
-                </div>
-            </aside>
+              <div>
+                <h2 id="tituloLinha">Linha 9 - Esmeralda</h2>
+                <p id="subtituloLinha">Estrutura simplificada da linha selecionada</p>
+              </div>
 
-            <main class="conteudo">
-                <section class="topo-pagina">
-                    <div>
-                        <p class="subtitulo">Detalhamento da linha</p>
-                        <div class="titulo" id="nome_linha">Linhas Monitoradas</div>
-                        <p class="descricao" id="trecho_linha">Osasco - Bruno Covas</p>
-                    </div>
-                </section>
+              <button id="btnProxima" class="btn-seta" aria-label="Próxima linha">
+                &#8250;
+              </button>
+            </div>
+          </div>
 
-
-                <section class="container-kpis w-100 d-flex flex-row h-25">
-                    <div class="card-kpi d-flex flex-row w-25 m-2 p-3 justify-content-evenly align-items-center">
-                        <div class="cont-textos">
-                            <h4 class="descricao-kpi" id="descricao_total_servidores">Total de servidores ativos</h4>
-                            <p class="metrica-kpi" id="metrica_total_servidores"></p>
-                        </div>
-                        <img src="../assets/icons/icon-servidor.jpg" class="icon-kpi h-25 " alt="">
-                    </div>
-                    <div class="card-kpi d-flex flex-row w-25 m-2 p-3 justify-content-evenly align-items-center">
-                        <div class="cont-textos">
-                            <h4 class="descricao-kpi" id="descricao_status_sistema">Status do sistema</h4>
-                            <p class="metrica-kpi" id="metrica_status_sistema"></p>
-                        </div>
-                        <img src="../assets/icons/icon-status.jpg" class="icon-kpi h-25 " alt="">
-                    </div>
-                    <div class="card-kpi d-flex flex-row w-25 m-2 p-3 justify-content-evenly align-items-center">
-                        <div class="cont-textos">
-                            <h4 class="descricao-kpi" id="descricao_latencia_media">Latência média</h4>
-                            <p class="metrica-kpi" id="metrica_latencia_media"></p>
-                        </div>
-                        <img src="../assets/icons/icon-wifi.jpg" class="icon-kpi h-25 " alt="">
-                    </div>
-                    <div class="card-kpi d-flex flex-row w-25 m-2 p-3 justify-content-evenly align-items-center">
-                        <div class="cont-textos">
-                            <h4 class="descricao-kpi" id="descricao_pico_latencia">Pico de latência</h4>
-                            <p class="metrica-kpi" id="metrica_pico_latencia"></p>
-                        </div>
-                        <img src="../assets/icons/icon-alerta.jpg" class="icon-kpi h-25 " alt="">
-                    </div>
-                </section>
-
-
-            </main>
+          <div class="legenda">
+            <div><span class="amostra linha-cor"></span> Normal</div>
+            <div><span class="amostra estacao"></span> Alerta</div>
+          </div>
         </div>
-</body>
-<script>
 
+        <div id="imagemLinha" class="mapa-box linha-cor">
+        </div>
+      </section> -->
+
+            <div class="row g-4 mb-4">
+
+                <div class="col-md-3">
+                    <div class="card-indicador position-relative">
+                        <img src="./linhas/icon-servidor.jpg" class="icone-card" alt="Ícone">
+                        <p>Total de Servidores Ativos</p>
+                        <strong id="servidorAtivo">NHA</strong>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-indicador position-relative">
+                        <img src="./linhas/icon_disponibilidade.png" class="icone-card" alt="Ícone">
+                        <p>Status do Sistema</p>
+                        <strong id="statusSistema">NHA</strong>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-indicador position-relative">
+                        <img src="./linhas/icon_consumoProcesso.png" class="icone-card" alt="Ícone">
+                        <p>Servidor com Maior Consumo</p>
+                        <strong id="latenciaMedia">NHA</strong>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card-indicador position-relative">
+                        <img src="./linhas/icon_alerta.png" class="icone-card" alt="Ícone">
+                        <p>Latência Máxima</p>
+                        <strong id="picoLatencia">NHA</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row g-4 mb-4">
+
+                <div class="col-md-6">
+                    <div class="resumo-card">
+                        <p class="subtitulo">Resumo de Eventos do Dia</p>
+
+                        <div class="mini-lista" id="listaResumo">
+                            <div class="card">
+                                <div class="card-body">
+                                    aaaaaaaaaaa
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="resumo-card">
+                        <p class="subtitulo">Alertas Ativos</p>
+
+                        <div class="mini-lista" id="listaALertas">
+                            <div class="card border-warning">
+                                <div class="card-body">
+                                    aaaaaaaaaaaaaaaaa
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row g-4 mb-4">
+
+
+                <div class="col-md">
+                    <div class="resumo-card">
+                        <p class="descricao">Latência ao longo do tempo</p>
+
+                        <!-- <div class="mini-lista" id="listaLatencia"></div> -->
+                        <canvas id="graficoLatencia"></canvas>
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-4">
+
+                    <div class="col-md-6">
+                        <div class="resumo-card">
+                            <p class="descricao">CPU ao longo do tempo</p>
+
+                            <div class="mini-lista" id="listaLatencia"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="resumo-card">
+                            <p class="descricao">RAM ao longo do tempo</p>
+
+                            <div class="mini-lista" id="listaIncidentes"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="painel-mapa">
+
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <img src="./linhas/icon-servidor.jpg" class="icone-titulo" alt="Ícone"> <!--trocar o icon aqui-->
+                    <h6 class="descricao m-0">Servidores</h6>
+                </div>
+
+                <!--reciclando um pouco do codigo da tabela de linhas aqui-->
+                <table class="tabela-servidor">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Status</th>
+                            <th>CPU</th>
+                            <th>RAM</th>
+                            <th>Disco</th>
+                            <th>Latência</th>
+                            <th>Uptime</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabelaServidor"></tbody>
+                </table>
+            </div>
+
+
+        </main>
+    </div>
+
+</body>
+
+</html>
+
+
+
+<script src="dash.js"></script>
+
+<script>
+    function validarTipoUsuario() {
+        var links_sidebar = document.getElementById("links_sidebar")
+        if (sessionStorage.TIPO_USUARIO == "Gestor") {
+            links_sidebar.innerHTML += `
+              <a class="link-lateral " href="usuarios.html">
+                <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+                <span>Usuários</span>
+              </a>
+            `
+        }
+    }
+    validarTipoUsuario()
     document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
     document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
     window.onload = function () {
         validarSessaoUsuario();
+        carregarDados();
     };
 
     window.addEventListener("resize", function () {
@@ -154,21 +310,138 @@
         sidebar.classList.toggle("compactada")
         conteudo.classList.toggle("expandido")
     }
-    var parametrosUrl = new URLSearchParams(window.location.search)
-    var idLinha = parametrosUrl.get("id")
-    function validarTipoUsuario() {
-        var links_sidebar = document.getElementById("links_sidebar")
-        if (sessionStorage.TIPO_USUARIO == "Gestor") {
-            links_sidebar.innerHTML += `
-          <a class="link-lateral " href="usuarios.html">
-            <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
-            <span>Usuários</span>
-          </a>
-        `
-        }
+    window.onload = carregarDados;
+
+    function carregarDados() {
+        fetch("/dashLinhas/dashboard")
+            .then(res => res.json())
+            .then(dados => {
+
+                //kpi
+                document.getElementById("servidorAtivo").innerText = dados.servidoresAtivos;
+                document.getElementById("statusSistema").innerText = dados.statusSistema;
+                document.getElementById("latenciaMedia").innerText = dados.latenciaMedia;
+                document.getElementById("picoLatencia").innerText = dados.picoLatencia;
+
+                //resumo dos incidentes
+                const listaResumo = document.getElementById("listaResumo");
+                listaResumo.innerHTML = "";
+
+                //coisa p anotação
+                // for(var i = 0; i < dados.resumo.length; i++){
+                //     var item = dados.resumo[i];
+
+                //     listaResumo.innerHTML += `
+                //     <div class="d-flex justify-content-between align-items-center mb-2">
+                //         <div class="d-flex align-items-center gap-2">
+                //             <span class="bolinha-verde"></span>
+                //             ${item.nome}
+                //         </div>
+                //         <strong>${item.valor}</strong>
+                //     </div>
+                // `;
+
+                // }
+                dados.resumo.forEach(item => {
+                    listaResumo.innerHTML += `
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="bolinha-verde"></span>
+                            ${item.nome}
+                        </div>
+                        <strong>${item.valor}</strong>
+                    </div>
+                `;
+                });
+
+                // alertas
+                const listaAlertas = document.getElementById("listaALertas");
+                listaAlertas.innerHTML = "";
+
+                for (var i = 0; i < dados.alertas.length; i++) {
+                    var alerta = dados.alertas[i];
+
+                    listaAlertas.innerHTML += `
+                        <div class="alerta-card mb-2">
+                            <span class="badge bg-warning text-dark ms-3">${alerta.tipo}</span>
+                            ${alerta.msg}
+                        </div>
+                    `;
+                }
+
+                // tabelas
+                const tabela = document.getElementById("tabelaServidor");
+                tabela.innerHTML = "";
+
+                for (var i = 0; i < dados.servidores.length; i++) {
+                    var s = dados.servidores[i];
+
+                    var cor = "bg-success";
+                    if (s.status === "Degradado") cor = "bg-warning";
+                    if (s.status === "Crítico") cor = "bg-danger";
+
+                    tabela.innerHTML += `
+                            <tr>
+                                <td>${s.nome}</td>
+                                <td><span class="badge ${cor}">${s.status}</span></td>
+                                <td>${barra(s.cpu)}</td>
+                                <td>${barra(s.ram)}</td>
+                                <td>${barra(s.disco)}</td>
+                                <td>${s.latencia}</td>
+                                <td>${s.uptime}</td>
+                            </tr>
+                        `;
+                }
+
+                //grafico latencia
+                montarGrafico(dados.graficoLatencia);
+
+            })
+            .catch(err => console.error(err));
     }
-    validarTipoUsuario()
 
+    function barra(valor) {
+        var cor = "bg-success";
+        if (valor > 70) cor = "bg-warning";
+        if (valor > 85) cor = "bg-danger";
+
+        return `
+        <div class="fw-bolder" style="display: flex; justify-content: right; font-size: 12px;"><span>${valor}%</span></div>
+
+        <div class="progress" style="height:10px;">
+            <div class="progress-bar-striped progress-bar-animated ${cor}" style="width:${valor}%"></div>
+        </div>
+    `;
+    }
+
+    function montarGrafico(dados) {
+
+    const labels = [];
+    const valores = [];
+
+    for (var i = 0; i < dados.length; i++) {
+        labels.push(dados[i].tempo);
+        valores.push(dados[i].valor);
+    }
+
+    const ctx = document.getElementById("graficoLatencia");
+
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [{
+                data: valores,
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
 </script>
-
-</html>
