@@ -161,7 +161,9 @@
         conteudo.classList.toggle("expandido")
     }
 
-
+    function irParaDetalhe(link) {
+        window.location = link
+    }
     function listarServidores() {
         var tabela = document.getElementById("tabelaLinhas")
         fetch(`/rbcs/listarRbcEmpresa/${sessionStorage.ID_EMPRESA}`, { method: "GET" })
@@ -176,14 +178,15 @@
                             var cont = 1
                             rbcsJson.forEach(rbc => {
                                 tabela.innerHTML = `
-                                    <tr>
-                                        <th scope="row">${cont++}</th>
-                                        <td>${rbc.nomeServidor}</th>
-                                        <td>Operando</td>
-                                        <td><div class="circulo-cor-linha" style="background-color: ${rbc.corLinha};"></div>Linha ${rbc.numeroLinha} - ${rbc.trecho}</td>
-                                        <td>15</td>
-                                        <td>98%</td>
-                                    </tr>
+                                    <tr onclick="irParaDetalhe('detalheServidor.html')">
+                                            <th scope="row">${cont++}</th>
+                                            <td>${rbc.nomeServidor}</th>
+                                            <td>Operando</td>
+                                            <td><div class="circulo-cor-linha" style="background-color: ${rbc.corLinha};"></div>Linha ${rbc.numeroLinha} - ${rbc.trecho}</td>
+                                            <td>2</td>
+                                            <td>100%</td>
+                                    </tr>        
+                                    
                                 `
                             });
                         }

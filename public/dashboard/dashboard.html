@@ -60,7 +60,7 @@
           <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
           <span>Relatórios</span>
         </a>
-        
+
       </nav>
 
       <div class="opcoes">
@@ -90,26 +90,8 @@
       </section>
 
       <!-- kpt -->
-      <div class="row g-4 mb-4">
-
-        <div class="col-md-3">
-          <div class="card-indicador position-relative">
-            <img src="./linhas/icon_latencia.png" class="icone-card" alt="Ícone">
-            <p>Latência média global</p>
-            <strong id="latenciaMedia">NHA</strong>
-
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card-indicador position-relative">
-            <img src="./linhas/icon_linhas.png" class="icone-card" alt="Ícone">
-            <p>Linhas ativas</p>
-            <strong id="linhasAtivas">NHA</strong>
-          </div>
-        </div>
-
-        <div class="col-md-3">
+      <div class="row justify-content-evenly mb-4 ">
+        <div class="col-md-3 mb-2">
           <div class="card-indicador position-relative">
             <img src="./linhas/icon_disponibilidade.png" class="icone-card" alt="Ícone">
             <p>Disponibilidade</p>
@@ -117,23 +99,28 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3 mb-2">
+          <div class="card-indicador position-relative">
+            <img src="./linhas/icon_linhas.png" class="icone-card" alt="Ícone">
+            <p>Linha com maior consumo</p>
+            <strong id="linhaMaiorConsumo">NHA</strong>
+          </div>
+        </div>
+
+        <div class="col-md-3 mb-2">
           <div class="card-indicador position-relative">
             <img src="./linhas/icon_alerta.png" class="icone-card" alt="Ícone">
             <p>Incidentes</p>
             <strong id="incidentes">NHA</strong>
           </div>
         </div>
-
       </div>
 
       <!--resumos do q tem de destaque das linhas -->
       <div class="row g-4 mb-4">
-
-
         <div class="col-md-6">
           <div class="resumo-card">
-            <p class="subtitulo">Maior latência</p>
+            <p class="subtitulo">Linhas com maior latência</p>
 
             <div class="mini-lista" id="listaLatencia"></div>
           </div>
@@ -141,7 +128,7 @@
 
         <div class="col-md-6">
           <div class="resumo-card">
-            <p class="subtitulo">Mais incidentes</p>
+            <p class="subtitulo">Linhas com mais incidentes</p>
 
             <div class="mini-lista" id="listaIncidentes"></div>
           </div>
@@ -163,7 +150,6 @@
               <th>Nome</th>
               <th>Status</th>
               <th>Servidores</th>
-              <th>Trens</th>
               <th>Incidentes</th>
               <th>Latência</th>
             </tr>
@@ -193,9 +179,6 @@
 
 </html>
 
-
-
-<script src="dash.js"></script>
 
 <script>
   function validarTipoUsuario() {
@@ -250,10 +233,9 @@
       .then(function (dados) {
 
         //KPIs
-        document.getElementById("latenciaMedia").innerText = dados.latenciaMedia;
-        document.getElementById("linhasAtivas").innerText = dados.linhasAtivas;
-        document.getElementById("disponibilidade").innerText = dados.disponibilidade;
-        document.getElementById("incidentes").innerText = dados.incidentes;
+        document.getElementById("linhaMaiorConsumo").innerHTML = dados.linhaMaiorConsumo;
+        document.getElementById("disponibilidade").innerHTML = dados.disponibilidade;
+        document.getElementById("incidentes").innerHTML = dados.incidentes;
 
         //MAIOR LATÊNCIA
         var listaLatencia = document.getElementById("listaLatencia");
@@ -261,12 +243,25 @@
 
         for (var i = 0; i < dados.maiorLatencia.length; i++) {
           var latencia = dados.maiorLatencia[i];
-
+          var cor = "#000"
+          if (latencia.valor > 100) {
+            cor = "#FF0000"
+          } else if (latencia.valor > 75) {
+            cor = "#EE9D0B"
+          } else {
+            cor = "#227643"
+          }
           listaLatencia.innerHTML +=
-            "<div>" +
-            "<span>" + latencia.nome + "</span>" +
-            "<strong>" + latencia.valor + "</strong>" +
-            "</div>";
+            `
+              <div class="cont-linhas-ranking"> 
+                <div class="cont-txt-linhas-maior">
+                  <span style="font-weight: bold">${i + 1}º</span>
+                  <div class="circulo-cor-linha" style="background-color: ${latencia.cor};"></div>
+                  <span> ${latencia.nome}</span> 
+                </div>
+                <strong style="color: ${cor}"> ${latencia.valor}ms</strong> 
+              </div>
+            `
         }
 
         //MAIS INCIDENTES
@@ -275,12 +270,25 @@
 
         for (var i = 0; i < dados.maisIncidentes.length; i++) {
           var incidentes = dados.maisIncidentes[i];
-
+          var cor = "#000"
+          if (incidentes.valor > 10) {
+            cor = "#FF0000"
+          } else if (incidentes.valor > 5) {
+            cor = "#EE9D0B"
+          } else {
+            cor = "#227643"
+          }
           listaIncidentes.innerHTML +=
-            "<div>" +
-            "<span>" + incidentes.nome + "</span>" +
-            "<strong>" + incidentes.valor + "</strong>" +
-            "</div>";
+            `
+              <div class="cont-linhas-ranking"> 
+                <div class="cont-txt-linhas-maior">
+                  <span style="font-weight: bold">${i + 1}º</span>
+                  <div class="circulo-cor-linha" style="background-color: ${incidentes.cor};"></div>
+                  <span> ${incidentes.nome}</span> 
+                </div>
+                <strong style="color: ${cor}"> ${incidentes.valor}</strong> 
+              </div>
+            `
         }
 
         //TABELA
@@ -303,7 +311,6 @@
             "<td>" + linha.nome + "</td>" +
             "<td><span class='status-badge " + classeStatus + "'>" + linha.status + "</span></td>" +
             "<td>" + linha.servidores + "</td>" +
-            "<td>" + linha.trens + "</td>" +
             "<td>" + linha.incidentes + "</td>" +
             "<td>" + linha.latencia + "</td>" +
             "</tr>";

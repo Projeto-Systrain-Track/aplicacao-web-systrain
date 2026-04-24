@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SysTrain Track | Detalhamento Servidor</title>
+    <link rel="stylesheet" href="estilo.css" />
+    <script src="../js/sessao.js"></script>
+    <link rel="icon" href="../assets/icons/logo.svg" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div class="container-sys">
+        <div class="container-sys">
+            <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
+            <div class="nav-hamburguer">
+                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
+                <img src="../assets/icons/icon-menu-white.png" alt="Sys-train track" class="icon-menu"
+                    onclick="abrirSideBarMobile()">
+            </div>
+
+            <aside class="nav-lateral desktop" id="nav_lateral">
+                <div class="cont-icon-sidebar">
+                    <img src="../assets/icons/icon-sidebar-white.png" id="icone-sidebar" onclick="fecharSidebar()"
+                        alt="">
+                </div>
+                <div class="logo">
+                    <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
+                </div>
+
+                <nav class="links" id="links_sidebar">
+                    <a class="link-lateral" href="dashboard.html">
+                        <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+                        <span>Visão geral</span>
+                    </a>
+                    <a class="link-lateral " href="linhas.html">
+                        <img class="icon-sidebar " src="../assets/icons/icon-linha-white.png" alt="">
+                        <span>Linhas</span>
+                    </a>
+                    <a class="link-lateral ativo" href="servidores.html">
+                        <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+                        <span>Servidores</span>
+                    </a>
+                    <a class="link-lateral" href="incidentes.html">
+                        <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
+                        <span>Incidentes</span>
+                    </a>
+                    <a class="link-lateral" href="relatorios.html">
+                        <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
+                        <span>Relatórios</span>
+                    </a>
+
+                </nav>
+                <div class="opcoes">
+                    <div class="btn-lateral usuario">
+                        <img src="../assets/icons/icon-avatar-masc.png" alt="">
+                        <div class="cont-user">
+                            <p id="cargo_user"></p>
+                            <p id="nome_user"></p>
+                        </div>
+
+                    </div>
+                    <button onclick="limparSessao()" class="btn-lateral">
+                        <img src="../assets/icons/icon-logout-white.png" alt="">
+                        <p>Sair</p>
+                    </button>
+                </div>
+            </aside>
+            <main class="conteudo" id="conteudo_pagina">
+                <section class="topo-pagina m-2">
+                    <div class="">
+                        <p class="titulo">Detalhamento do RBC</p>
+                        <p class="descricao" id="trecho_linha">Métricas de hardware detalhadas</p>
+                    </div>
+                </section>
+                <section class="cont-detalhes-metricas mb-4 w-100 d-flex ">
+                    <div class="cont-detalhes border rounded  d-flex flex-column h-100">
+                        <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center justify-content-between">
+                            <span id="nome_servidor" class="font-titulo fw-bold">RBC-01</span>
+                            <span id="status_servidor" class="font-titulo bg-danger">Crítico</span>
+                        </div>
+                        <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center gap-3">
+                            <img src="../assets/icons/icon-pin.png" alt="">
+                            <span id="trecho_servidor" class="font-titulo ">Osasco - Varginha</span>
+                        </div>
+                        <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center gap-3">
+                            <span id="linha_servidor" class="font-titulo ">Linha 9 - Esmeralda</span>
+                        </div>
+                        <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center">
+                            <span id="trecho_servidor" class="font-titulo ">Última atualização: 31/03/2026 19:05</span>
+                        </div>
+                    </div>
+                    <div class="cont-metrica border rounded  d-flex flex-column h-100">
+                        <span class="font-titulo w-100 p-4 fw-bold">Métricas de hardware</span>
+                        <div class="cont-porcentagens d-flex h-75 flex-column justify-content-evenly w-100 mb-1">
+                            <div class="cont-porcentagem d-flex  align-items-center flex-column">
+                                <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                                    <span class="font-titulo">CPU</span>
+                                    <span class="font-titulo" id="porcentagem_cpu">75%</span>
+                                </div>
+                                <div class="barra_porcentagem">
+                                    <div class="porcentagem_colorida w-75 bg-danger" id="porcentagem_cpu"></div>
+                                </div>
+                            </div>
+                            <div class="cont-porcentagem d-flex align-items-center flex-column">
+                                <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                                    <span class="font-titulo">Memória RAM</span>
+                                    <span class="font-titulo" id="porcentagem_cpu">50%</span>
+                                </div>
+                                <div class="barra_porcentagem">
+                                    <div class="porcentagem_colorida w-50 bg-warning" id="porcentagem_ram"></div>
+                                </div>
+                            </div>
+                            <div class="cont-porcentagem d-flex align-items-center flex-column">
+                                <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                                    <span class="font-titulo">Disco</span>
+                                    <span class="font-titulo" id="porcentagem_cpu">25%</span>
+                                </div>
+                                <div class="barra_porcentagem">
+                                    <div class="porcentagem_colorida w-25 bg-success" id="porcentagem_disco"></div>
+                                </div>
+                            </div>
+                            <div class="cont-porcentagem d-flex align-items-center flex-column">
+                                <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                                    <span class="font-titulo">Latência</span>
+                                    <span class="font-titulo" id="latencia_servidor">100ms</span>
+                                </div>
+                                <div class="barra_porcentagem">
+                                    <div class="porcentagem_colorida bg-success" id="porcentagem_cpu"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="cont-grafico mb-4 p-3">
+                    <div
+                        class="cont-grafico border rounded justify-content-evenly align-items-center w-100 d-flex flex-column h-75">
+                        <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
+                            <span class="font-titulo">Latência ao longo do tempo</span>
+                            <span class="font-titulo">24h</span>
+                        </div>
+                        <div class="grafico">
+                            <canvas id="grafico_latencia"></canvas>
+                        </div>
+                    </div>
+                </section>
+                <section class="cont-graficos-cpu-ram mb-4 p-3 justify-content-evenly align-items-center w-100 d-flex ">
+                    <div
+                        class="cont-grafico m-1 justify-content-evenly align-items-center border rounded d-flex flex-column h-100">
+                        <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
+                            <span class="font-titulo">CPU ao longo do tempo</span>
+                            <span class="font-titulo">24h</span>
+                        </div>
+                        <div class="grafico">
+                            <canvas id="grafico_cpu"></canvas>
+                        </div>
+                    </div>
+                    <div
+                        class="cont-grafico m-1 justify-content-evenly align-items-center border rounded d-flex flex-column h-100">
+                        <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
+                            <span class="font-titulo">Memória RAM ao longo do tempo</span>
+                            <span class="font-titulo">24h</span>
+                        </div>
+                        <div class="grafico">
+                            <canvas id="grafico_ram"></canvas>
+                        </div>
+                    </div>
+                </section>
+                <section class="cont-grafico w-100 h-75 p-3">
+                    <div
+                        class="cont-grafico border rounded justify-content-evenly align-items-center w-100 d-flex flex-column h-100">
+                        <div class="cont-txts w-100 px-5 justify-content-between  d-flex flex-row ">
+                            <span class="font-titulo">Top 5 processos com mais uso de hardware</span>
+                        </div>
+                        <div class="grafico">
+                            <canvas id="grafico_processos"></canvas>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </main>
+        </div>
+</body>
+<script>
+
+    document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
+    document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
+    window.onload = function () {
+        validarSessaoUsuario();
+    };
+
+
+    window.addEventListener("resize", function () {
+        var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+        var sidebar = document.getElementById("nav_lateral")
+
+        if (window.innerWidth > 900) {
+            if (fundo_cinza_sidebar.classList.contains("mobile")) {
+                console.log("Tem a classe mobile");
+                sidebar.classList.toggle("mobile")
+                fundo_cinza_sidebar.classList.toggle("mobile")
+            }
+        }
+    });
+
+    function abrirSideBarMobile() {
+        var sidebar = document.getElementById("nav_lateral")
+        var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+        sidebar.classList.toggle("mobile")
+        fundo_cinza_sidebar.classList.toggle("mobile")
+    }
+    function fecharSidebar() {
+        var sidebar = document.getElementById("nav_lateral")
+        var conteudo = document.getElementById("conteudo_pagina")
+        sidebar.classList.toggle("compactada")
+        conteudo.classList.toggle("expandido")
+    }
+    var parametrosUrl = new URLSearchParams(window.location.search)
+    var idLinha = parametrosUrl.get("id")
+    function validarTipoUsuario() {
+        var links_sidebar = document.getElementById("links_sidebar")
+        if (sessionStorage.TIPO_USUARIO == "Gestor") {
+            links_sidebar.innerHTML += `
+          <a class="link-lateral " href="usuarios.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+            <span>Usuários</span>
+          </a>
+        `
+        }
+    }
+
+    function montarGraficoLatencia() {
+        var grafico_latencia = document.getElementById('grafico_latencia');
+
+        var dados = {
+            labels: ["01:00", "01:05", "01:10", "01:15", "01:20", "01:25", "01:00"],
+            datasets: [
+                {
+                    label: 'Maior comum',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    borderColor: '#DC2828',
+                    tension: 0.1
+                },
+                {
+                    label: 'Média',
+                    data: [50, 50, 60, 70, 46, 50, 35],
+                    borderColor: '#EE9D0B',
+                    tension: 0.1
+                },
+                {
+                    label: 'Menor comum',
+                    data: [40, 33, 50, 60, 39, 40, 23],
+                    borderColor: '#21A656',
+                    tension: 0.1
+                }
+            ]
+        };
+        var config = {
+            type: "line",
+            data: dados,
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        }
+        new Chart(grafico_latencia, config);
+    }
+
+    function montarGraficoCpu() {
+        var grafico_latencia = document.getElementById('grafico_cpu');
+
+        var dados = {
+            labels: ["01:00", "01:05", "01:10", "01:15", "01:20", "01:25", "01:00"],
+            datasets: [
+                {
+                    label: 'Maior comum',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    borderColor: '#DC2828',
+                    tension: 0.1
+                },
+                {
+                    label: 'Média',
+                    data: [50, 50, 60, 70, 46, 50, 35],
+                    borderColor: '#EE9D0B',
+                    tension: 0.1
+                },
+                {
+                    label: 'Menor comum',
+                    data: [40, 33, 50, 60, 39, 40, 23],
+                    borderColor: '#21A656',
+                    tension: 0.1
+                }
+            ]
+        };
+        var config = {
+            type: "line",
+            data: dados,
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        }
+        new Chart(grafico_latencia, config);
+    }
+    function montarGraficoRam() {
+        var grafico_latencia = document.getElementById('grafico_ram');
+
+        var dados = {
+            labels: ["01:00", "01:05", "01:10", "01:15", "01:20", "01:25", "01:00"],
+            datasets: [
+                {
+                    label: 'Maior comum',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                    borderColor: '#DC2828',
+                    tension: 0.1
+                },
+                {
+                    label: 'Média',
+                    data: [50, 50, 60, 70, 46, 50, 35],
+                    borderColor: '#EE9D0B',
+                    tension: 0.1
+                },
+                {
+                    label: 'Menor comum',
+                    data: [40, 33, 50, 60, 39, 40, 23],
+                    borderColor: '#21A656',
+                    tension: 0.1
+                }
+            ]
+        };
+        var config = {
+            type: "line",
+            data: dados,
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        }
+        new Chart(grafico_latencia, config);
+    }
+    function montarGraficoProcessos() {
+
+        var dados = {
+            labels: ['Processo A', 'Processo B', 'Processo C', 'Processo D', 'Processo E'],
+            datasets: [
+                {
+                    label: 'CPU (%)',
+                    data: [30, 20, 40, 25, 35],
+                    backgroundColor: '#DC2828'
+                },
+                {
+                    label: 'RAM (%)',
+                    data: [25, 30, 20, 35, 25],
+                    backgroundColor: '#EE9D0B'
+                },
+                {
+                    label: 'Disco (%)',
+                    data: [15, 10, 20, 15, 10],
+                    backgroundColor: '#21A656'
+                }
+            ]
+        };
+
+        var config = {
+            type: 'bar',
+            data: dados,
+            options: {
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                },
+                responsive: true,
+                scales: {
+                    x: {
+                        stacked: false
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('grafico_processos'), config);
+    }
+    montarGraficoCpu()
+    montarGraficoProcessos()
+    montarGraficoRam()
+    montarGraficoLatencia()
+</script>
+
+</html>

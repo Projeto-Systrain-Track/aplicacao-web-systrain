@@ -126,7 +126,6 @@
   document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
   window.onload = function () {
     validarSessaoUsuario();
-    carregarDados();
   };
 
   window.addEventListener("resize", function () {
@@ -158,13 +157,12 @@
   function irParaDetalhe(idLinha) {
     window.location = `detalheLinha.html?id=${idLinha}`
   }
-
   function montarTabelaLinhas() {
     var idEmpresa = sessionStorage.ID_EMPRESA
     var tabela = document.getElementById("tabelaLinhas")
     var conteudoTabela = ""
     try {
-      fetch(`/linha/listarLinhasEmpresa/:${idEmpresa}`, {
+      fetch(`/linha/listarLinhasEmpresa/${idEmpresa}`, {
         method: "GET"
       })
         .then(function (resposta) {
@@ -181,7 +179,6 @@
                   </tr>
               `
             });
-
             tabela.innerHTML = conteudoTabela
           })
         })

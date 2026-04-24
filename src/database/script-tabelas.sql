@@ -47,11 +47,11 @@ CREATE TABLE IF NOT EXISTS eventoOperacional (
 CREATE TABLE IF NOT EXISTS administrador (
   idAdministrador INT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(45) NOT NULL,
-  email VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL UNIQUE,
   senha VARCHAR(45) NULL DEFAULT NULL,
   nivel INT NULL DEFAULT NULL,
-  PRIMARY KEY (idAdministrador),
-  UNIQUE INDEX email (email ASC) VISIBLE);
+  PRIMARY KEY (idAdministrador)
+);
   
 CREATE TABLE IF NOT EXISTS componente (
   idComponente INT NOT NULL AUTO_INCREMENT,
@@ -72,7 +72,6 @@ CREATE TABLE IF NOT EXISTS endereco (
   complemento VARCHAR(45) NULL DEFAULT NULL,
   fk_end_empresa INT NOT NULL,
   PRIMARY KEY (idEndereco),
-  INDEX fk_empresa_endereco (fk_end_empresa ASC) VISIBLE,
   CONSTRAINT fk_empresa_endereco
     FOREIGN KEY (fk_end_empresa)
     REFERENCES systraintrack.empresa (idEmpresa));
