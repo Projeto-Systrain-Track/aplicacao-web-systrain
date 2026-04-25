@@ -24,18 +24,14 @@ CREATE TABLE IF NOT EXISTS linha (
     REFERENCES empresa (idEmpresa));
 
 CREATE TABLE IF NOT EXISTS rbc (
-  idRbc INT NOT NULL AUTO_INCREMENT,
+  idRbc INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   nomeServidor VARCHAR(45) NULL DEFAULT NULL,
   macAdress VARCHAR(45) NULL DEFAULT NULL,
   fkLinha INT NULL DEFAULT NULL,
   CONSTRAINT fkLinha
     FOREIGN KEY (fkLinha)
-    REFERENCES linha (idLinha),
-  fkEmpresa INT NULL DEFAULT NULL,
-  PRIMARY KEY (idRbc),
-  CONSTRAINT rbc_ibfk_1
-    FOREIGN KEY (fkEmpresa)
-    REFERENCES empresa (idEmpresa));
+    REFERENCES linha (idLinha)
+);
     
 CREATE TABLE IF NOT EXISTS eventoOperacional (
   idEventoOperacional INT NOT NULL AUTO_INCREMENT,
@@ -90,7 +86,7 @@ CREATE TABLE IF NOT EXISTS usuario (
   email VARCHAR(45) NOT NULL,
   senha VARCHAR(200) NOT NULL,
   fk_empresa INT NOT NULL,
-  tipoUsuario VARCHAR(45) DEFAULT "Analista",
+  tipoUsuario VARCHAR(45) DEFAULT "Operador",
   PRIMARY KEY (idUsuario),
   UNIQUE INDEX email (email ASC) VISIBLE,
   INDEX fk_empresa (fk_empresa ASC) VISIBLE,
@@ -103,16 +99,13 @@ CREATE TABLE IF NOT EXISTS rbcComponente (
   fkEmpresa INT NOT NULL,
   fkCompRbc INT NOT NULL,
   limite INT NULL,
-  PRIMARY KEY (fkRbc, fkEmpresa, fkCompRbc),
+  PRIMARY KEY (fkRbc, fkCompRbc),
   CONSTRAINT fk_rbc_has_componentes_rbc1
     FOREIGN KEY (fkRbc)
     REFERENCES rbc (idRbc),
   CONSTRAINT fk_rbc_has_componentes_componentes1
     FOREIGN KEY (fkCompRbc)
-    REFERENCES componente (idComponente),
-    CONSTRAINT fkRbcComponenteEmpresa
-		FOREIGN KEY (fkEmpresa)
-        REFERENCES empresa (idEmpresa)
+    REFERENCES componente (idComponente)
     );
 
 insert into administrador(nome, email, senha, nivel) values

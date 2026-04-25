@@ -19,187 +19,167 @@
 </head>
 
 <body>
-    <div class="container-sys">
-        <div class="container-sys">
-            <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
-            <div class="nav-hamburguer">
-                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
-                <img src="../assets/icons/icon-menu-white.png" alt="Sys-train track" class="icon-menu"
-                    onclick="abrirSideBarMobile()">
+    <div id="loading">
+        <img src="../assets/gifs/loading.gif" alt="Carregando...">
+    </div>
+    <div id="container_sys" class="container-sys" style="display: none;">
+        <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
+        <div class="nav-hamburguer">
+            <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
+            <img src="../assets/icons/icon-menu-white.png" alt="Sys-train track" class="icon-menu"
+                onclick="abrirSideBarMobile()">
+        </div>
+
+        <aside class="nav-lateral desktop" id="nav_lateral">
+            <div class="cont-icon-sidebar">
+                <img src="../assets/icons/icon-sidebar-white.png" id="icone-sidebar" onclick="fecharSidebar()" alt="">
+            </div>
+            <div class="logo">
+                <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
             </div>
 
-            <aside class="nav-lateral desktop" id="nav_lateral">
-                <div class="cont-icon-sidebar">
-                    <img src="../assets/icons/icon-sidebar-white.png" id="icone-sidebar" onclick="fecharSidebar()"
-                        alt="">
+            <nav class="links" id="links_sidebar"></nav>
+            <div class="opcoes">
+                <div class="btn-lateral usuario">
+                    <img src="../assets/icons/icon-avatar-masc.png" alt="">
+                    <div class="cont-user">
+                        <p id="cargo_user"></p>
+                        <p id="nome_user"></p>
+                    </div>
+
                 </div>
-                <div class="logo">
-                    <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
+                <button onclick="limparSessao()" class="btn-lateral">
+                    <img src="../assets/icons/icon-logout-white.png" alt="">
+                    <p>Sair</p>
+                </button>
+            </div>
+        </aside>
+        <main class="conteudo" id="conteudo_pagina">
+            <section class="topo-pagina ">
+                <div class="">
+                    <p class="titulo fw-bold">Detalhamento do RBC</p>
+                    <p class="descricao" id="trecho_linha">Métricas de hardware detalhadas</p>
+                </div>
+            </section>
+            <section class="cont-detalhes-metricas mb-4 w-100 d-flex ">
+                <div class="cont-detalhes border rounded bg-white d-flex flex-column h-100">
+                    <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center justify-content-between">
+                        <span id="nome_servidor" class="font-titulo fw-bold">RBC-01</span>
+                        <span id="status_servidor" class="font-titulo bg-danger">Crítico</span>
+                    </div>
+                    <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center gap-3">
+                        <img src="../assets/icons/icon-pin.png" alt="">
+                        <span id="trecho_servidor" class="font-titulo ">Osasco - Varginha</span>
+                    </div>
+                    <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center gap-3">
+                        <span id="linha_servidor" class="font-titulo ">Linha 9 - Esmeralda</span>
+                    </div>
+                    <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center">
+                        <span id="trecho_servidor" class="font-titulo ">Última atualização: 31/03/2026 19:05</span>
+                    </div>
+                </div>
+                <div class="cont-metrica border rounded bg-white  d-flex flex-column h-100">
+                    <span class="font-titulo w-100 p-4 fw-bold">Métricas de hardware</span>
+                    <div class="cont-porcentagens d-flex h-75 flex-column justify-content-evenly w-100 mb-1">
+                        <div class="cont-porcentagem d-flex  align-items-center flex-column">
+                            <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                                <span class="font-titulo">CPU</span>
+                                <span class="font-titulo" id="porcentagem_cpu">75%</span>
+                            </div>
+                            <div class="barra_porcentagem progress">
+                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-75 bg-danger"
+                                    id="porcentagem_cpu"></div>
+                            </div>
+                        </div>
+                        <div class="cont-porcentagem d-flex align-items-center flex-column">
+                            <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                                <span class="font-titulo">Memória RAM</span>
+                                <span class="font-titulo" id="porcentagem_cpu">50%</span>
+                            </div>
+                            <div class="barra_porcentagem progress">
+                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-50 bg-warning"
+                                    id="porcentagem_ram"></div>
+                            </div>
+                        </div>
+                        <div class="cont-porcentagem d-flex align-items-center flex-column">
+                            <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                                <span class="font-titulo">Disco</span>
+                                <span class="font-titulo" id="porcentagem_cpu">25%</span>
+                            </div>
+                            <div class="barra_porcentagem progress">
+                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-25 bg-success"
+                                    id="porcentagem_disco"></div>
+                            </div>
+                        </div>
+                        <div class="cont-porcentagem d-flex align-items-center flex-column">
+                            <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                                <span class="font-titulo">Latência</span>
+                                <span class="font-titulo" id="latencia_servidor">100ms</span>
+                            </div>
+                            <div class="barra_porcentagem progress">
+                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-100 bg-success"
+                                    id="porcentagem_cpu"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="cont-grafico mb-4 p-3">
+                <div
+                    class="cont-grafico border rounded bg-white justify-content-evenly align-items-center w-100 d-flex flex-column h-75">
+                    <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
+                        <span class="font-titulo">Latência ao longo do tempo</span>
+                        <span class="font-titulo">24h</span>
+                    </div>
+                    <div class="grafico">
+                        <canvas id="grafico_latencia"></canvas>
+                    </div>
+                </div>
+            </section>
+            <section class="cont-graficos-cpu-ram mb-4 p-3 justify-content-evenly align-items-center w-100 d-flex ">
+                <div
+                    class="cont-grafico m-1 justify-content-evenly align-items-center border rounded bg-white d-flex flex-column h-100">
+                    <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
+                        <span class="font-titulo">CPU ao longo do tempo</span>
+                        <span class="font-titulo">24h</span>
+                    </div>
+                    <div class="grafico">
+                        <canvas id="grafico_cpu"></canvas>
+                    </div>
+                </div>
+                <div
+                    class="cont-grafico m-1 justify-content-evenly align-items-center border rounded bg-white d-flex flex-column h-100">
+                    <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
+                        <span class="font-titulo">Memória RAM ao longo do tempo</span>
+                        <span class="font-titulo">24h</span>
+                    </div>
+                    <div class="grafico">
+                        <canvas id="grafico_ram"></canvas>
+                    </div>
+                </div>
+            </section>
+            <section class="cont-grafico w-100 h-75 p-3">
+                <div
+                    class="cont-grafico border rounded bg-white justify-content-evenly align-items-center w-100 d-flex flex-column h-100">
+                    <div class="cont-txts w-100 px-5 justify-content-between  d-flex flex-row ">
+                        <span class="font-titulo">Top 5 processos com mais uso de hardware</span>
+                    </div>
+                    <div class="grafico">
+                        <canvas id="grafico_processos"></canvas>
+
+                    </div>
+
                 </div>
 
-                <nav class="links" id="links_sidebar">
-                    <a class="link-lateral" href="dashboard.html">
-                        <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
-                        <span>Visão geral</span>
-                    </a>
-                    <a class="link-lateral " href="linhas.html">
-                        <img class="icon-sidebar " src="../assets/icons/icon-linha-white.png" alt="">
-                        <span>Linhas</span>
-                    </a>
-                    <a class="link-lateral ativo" href="servidores.html">
-                        <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
-                        <span>Servidores</span>
-                    </a>
-                    <a class="link-lateral" href="incidentes.html">
-                        <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
-                        <span>Incidentes</span>
-                    </a>
-                    <a class="link-lateral" href="relatorios.html">
-                        <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
-                        <span>Relatórios</span>
-                    </a>
+            </section>
 
-                </nav>
-                <div class="opcoes">
-                    <div class="btn-lateral usuario">
-                        <img src="../assets/icons/icon-avatar-masc.png" alt="">
-                        <div class="cont-user">
-                            <p id="cargo_user"></p>
-                            <p id="nome_user"></p>
-                        </div>
-
-                    </div>
-                    <button onclick="limparSessao()" class="btn-lateral">
-                        <img src="../assets/icons/icon-logout-white.png" alt="">
-                        <p>Sair</p>
-                    </button>
-                </div>
-            </aside>
-            <main class="conteudo" id="conteudo_pagina">
-                <section class="topo-pagina ">
-                    <div class="">
-                        <p class="titulo fw-bold">Detalhamento do RBC</p>
-                        <p class="descricao" id="trecho_linha">Métricas de hardware detalhadas</p>
-                    </div>
-                </section>
-                <section class="cont-detalhes-metricas mb-4 w-100 d-flex ">
-                    <div class="cont-detalhes border rounded bg-white d-flex flex-column h-100">
-                        <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center justify-content-between">
-                            <span id="nome_servidor" class="font-titulo fw-bold">RBC-01</span>
-                            <span id="status_servidor" class="font-titulo bg-danger">Crítico</span>
-                        </div>
-                        <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center gap-3">
-                            <img src="../assets/icons/icon-pin.png" alt="">
-                            <span id="trecho_servidor" class="font-titulo ">Osasco - Varginha</span>
-                        </div>
-                        <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center gap-3">
-                            <span id="linha_servidor" class="font-titulo ">Linha 9 - Esmeralda</span>
-                        </div>
-                        <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center">
-                            <span id="trecho_servidor" class="font-titulo ">Última atualização: 31/03/2026 19:05</span>
-                        </div>
-                    </div>
-                    <div class="cont-metrica border rounded bg-white  d-flex flex-column h-100">
-                        <span class="font-titulo w-100 p-4 fw-bold">Métricas de hardware</span>
-                        <div class="cont-porcentagens d-flex h-75 flex-column justify-content-evenly w-100 mb-1">
-                            <div class="cont-porcentagem d-flex  align-items-center flex-column">
-                                <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
-                                    <span class="font-titulo">CPU</span>
-                                    <span class="font-titulo" id="porcentagem_cpu">75%</span>
-                                </div>
-                                <div class="barra_porcentagem progress">
-                                    <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-75 bg-danger" id="porcentagem_cpu"></div>
-                                </div>
-                            </div>
-                            <div class="cont-porcentagem d-flex align-items-center flex-column">
-                                <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
-                                    <span class="font-titulo">Memória RAM</span>
-                                    <span class="font-titulo" id="porcentagem_cpu">50%</span>
-                                </div>
-                                <div class="barra_porcentagem progress">
-                                    <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-50 bg-warning" id="porcentagem_ram"></div>
-                                </div>
-                            </div>
-                            <div class="cont-porcentagem d-flex align-items-center flex-column">
-                                <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
-                                    <span class="font-titulo">Disco</span>
-                                    <span class="font-titulo" id="porcentagem_cpu">25%</span>
-                                </div>
-                                <div class="barra_porcentagem progress">
-                                    <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-25 bg-success" id="porcentagem_disco"></div>
-                                </div>
-                            </div>
-                            <div class="cont-porcentagem d-flex align-items-center flex-column">
-                                <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
-                                    <span class="font-titulo">Latência</span>
-                                    <span class="font-titulo" id="latencia_servidor">100ms</span>
-                                </div>
-                                <div class="barra_porcentagem progress">
-                                    <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-100 bg-success" id="porcentagem_cpu"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="cont-grafico mb-4 p-3">
-                    <div
-                        class="cont-grafico border rounded bg-white justify-content-evenly align-items-center w-100 d-flex flex-column h-75">
-                        <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
-                            <span class="font-titulo">Latência ao longo do tempo</span>
-                            <span class="font-titulo">24h</span>
-                        </div>
-                        <div class="grafico">
-                            <canvas id="grafico_latencia"></canvas>
-                        </div>
-                    </div>
-                </section>
-                <section class="cont-graficos-cpu-ram mb-4 p-3 justify-content-evenly align-items-center w-100 d-flex ">
-                    <div
-                        class="cont-grafico m-1 justify-content-evenly align-items-center border rounded bg-white d-flex flex-column h-100">
-                        <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
-                            <span class="font-titulo">CPU ao longo do tempo</span>
-                            <span class="font-titulo">24h</span>
-                        </div>
-                        <div class="grafico">
-                            <canvas id="grafico_cpu"></canvas>
-                        </div>
-                    </div>
-                    <div
-                        class="cont-grafico m-1 justify-content-evenly align-items-center border rounded bg-white d-flex flex-column h-100">
-                        <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
-                            <span class="font-titulo">Memória RAM ao longo do tempo</span>
-                            <span class="font-titulo">24h</span>
-                        </div>
-                        <div class="grafico">
-                            <canvas id="grafico_ram"></canvas>
-                        </div>
-                    </div>
-                </section>
-                <section class="cont-grafico w-100 h-75 p-3">
-                    <div
-                        class="cont-grafico border rounded bg-white justify-content-evenly align-items-center w-100 d-flex flex-column h-100">
-                        <div class="cont-txts w-100 px-5 justify-content-between  d-flex flex-row ">
-                            <span class="font-titulo">Top 5 processos com mais uso de hardware</span>
-                        </div>
-                        <div class="grafico">
-                            <canvas id="grafico_processos"></canvas>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-            </main>
-        </div>
+        </main>
+    </div>
 </body>
 <script>
 
     document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
     document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
-    window.onload = function () {
-        validarSessaoUsuario();
-    };
 
 
     window.addEventListener("resize", function () {
@@ -231,15 +211,65 @@
     var idLinha = parametrosUrl.get("id")
     function validarTipoUsuario() {
         var links_sidebar = document.getElementById("links_sidebar")
-        if (sessionStorage.TIPO_USUARIO == "Gestor") {
-            links_sidebar.innerHTML += `
-          <a class="link-lateral " href="usuarios.html">
-            <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
-            <span>Usuários</span>
-          </a>
-        `
+        if (sessionStorage.TIPO_USUARIO == "Gerente de operações") {
+            links_sidebar.innerHTML = `
+                <a class="link-lateral " href="dashboard.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+                    <span>Visão geral</span>
+                </a>
+                <a class="link-lateral" href="linhas.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+                    <span>Linhas</span>
+                </a>
+                <a class="link-lateral ativo" href="servidores.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+                    <span>Servidores</span>
+                </a>
+                <a class="link-lateral " href="incidentes.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
+                    <span>Incidentes</span>
+                </a>
+                <a class="link-lateral" href="relatorios.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
+                    <span>Relatórios</span>
+                </a>
+                <a class="link-lateral " href="usuarios.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+                    <span>Usuários</span>
+                    </a>
+                    `
+            setTimeout(() => {
+                document.getElementById("container_sys").style.display = "flex"
+                document.getElementById("loading").style.display = "none"
+            }, 500);
+        } else if (sessionStorage.TIPO_USUARIO == "Operador") {
+            links_sidebar.innerHTML = `          
+                <a class="link-lateral " href="dashboard.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+                    <span>Visão geral</span>
+                </a>
+                <a class="link-lateral" href="linhas.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+                    <span>Linhas</span>
+                </a>
+                <a class="link-lateral ativo" href="servidores.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+                    <span>Servidores</span>
+                </a>
+            `
+            setTimeout(() => {
+                document.getElementById("container_sys").style.display = "flex"
+                document.getElementById("loading").style.display = "none"
+            }, 500);
+        } else if (sessionStorage.TIPO_USUARIO == "Coordenador de incidentes") {
+            setTimeout(() => {
+                window.location = "dashboard.html"
+            }, 500);
+        } else {
+            window.location = "../index.html"
         }
     }
+    validarTipoUsuario()
 
     function montarGraficoLatencia() {
         var grafico_latencia = document.getElementById('grafico_latencia');

@@ -16,7 +16,6 @@
         body {
             background-color: #f5f7fa !important;
         }
-
         .conteudo {
             background-color: #f5f7fa;
         }
@@ -24,7 +23,10 @@
 </head>
 
 <body>
-    <div class="container-sys">
+    <div id="loading">
+        <img src="../assets/gifs/loading.gif" alt="Carregando...">
+    </div>
+    <div id="container_sys" class="container-sys" style="display: none;">
         <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
         <div class="nav-hamburguer">
             <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
@@ -40,29 +42,7 @@
                 <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
             </div>
 
-            <nav class="links" id="links_sidebar">
-                <a class="link-lateral" href="dashboard.html">
-                    <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
-                    <span>Visão geral</span>
-                </a>
-                <a class="link-lateral ativo" href="linhas.html">
-                    <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
-                    <span>Linhas</span>
-                </a>
-                <a class="link-lateral " href="servidores.html">
-                    <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
-                    <span>Servidores</span>
-                </a>
-                <a class="link-lateral" href="incidentes.html">
-                    <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
-                    <span>Incidentes</span>
-                </a>
-                <a class="link-lateral" href="relatorios.html">
-                    <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
-                    <span>Relatórios</span>
-                </a>
-
-            </nav>
+            <nav class="links" id="links_sidebar"></nav>
 
             <div class="opcoes">
                 <div class="btn-lateral usuario">
@@ -85,8 +65,10 @@
             <section class="topo-pagina">
                 <div>
                     <p class="subtitulo">Monitoramento</p>
-                    <h2 class="titulo fw-bolder">Linhas</h2> <!--trocar pelo nome da linha atual-->
-                    <p class="descricao">Resumo das linhas monitoradas pelo sistema.</p>
+                    <h2 class="titulo fw-bolder">Linha atual</h2> <!--trocar pelo nome da linha atual-->
+                    <p class="descricao">Resumo da linha atual.</p>
+                    <p class="descricao">Última atualização: 31/03/2026 19:05</p>
+
                 </div>
 
             </section>
@@ -153,8 +135,8 @@
                 <div class="col-md-3">
                     <div class="card-indicador position-relative">
                         <img src="./linhas/icon_alerta.png" class="icone-card" alt="Ícone">
-                        <p>Latência Máxima</p>
-                        <strong id="picoLatencia">NHA</strong>
+                        <p>Incidentes abertos</p>
+                        <strong id="incidentesAbertos">NHA</strong>
                     </div>
                 </div>
 
@@ -197,32 +179,13 @@
 
                 <div class="col-md">
                     <div class="resumo-card">
-                        <p class="descricao">Latência ao longo do tempo</p>
+                        <p class="descricao">Incidentes abertos ao longo do tempo</p>
 
                         <!-- <div class="mini-lista" id="listaLatencia"></div> -->
-                        <canvas id="graficoLatencia"></canvas>
+                        <canvas id="graficoIncidentes"></canvas>
                     </div>
                 </div>
 
-                <div class="row g-4 mb-4">
-
-                    <div class="col-md-6">
-                        <div class="resumo-card">
-                            <p class="descricao">CPU ao longo do tempo</p>
-
-                            <div class="mini-lista" id="listaLatencia"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="resumo-card">
-                            <p class="descricao">RAM ao longo do tempo</p>
-
-                            <div class="mini-lista" id="listaIncidentes"></div>
-                        </div>
-                    </div>
-
-                </div>
 
             </div>
 
@@ -268,13 +231,62 @@
 <script>
     function validarTipoUsuario() {
         var links_sidebar = document.getElementById("links_sidebar")
-        if (sessionStorage.TIPO_USUARIO == "Gestor") {
-            links_sidebar.innerHTML += `
-              <a class="link-lateral " href="usuarios.html">
-                <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
-                <span>Usuários</span>
-              </a>
+        if (sessionStorage.TIPO_USUARIO == "Gerente de operações") {
+            links_sidebar.innerHTML = `
+                <a class="link-lateral " href="dashboard.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+                    <span>Visão geral</span>
+                </a>
+                <a class="link-lateral ativo" href="linhas.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+                    <span>Linhas</span>
+                </a>
+                <a class="link-lateral " href="servidores.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+                    <span>Servidores</span>
+                </a>
+                <a class="link-lateral " href="incidentes.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
+                    <span>Incidentes</span>
+                </a>
+                <a class="link-lateral" href="relatorios.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
+                    <span>Relatórios</span>
+                </a>
+                <a class="link-lateral " href="usuarios.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+                    <span>Usuários</span>
+                    </a>
+                    `
+            setTimeout(() => {
+                document.getElementById("container_sys").style.display = "flex"
+                document.getElementById("loading").style.display = "none"
+            }, 500);
+        } else if (sessionStorage.TIPO_USUARIO == "Operador") {
+            links_sidebar.innerHTML = `          
+                <a class="link-lateral " href="dashboard.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+                    <span>Visão geral</span>
+                </a>
+                <a class="link-lateral ativo" href="linhas.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+                    <span>Linhas</span>
+                </a>
+                <a class="link-lateral " href="servidores.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+                    <span>Servidores</span>
+                </a>
             `
+            setTimeout(() => {
+                document.getElementById("container_sys").style.display = "flex"
+                document.getElementById("loading").style.display = "none"
+            }, 500);
+        } else if (sessionStorage.TIPO_USUARIO == "Coordenador de incidentes") {
+            setTimeout(() => {
+                window.location = "dashboard.html"
+            }, 500);
+        } else {
+            window.location = "../index.html"
         }
     }
     validarTipoUsuario()
@@ -321,7 +333,7 @@
                 document.getElementById("servidorAtivo").innerText = dados.servidoresAtivos;
                 document.getElementById("statusSistema").innerText = dados.statusSistema;
                 document.getElementById("latenciaMedia").innerText = dados.latenciaMedia;
-                document.getElementById("picoLatencia").innerText = dados.picoLatencia;
+                document.getElementById("incidentesAbertos").innerText = dados.incidentesAbertos;
 
                 //resumo dos incidentes
                 const listaResumo = document.getElementById("listaResumo");
@@ -394,7 +406,7 @@
                 }
 
                 //grafico latencia
-                montarGrafico(dados.graficoLatencia);
+                montarGrafico(dados.graficoIncidentes);
 
             })
             .catch(err => console.error(err));
@@ -416,32 +428,35 @@
 
     function montarGrafico(dados) {
 
-    const labels = [];
-    const valores = [];
+        const labels = [];
+        const valores = [];
 
-    for (var i = 0; i < dados.length; i++) {
-        labels.push(dados[i].tempo);
-        valores.push(dados[i].valor);
-    }
-
-    const ctx = document.getElementById("graficoLatencia");
-
-    new Chart(ctx, {
-        type: "line",
-        data: {
-            labels: labels,
-            datasets: [{
-                data: valores,
-                tension: 0.3,
-                fill: true
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false }
-            }
+        for (var i = 0; i < dados.length; i++) {
+            labels.push(dados[i].tempo);
+            valores.push(dados[i].valor);
         }
-    });
-}
+
+        const ctx = document.getElementById("graficoIncidentes");
+
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: valores,
+                    tension: 0.3,
+                    borderColor: '#DC2828',
+                    backgroundColor: '#DC282825',
+
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    }
 </script>

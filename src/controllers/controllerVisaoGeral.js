@@ -1,7 +1,7 @@
 function obterDadosVisaoGeral(req, res) {
     res.json({
         latenciaMedia: "62ms",
-        linhaMaiorConsumo: "Linha 4 - Amarela",
+        linhaMaiorConsumo: "Linha 7 - Rubi",
         disponibilidade: "95%",
         incidentes: "11",
 

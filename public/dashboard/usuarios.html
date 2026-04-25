@@ -90,7 +90,7 @@
                     <h1 class="titulo">Usuários cadastrados</h1>
                     <p class="descricao">Gerenciamento dos usuários da sua empresa</p>
                 </div>
-                <div class="solicita-gestor">
+                <div id="solicita_gestor" class="solicita-gestor">
                     <button class="btn-padrao" onclick="abrirModal()">
                         <img src="../assets/icons/adicionar.png" alt="">
                         Cadastrar usuário
@@ -137,8 +137,9 @@
                             <div class="ipt-50">
                                 <label>Tipo de usuário:</label>
                                 <select name="tipo_usuario" id="tipo_usuario_select">
-                                    <option value="Gestor">Gestor</option>
-                                    <option value="Analista">Analista</option>
+                                    <option value="Gerente de operações">Gerente de operações</option>
+                                    <option value="Operador de redes">Operador de redes</option>
+                                    <option value="Coordenador de incidentes">Coordenador de incidentes</option>
                                 </select>
                             </div>
                             <div class="ipt-50">
@@ -170,9 +171,46 @@
         `
     function validarTipoUsuario() {
         var links_sidebar = document.getElementById("links_sidebar")
-        if (sessionStorage.TIPO_USUARIO == "Analista") {
-            window.location = "dashboard.html"
-            alert("Você não possui permissão para essa página")
+        if (sessionStorage.TIPO_USUARIO == "Gerente de operações") {
+            
+            links_sidebar.innerHTML = `
+                <a class="link-lateral " href="dashboard.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+                    <span>Visão geral</span>
+                </a>
+                <a class="link-lateral" href="linhas.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+                    <span>Linhas</span>
+                </a>
+                <a class="link-lateral ativo" href="servidores.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+                    <span>Servidores</span>
+                </a>
+                <a class="link-lateral" href="incidentes.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
+                    <span>Incidentes</span>
+                </a>
+                <a class="link-lateral" href="relatorios.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
+                    <span>Relatórios</span>
+                </a>
+                <a class="link-lateral " href="usuarios.html">
+                    <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+                    <span>Usuários</span>
+                </a>
+        
+              `
+            setTimeout(() => {
+                document.getElementById("container_sys").style.display = "flex"
+                document.getElementById("loading").style.display = "none"
+            }, 500);
+
+        } else if (sessionStorage.TIPO_USUARIO == "Operador" || sessionStorage.TIPO_USUARIO == "Coordenador de incidentes") {
+            setTimeout(() => {
+                window.location = "dashboard.html"
+            }, 500);
+        } else {
+            window.location = "../index.html"
         }
     }
     validarTipoUsuario()

@@ -3,14 +3,19 @@ function dashLinhas(req, res) {
         servidoresAtivos: 8,
         statusSistema: "Degradado",
         latenciaMedia: "RBC_0001_SP",
-        picoLatencia: "280ms",
+        incidentesAbertos: "15",
 
         resumo: [
-            { nome: "Swap lento", valor: 7 }
+            { nome: "Latência elevada", valor: 2 },
+            { nome: "Uso de CPU elevado", valor: 1 },
+            { nome: "Pico de RAM", valor: 5 },
+            { nome: "Servidor offline", valor: 7 },
         ],
 
         alertas: [
-            { tipo: "Atenção", msg: "Latência elevada" }
+            { tipo: "Atenção", msg: "Latência elevada" },
+            { tipo: "Atenção", msg: "Pico de RAM" },
+            { tipo: "Atenção", msg: "Servidor offline" }
         ],
 
         servidores: [
@@ -19,14 +24,14 @@ function dashLinhas(req, res) {
             { nome: "REC-03", status: "Online", cpu: 60, ram: 20, disco: 90, latencia: "50ms", uptime: "21h" }
         ],
 
-        graficoLatencia: [
-            { tempo: "10:00", valor: 80 },
-            { tempo: "10:05", valor: 120 },
-            { tempo: "10:10", valor: 80 },
-            { tempo: "10:15", valor: 70 },
-            { tempo: "10:20", valor: 65 },
-            { tempo: "10:25", valor: 100 },
-            { tempo: "10:30", valor: 120 },
+        graficoIncidentes: [
+            { tempo: "10:00", valor: 10 },
+            { tempo: "10:05", valor: 12 },
+            { tempo: "10:10", valor: 8 },
+            { tempo: "10:15", valor: 5 },
+            { tempo: "10:20", valor: 10 },
+            { tempo: "10:25", valor: 3 },
+            { tempo: "10:30", valor: 1 },
         ]
     });
 }
