@@ -23,10 +23,7 @@
 </head>
 
 <body>
-  <div id="loading">
-    <img src="../assets/gifs/loading.gif" alt="Carregando...">
-  </div>
-  <div id="container_sys" class="container-sys" style="display: none;">
+  <div class="container-sys">
     <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
     <div class="nav-hamburguer">
       <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
@@ -42,7 +39,29 @@
         <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
       </div>
 
-      <nav class="links" id="links_sidebar"></nav>
+      <nav class="links" id="links_sidebar">
+        <a class="link-lateral ativo" href="dashboard.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+          <span>Visão geral</span>
+        </a>
+        <a class="link-lateral" href="linhas.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+          <span>Linhas</span>
+        </a>
+        <a class="link-lateral " href="servidores.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+          <span>Servidores</span>
+        </a>
+        <a class="link-lateral" href="incidentes.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
+          <span>Incidentes</span>
+        </a>
+        <a class="link-lateral" href="relatorios.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
+          <span>Relatórios</span>
+        </a>
+
+      </nav>
 
       <div class="opcoes">
         <div class="btn-lateral usuario">
@@ -71,8 +90,8 @@
       </section>
 
       <!-- kpi -->
-      <div class="cont-kpis justify-content-between mb-4 ">
-        <div class="cont-cards mb-2">
+      <div class="row g-4 mb-4 ">
+        <div class="col-md-4 mb-2">
           <div class="card-indicador position-relative">
             <img src="./linhas/icon_disponibilidade.png" class="icone-card" alt="Ícone">
             <p>Disponibilidade</p>
@@ -80,7 +99,7 @@
           </div>
         </div>
 
-        <div class="cont-cards mb-2">
+        <div class="col-md-4 mb-2">
           <div class="card-indicador position-relative">
             <img src="./linhas/icon_linhas.png" class="icone-card" alt="Ícone">
             <p>Linha com maior consumo</p>
@@ -88,7 +107,7 @@
           </div>
         </div>
 
-        <div class="cont-cards mb-2">
+        <div class="col-md-4 mb-2">
           <div class="card-indicador position-relative">
             <img src="./linhas/icon_alerta.png" class="icone-card" alt="Ícone">
             <p>Incidentes</p>
@@ -164,79 +183,13 @@
 <script>
   function validarTipoUsuario() {
     var links_sidebar = document.getElementById("links_sidebar")
-    if (sessionStorage.TIPO_USUARIO == "Gerente de operações") {
-      links_sidebar.innerHTML = `
-          <a class="link-lateral ativo" href="dashboard.html">
-            <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
-            <span>Visão geral</span>
-          </a>
-          <a class="link-lateral" href="linhas.html">
-            <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
-            <span>Linhas</span>
-          </a>
-          <a class="link-lateral " href="servidores.html">
-            <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
-            <span>Servidores</span>
-          </a>
-          <a class="link-lateral" href="incidentes.html">
-            <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
-            <span>Incidentes</span>
-          </a>
-          <a class="link-lateral" href="relatorios.html">
-            <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
-            <span>Relatórios</span>
-          </a>
+    if (sessionStorage.TIPO_USUARIO == "Gestor") {
+      links_sidebar.innerHTML += `
           <a class="link-lateral " href="usuarios.html">
             <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
             <span>Usuários</span>
           </a>
-      `
-      setTimeout(() => {
-        document.getElementById("container_sys").style.display = "flex"
-        document.getElementById("loading").style.display = "none"
-      }, 500);
-    } else if (sessionStorage.TIPO_USUARIO == "Operador") {
-      links_sidebar.innerHTML = `
-        <a class="link-lateral ativo" href="dashboard.html">
-        <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
-        <span>Visão geral</span>
-        </a>
-        <a class="link-lateral" href="linhas.html">
-        <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
-        <span>Linhas</span>
-        </a>
-        <a class="link-lateral " href="servidores.html">
-        <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
-        <span>Servidores</span>
-        </a>
-      `
-      setTimeout(() => {
-        document.getElementById("container_sys").style.display = "flex"
-        document.getElementById("loading").style.display = "none"
-      }, 500);
-    } else if (sessionStorage.TIPO_USUARIO == "Coordenador de incidentes") {
-      links_sidebar.innerHTML = `
-        <a class="link-lateral ativo" href="dashboard.html">
-          <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
-          <span>Visão geral</span>
-        </a>
-        <a class="link-lateral" href="incidentes.html">
-          <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
-          <span>Incidentes</span>
-        </a>
-        <a class="link-lateral" href="relatorios.html">
-          <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
-          <span>Relatórios</span>
-        </a>
-      `
-      setTimeout(() => {
-        document.getElementById("container_sys").style.display = "flex"
-        document.getElementById("loading").style.display = "none"
-      }, 500);
-    } else {
-      setTimeout(() => {
-        window.location = "../index.html"
-      }, 500);
+        `
     }
   }
   validarTipoUsuario()
@@ -354,7 +307,7 @@
           }
 
           tabela.innerHTML +=
-            "<tr onclick='irDetalheLinha()'>" +
+            "<tr>" +
             "<td>" + linha.nome + "</td>" +
             "<td><span class='status-badge " + classeStatus + "'>" + linha.status + "</span></td>" +
             "<td>" + linha.servidores + "</td>" +
@@ -365,10 +318,7 @@
 
       })
       .catch(function (errou) {
-        console.error("Erro:", errou);
+        console.error("sdnvvvioeacnPO:", errou);
       });
-  }
-  function irDetalheLinha() {
-    window.location = "detalheLinha.html"
   }
 </script>
