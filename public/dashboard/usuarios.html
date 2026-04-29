@@ -106,6 +106,9 @@
                             <th>Email</th>
                             <th>Cargo</th>
                             <th>Empresa</th>
+                            <!-- adições mocadas  -->
+                            <th>Status</th>
+                            <th>Equipe</th>
                         </tr>
                     </thead>
 
@@ -324,10 +327,12 @@
                                     <td>${usuario.email}</td>
                                     <td>${usuario.tipoUsuario}</td>
                                     <td>${usuario.empresa}</td>
+                                    <td>Online</td>
+                                    <td>Equipe A</td>
                                     </tr>
                         `
 
-                    });
+                    }); //adições mocadas 
                     tabela.innerHTML = usuariosCadastrados
                 })
             })
