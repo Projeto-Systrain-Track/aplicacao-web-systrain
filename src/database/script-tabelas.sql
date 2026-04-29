@@ -1,4 +1,4 @@
-
+drop database systraintrack;
 create database systraintrack;
 use systraintrack;
 CREATE TABLE IF NOT EXISTS empresa (
@@ -58,7 +58,6 @@ CREATE TABLE IF NOT EXISTS componente (
   parametros VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (idComponente));
 
-
 CREATE TABLE IF NOT EXISTS endereco (
   idEndereco INT NOT NULL AUTO_INCREMENT,
   estado VARCHAR(45) NOT NULL,
@@ -77,23 +76,30 @@ CREATE TABLE IF NOT EXISTS faleConosco (
   mensagem VARCHAR(400) NOT NULL,
   emailContato VARCHAR(100) NOT NULL,
   PRIMARY KEY (idMensagem));
-
-
-
 CREATE TABLE IF NOT EXISTS usuario (
   idUsuario INT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(45) NOT NULL,
   email VARCHAR(45) NOT NULL,
   senha VARCHAR(200) NOT NULL,
   fk_empresa INT NOT NULL,
-  tipoUsuario VARCHAR(45) DEFAULT "Operador",
+  tipoUsuario VARCHAR(45),
   PRIMARY KEY (idUsuario),
   UNIQUE INDEX email (email ASC) VISIBLE,
   INDEX fk_empresa (fk_empresa ASC) VISIBLE,
   CONSTRAINT usuario_ibfk_1
     FOREIGN KEY (fk_empresa)
     REFERENCES empresa (idEmpresa));
-    
+CREATE TABLE IF NOT EXISTS linha (
+  idLinha INT NOT NULL AUTO_INCREMENT,
+  nomeLinha VARCHAR(45) NULL,
+  corLinha VARCHAR(45) NULL,
+  numeroLinha VARCHAR(45) NULL,
+  trecho VARCHAR(45) NULL,
+  fkEmpresa INT NOT NULL,
+  PRIMARY KEY (idLinha),
+  CONSTRAINT fkEmpresa
+    FOREIGN KEY (fkEmpresa)
+    REFERENCES empresa (idEmpresa));
 CREATE TABLE IF NOT EXISTS rbcComponente (
   fkRbc INT NOT NULL,
   fkEmpresa INT NOT NULL,
@@ -135,27 +141,54 @@ INSERT INTO endereco (estado, cep, numeroResidencial, rua, complemento, fk_end_e
 ('SP', '09009-000', '92', 'Rua Teodoro Sampaio', 'Sala 5', 9),
 ('SP', '10010-000', '640', 'Avenida Faria Lima', 'Andar 9', 10);
 
-INSERT INTO usuario (nome, email, senha, fk_empresa) VALUES
-('Brandão', 'brandao@viapaulista.com', '12345', 1),
-('Marina Souza', 'marina.souza@viapaulista.com', '12345', 1),
-('Carlos Henrique', 'carlos.henrique@ferrobandeirante.com', '12345', 2),
-('Fernanda Lima', 'fernanda.lima@ferrobandeirante.com', '12345', 2),
-('Thiago Alves', 'thiago.alves@rotatrilhos.com', '12345', 3),
-('Amanda Castro', 'amanda.castro@rotatrilhos.com', '12345', 3),
-('Bruno Ferreira', 'bruno.ferreira@linhasegura.com', '12345', 4),
-('Juliana Prado', 'juliana.prado@linhasegura.com', '12345', 4),
-('Rafael Gomes', 'rafael.gomes@metrorail.com', '12345', 5),
-('Camila Rocha', 'camila.rocha@metrorail.com', '12345', 5),
-('Diego Martins', 'diego.martins@trilhoforte.com', '12345', 6),
-('Patricia Nunes', 'patricia.nunes@trilhoforte.com', '12345', 6),
-('Eduardo Silva', 'eduardo.silva@sinalverde.com', '12345', 7),
-('Bianca Melo', 'bianca.melo@sinalverde.com', '12345', 7),
-('Gustavo Ramos', 'gustavo.ramos@eixocentral.com', '12345', 8),
-('Larissa Costa', 'larissa.costa@eixocentral.com', '12345', 8),
-('Vinicius Teixeira', 'vinicius.teixeira@novamalha.com', '12345', 9),
-('Aline Fernandes', 'aline.fernandes@novamalha.com', '12345', 9),
-('Pedro Oliveira', 'pedro.oliveira@rbcconnect.com', '12345', 10),
-('Beatriz Santos', 'beatriz.santos@rbcconnect.com', '12345', 10);
+INSERT INTO usuario (nome, email, senha, fk_empresa, tipoUsuario) VALUES
+
+
+('Thiago', 'thiago@viapaulista.com', '12345', 1, "Operador"),
+('Brandão', 'brandao@viapaulista.com', '12345', 1, "Gerente de operações"),
+('Marina Souza', 'marina.souza@viapaulista.com', '12345', 1, "Coordenador de incidentes"),
+
+
+('Carlos Henrique', 'carlos.henrique@ferrobandeirante.com', '12345', 2, "Operador"),
+('Fernanda Lima', 'fernanda.lima@ferrobandeirante.com', '12345', 2, "Gerente de operações"),
+('Henrique Lima', 'henrique.lima@ferrobandeirante.com', '12345', 2, "Coordenador de incidentes"),
+
+('Alvares Tino', 'alvares.tino@rotatrilhos.com', '12345', 3, "Operador"),
+('Thiago Alves', 'thiago.alves@rotatrilhos.com', '12345', 3, "Gerente de operações"),
+('Amanda Castro', 'amanda.castro@rotatrilhos.com', '12345', 3, "Coordenador de incidentes"),
+
+
+('Pedri Castro', 'pedri.castro@linhasegura.com', '12345', 4, "Operador"),
+('Bruno Ferreira', 'bruno.ferreira@linhasegura.com', '12345', 4, "Gerente de operações"),
+('Juliana Prado', 'juliana.prado@linhasegura.com', '12345', 4, "Coordenador de incidentes"),
+
+('Rafael Gomes', 'rafael.gomes@metrorail.com', '12345', 5, "Operador"),
+('Camila Rocha', 'camila.rocha@metrorail.com', '12345', 5, "Gerente de operações"),
+('Lucas Mendonça', 'lucas.mendonca@metrorail.com', '12345', 5, "Coordenador de incidentes"),
+
+('Diego Martins', 'diego.martins@trilhoforte.com', '12345', 6, "Operador"),
+('Patricia Nunes', 'patricia.nunes@trilhoforte.com', '12345', 6, "Gerente de operações"),
+('Ricardo Alves', 'ricardo.alves@trilhoforte.com', '12345', 6, "Coordenador de incidentes"),
+
+('Eduardo Silva', 'eduardo.silva@sinalverde.com', '12345', 7, "Operador"),
+('Bianca Melo', 'bianca.melo@sinalverde.com', '12345', 7, "Gerente de operações"),
+('Felipe Diniz', 'felipe.diniz@sinalverde.com', '12345', 7, "Coordenador de incidentes"),
+
+('Gustavo Ramos', 'gustavo.ramos@eixocentral.com', '12345', 8, "Operador"),
+('Larissa Costa', 'larissa.costa@eixocentral.com', '12345', 8, "Gerente de operações"),
+('Rodrigo Faro', 'rodrigo.faro@eixocentral.com', '12345', 8, "Coordenador de incidentes"),
+
+('Vinicius Teixeira', 'vinicius.teixeira@novamalha.com', '12345', 9, "Operador"),
+('Aline Fernandes', 'aline.fernandes@novamalha.com', '12345', 9, "Gerente de operações"),
+('Roberto Carlos', 'roberto.carlos@novamalha.com', '12345', 9, "Coordenador de incidentes"),
+
+('Pedro Oliveira', 'pedro.oliveira@rbcconnect.com', '12345', 10, "Operador"),
+('Beatriz Santos', 'beatriz.santos@rbcconnect.com', '12345', 10, "Gerente de operações"),
+('Marcos Viana', 'marcos.viana@rbcconnect.com', '12345', 10, "Coordenador de incidentes");
+
+
+
+
 INSERT INTO componente (nome, tipo, unidadeMedida, parametros, campoWeb) VALUES
 ('Processador do servidor', 'CPU', '%', 'Porcentagem de Uso', 'componentes_cpu'),
 ('Memória RAM do servidor', 'RAM', '%', 'Porcentagem de Uso', 'componentes_memoria'),
@@ -182,3 +215,22 @@ INSERT INTO faleConosco (mensagem, emailContato) VALUES
 ('Quero saber se a solução atende operação 24x7.', 'operacao24h@yahoo.com'),
 ('É possível monitorar mais de um RBC por empresa?', 'rbc.multi@gmail.com');
 
+
+
+
+INSERT INTO linha(idLinha, nomeLinha, numeroLinha, corLinha, trecho, fkEmpresa) VALUES
+	(1, "DIAMANTE", 8,"#898989","Amador Bueno.", 1),
+	(2, "SAFIRA", 12, "#0F52BA", "Calmon Viana ", 1),
+	(3, "CORAL", 11, "#D75413", "Mogi das Cruzes", 1),
+    
+	(4, "JADE",13, "#00A86B", "Aeroporto-Guarulhos", 2),
+    (5, "ESMERALDA",9, "#00674f", "Osasco", 2);
+
+    
+
+INSERT INTO rbc (idRbc, macAdress, fkLinha) VALUES 
+	(1,'ec:3f:b6:b9:ae:2f', 1),
+	(2,'ae:b1:7d:b6:3a:19', 1),
+	(3,'13:47:52:e1:8a:7f', 1),
+	(4,'60:c7:27:3e:4f:56', 2),
+	(5,'06:71:a3:c2:10:07', 2);
