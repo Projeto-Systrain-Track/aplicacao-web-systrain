@@ -1,8 +1,8 @@
 function dashLinhas(req, res) {
     res.json({
-        servidoresAtivos: 8,
-        statusSistema: "Degradado",
-        latenciaMedia: "RBC_0001_SP",
+        servidoresAtivos: 6,
+        statusSistema: "Atenção",
+        latenciaMedia: "RB_SVR_DELT",
         incidentesAbertos: "15",
 
         resumo: [
@@ -19,9 +19,12 @@ function dashLinhas(req, res) {
         ],
 
         servidores: [
-            { nome: "REC-01", status: "Online", cpu: 80, ram: 40, disco: 50, latencia: "50ms", uptime: "22h" },
-            { nome: "REC-02", status: "Online", cpu: 20, ram: 45, disco: 30, latencia: "50ms", uptime: "23h" },
-            { nome: "REC-03", status: "Online", cpu: 60, ram: 20, disco: 90, latencia: "50ms", uptime: "21h" }
+            { nome: "RB_SVR_DELT", status: "Online", cpu: 75, ram: 50, disco: 25, latencia: "100ms", uptime: "21h" },
+            { nome: "RB_SVR_ALPH", status: "Online", cpu: 80, ram: 40, disco: 50, latencia: "15ms", uptime: "22h" },
+            { nome: "SV-PRIM", status: "Online", cpu: 80, ram: 40, disco: 50, latencia: "50ms", uptime: "22h" },
+            { nome: "SV-JOKT", status: "Online", cpu: 60, ram: 20, disco: 50, latencia: "25ms", uptime: "21h" },
+            { nome: "RB_SVR_BETA", status: "Online", cpu: 20, ram: 45, disco: 30, latencia: "50ms", uptime: "23h" },
+            { nome: "SV-MHRT", status: "Online", cpu: 20, ram: 45, disco: 30, latencia: "150ms", uptime: "23h" },
         ],
 
         graficoIncidentes: [

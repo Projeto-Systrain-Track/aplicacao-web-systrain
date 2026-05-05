@@ -204,7 +204,7 @@
     }
     function listarServidores() {
         var tabela = document.getElementById("tabelaLinhas")
-        fetch(`/rbcs/listarRbcEmpresa/${sessionStorage.ID_EMPRESA}`, { method: "GET" })
+        fetch(`/rbcs/listarRbcEmpresa/${sessionStorage.ID_EMPRESA}`)
             .then(function (rbcs) {
                 if (rbcs.status == 200) {
                     rbcs.json().then(function (rbcsJson) {
@@ -214,7 +214,7 @@
                             document.getElementById("mensagem_aviso").innerHTML = ""
                             var cont = 1
                             rbcsJson.forEach(rbc => {
-                                tabela.innerHTML = `
+                                tabela.innerHTML += `
                                     <tr onclick="irParaDetalhe('detalheServidor.html')">
                                             <th scope="row">${cont++}</th>
                                             <td>${rbc.nomeServidor}</th>
@@ -223,7 +223,6 @@
                                             <td>2</td>
                                             <td>100%</td>
                                     </tr>        
-                                    
                                 `
                             });
                         }

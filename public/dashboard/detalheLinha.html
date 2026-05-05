@@ -119,7 +119,7 @@
                 <div class="col-md-3">
                     <div class="card-indicador position-relative">
                         <img src="./linhas/icon_disponibilidade.png" class="icone-card" alt="Ícone">
-                        <p>Status do Sistema</p>
+                        <p>Status do Sistema atual</p>
                         <strong id="statusSistema">NHA</strong>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                 <div class="col-md-3">
                     <div class="card-indicador position-relative">
                         <img src="./linhas/icon_consumoProcesso.png" class="icone-card" alt="Ícone">
-                        <p>Servidor com Maior Consumo</p>
+                        <p>Servidor com Maior Consumo no dia</p>
                         <strong id="latenciaMedia">NHA</strong>
                     </div>
                 </div>
@@ -180,17 +180,11 @@
                 <div class="col-md">
                     <div class="resumo-card">
                         <p class="descricao">Incidentes abertos ao longo do tempo</p>
-
                         <!-- <div class="mini-lista" id="listaLatencia"></div> -->
                         <canvas id="graficoIncidentes"></canvas>
                     </div>
                 </div>
-
-
             </div>
-
-
-
             <div class="painel-mapa">
 
                 <div class="d-flex align-items-center gap-2 mb-3">
@@ -393,7 +387,7 @@
                     if (s.status === "Crítico") cor = "bg-danger";
 
                     tabela.innerHTML += `
-                            <tr>
+                            <tr onclick="irDetalheServidor()">
                                 <td>${s.nome}</td>
                                 <td><span class="badge ${cor}">${s.status}</span></td>
                                 <td>${barra(s.cpu)}</td>
@@ -411,7 +405,9 @@
             })
             .catch(err => console.error(err));
     }
-
+    function irDetalheServidor() {
+        window.location = "detalheServidor.html"
+    }
     function barra(valor) {
         var cor = "bg-success";
         if (valor > 70) cor = "bg-warning";

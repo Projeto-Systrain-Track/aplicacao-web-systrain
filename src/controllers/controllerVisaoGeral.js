@@ -1,9 +1,9 @@
 function obterDadosVisaoGeral(req, res) {
     res.json({
         latenciaMedia: "62ms",
-        linhaMaiorConsumo: "Linha 7 - Rubi",
+        linhaMaiorConsumo: "Linha 8 - Diamante",
         disponibilidade: "95%",
-        incidentes: "11",
+        incidentes: "38",
 
         maiorLatencia: [
             { nome: "Linha Diamante", cor: "#D9D9D9", valor: 150 },
@@ -14,20 +14,20 @@ function obterDadosVisaoGeral(req, res) {
         ],
 
         maisIncidentes: [
-            { nome: "Linha Prata", cor: "#5E5E5E", valor: "15" },
+            { nome: "Linha Diamante", cor: "#D9D9D9", valor: "15" },
             { nome: "Linha Safira", cor: "#A855F7", valor: "9" },
-            { nome: "Linha Esmeralda", cor: "#22E38F", valor: "9" },
-            { nome: "Linha Diamante", cor: "#D9D9D9", valor: "8" },
+            { nome: "Linha Prata", cor: "#5E5E5E", valor: "9" },
+            { nome: "Linha Esmeralda", cor: "#22E38F", valor: "8" },
             { nome: "Linha Rubi", cor: "#9C1F1F", valor: "7" }
         ],
         
         linhas: [
-            { 
-                nome: "Linha Prata",
+            {
+                nome: "Linha Diamante",
                 status: "Atenção",
-                servidores: "1/3",
+                servidores: "6/6",
                 incidentes: "15",
-                latencia: "100ms"
+                latencia: "150ms"
             },
             {
                 nome: "Linha Safira",
@@ -43,12 +43,12 @@ function obterDadosVisaoGeral(req, res) {
                 incidentes: "9",
                 latencia: "90ms"
             },
-            {
-                nome: "Linha Diamante",
-                status: "Operando",
-                servidores: "6/6",
+            { 
+                nome: "Linha Prata",
+                status: "Atenção",
+                servidores: "1/3",
                 incidentes: "8",
-                latencia: "150ms"
+                latencia: "100ms"
             },
             {
                 nome: "Linha Rubi",

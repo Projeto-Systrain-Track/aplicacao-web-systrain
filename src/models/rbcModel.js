@@ -6,7 +6,17 @@ function listarRbc(){
     return database.executar(instrucaoSql)
 }
 function listarRbcEmpresa(idEmpresa){
-    var instrucaoSql = `select rbc.*, empresa.razaoSocial as empresa, linha.* from rbc join empresa ON fkEmpresa = idEmpresa join linha on linha.idLinha = rbc.fkLinha WHERE empresa.idEmpresa = ${idEmpresa} order by idRbc;`
+    var instrucaoSql = `            SELECT
+				e.razaoSocial as empresa,
+				l.*,
+                r.*
+            FROM rbc r
+            JOIN linha l
+                ON r.fkLinha = l.idLinha
+            JOIN empresa e 
+                ON e.idEmpresa = l.fkEmpresa
+            WHERE e.idEmpresa = ${idEmpresa} 
+            order    by idRbc;`
     console.log("Executando a instrução SQL: \n" + instrucaoSql)
     return database.executar(instrucaoSql)
 }
