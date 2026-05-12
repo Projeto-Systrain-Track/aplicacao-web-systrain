@@ -10,16 +10,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/sessao.js"></script>
-
-    <style>
-        body {
-            background-color: #f5f7fa !important;
-        }
-
-        .conteudo {
-            background-color: #f5f7fa;
-        }
-    </style>
 </head>
 
 <body>
@@ -64,12 +54,36 @@
         <main class="conteudo" id="conteudo_pagina">
             <section class="topo-pagina">
                 <div>
-                    <p class="subtitulo">Monitoramento Metropolitano</p>
                     <h2 class="titulo fw-bolder">Operação</h2>
                     <p class="descricao">Indicadores da operação.</p>
                     <p class="descricao">Última atualização: 20/04/2026 19:05</p>
                 </div>
             </section>
+            <div class="row g-4 mb-4 ">
+                <div class="col-md-4 mb-2">
+                    <div class="card-indicador position-relative">
+                        <img src="../assets/icons/icon-operacao-laranja.png" class="icone-card" alt="Ícone">
+                        <p>Impacto financeiro da indisponibilidade</p>
+                        <strong id="impacto_financeiro">NHA</strong>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-2">
+                    <div class="card-indicador position-relative">
+                        <img src="./linhas/icon_linhas.png" class="icone-card" alt="Ícone">
+                        <p>Linha com maior indisponibilidade</p>
+                        <strong id="linhaMaiorIndisponibilidade">Linha 7 - Rubi</strong>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-2">
+                    <div class="card-indicador position-relative">
+                        <img src="./linhas/icon_alerta.png" class="icone-card" alt="Ícone">
+                        <p>Principal causa de incidentes</p>
+                        <strong id="causaIncidentes">CPU ALTA</strong>
+                    </div>
+                </div>
+            </div>
         </main>
 </body>
 
