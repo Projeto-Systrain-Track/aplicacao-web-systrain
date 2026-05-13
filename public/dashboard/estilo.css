@@ -28,7 +28,8 @@ body {
 button {
     cursor: pointer;
 }
-#loading{
+
+#loading {
     position: fixed;
     top: 0;
     left: 0;
@@ -40,6 +41,7 @@ button {
     justify-content: center;
     z-index: 9999;
 }
+
 .font-titulo {
     font-family: var(--font-titulo);
 }
@@ -1088,6 +1090,10 @@ modal-header {
     flex-direction: row;
 }
 
+.grafico-alertas-motivo {
+    height: 75%;
+}
+
 /* RESPONSIVO */
 @media only screen and (min-width: 901px) {
     .fundo_cinza_sidebar {
@@ -1105,7 +1111,7 @@ modal-header {
         flex-direction: column;
         width: 100%;
     }
-    
+
     .conteudo {
         flex-direction: column;
         width: 100%;
@@ -1263,6 +1269,11 @@ modal-header {
     .cont-grafico-incidente {
         height: 50%;
         width: 100%;
+    }
+
+
+    .grafico-alertas-motivo {
+        height: 50%;
     }
 
 }
