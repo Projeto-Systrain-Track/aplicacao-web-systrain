@@ -1,29 +1,29 @@
 function dashLinhas(req, res) {
     res.json({
-        servidoresAtivos: 6,
-        statusSistema: "Atenção",
-        latenciaMedia: "RB_SVR_DELT",
+        servidoresAtivos: "5/6",
+        statusSistema: "Operação parada",
+        latenciaMedia: "RB_SRV_MIK",
         incidentesAbertos: "15",
 
         resumo: [
-            { nome: "Latência elevada", valor: 2 },
+            { nome: "Latência elevada", valor: 4 },
             { nome: "Uso de CPU elevado", valor: 1 },
-            { nome: "Pico de RAM", valor: 5 },
-            { nome: "Servidor offline", valor: 7 },
+            { nome: "Pico de RAM", valor: 3 },
+            { nome: "Servidor offline", valor: 1 },
         ],
 
         alertas: [
-            { tipo: "Atenção", msg: "Latência elevada" },
-            { tipo: "Atenção", msg: "Pico de RAM" },
-            { tipo: "Atenção", msg: "Servidor offline" }
+            { tipo: "Crítico", msg: "Servidor RB_SRV_MIK - Offline" },
+            { tipo: "Atenção", msg: "Servidor RB_SRV_ALF - RAM em 95%" },
+            { tipo: "Atenção", msg: "Servidor RB_SVR_DELT - CPU em 92%" }
         ],
 
         servidores: [
-            { nome: "RB_SVR_DELT", status: "Online", cpu: 75, ram: 50, disco: 25, latencia: "100ms", uptime: "21h" },
-            { nome: "RB_SVR_ALPH", status: "Online", cpu: 80, ram: 40, disco: 50, latencia: "15ms", uptime: "22h" },
-            { nome: "SV-PRIM", status: "Online", cpu: 80, ram: 40, disco: 50, latencia: "50ms", uptime: "22h" },
-            { nome: "SV-JOKT", status: "Online", cpu: 60, ram: 20, disco: 50, latencia: "25ms", uptime: "21h" },
-            { nome: "RB_SVR_BETA", status: "Online", cpu: 20, ram: 45, disco: 30, latencia: "50ms", uptime: "23h" },
+            { nome: "RB_SVR_MIK", status: "Offline", cpu: '', ram: '', disco: '', latencia: "0ms", uptime: "0h" },
+            { nome: "RB_SVR_DELT", status: "Online", cpu: 92, ram: 91, disco: 25, latencia: "100ms", uptime: "21h" },
+            { nome: "RB_SVR_ALPH", status: "Online", cpu: 62, ram: 88, disco: 50, latencia: "98ms", uptime: "22h" },
+            { nome: "SV-PRIM", status: "Online", cpu: 60, ram: 87, disco: 50, latencia: "95ms", uptime: "22h" },
+            { nome: "SV-JOKT", status: "Online", cpu: 60, ram: 20, disco: 50, latencia: "90ms", uptime: "21h" },
             { nome: "SV-MHRT", status: "Online", cpu: 20, ram: 45, disco: 30, latencia: "150ms", uptime: "23h" },
         ],
 
