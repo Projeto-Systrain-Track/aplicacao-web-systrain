@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS endereco (
   complemento VARCHAR(45) NULL DEFAULT NULL,
   fk_end_empresa INT NOT NULL,
   PRIMARY KEY (idEndereco),
-  CONSTRAINT fk_empresa_endereco
+  CONSTRAINT fkEmpresa_endereco
     FOREIGN KEY (fk_end_empresa)
     REFERENCES systraintrack.empresa (idEmpresa));
 
@@ -81,13 +81,13 @@ CREATE TABLE IF NOT EXISTS usuario (
   nome VARCHAR(45) NOT NULL,
   email VARCHAR(45) NOT NULL,
   senha VARCHAR(200) NOT NULL,
-  fk_empresa INT NOT NULL,
+  fkEmpresa INT NOT NULL,
   tipoUsuario VARCHAR(45),
   PRIMARY KEY (idUsuario),
   UNIQUE INDEX email (email ASC) VISIBLE,
-  INDEX fk_empresa (fk_empresa ASC) VISIBLE,
+  INDEX fkEmpresa (fkEmpresa ASC) VISIBLE,
   CONSTRAINT usuario_ibfk_1
-    FOREIGN KEY (fk_empresa)
+    FOREIGN KEY (fkEmpresa)
     REFERENCES empresa (idEmpresa));
 CREATE TABLE IF NOT EXISTS linha (
   idLinha INT NOT NULL AUTO_INCREMENT,
@@ -141,7 +141,7 @@ INSERT INTO endereco (estado, cep, numeroResidencial, rua, complemento, fk_end_e
 ('SP', '09009-000', '92', 'Rua Teodoro Sampaio', 'Sala 5', 9),
 ('SP', '10010-000', '640', 'Avenida Faria Lima', 'Andar 9', 10);
 
-INSERT INTO usuario (nome, email, senha, fk_empresa, tipoUsuario) VALUES
+INSERT INTO usuario (nome, email, senha, fkEmpresa, tipoUsuario) VALUES
 
 
 ('Thiago', 'thiago@viapaulista.com', '12345', 1, "Operador"),

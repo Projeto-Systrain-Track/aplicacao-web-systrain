@@ -83,6 +83,7 @@
                             <th>Linha</th>
                             <th>Incidentes</th>
                             <th>Disponibilidade</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
 
@@ -91,12 +92,35 @@
                     </tbody>
                 </table>
             </section>
+
+            <section id="modalRelatorioProcessos" class="modal-processos-fundo" onclick="fecharRelatorioProcessos(event)">
+                <div class="modal-content modal-processos" onclick="event.stopPropagation()">
+                    <div class="modal-topo">
+                        <div>
+                            <p class="subtitulo">Análise de servidor RBC</p>
+                            <h2 class="titulo" id="tituloRelatorioProcessos">Relatório de processos</h2>
+                            <p class="descricao" id="descricaoRelatorioProcessos">Buscando dados...</p>
+                        </div>
+                        <button class="fechar-modal" onclick="fecharRelatorioProcessos()">Fechar</button>
+                    </div>
+
+                    <div class="modal-strip" id="resumoRelatorioProcessos">
+                        <div class="item"><small>Status</small><strong>--</strong></div>
+                        <div class="item"><small>Leituras</small><strong>--</strong></div>
+                        <div class="item"><small>Processos</small><strong>--</strong></div>
+                    </div>
+
+                    <div id="listaProcessosProblematicos" class="lista-processos-problematicos">
+                        <p class="descricao">Clique em “Gerar relatório de processos” para iniciar a análise.</p>
+                    </div>
+                </div>
+            </section>
         </main>
 
 
 </body>
 <script>
-
+    sessionStorage.TIPO_USUARIO = "Gerente de operações"
     document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
     document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
     function validarTipoUsuario() {
@@ -203,9 +227,127 @@
         conteudo.classList.toggle("expandido")
     }
 
+    var servidoresRbc = []
+
     function irParaDetalhe(link) {
         window.location = link
     }
+
+    function escaparHtml(valor) {
+        return String(valor ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;")
+    }
+
+    function formatarNumero(valor, sufixo) {
+        var numero = Number(valor)
+        if (!Number.isFinite(numero)) return "--"
+        return `${numero.toFixed(1)}${sufixo || ""}`
+    }
+
+    function abrirModalRelatorio() {
+        document.getElementById("modalRelatorioProcessos").classList.add("show")
+    }
+
+    function fecharRelatorioProcessos(event) {
+        if (event && event.target.id != "modalRelatorioProcessos") return
+        document.getElementById("modalRelatorioProcessos").classList.remove("show")
+    }
+
+    function renderizarResumoRelatorio(status, leituras, processos) {
+        document.getElementById("resumoRelatorioProcessos").innerHTML = `
+            <div class="item"><small>Status</small><strong>${escaparHtml(status || "--")}</strong></div>
+            <div class="item"><small>Leituras</small><strong>${escaparHtml(leituras ?? "--")}</strong></div>
+            <div class="item"><small>Processos</small><strong>${escaparHtml(processos ?? "--")}</strong></div>
+        `
+    }
+
+    function renderizarProcessosProblematicos(relatorio) {
+        var lista = document.getElementById("listaProcessosProblematicos")
+        renderizarResumoRelatorio(relatorio.servidor?.status || "Analisado", relatorio.leituras_analisadas, relatorio.total_processos_problematicos)
+
+        if (!relatorio.encontrado) {
+            lista.innerHTML = `<p class="descricao">${escaparHtml(relatorio.mensagem || "Servidor RBC não encontrado no retorno da análise.")}</p>`
+            return
+        }
+
+        if (!relatorio.processos || relatorio.processos.length == 0) {
+            lista.innerHTML = `<div class="processo-vazio">Nenhum processo problemático encontrado nas leituras analisadas.</div>`
+            return
+        }
+
+        lista.innerHTML = relatorio.processos.map(function (processo) {
+            var motivos = processo.motivos && processo.motivos.length
+                ? processo.motivos.map(motivo => `<span>${escaparHtml(motivo)}</span>`).join("")
+                : `<span>Sem motivo detalhado</span>`
+
+            return `
+                <article class="processo-problematico-card">
+                    <div class="processo-problematico-topo">
+                        <div>
+                            <strong>${escaparHtml(processo.nome)}</strong>
+                            <p>PID ${escaparHtml(processo.pid || "--")} · ${escaparHtml(processo.timestamp || "sem timestamp")}</p>
+                        </div>
+                        <span class="processo-status">${escaparHtml(processo.status || "ALERTA")}</span>
+                    </div>
+                    <div class="processo-metricas">
+                        <span>CPU ${formatarNumero(processo.cpu, "%")}</span>
+                        <span>RAM ${formatarNumero(processo.ram, "%")}</span>
+                        <span>RSS ${formatarNumero(processo.rss_mb, " MB")}</span>
+                        <span>Score ${escaparHtml(processo.score ?? "--")}</span>
+                    </div>
+                    <div class="processo-motivos">${motivos}</div>
+                </article>
+            `
+        }).join("")
+    }
+
+    async function abrirRelatorioProcessos(event, indiceServidor) {
+        event.stopPropagation()
+        var rbc = servidoresRbc[indiceServidor]
+        var botao = event.currentTarget
+        abrirModalRelatorio()
+        botao.disabled = true
+        botao.innerText = "Gerando..."
+
+        document.getElementById("tituloRelatorioProcessos").innerText = `Relatório de processos - ${rbc.nomeServidor || "Servidor RBC"}`
+        document.getElementById("descricaoRelatorioProcessos").innerText = "Analisando processos problemáticos do servidor selecionado."
+        renderizarResumoRelatorio("Buscando", "--", "--")
+        document.getElementById("listaProcessosProblematicos").innerHTML = `<p class="descricao">Buscando dados...</p>`
+
+        try {
+            var resposta = await fetch("/processosLambda/gerarRelatorio", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    rbc: {
+                        idRbc: rbc.idRbc,
+                        nomeServidor: rbc.nomeServidor,
+                        macAdress: rbc.macAdress,
+                        numeroLinha: rbc.numeroLinha,
+                        trecho: rbc.trecho
+                    }
+                })
+            })
+
+            var relatorio = await resposta.json()
+            if (!resposta.ok || relatorio.ok === false) throw new Error(relatorio.detalhe || relatorio.erro || "Erro ao gerar relatório")
+
+            document.getElementById("descricaoRelatorioProcessos").innerText = `Servidor: ${relatorio.servidor?.nome || rbc.nomeServidor || "RBC"} · MAC: ${relatorio.servidor?.mac || rbc.macAdress || "--"}`
+            renderizarProcessosProblematicos(relatorio)
+        } catch (erro) {
+            document.getElementById("descricaoRelatorioProcessos").innerText = "Não foi possível gerar o relatório de processos."
+            renderizarResumoRelatorio("Erro", "--", "--")
+            document.getElementById("listaProcessosProblematicos").innerHTML = `<p class="descricao erro-processos">${escaparHtml(erro.message)}</p>`
+        } finally {
+            botao.disabled = false
+            botao.innerText = "Gerar relatório de processos"
+        }
+    }
+
     function listarServidores() {
         var tabela = document.getElementById("tabelaLinhas")
         fetch(`/rbcs/listarRbcEmpresa/${sessionStorage.ID_EMPRESA}`)
@@ -213,20 +355,24 @@
                 if (rbcs.status == 200) {
                     rbcs.json().then(function (rbcsJson) {
                         console.log(rbcsJson);
+                        servidoresRbc = rbcsJson
+                        tabela.innerHTML = ""
                         if (rbcsJson.length == 0) {
+                            document.getElementById("mensagem_aviso").innerHTML = "Nenhum servidor cadastrado para esta empresa."
                         } else {
                             document.getElementById("mensagem_aviso").innerHTML = ""
                             var cont = 1
-                            rbcsJson.forEach(rbc => {
+                            rbcsJson.forEach(function (rbc, indice) {
                                 tabela.innerHTML += `
-                                    <tr onclick="irParaDetalhe('detalheServidor.html')">
+                                    <tr onclick="irParaDetalhe('detalheServidor.html?idRbc=${rbc.idRbc || ""}')">
                                             <th scope="row">${cont++}</th>
-                                            <td>${rbc.nomeServidor}</th>
+                                            <td>${escaparHtml(rbc.nomeServidor)}</td>
                                             <td>Operando</td>
-                                            <td><div class="circulo-cor-linha" style="background-color: ${rbc.corLinha};"></div>Linha ${rbc.numeroLinha} - ${rbc.trecho}</td>
+                                            <td><div class="circulo-cor-linha" style="background-color: ${escaparHtml(rbc.corLinha)};"></div>Linha ${escaparHtml(rbc.numeroLinha)} - ${escaparHtml(rbc.trecho)}</td>
                                             <td>2</td>
                                             <td>100%</td>
-                                    </tr>        
+                                            <td><button class="btn-relatorio-processos" onclick="abrirRelatorioProcessos(event, ${indice})">Gerar relatório de processos</button></td>
+                                    </tr>
                                 `
                             });
                         }

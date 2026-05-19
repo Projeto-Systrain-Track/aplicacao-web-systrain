@@ -16,6 +16,357 @@
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
 
+    <style>
+        .acoes-detalhe-servidor {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-detalhe-voltar,
+        .btn-detalhe-relatorio {
+            border: none;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-detalhe-voltar {
+            background-color: #e9eef5;
+            color: #12355B;
+        }
+
+        .btn-detalhe-relatorio {
+            background-color: #ff570a;
+            color: #ffffff;
+        }
+
+        .texto-menor-detalhe {
+            font-size: 13px;
+            color: #6c757d;
+        }
+
+        .status-online {
+            background-color: #21A656 !important;
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 8px 14px;
+        }
+
+        .status-offline {
+            background-color: #DC2828 !important;
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 8px 14px;
+        }
+
+        .status-alerta {
+            background-color: #EE9D0B !important;
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 8px 14px;
+        }
+
+        .cont-detalhes-metricas {
+            gap: 16px;
+        }
+
+        .cont-detalhes,
+        .cont-metrica {
+            min-height: 330px;
+        }
+
+        .cont-detalhes {
+            width: 34%;
+        }
+
+        .cont-metrica {
+            width: 66%;
+        }
+
+        .grafico {
+            width: 100%;
+            min-height: 260px;
+            padding: 0 22px 22px 22px;
+        }
+
+        .grafico canvas {
+            width: 100% !important;
+            height: 260px !important;
+        }
+
+        .cont-graficos-cpu-ram .cont-grafico {
+            width: 50%;
+        }
+
+
+
+        .tabela-processos-detalhe-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            padding: 0 24px 24px 24px;
+        }
+
+        .tabela-processos-detalhe {
+            width: 100%;
+            min-width: 980px;
+            border-collapse: collapse;
+        }
+
+        .tabela-processos-detalhe thead th {
+            padding: 14px 12px;
+            border-bottom: 1px solid #dee2e6;
+            color: #6c757d;
+            font-size: 13px;
+            font-weight: 800;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .tabela-processos-detalhe tbody td {
+            padding: 16px 12px;
+            border-bottom: 1px solid #edf0f4;
+            color: #252b33;
+            font-size: 14px;
+            vertical-align: top;
+        }
+
+        .tabela-processos-detalhe tbody tr:hover {
+            background-color: #f7f9fc;
+        }
+
+        .processo-nome-detalhe {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .processo-nome-detalhe strong {
+            color: #12355B;
+            font-weight: 800;
+        }
+
+        .processo-nome-detalhe small {
+            color: #6c757d;
+            font-size: 12px;
+        }
+
+        .tag-status-processo,
+        .tag-motivo-processo {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .tag-status-processo {
+            background-color: #eef3f8;
+            color: #12355B;
+        }
+
+        .tag-motivo-processo {
+            background-color: #f2f5f9;
+            color: #6c757d;
+        }
+
+        .motivos-processo-detalhe {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .score-processo-baixo {
+            color: #21A656;
+            font-weight: 800;
+        }
+
+        .score-processo-medio {
+            color: #EE9D0B;
+            font-weight: 800;
+        }
+
+        .score-processo-alto {
+            color: #DC2828;
+            font-weight: 800;
+        }
+
+        .sem-processos-detalhe {
+            padding: 28px !important;
+            text-align: center;
+            color: #6c757d !important;
+            font-weight: 700;
+        }
+
+
+
+        .modal-processos-fundo {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background-color: rgba(2, 3, 59, 0.45);
+            padding: 28px;
+            overflow-y: auto;
+        }
+
+        .modal-processos-fundo.show {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .modal-processos {
+            width: min(980px, 100%);
+            background: #ffffff;
+            border-radius: 14px;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+            padding: 28px;
+        }
+
+        .modal-topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        .fechar-modal {
+            border: none;
+            background: #e9eef5;
+            color: #12355B;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .modal-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .modal-strip .item {
+            background: #f5f7fa;
+            border: 1px solid #e3e8ef;
+            border-radius: 10px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .modal-strip .item small {
+            color: #6c757d;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .modal-strip .item strong {
+            color: #12355B;
+            font-size: 20px;
+        }
+
+        .lista-processos-problematicos {
+            display: grid;
+            gap: 12px;
+            max-height: 58vh;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .processo-problematico-card {
+            border: 1px solid #edf0f4;
+            border-radius: 12px;
+            padding: 16px;
+            background: #ffffff;
+        }
+
+        .processo-problematico-topo {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .processo-problematico-topo strong {
+            display: block;
+            color: #12355B;
+            font-weight: 800;
+        }
+
+        .processo-problematico-topo p {
+            margin: 4px 0 0 0;
+            color: #6c757d;
+            font-size: 13px;
+        }
+
+        .processo-status {
+            background-color: #ff570a;
+            color: #ffffff;
+            border-radius: 999px;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .processo-metricas,
+        .processo-motivos {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .processo-metricas {
+            margin-bottom: 12px;
+        }
+
+        .processo-metricas span,
+        .processo-motivos span {
+            background: #f2f5f9;
+            color: #343a40;
+            border-radius: 999px;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .processo-motivos span {
+            color: #6c757d;
+        }
+
+        .processo-vazio,
+        .erro-processos {
+            padding: 18px;
+            border-radius: 10px;
+            background: #f5f7fa;
+            color: #6c757d;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1000px) {
+            .cont-detalhes-metricas,
+            .cont-graficos-cpu-ram {
+                flex-direction: column;
+            }
+
+            .cont-detalhes,
+            .cont-metrica,
+            .cont-graficos-cpu-ram .cont-grafico {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -55,132 +406,164 @@
             </div>
         </aside>
         <main class="conteudo" id="conteudo_pagina">
-            <section class="topo-pagina ">
+            <section class="topo-pagina d-flex justify-content-between align-items-start gap-3">
                 <div class="">
                     <p class="titulo fw-bold">Detalhamento do RBC</p>
                     <p class="descricao" id="trecho_linha">Métricas de hardware detalhadas</p>
+                    <p class="descricao" id="mensagem_detalhe_servidor"></p>
+                </div>
+                <div class="acoes-detalhe-servidor">
+                    <button class="btn-detalhe-voltar" onclick="history.back()">Voltar aos servidores</button>
+                    <button class="btn-detalhe-relatorio" onclick="abrirRelatorioProcessos(event)">Gerar relatório de processos</button>
                 </div>
             </section>
-            <section class="cont-detalhes-metricas mb-4 w-100 d-flex ">
+
+            <section class="cont-detalhes-metricas mb-4 w-100 d-flex">
                 <div class="cont-detalhes border rounded bg-white d-flex flex-column h-100">
-                    <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center justify-content-between">
-                        <span id="nome_servidor" class="font-titulo fw-bold">RBC-01</span>
-                        <span id="status_servidor" class="font-titulo bg-danger">Crítico</span>
+                    <div class="cont-txts h-25 w-100 p-4 d-flex align-items-center justify-content-between">
+                        <span id="nome_servidor" class="font-titulo fw-bold">Carregando...</span>
+                        <span id="status_servidor" class="font-titulo status-alerta">--</span>
                     </div>
-                    <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center gap-3">
+                    <div class="cont-txts h-25 w-100 p-4 d-flex align-items-center gap-3">
                         <img src="../assets/icons/icon-pin.png" alt="">
-                        <span id="trecho_servidor" class="font-titulo ">Osasco - Varginha</span>
+                        <div class="d-flex flex-column">
+                            <span id="empresa_servidor" class="font-titulo">--</span>
+                            <span id="mac_servidor" class="texto-menor-detalhe">--</span>
+                        </div>
                     </div>
-                    <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center gap-3">
-                        <span id="linha_servidor" class="font-titulo ">Linha 9 - Esmeralda</span>
+                    <div class="cont-txts h-25 w-100 p-4 d-flex align-items-center gap-3">
+                        <span id="linha_servidor" class="font-titulo">--</span>
                     </div>
-                    <div class="cont-txts h-25  w-100 p-4 d-flex align-items-center">
-                        <span id="trecho_servidor" class="font-titulo ">Última atualização: 31/03/2026 19:05</span>
+                    <div class="cont-txts h-25 w-100 p-4 d-flex align-items-center">
+                        <span id="ultima_atualizacao_servidor" class="font-titulo">Última atualização: --</span>
                     </div>
                 </div>
-                <div class="cont-metrica border rounded bg-white  d-flex flex-column h-100">
+
+                <div class="cont-metrica border rounded bg-white d-flex flex-column h-100">
                     <span class="font-titulo w-100 p-4 fw-bold">Métricas de hardware</span>
                     <div class="cont-porcentagens d-flex h-75 flex-column justify-content-evenly w-100 mb-1">
-                        <div class="cont-porcentagem d-flex  align-items-center flex-column">
-                            <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                        <div class="cont-porcentagem d-flex align-items-center flex-column">
+                            <div class="cont-txts w-100 px-4 justify-content-between d-flex flex-row">
                                 <span class="font-titulo">CPU</span>
-                                <span class="font-titulo" id="porcentagem_cpu">75%</span>
+                                <span class="font-titulo" id="texto_cpu">--%</span>
                             </div>
                             <div class="barra_porcentagem progress">
-                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-75 bg-danger"
-                                    id="porcentagem_cpu"></div>
+                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped bg-success"
+                                    id="barra_cpu"></div>
                             </div>
                         </div>
                         <div class="cont-porcentagem d-flex align-items-center flex-column">
-                            <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                            <div class="cont-txts w-100 px-4 justify-content-between d-flex flex-row">
                                 <span class="font-titulo">Memória RAM</span>
-                                <span class="font-titulo" id="porcentagem_cpu">50%</span>
+                                <span class="font-titulo" id="texto_ram">--%</span>
                             </div>
                             <div class="barra_porcentagem progress">
-                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-50 bg-warning"
-                                    id="porcentagem_ram"></div>
+                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped bg-success"
+                                    id="barra_ram"></div>
                             </div>
                         </div>
                         <div class="cont-porcentagem d-flex align-items-center flex-column">
-                            <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                            <div class="cont-txts w-100 px-4 justify-content-between d-flex flex-row">
                                 <span class="font-titulo">Disco</span>
-                                <span class="font-titulo" id="porcentagem_cpu">25%</span>
+                                <span class="font-titulo" id="texto_disco">--%</span>
                             </div>
                             <div class="barra_porcentagem progress">
-                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-25 bg-success"
-                                    id="porcentagem_disco"></div>
+                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped bg-success"
+                                    id="barra_disco"></div>
                             </div>
                         </div>
                         <div class="cont-porcentagem d-flex align-items-center flex-column">
-                            <div class="cont-txts w-100 px-4 justify-content-between  d-flex flex-row ">
+                            <div class="cont-txts w-100 px-4 justify-content-between d-flex flex-row">
                                 <span class="font-titulo">Latência</span>
-                                <span class="font-titulo" id="latencia_servidor">100ms</span>
+                                <span class="font-titulo" id="latencia_servidor">--ms</span>
                             </div>
                             <div class="barra_porcentagem progress">
-                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped w-100 bg-success"
-                                    id="porcentagem_cpu"></div>
+                                <div class="porcentagem_colorida progress-bar-animated progress-bar-striped bg-success"
+                                    id="barra_latencia"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+
             <section class="cont-grafico mb-4 p-3">
-                <div
-                    class="cont-grafico border rounded bg-white justify-content-evenly align-items-center w-100 d-flex flex-column h-75">
-                    <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
+                <div class="cont-grafico border rounded bg-white justify-content-evenly align-items-center w-100 d-flex flex-column h-75">
+                    <div class="cont-txts w-100 p-4 justify-content-between d-flex flex-row">
                         <span class="font-titulo">Latência ao longo do tempo</span>
-                        <span class="font-titulo">24h</span>
+                        <span class="font-titulo">Todas leituras</span>
                     </div>
                     <div class="grafico">
                         <canvas id="grafico_latencia"></canvas>
                     </div>
                 </div>
             </section>
-            <section class="cont-graficos-cpu-ram mb-4 p-3 justify-content-evenly align-items-center w-100 d-flex ">
-                <div
-                    class="cont-grafico m-1 justify-content-evenly align-items-center border rounded bg-white d-flex flex-column h-100">
-                    <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
+
+            <section class="cont-graficos-cpu-ram mb-4 p-3 justify-content-evenly align-items-center w-100 d-flex">
+                <div class="cont-grafico m-1 justify-content-evenly align-items-center border rounded bg-white d-flex flex-column h-100">
+                    <div class="cont-txts w-100 p-4 justify-content-between d-flex flex-row">
                         <span class="font-titulo">CPU ao longo do tempo</span>
-                        <span class="font-titulo">24h</span>
+                        <span class="font-titulo">Todas leituras</span>
                     </div>
                     <div class="grafico">
                         <canvas id="grafico_cpu"></canvas>
                     </div>
                 </div>
-                <div
-                    class="cont-grafico m-1 justify-content-evenly align-items-center border rounded bg-white d-flex flex-column h-100">
-                    <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
+                <div class="cont-grafico m-1 justify-content-evenly align-items-center border rounded bg-white d-flex flex-column h-100">
+                    <div class="cont-txts w-100 p-4 justify-content-between d-flex flex-row">
                         <span class="font-titulo">Memória RAM ao longo do tempo</span>
-                        <span class="font-titulo">24h</span>
+                        <span class="font-titulo">Todas leituras</span>
                     </div>
                     <div class="grafico">
                         <canvas id="grafico_ram"></canvas>
                     </div>
                 </div>
             </section>
-            <section class="cont-grafico w-100 h-75 p-3">
-                <div
-                    class="cont-grafico border rounded bg-white justify-content-evenly align-items-center w-100 d-flex flex-column h-100">
-                    <div class="cont-txts w-100 px-5 justify-content-between  d-flex flex-row ">
-                        <span class="font-titulo">Top 5 processos com mais uso de hardware</span>
-                    </div>
-                    <div class="grafico">
-                        <canvas id="grafico_processos"></canvas>
 
+            <section id="modalRelatorioProcessos" class="modal-processos-fundo" onclick="fecharRelatorioProcessos(event)">
+                <div class="modal-content modal-processos" onclick="event.stopPropagation()">
+                    <div class="modal-topo">
+                        <div>
+                            <p class="subtitulo">Análise de servidor RBC</p>
+                            <h2 class="titulo" id="tituloRelatorioProcessos">Relatório de processos</h2>
+                            <p class="descricao" id="descricaoRelatorioProcessos">Buscando dados...</p>
+                        </div>
+                        <button class="fechar-modal" onclick="fecharRelatorioProcessos()">Fechar</button>
                     </div>
 
+                    <div class="modal-strip" id="resumoRelatorioProcessos">
+                        <div class="item"><small>Status</small><strong>--</strong></div>
+                        <div class="item"><small>Leituras</small><strong>--</strong></div>
+                        <div class="item"><small>Processos</small><strong>--</strong></div>
+                    </div>
+
+                    <div id="listaProcessosProblematicos" class="lista-processos-problematicos">
+                        <p class="descricao">Clique em “Gerar relatório de processos” para iniciar a análise.</p>
+                    </div>
                 </div>
-
             </section>
 
         </main>
     </div>
 </body>
+
 <script>
+    const caminhosJsonRbc = [
+        "../client/empresas_linhas_rbc.json",
+        "../empresas_linhas_rbc.json",
+        "empresas_linhas_rbc.json",
+        "../client/empresas_linhas_rbc_1.json",
+        "../empresas_linhas_rbc_1.json",
+        "empresas_linhas_rbc_1.json"
+    ]
 
+    const totalUltimasLeiturasDetalhe = 10
+    const limiteLatenciaMs = 250
+    let contextoDetalheServidor = null
+    let graficosDetalheServidor = []
+
+    sessionStorage.TIPO_USUARIO = sessionStorage.TIPO_USUARIO || "Gerente de operações"
     document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
-    document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
-
+    document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO || ""
 
     window.addEventListener("resize", function () {
         var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
@@ -188,12 +571,11 @@
 
         if (window.innerWidth > 900) {
             if (fundo_cinza_sidebar.classList.contains("mobile")) {
-                console.log("Tem a classe mobile");
                 sidebar.classList.toggle("mobile")
                 fundo_cinza_sidebar.classList.toggle("mobile")
             }
         }
-    });
+    })
 
     function abrirSideBarMobile() {
         var sidebar = document.getElementById("nav_lateral")
@@ -201,19 +583,20 @@
         sidebar.classList.toggle("mobile")
         fundo_cinza_sidebar.classList.toggle("mobile")
     }
+
     function fecharSidebar() {
         var sidebar = document.getElementById("nav_lateral")
         var conteudo = document.getElementById("conteudo_pagina")
         sidebar.classList.toggle("compactada")
         conteudo.classList.toggle("expandido")
     }
-    var parametrosUrl = new URLSearchParams(window.location.search)
-    var idLinha = parametrosUrl.get("id")
+
     function validarTipoUsuario() {
         var links_sidebar = document.getElementById("links_sidebar")
+
         if (sessionStorage.TIPO_USUARIO == "Gerente de operações") {
             links_sidebar.innerHTML = `
-                <a class="link-lateral " href="dashboard.html">
+                <a class="link-lateral" href="dashboard.html">
                     <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
                     <span>Visão geral</span>
                 </a>
@@ -225,7 +608,7 @@
                     <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
                     <span>Servidores</span>
                 </a>
-                <a class="link-lateral " href="incidentes.html">
+                <a class="link-lateral" href="incidentes.html">
                     <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
                     <span>Incidentes</span>
                 </a>
@@ -237,18 +620,15 @@
                     <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
                     <span>Relatórios</span>
                 </a>
-                <a class="link-lateral " href="usuarios.html">
+                <a class="link-lateral" href="usuarios.html">
                     <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
                     <span>Usuários</span>
-                    </a>
-                    `
-            setTimeout(() => {
-                document.getElementById("container_sys").style.display = "flex"
-                document.getElementById("loading").style.display = "none"
-            }, 500);
+                </a>
+            `
+            mostrarContainer()
         } else if (sessionStorage.TIPO_USUARIO == "Operador") {
-            links_sidebar.innerHTML = `          
-                <a class="link-lateral " href="dashboard.html">
+            links_sidebar.innerHTML = `
+                <a class="link-lateral" href="dashboard.html">
                     <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
                     <span>Visão geral</span>
                 </a>
@@ -261,189 +641,519 @@
                     <span>Servidores</span>
                 </a>
             `
-            setTimeout(() => {
-                document.getElementById("container_sys").style.display = "flex"
-                document.getElementById("loading").style.display = "none"
-            }, 500);
+            mostrarContainer()
         } else if (sessionStorage.TIPO_USUARIO == "Coordenador de incidentes") {
             setTimeout(() => {
                 window.location = "dashboard.html"
-            }, 500);
+            }, 500)
         } else {
             window.location = "../index.html"
         }
     }
-    validarTipoUsuario()
 
-    function montarGraficoLatencia() {
-        var grafico_latencia = document.getElementById('grafico_latencia');
+    function mostrarContainer() {
+        setTimeout(() => {
+            document.getElementById("container_sys").style.display = "flex"
+            document.getElementById("loading").style.display = "none"
+        }, 500)
+    }
 
-        var dados = {
-            labels: ["01:00", "01:05", "01:10", "01:15", "01:20", "01:25", "01:00"],
-            datasets: [
-                {
-                    label: 'Maior comum',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    borderColor: '#DC2828',
-                    tension: 0.1
-                },
-                {
-                    label: 'Média',
-                    data: [50, 50, 60, 70, 46, 50, 35],
-                    borderColor: '#EE9D0B',
-                    tension: 0.1
-                },
-                {
-                    label: 'Menor comum',
-                    data: [40, 33, 50, 60, 39, 40, 23],
-                    borderColor: '#21A656',
-                    tension: 0.1
+    async function iniciarDetalheServidor() {
+        validarTipoUsuario()
+
+        try {
+            var dados = await buscarJsonRbc()
+            var parametrosUrl = new URLSearchParams(window.location.search)
+            var idRbc = parametrosUrl.get("idRbc") || parametrosUrl.get("id_rbc") || parametrosUrl.get("id") || "1"
+            var contexto = encontrarRbcPorId(dados, idRbc)
+
+            if (!contexto) {
+                escreverMensagemErro("RBC não encontrado no JSON para o id " + idRbc)
+                return
+            }
+
+            contextoDetalheServidor = contexto
+            preencherDadosServidor(contexto)
+            montarGraficosServidor(selecionarTodasUltimasLeituras(contexto.rbc.ultimas_leituras || []))
+        } catch (erro) {
+            console.error(erro)
+            escreverMensagemErro("Não foi possível carregar o JSON de monitoramento.")
+        }
+    }
+
+    async function buscarJsonRbc() {
+        var ultimoErro = null
+
+        for (var caminho of caminhosJsonRbc) {
+            try {
+                var resposta = await fetch(caminho)
+                if (resposta.ok) {
+                    return await resposta.json()
                 }
-            ]
-        };
-        var config = {
-            type: "line",
-            data: dados,
-            options: {
-                plugins: {
-                    legend: {
-                        position: 'bottom'
+                ultimoErro = new Error("HTTP " + resposta.status + " em " + caminho)
+            } catch (erro) {
+                ultimoErro = erro
+            }
+        }
+
+        throw ultimoErro || new Error("JSON não encontrado")
+    }
+
+    function normalizarEmpresas(dados) {
+        if (Array.isArray(dados)) return dados
+        if (dados?.empresas && Array.isArray(dados.empresas)) return dados.empresas
+        if (dados?.linhas && Array.isArray(dados.linhas)) return [dados]
+        return []
+    }
+
+    function selecionarLeiturasOrdenadas(leituras) {
+        return [...(leituras || [])]
+            .filter(Boolean)
+            .sort((a, b) => new Date(a.data_hora || 0) - new Date(b.data_hora || 0))
+    }
+
+    function selecionarTodasUltimasLeituras(leituras) {
+        return selecionarLeiturasOrdenadas(leituras || [])
+    }
+
+    function selecionarUltimasLeituras(leituras, quantidade = totalUltimasLeiturasDetalhe) {
+        return selecionarLeiturasOrdenadas(leituras || []).slice(-quantidade)
+    }
+
+    function obterUltimaLeitura(leituras) {
+        var ultimasLeituras = selecionarUltimasLeituras(leituras || [], 1)
+        return ultimasLeituras[ultimasLeituras.length - 1] || {}
+    }
+
+    function consolidarProcessosDasLeituras(leituras) {
+        var ultimasLeituras = selecionarUltimasLeituras(leituras || [])
+        var processosPorChave = new Map()
+
+        ultimasLeituras.forEach(leitura => {
+            ;(leitura.processos_alerta || []).forEach(processo => {
+                var chave = String(processo.pid || "sem_pid") + "|" + String(processo.name || "sem_nome")
+                var scoreAtual = numero(processo.anomalias?.score_anomalia_processo)
+                var existente = processosPorChave.get(chave)
+
+                if (!existente) {
+                    processosPorChave.set(chave, {
+                        ...processo,
+                        data_hora_leitura: leitura.data_hora,
+                        qtd_leituras_alerta: 1,
+                        maior_score_anomalia: scoreAtual
+                    })
+                    return
+                }
+
+                var quantidadeAlertas = numero(existente.qtd_leituras_alerta) + 1
+                var maiorScore = Math.max(numero(existente.maior_score_anomalia), scoreAtual)
+                var scoreExistente = numero(existente.anomalias?.score_anomalia_processo)
+                var deveUsarAmostraAtual = scoreAtual > scoreExistente
+
+                if (deveUsarAmostraAtual) {
+                    processosPorChave.set(chave, {
+                        ...processo,
+                        data_hora_leitura: leitura.data_hora,
+                        qtd_leituras_alerta: quantidadeAlertas,
+                        maior_score_anomalia: maiorScore
+                    })
+                } else {
+                    existente.qtd_leituras_alerta = quantidadeAlertas
+                    existente.maior_score_anomalia = maiorScore
+                    processosPorChave.set(chave, existente)
+                }
+            })
+        })
+
+        return ordenarProcessosPorAnomalia([...processosPorChave.values()])
+    }
+
+    function encontrarRbcPorId(dados, idRbcBuscado) {
+        var empresas = normalizarEmpresas(dados)
+
+        for (var empresa of empresas) {
+            for (var linha of empresa.linhas || []) {
+                for (var rbc of linha.rbc || []) {
+                    if (String(rbc.id_rbc) == String(idRbcBuscado)) {
+                        return { empresa, linha, rbc }
                     }
                 }
             }
         }
-        new Chart(grafico_latencia, config);
+
+        return null
     }
 
-    function montarGraficoCpu() {
-        var grafico_latencia = document.getElementById('grafico_cpu');
+    function preencherDadosServidor(contexto) {
+        var empresa = contexto.empresa
+        var linha = contexto.linha
+        var rbc = contexto.rbc
+        var leituras = selecionarUltimasLeituras(rbc.ultimas_leituras || [])
+        var ultimaLeitura = obterUltimaLeitura(leituras)
 
-        var dados = {
-            labels: ["01:00", "01:05", "01:10", "01:15", "01:20", "01:25", "01:00"],
-            datasets: [
-                {
-                    label: 'Maior comum',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    borderColor: '#DC2828',
-                    tension: 0.1
-                },
-                {
-                    label: 'Média',
-                    data: [50, 50, 60, 70, 46, 50, 35],
-                    borderColor: '#EE9D0B',
-                    tension: 0.1
-                },
-                {
-                    label: 'Menor comum',
-                    data: [40, 33, 50, 60, 39, 40, 23],
-                    borderColor: '#21A656',
-                    tension: 0.1
-                }
-            ]
-        };
+        var cpu = numero(ultimaLeitura.cpu?.percentual_uso_cpu)
+        var ram = numero(ultimaLeitura.memoria?.percentual_uso_ram)
+        var disco = numero(ultimaLeitura.disco?.percentual_uso_disco)
+        var latencia = numero(ultimaLeitura.latencia_ping_ms)
+        var latenciaPercentual = Math.min((latencia / limiteLatenciaMs) * 100, 100)
+
+        document.getElementById("nome_servidor").innerHTML = escaparHtml(rbc.nome_rbc || "RBC")
+        document.getElementById("empresa_servidor").innerHTML = escaparHtml(empresa.nome_empresa || "Empresa não informada")
+        document.getElementById("mac_servidor").innerHTML = "MAC: " + escaparHtml(rbc.endereco_mac || "--")
+        document.getElementById("linha_servidor").innerHTML = escaparHtml(linha.nome_linha || "Linha não informada")
+        document.getElementById("trecho_linha").innerHTML = `Servidor ${escaparHtml(rbc.nome_rbc || "RBC")} - ${escaparHtml(linha.nome_linha || "Linha")}`
+        document.getElementById("ultima_atualizacao_servidor").innerHTML = "Última atualização: " + formatarDataHora(ultimaLeitura.data_hora)
+
+        var statusServidor = document.getElementById("status_servidor")
+        statusServidor.innerHTML = escaparHtml(rbc.status_atual || ultimaLeitura.rbc_status || "--")
+        statusServidor.classList.remove("status-online", "status-offline", "status-alerta", "bg-danger")
+        statusServidor.classList.add(classeStatus(rbc.status_atual || ultimaLeitura.rbc_status))
+
+        document.getElementById("texto_cpu").innerHTML = formatarNumero(cpu, 1) + "%"
+        document.getElementById("texto_ram").innerHTML = formatarNumero(ram, 1) + "%"
+        document.getElementById("texto_disco").innerHTML = formatarNumero(disco, 1) + "%"
+        document.getElementById("latencia_servidor").innerHTML = formatarNumero(latencia, 1) + "ms"
+
+        aplicarBarra("barra_cpu", cpu)
+        aplicarBarra("barra_ram", ram)
+        aplicarBarra("barra_disco", disco)
+        aplicarBarra("barra_latencia", latenciaPercentual, classeCorLatencia(latencia))
+
+        var totalProcessos = numero(ultimaLeitura.total_processos_alerta || (ultimaLeitura.processos_alerta || []).length)
+        var criticidade = ultimaLeitura.criticidade || "--"
+        var score = formatarNumero(ultimaLeitura.score, 1)
+        document.getElementById("mensagem_detalhe_servidor").innerHTML = `Criticidade: ${escaparHtml(criticidade)} | Score: ${score} | Processos em alerta: ${totalProcessos}`
+    }
+
+    function aplicarBarra(idBarra, percentual, classePersonalizada) {
+        var barra = document.getElementById(idBarra)
+        var valor = Math.max(0, Math.min(numero(percentual), 100))
+        var classeCor = classePersonalizada || classeCorPercentual(valor)
+
+        barra.style.width = valor + "%"
+        barra.classList.remove("bg-success", "bg-warning", "bg-danger")
+        barra.classList.add(classeCor)
+    }
+
+    function montarGraficosServidor(leituras) {
+        limparGraficosServidor()
+        leituras = selecionarTodasUltimasLeituras(leituras || [])
+
+        var labels = leituras.map(leitura => formatarHora(leitura.data_hora))
+
+        criarGraficoLinha("grafico_latencia", labels, [
+            {
+                label: "Latência (ms)",
+                data: leituras.map(leitura => numero(leitura.latencia_ping_ms)),
+                borderColor: "#DC2828",
+                backgroundColor: "rgba(220, 40, 40, 0.08)",
+                tension: 0.25,
+                fill: true
+            }
+        ], "ms")
+
+        criarGraficoLinha("grafico_cpu", labels, [
+            {
+                label: "CPU (%)",
+                data: leituras.map(leitura => numero(leitura.cpu?.percentual_uso_cpu)),
+                borderColor: "#12355B",
+                backgroundColor: "rgba(18, 53, 91, 0.08)",
+                tension: 0.25,
+                fill: true
+            }
+        ], "%")
+
+        criarGraficoLinha("grafico_ram", labels, [
+            {
+                label: "RAM (%)",
+                data: leituras.map(leitura => numero(leitura.memoria?.percentual_uso_ram)),
+                borderColor: "#ff570a",
+                backgroundColor: "rgba(255, 87, 10, 0.08)",
+                tension: 0.25,
+                fill: true
+            }
+        ], "%")
+    }
+
+
+    function criarGraficoLinha(idCanvas, labels, datasets, sufixo) {
+        var canvas = document.getElementById(idCanvas)
+
         var config = {
             type: "line",
-            data: dados,
+            data: { labels, datasets },
             options: {
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }
-        }
-        new Chart(grafico_latencia, config);
-    }
-    function montarGraficoRam() {
-        var grafico_latencia = document.getElementById('grafico_ram');
-
-        var dados = {
-            labels: ["01:00", "01:05", "01:10", "01:15", "01:20", "01:25", "01:00"],
-            datasets: [
-                {
-                    label: 'Maior comum',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    borderColor: '#DC2828',
-                    tension: 0.1
-                },
-                {
-                    label: 'Média',
-                    data: [50, 50, 60, 70, 46, 50, 35],
-                    borderColor: '#EE9D0B',
-                    tension: 0.1
-                },
-                {
-                    label: 'Menor comum',
-                    data: [40, 33, 50, 60, 39, 40, 23],
-                    borderColor: '#21A656',
-                    tension: 0.1
-                }
-            ]
-        };
-        var config = {
-            type: "line",
-            data: dados,
-            options: {
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }
-        }
-        new Chart(grafico_latencia, config);
-    }
-    function montarGraficoProcessos() {
-
-        var dados = {
-            labels: ['csrss.exe', 'lsass.exe', 'explorer.exe', 'rbc-calculo', 'svchost.exe'],
-            datasets: [
-                {
-                    label: 'CPU (%)',
-                    data: [30, 20, 40, 25, 35],
-                    backgroundColor: '#12355B'
-                },
-                {
-                    label: 'RAM (%)',
-                    data: [25, 30, 20, 35, 25],
-                    backgroundColor: '#ff570a'
-                },
-                {
-                    label: 'Disco (%)',
-                    data: [15, 10, 20, 15, 10],
-                    backgroundColor: '#02033B'
-                }
-            ]
-        };
-
-        var config = {
-            type: 'bar',
-            data: dados,
-            options: {
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                },
                 responsive: true,
-                scales: {
-                    x: {
-                        stacked: false
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: "bottom"
                     },
+                    tooltip: {
+                        callbacks: {
+                            label: function (contexto) {
+                                return contexto.dataset.label + ": " + formatarNumero(contexto.raw, 2) + sufixo
+                            }
+                        }
+                    }
+                },
+                scales: {
                     y: {
                         beginAtZero: true,
-                        max: 100
+                        suggestedMax: sufixo == "%" ? 100 : undefined,
+                        ticks: {
+                            callback: function (valor) {
+                                return valor + sufixo
+                            }
+                        }
                     }
                 }
             }
-        };
+        }
 
-        new Chart(document.getElementById('grafico_processos'), config);
+        var grafico = new Chart(canvas, config)
+        graficosDetalheServidor.push(grafico)
     }
-    montarGraficoCpu()
-    montarGraficoProcessos()
-    montarGraficoRam()
-    montarGraficoLatencia()
+
+    function limparGraficosServidor() {
+        graficosDetalheServidor.forEach(grafico => grafico.destroy())
+        graficosDetalheServidor = []
+    }
+
+    function abrirModalRelatorio() {
+        document.getElementById("modalRelatorioProcessos").classList.add("show")
+    }
+
+    function fecharRelatorioProcessos(event) {
+        if (event && event.target.id != "modalRelatorioProcessos") return
+        document.getElementById("modalRelatorioProcessos").classList.remove("show")
+    }
+
+    function renderizarResumoRelatorio(status, leituras, processos) {
+        document.getElementById("resumoRelatorioProcessos").innerHTML = `
+            <div class="item"><small>Status</small><strong>${escaparHtml(status || "--")}</strong></div>
+            <div class="item"><small>Leituras</small><strong>${escaparHtml(leituras ?? "--")}</strong></div>
+            <div class="item"><small>Processos</small><strong>${escaparHtml(processos ?? "--")}</strong></div>
+        `
+    }
+
+    function renderizarProcessosProblematicos(relatorio) {
+        var lista = document.getElementById("listaProcessosProblematicos")
+        renderizarResumoRelatorio(relatorio.servidor?.status || "Analisado", relatorio.leituras_analisadas, relatorio.total_processos_problematicos)
+
+        if (!relatorio.encontrado) {
+            lista.innerHTML = `<p class="descricao">${escaparHtml(relatorio.mensagem || "Servidor RBC não encontrado no retorno da análise.")}</p>`
+            return
+        }
+
+        if (!relatorio.processos || relatorio.processos.length == 0) {
+            lista.innerHTML = `<div class="processo-vazio">Nenhum processo problemático encontrado nas leituras analisadas.</div>`
+            return
+        }
+
+        lista.innerHTML = relatorio.processos.map(function (processo) {
+            var motivos = processo.motivos && processo.motivos.length
+                ? processo.motivos.map(motivo => `<span>${escaparHtml(motivo)}</span>`).join("")
+                : `<span>Sem motivo detalhado</span>`
+
+            return `
+                <article class="processo-problematico-card">
+                    <div class="processo-problematico-topo">
+                        <div>
+                            <strong>${escaparHtml(processo.nome)}</strong>
+                            <p>PID ${escaparHtml(processo.pid || "--")} · ${escaparHtml(processo.timestamp || "sem timestamp")}</p>
+                        </div>
+                        <span class="processo-status">${escaparHtml(processo.status || "ALERTA")}</span>
+                    </div>
+                    <div class="processo-metricas">
+                        <span>CPU ${formatarNumeroRelatorio(processo.cpu, "%")}</span>
+                        <span>RAM ${formatarNumeroRelatorio(processo.ram, "%")}</span>
+                        <span>RSS ${formatarNumeroRelatorio(processo.rss_mb, " MB")}</span>
+                        <span>Score ${escaparHtml(processo.score ?? "--")}</span>
+                    </div>
+                    <div class="processo-motivos">${motivos}</div>
+                </article>
+            `
+        }).join("")
+    }
+
+    function montarRelatorioProcessosLocal() {
+        var empresa = contextoDetalheServidor.empresa
+        var linha = contextoDetalheServidor.linha
+        var rbc = contextoDetalheServidor.rbc
+        var leituras = selecionarTodasUltimasLeituras(rbc.ultimas_leituras || [])
+        var processos = []
+
+        leituras.forEach(function (leitura) {
+            ;(leitura.processos_alerta || []).forEach(function (processo) {
+                processos.push({
+                    nome: processo.name || processo.nome || "Processo sem nome",
+                    pid: processo.pid,
+                    cpu: processo.cpu_percent,
+                    ram: processo.memory_percent,
+                    rss_mb: processo.rss_mb,
+                    score: processo.anomalias?.score_anomalia_processo ?? processo.score,
+                    status: processo.status || "ALERTA",
+                    motivos: Array.isArray(processo.motivos_alerta) ? processo.motivos_alerta : [],
+                    timestamp: leitura.data_hora || null
+                })
+            })
+        })
+
+        processos.sort(function (a, b) {
+            return numero(b.score) - numero(a.score) || numero(b.cpu) - numero(a.cpu) || numero(b.ram) - numero(a.ram)
+        })
+
+        return {
+            ok: true,
+            encontrado: true,
+            servidor: {
+                nome: rbc.nome_rbc || "RBC",
+                mac: rbc.endereco_mac || "--",
+                status: rbc.status_atual || "--",
+                empresa: empresa.nome_empresa || "--",
+                linha: linha.nome_linha || "--"
+            },
+            leituras_analisadas: leituras.length,
+            total_processos_problematicos: processos.length,
+            processos: processos.slice(0, 30)
+        }
+    }
+
+    async function abrirRelatorioProcessos(event) {
+        if (event) event.stopPropagation()
+
+        if (!contextoDetalheServidor) {
+            alert("Dados do servidor ainda não carregados.")
+            return
+        }
+
+        var botao = event?.currentTarget
+        var rbc = contextoDetalheServidor.rbc
+
+        abrirModalRelatorio()
+
+        if (botao) {
+            botao.disabled = true
+            botao.innerText = "Gerando..."
+        }
+
+        document.getElementById("tituloRelatorioProcessos").innerText = `Relatório de processos - ${rbc.nome_rbc || "Servidor RBC"}`
+        document.getElementById("descricaoRelatorioProcessos").innerText = "Analisando processos problemáticos do servidor selecionado."
+        renderizarResumoRelatorio("Buscando", "--", "--")
+        document.getElementById("listaProcessosProblematicos").innerHTML = `<p class="descricao">Buscando dados...</p>`
+
+        try {
+            var relatorio = montarRelatorioProcessosLocal()
+            document.getElementById("descricaoRelatorioProcessos").innerText = `Servidor: ${relatorio.servidor?.nome || rbc.nome_rbc || "RBC"} · MAC: ${relatorio.servidor?.mac || rbc.endereco_mac || "--"}`
+            renderizarProcessosProblematicos(relatorio)
+        } catch (erro) {
+            document.getElementById("descricaoRelatorioProcessos").innerText = "Não foi possível gerar o relatório de processos."
+            renderizarResumoRelatorio("Erro", "--", "--")
+            document.getElementById("listaProcessosProblematicos").innerHTML = `<p class="descricao erro-processos">${escaparHtml(erro.message)}</p>`
+        } finally {
+            if (botao) {
+                botao.disabled = false
+                botao.innerText = "Gerar relatório de processos"
+            }
+        }
+    }
+
+    function formatarNumeroRelatorio(valor, sufixo) {
+        var n = Number(valor)
+        if (!Number.isFinite(n)) return "--"
+        return `${n.toFixed(1)}${sufixo || ""}`
+    }
+
+    function ordenarProcessosPorAnomalia(processos) {
+        return [...processos].sort((a, b) => {
+            var scoreA = numero(a.anomalias?.score_anomalia_processo)
+            var scoreB = numero(b.anomalias?.score_anomalia_processo)
+
+            if (scoreB != scoreA) return scoreB - scoreA
+            return numero(b.cpu_percent) - numero(a.cpu_percent)
+        })
+    }
+
+    function escreverMensagemErro(mensagem) {
+        document.getElementById("mensagem_detalhe_servidor").innerHTML = escaparHtml(mensagem)
+    }
+
+    function classeStatus(status) {
+        var valor = String(status || "").toUpperCase()
+        if (valor == "ONLINE") return "status-online"
+        if (valor == "OFFLINE") return "status-offline"
+        return "status-alerta"
+    }
+
+    function classeCorPercentual(valor) {
+        if (numero(valor) >= 80) return "bg-danger"
+        if (numero(valor) >= 60) return "bg-warning"
+        return "bg-success"
+    }
+
+    function classeCorLatencia(valor) {
+        if (numero(valor) >= 180) return "bg-danger"
+        if (numero(valor) >= 100) return "bg-warning"
+        return "bg-success"
+    }
+
+    function numero(valor) {
+        var convertido = Number(valor)
+        return Number.isFinite(convertido) ? convertido : 0
+    }
+
+    function formatarNumero(valor, casas = 1) {
+        return numero(valor).toLocaleString("pt-BR", {
+            minimumFractionDigits: casas,
+            maximumFractionDigits: casas
+        })
+    }
+
+    function formatarDataHora(valor) {
+        if (!valor) return "--"
+        var data = new Date(valor)
+        if (Number.isNaN(data.getTime())) return valor
+
+        return data.toLocaleString("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        })
+    }
+
+    function formatarHora(valor) {
+        if (!valor) return "--"
+        var data = new Date(valor)
+        if (Number.isNaN(data.getTime())) return valor
+
+        return data.toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit"
+        })
+    }
+
+    function encurtarTexto(texto, tamanho) {
+        texto = String(texto || "")
+        return texto.length > tamanho ? texto.slice(0, tamanho - 3) + "..." : texto
+    }
+
+    function limparNomeArquivo(texto) {
+        return String(texto || "arquivo").replace(/[^a-z0-9_-]/gi, "_").toLowerCase()
+    }
+
+    function escaparHtml(valor) {
+        return String(valor ?? "")
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;")
+    }
+
+    iniciarDetalheServidor()
 </script>
 
 </html>

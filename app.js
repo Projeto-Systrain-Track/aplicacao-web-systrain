@@ -22,15 +22,22 @@ const rbcRouter = require("./src/routes/rbcs")
 const componentesRouter = require("./src/routes/componentes");
 const admRouter = require("./src/routes/adminitradores")
 const linhaRouter = require("./src/routes/linha")
+const localMockRouter = require("./src/routes/localMock")
 
 const visaoGeralRouter = require("./src/routes/dashVisaoGeral")
 const dashLinhasRoutes = require("./src/routes/dashLinhas");
+const processosLambdaRouter = require("./src/routes/processosLambda");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
+
+if (process.env.LOCAL_TEST_MODE === "true") {
+    console.log("Modo local de testes ativo: usando login, RBCs e processos mockados.");
+    app.use("/", localMockRouter);
+}
 
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
@@ -43,6 +50,7 @@ app.use("/linha", linhaRouter)
 app.use("/visaoGeral", visaoGeralRouter);
 
 app.use("/dashLinhas", dashLinhasRoutes);
+app.use("/processosLambda", processosLambdaRouter);
 
 
 

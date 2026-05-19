@@ -147,7 +147,7 @@
                             </div>
                             <div class="ipt-50">
                                 <label>Empresa:</label>
-                                <select class="h-100" id="select_fk_empresa"></select>
+                                <select class="h-100" id="select_fkEmpresa"></select>
                             </div>
                             <div class="ipt-50">
                                 <label>Senha:</label>
@@ -169,7 +169,7 @@
         </div>
 </body>
 <script>
-    document.getElementById("select_fk_empresa").innerHTML = `
+    document.getElementById("select_fkEmpresa").innerHTML = `
             <option value="${sessionStorage.ID_EMPRESA}">${sessionStorage.NOME_EMPRESA}</option>
         `
     function validarTipoUsuario() {
@@ -262,7 +262,7 @@
         var senhaVar = senha_input.value;
         var tipoUsuarioVar = tipo_usuario_select.value;
         var confirmacaoSenhaVar = confirmacao_senha_input.value;
-        var idEmpresaVincular = select_fk_empresa.value;
+        var idEmpresaVincular = select_fkEmpresa.value;
 
 
 
@@ -350,7 +350,7 @@
         email_input.value = "";
         senha_input.value = "";
         confirmacao_senha_input.value = "";
-        select_fk_empresa.selectIndex = 0;
+        select_fkEmpresa.selectIndex = 0;
     }
 
     listarUsuarios()
