@@ -14,4 +14,5 @@ router.post("/cadastrarRbc", function(req, res){
     rbcController.cadastrarRbc(req, res);
 })
 
+
 module.exports = router;

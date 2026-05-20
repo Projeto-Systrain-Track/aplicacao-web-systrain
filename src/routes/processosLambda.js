@@ -7,16 +7,12 @@ var LambdaClient = null;
 var InvokeCommand = null;
 var lambda = null;
 
-if (process.env.LOCAL_TEST_MODE !== "true") {
-    LambdaClient = require("@aws-sdk/client-lambda").LambdaClient;
-    InvokeCommand = require("@aws-sdk/client-lambda").InvokeCommand;
-    lambda = new LambdaClient({ region: process.env.AWS_REGION || "us-east-1" });
-}
 
-function carregarJsonLocal() {
-    var caminho = process.env.LOCAL_PROCESSOS_JSON || path.join(__dirname, "../local/processos_rbc_mock.json");
-    return JSON.parse(fs.readFileSync(caminho, "utf8"));
-}
+LambdaClient = require("@aws-sdk/client-lambda").LambdaClient;
+InvokeCommand = require("@aws-sdk/client-lambda").InvokeCommand;
+lambda = new LambdaClient({ region: process.env.AWS_REGION || "us-east-1" });
+
+
 
 function parsePayload(payload) {
     var text = Buffer.from(payload || []).toString("utf-8");

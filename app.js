@@ -6,15 +6,18 @@ const caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
 // A sintaxe do operador ternário é: condição ? valor_se_verdadeiro : valor_se_falso
 
 require("dotenv").config({ path: caminho_env });
-
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const PORTA_APP = process.env.APP_PORT;
 const HOST_APP = process.env.APP_HOST;
 
+const NOME_DO_BUCKET = process.env.NOME_DO_BUCKET;
+const CAMINHO_JSON = process.env.CAMINHO_JSON;
+
 const app = express();
 
+app.use(express.json()); 
 const indexRouter = require("./src/routes/index");
 const usuarioRouter = require("./src/routes/usuarios");
 const empresasRouter = require("./src/routes/empresas");
@@ -22,11 +25,20 @@ const rbcRouter = require("./src/routes/rbcs")
 const componentesRouter = require("./src/routes/componentes");
 const admRouter = require("./src/routes/adminitradores")
 const linhaRouter = require("./src/routes/linha")
-const localMockRouter = require("./src/routes/localMock")
+
+// Remova o .default do final caso tenha colocado
+var servidoresDetalhesRouter = require("./src/routes/servidoresDetalhes"); 
+
+// Linha 51 vai funcionar agora:
+app.use("/servidorDetalhes", servidoresDetalhesRouter);
+
+
 
 const visaoGeralRouter = require("./src/routes/dashVisaoGeral")
 const dashLinhasRoutes = require("./src/routes/dashLinhas");
 const processosLambdaRouter = require("./src/routes/processosLambda");
+
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,17 +46,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cors());
 
-if (process.env.LOCAL_TEST_MODE === "true") {
-    console.log("Modo local de testes ativo: usando login, RBCs e processos mockados.");
-    app.use("/", localMockRouter);
-}
-
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/empresas", empresasRouter);
 app.use("/rbcs", rbcRouter)
 app.use("/componentes", componentesRouter)
 app.use("/adm", admRouter)
+
 app.use("/linha", linhaRouter)
 
 app.use("/visaoGeral", visaoGeralRouter);
