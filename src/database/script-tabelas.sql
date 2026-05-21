@@ -1,4 +1,4 @@
-drop database if exists systraintrack;
+-- drop database if exists systraintrack;
 create database systraintrack;
 use systraintrack;
 
