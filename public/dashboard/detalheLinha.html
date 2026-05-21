@@ -64,8 +64,8 @@
         <main class="conteudo" id="conteudo_pagina">
             <section class="topo-pagina h-auto pb-2">
                 <div>
-                    <p class="subtitulo">Monitoramento</p>
-                    <h2 class="titulo fw-bolder">Linha atual</h2> <!--trocar pelo nome da linha atual-->
+                    <p class="subtitulo">Painel Operacional de RBC</p>
+                    <h2 class="titulo fw-bolder">Linha 11 - Coral</h2> <!--trocar pelo nome da linha atual-->
                     <!-- <p class="descricao">Resumo da linha atual.</p> -->
                     <p class="small text-secondary">Última atualização: 20/04/2026 19:05</p>
 
@@ -110,7 +110,7 @@
                 <div class="col-md-3">
                     <div class="card-indicador position-relative">
                         <img src="./linhas/icon-servidor.jpg" class="icone-card" alt="Ícone">
-                        <p>Total de Servidores Ativos</p>
+                        <p>Servidores Online</p>
                         <strong id="servidorAtivo">NHA</strong>
 
                     </div>
@@ -119,7 +119,7 @@
                 <div class="col-md-3">
                     <div class="card-indicador position-relative">
                         <img src="./linhas/icon_disponibilidade.png" class="icone-card" alt="Ícone">
-                        <p>Status do Sistema atual</p>
+                        <p>Status da Operação</p>
                         <strong id="statusSistema">NHA</strong>
                     </div>
                 </div>
@@ -127,7 +127,7 @@
                 <div class="col-md-3">
                     <div class="card-indicador position-relative">
                         <img src="./linhas/icon_consumoProcesso.png" class="icone-card" alt="Ícone">
-                        <p>Servidor com Maior Consumo no dia</p>
+                        <p>Servidor Mais Crítico</p>
                         <strong id="latenciaMedia">NHA</strong>
                     </div>
                 </div>
@@ -146,12 +146,16 @@
 
                 <div class="col-md-6">
                     <div class="resumo-card">
-                        <p class="subtitulo">Resumo de Eventos do Dia</p>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <p class="subtitulo m-0">Resumo de ocorrências do dia</p>
+
+                            <button class="form-select w-auto">Ver mais</button>
+                        </div>
 
                         <div class="mini-lista" id="listaResumo">
                             <div class="card">
                                 <div class="card-body">
-                                    aaaaaaaaaaa
+                                    Resumo
                                 </div>
                             </div>
                         </div>
@@ -165,7 +169,7 @@
                         <div class="mini-lista" id="listaALertas">
                             <div class="card border-warning">
                                 <div class="card-body">
-                                    aaaaaaaaaaaaaaaaa
+                                    Alertas
                                 </div>
                             </div>
                         </div>
@@ -174,17 +178,6 @@
 
             </div>
 
-            <div class="row g-4 mb-4">
-
-
-                <div class="col-md">
-                    <div class="resumo-card">
-                        <p class="descricao">Incidentes abertos ao longo do tempo</p>
-                        <!-- <div class="mini-lista" id="listaLatencia"></div> -->
-                        <canvas id="graficoIncidentes"></canvas>
-                    </div>
-                </div>
-            </div>
             <div class="painel-mapa">
 
                 <div class="d-flex align-items-center gap-2 mb-3">
@@ -202,7 +195,6 @@
                             <th>RAM</th>
                             <th>Disco</th>
                             <th>Latência</th>
-                            <th>Uptime</th>
                         </tr>
                     </thead>
 
@@ -217,6 +209,15 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -327,13 +328,11 @@
             .then(res => res.json())
             .then(dados => {
 
-                //kpi
                 document.getElementById("servidorAtivo").innerText = dados.servidoresAtivos;
                 document.getElementById("statusSistema").innerText = dados.statusSistema;
                 document.getElementById("latenciaMedia").innerText = dados.latenciaMedia;
                 document.getElementById("incidentesAbertos").innerText = dados.incidentesAbertos;
 
-                //resumo dos incidentes
                 const listaResumo = document.getElementById("listaResumo");
                 listaResumo.innerHTML = "";
 
@@ -352,19 +351,59 @@
                 // `;
 
                 // }
-                dados.resumo.forEach(item => {
-                    listaResumo.innerHTML += `
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="bolinha-verde"></span>
-                            ${item.nome}
-                        </div>
-                        <strong>${item.valor}</strong>
-                    </div>
-                `;
-                });
 
-                // alertas
+                // ==================================================================== \\
+
+                // ========== ALGORÍTMO DE ORDENAÇÃO DO RESUMO DE INCIDENTES ========== \\
+
+                var resumoOriginal = [...dados.resumo];
+
+                function renderizarResumo(tipoOrdenacao = "padrao") {
+
+                    listaResumo.innerHTML = "";
+
+                    var resumoOrdenado = [...resumoOriginal];
+
+                    if (tipoOrdenacao == "maior") {
+
+                        resumoOrdenado.sort((a, b) => {
+                            return b.valor - a.valor;
+                        });
+
+                    } else if (tipoOrdenacao == "menor") {
+
+                        resumoOrdenado.sort((a, b) => {
+                            return a.valor - b.valor;
+                        });
+
+                    }
+
+                    resumoOrdenado.forEach(item => {
+
+                        listaResumo.innerHTML += `
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="bolinha-verde"></span>
+                                    ${item.nome}
+                                </div>
+                                <strong>${item.valor}</strong>
+                            </div>
+                        `;
+                    });
+                }
+
+                renderizarResumo();
+
+                document.getElementById("filtroResumo")
+                    .addEventListener("change", function () {
+
+                        renderizarResumo(this.value);
+
+                    });
+
+
+                // ==================================================================== \\
+
                 const listaAlertas = document.getElementById("listaALertas");
                 listaAlertas.innerHTML = "";
 
@@ -379,9 +418,45 @@
                     `;
                 }
 
-                // tabelas
                 const tabela = document.getElementById("tabelaServidor");
                 tabela.innerHTML = "";
+
+                // ==================================================================== \\
+
+                // ========== ALGORÍTMO DE ORDENAÇÃO DA TABELA DE SERVIDORES ========== \\
+
+                dados.servidores.sort((a, b) => {
+
+                    if (a.status == "Offline" && b.status != "Offline") return -1;
+                    if (b.status == "Offline" && a.status != "Offline") return 1;
+
+                    var cpuA = Number(a.cpu) || 0;
+                    var ramA = Number(a.ram) || 0;
+                    var discoA = Number(a.disco) || 0;
+
+                    var cpuB = Number(b.cpu) || 0;
+                    var ramB = Number(b.ram) || 0;
+                    var discoB = Number(b.disco) || 0;
+
+                    var latA = parseInt(a.latencia) || 0;
+                    var latB = parseInt(b.latencia) || 0;
+
+                    var scoreA =
+                        (cpuA * 0.35) +
+                        (ramA * 0.30) +
+                        (discoA * 0.20) +
+                        (latA * 0.15);
+
+                    var scoreB =
+                        (cpuB * 0.35) +
+                        (ramB * 0.30) +
+                        (discoB * 0.20) +
+                        (latB * 0.15);
+
+                    return scoreB - scoreA;
+                });
+
+                // ==================================================================== \\
 
                 for (var i = 0; i < dados.servidores.length; i++) {
                     var s = dados.servidores[i];
@@ -398,20 +473,20 @@
                                 <td>${barra(s.ram)}</td>
                                 <td>${barra(s.disco)}</td>
                                 <td>${s.latencia}</td>
-                                <td>${s.uptime}</td>
                             </tr>
                         `;
                 }
 
-                //grafico latencia
                 montarGrafico(dados.graficoIncidentes);
 
             })
             .catch(err => console.error(err));
     }
+
     function irDetalheServidor() {
         window.location = "detalheServidor.html"
     }
+
     function barra(valor) {
         var cor = "bg-success";
         if (valor > 70) cor = "bg-warning";
