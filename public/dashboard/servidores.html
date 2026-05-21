@@ -19,6 +19,110 @@
         .conteudo {
             background-color: #f5f7fa;
         }
+
+        .processo-bloco-lista {
+            margin-top: 10px;
+        }
+
+        .processo-bloco-titulo {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 12px;
+            color: #667085;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .processo-motivos,
+        .processo-anomalias {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .processo-motivos span,
+        .processo-anomalias span {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 5px 9px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #eef2ff;
+            color: #344054;
+            border: 1px solid #d0d5dd;
+        }
+
+        .processo-anomalias span {
+            background: #fff7ed;
+        }
+
+        .linha-servidor-criticidade {
+            --cor-criticidade: #d0d5dd;
+            --fundo-criticidade: #ffffff;
+            background: var(--fundo-criticidade);
+            box-shadow: inset 6px 0 0 var(--cor-criticidade);
+        }
+
+        .linha-servidor-criticidade > th,
+        .linha-servidor-criticidade > td {
+            border-top: 1px solid rgba(16, 24, 40, 0.08);
+            border-bottom: 1px solid rgba(16, 24, 40, 0.08);
+        }
+
+        .processo-problematico-card.criticidade-critico,
+        .processo-problematico-card.criticidade-alto,
+        .processo-problematico-card.criticidade-moderado,
+        .processo-problematico-card.criticidade-baixo,
+        .processo-problematico-card.criticidade-desconhecida {
+            border-left: 6px solid var(--cor-criticidade) !important;
+        }
+
+        .criticidade-critico {
+            --cor-criticidade: #dc2828;
+            --fundo-criticidade: #fff1f0;
+            --texto-criticidade: #b42318;
+        }
+
+        .criticidade-alto {
+            --cor-criticidade: #f97316;
+            --fundo-criticidade: #fff7ed;
+            --texto-criticidade: #c2410c;
+        }
+
+        .criticidade-moderado {
+            --cor-criticidade: #f59e0b;
+            --fundo-criticidade: #fffbeb;
+            --texto-criticidade: #b45309;
+        }
+
+        .criticidade-baixo {
+            --cor-criticidade: #14804a;
+            --fundo-criticidade: #ecfdf3;
+            --texto-criticidade: #067647;
+        }
+
+        .criticidade-desconhecida {
+            --cor-criticidade: #98a2b3;
+            --fundo-criticidade: #f8fafc;
+            --texto-criticidade: #475467;
+        }
+
+        .badge-criticidade {
+            display: inline-flex;
+            align-items: center;
+            width: fit-content;
+            margin-top: 4px;
+            border-radius: 999px;
+            padding: 4px 9px;
+            background: var(--fundo-criticidade);
+            color: var(--texto-criticidade);
+            border: 1px solid var(--cor-criticidade);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -120,7 +224,6 @@
 
 </body>
 <script>
-    sessionStorage.TIPO_USUARIO = "Gerente de operações"
     document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
     document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
     function validarTipoUsuario() {
@@ -248,6 +351,66 @@
         return `${numero.toFixed(1)}${sufixo || ""}`
     }
 
+
+    function normalizarCriticidade(valor) {
+        var texto = String(valor || "").trim()
+        if (!texto) return "DESCONHECIDA"
+
+        var semAcento = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase()
+
+        if (semAcento.includes("CRIT")) return "CRITICO"
+        if (semAcento.includes("ALTO") || semAcento.includes("ALTA")) return "ALTO"
+        if (semAcento.includes("MODER")) return "MODERADO"
+        if (semAcento.includes("BAIX")) return "BAIXO"
+
+        return "DESCONHECIDA"
+    }
+
+    function criticidadePorScore(score) {
+        var valor = Number(score)
+        if (!Number.isFinite(valor)) return "DESCONHECIDA"
+        if (valor > 85) return "CRITICO"
+        if (valor > 70) return "ALTO"
+        if (valor > 50) return "MODERADO"
+        return "BAIXO"
+    }
+
+    function classeCriticidadeBorda(valor) {
+        return "criticidade-" + normalizarCriticidade(valor).toLowerCase()
+    }
+
+    function montarBadgeCriticidade(valor) {
+        var criticidade = normalizarCriticidade(valor)
+        return `<span class="badge-criticidade ${classeCriticidadeBorda(criticidade)}">${escaparHtml(criticidade)}</span>`
+    }
+
+    function obterCriticidadeRbc(rbc) {
+        var ultimasLeituras = Array.isArray(rbc?.ultimas_leituras) ? rbc.ultimas_leituras : []
+        var ultimaLeitura = ultimasLeituras.length ? ultimasLeituras[ultimasLeituras.length - 1] : {}
+
+        return normalizarCriticidade(
+            rbc?.criticidade ||
+            rbc?.criticidade_atual ||
+            rbc?.criticidadeAtual ||
+            rbc?.nivel_criticidade ||
+            rbc?.nivelCriticidade ||
+            rbc?.severidade ||
+            ultimaLeitura?.criticidade ||
+            ultimaLeitura?.nivel_criticidade ||
+            criticidadePorScore(ultimaLeitura?.score)
+        )
+    }
+
+    function obterCriticidadeProcesso(processo) {
+        return normalizarCriticidade(
+            processo?.criticidade ||
+            processo?.nivel_criticidade ||
+            processo?.severidade ||
+            processo?.status ||
+            criticidadePorScore(processo?.score ?? processo?.anomalia ?? processo?.score_anomalia_processo)
+        )
+    }
+
     function abrirModalRelatorio() {
         document.getElementById("modalRelatorioProcessos").classList.add("show")
     }
@@ -265,6 +428,18 @@
         `
     }
 
+    function normalizarListaVisual(valor) {
+        if (!valor) return []
+        if (Array.isArray(valor)) return valor.filter(item => item !== null && item !== undefined && item !== "")
+        return [valor]
+    }
+
+    function montarBadges(lista, textoVazio) {
+        var itens = normalizarListaVisual(lista)
+        if (!itens.length) return `<span>${escaparHtml(textoVazio)}</span>`
+        return itens.map(item => `<span>${escaparHtml(item)}</span>`).join("")
+    }
+
     function renderizarProcessosProblematicos(relatorio) {
         var lista = document.getElementById("listaProcessosProblematicos")
         renderizarResumoRelatorio(relatorio.servidor?.status || "Analisado", relatorio.leituras_analisadas, relatorio.total_processos_problematicos)
@@ -280,12 +455,14 @@
         }
 
         lista.innerHTML = relatorio.processos.map(function (processo) {
-            var motivos = processo.motivos && processo.motivos.length
-                ? processo.motivos.map(motivo => `<span>${escaparHtml(motivo)}</span>`).join("")
-                : `<span>Sem motivo detalhado</span>`
+            var motivos = montarBadges(processo.motivos_alerta || processo.motivos, "Sem motivo detalhado")
+            var anomalias = montarBadges(processo.anomalias, "Sem anomalia detalhada")
+            var score = processo.score ?? processo.anomalia ?? "--"
+
+            var criticidade = obterCriticidadeProcesso(processo)
 
             return `
-                <article class="processo-problematico-card">
+                <article class="processo-problematico-card ${classeCriticidadeBorda(criticidade)}">
                     <div class="processo-problematico-topo">
                         <div>
                             <strong>${escaparHtml(processo.nome)}</strong>
@@ -297,9 +474,16 @@
                         <span>CPU ${formatarNumero(processo.cpu, "%")}</span>
                         <span>RAM ${formatarNumero(processo.ram, "%")}</span>
                         <span>RSS ${formatarNumero(processo.rss_mb, " MB")}</span>
-                        <span>Score ${escaparHtml(processo.score ?? "--")}</span>
+                        <span>Score ${escaparHtml(score)}</span>
                     </div>
-                    <div class="processo-motivos">${motivos}</div>
+                    <div class="processo-bloco-lista">
+                        <strong class="processo-bloco-titulo">Motivos do alerta</strong>
+                        <div class="processo-motivos">${motivos}</div>
+                    </div>
+                    <div class="processo-bloco-lista">
+                        <strong class="processo-bloco-titulo">Anomalias detectadas</strong>
+                        <div class="processo-anomalias">${anomalias}</div>
+                    </div>
                 </article>
             `
         }).join("")
@@ -355,26 +539,29 @@
                 if (rbcs.status == 200) {
                     rbcs.json().then(function (rbcsJson) {
                         console.log(rbcsJson);
-                        servidoresRbc = rbcsJson
-                        tabela.innerHTML = ""
+                        servidoresRbc = rbcsJson 
                         if (rbcsJson.length == 0) {
                             document.getElementById("mensagem_aviso").innerHTML = "Nenhum servidor cadastrado para esta empresa."
                         } else {
                             document.getElementById("mensagem_aviso").innerHTML = ""
                             var cont = 1
                             rbcsJson.forEach(function (rbc, indice) {
+                                var criticidade = obterCriticidadeRbc(rbc)
+                                var classeCriticidade = classeCriticidadeBorda(criticidade)
+
                                 tabela.innerHTML += `
-                                    <tr onclick="irParaDetalhe('detalheServidor.html?idRbc=${rbc.idRbc}')">
+                                    <tr class="linha-servidor-criticidade ${classeCriticidade}" onclick="irParaDetalhe('detalheServidor.html?idRbc=${rbc.idRbc}&nomeServidor=${rbc.nomeServidor}&macAdress=${rbc.macAdress}&numeroLinha=${rbc.numeroLinha}&trecho=${rbc.trecho}')">
                                             <th scope="row">${cont++}</th>
                                             <td>${escaparHtml(rbc.nomeServidor)}</td>
-                                            <td>Operando</td>
+                                            <td>Operando<br>${montarBadgeCriticidade(criticidade)}</td>
                                             <td><div class="circulo-cor-linha" style="background-color: ${escaparHtml(rbc.corLinha)};"></div>Linha ${escaparHtml(rbc.numeroLinha)} - ${escaparHtml(rbc.trecho)}</td>
                                             <td>2</td>
                                             <td>100%</td>
                                             <td><button class="btn-relatorio-processos" onclick="abrirRelatorioProcessos(event, ${indice})">Gerar relatório de processos</button></td>
                                     </tr>
-                                `
-                            
+                                `;
+
+
                             });
                         }
                     })

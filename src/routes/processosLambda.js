@@ -7,12 +7,9 @@ var LambdaClient = null;
 var InvokeCommand = null;
 var lambda = null;
 
-
 LambdaClient = require("@aws-sdk/client-lambda").LambdaClient;
 InvokeCommand = require("@aws-sdk/client-lambda").InvokeCommand;
 lambda = new LambdaClient({ region: process.env.AWS_REGION || "us-east-1" });
-
-
 
 function parsePayload(payload) {
     var text = Buffer.from(payload || []).toString("utf-8");
@@ -20,6 +17,26 @@ function parsePayload(payload) {
     var outer = JSON.parse(text);
     if (typeof outer.body === "string") return JSON.parse(outer.body);
     return outer.body || outer;
+}
+
+function carregarJsonLocal() {
+    var caminhosPossiveis = [
+        process.env.LOCAL_JSON_PATH,
+        process.env.LOCAL_OUTPUT_JSON,
+        path.join(__dirname, "../client/empresas_linhas_rbc.json"),
+        path.join(__dirname, "../trusted/empresas_linhas_rbc.json"),
+        path.join(process.cwd(), "client/empresas_linhas_rbc.json"),
+        path.join(process.cwd(), "trusted/empresas_linhas_rbc.json")
+    ].filter(Boolean);
+
+    for (var i = 0; i < caminhosPossiveis.length; i++) {
+        var caminho = caminhosPossiveis[i];
+        if (fs.existsSync(caminho)) {
+            return JSON.parse(fs.readFileSync(caminho, "utf-8"));
+        }
+    }
+
+    throw new Error("JSON local não encontrado. Defina LOCAL_JSON_PATH ou LOCAL_OUTPUT_JSON no .env.");
 }
 
 function normalizarMac(valor) {
@@ -65,45 +82,144 @@ function coletarProcessosDaLeitura(leitura) {
     return processos;
 }
 
-function processoEhProblematico(proc) {
-    var status = String(proc.status || proc.situacao || proc.nivel || "").toUpperCase();
-    var motivos = proc.motivos || proc.alertas || proc.anomalias || proc.problemas;
-    var flags = [proc.problematico, proc.em_alerta, proc.alerta, proc.anomalia, proc.anomalo, proc.is_anomaly, proc.vazamento_memoria, proc.memory_leak, proc.crash];
+function normalizarTextoItem(item) {
+    if (item === null || item === undefined || item === "") return null;
+    if (typeof item === "string") return item;
+    if (typeof item === "number" || typeof item === "boolean") return String(item);
+    if (typeof item === "object") return Object.keys(item).map(function (chave) {
+        return chave + ": " + item[chave];
+    }).join(" | ");
+    return String(item);
+}
 
-    if (Array.isArray(motivos) && motivos.length > 0) return true;
-    if (flags.some(Boolean)) return true;
-    if (status && !["OK", "NORMAL", "ONLINE", "SAUDAVEL", "SAUDÁVEL"].includes(status)) return true;
+function normalizarLista(valor) {
+    if (!valor) return [];
+    if (Array.isArray(valor)) return valor.map(normalizarTextoItem).filter(Boolean);
+    var texto = normalizarTextoItem(valor);
+    return texto ? [texto] : [];
+}
+
+function formatarChaveAnomalia(chave) {
+    var mapa = {
+        cpu_delta_desde_leitura_anterior: "Variação de CPU desde a leitura anterior",
+        memory_percent_delta_desde_leitura_anterior: "Variação de RAM desde a leitura anterior",
+        rss_growth_mb_desde_leitura_anterior: "Crescimento de RSS desde a leitura anterior",
+        score_anomalia_processo: "Score de anomalia do processo",
+        cpu_delta: "Variação de CPU",
+        memory_delta: "Variação de RAM",
+        memory_percent_delta: "Variação de RAM",
+        rss_growth_mb: "Crescimento de RSS",
+        score_anomalia: "Score de anomalia"
+    };
+
+    return mapa[chave] || chave.replaceAll("_", " ");
+}
+
+function formatarValorAnomalia(chave, valor) {
+    var n = Number(valor);
+    if (!Number.isFinite(n)) return String(valor);
+    var valorFormatado = n.toFixed(2);
+    if (chave.includes("rss") || chave.includes("mb")) return valorFormatado + " MB";
+    if (chave.includes("cpu") || chave.includes("memory") || chave.includes("percent")) return valorFormatado + "%";
+    return valorFormatado;
+}
+
+function normalizarAnomalias(proc) {
+    var bruto = proc.anomalias || proc.anomalia || proc.anomalies || proc.anomaly || null;
+    if (!bruto) return [];
+
+    if (Array.isArray(bruto)) return normalizarLista(bruto);
+
+    if (typeof bruto === "object") {
+        return Object.keys(bruto).map(function (chave) {
+            var valor = bruto[chave];
+            if (valor === null || valor === undefined || valor === "") return null;
+            return formatarChaveAnomalia(chave) + ": " + formatarValorAnomalia(chave, valor);
+        }).filter(Boolean);
+    }
+
+    return normalizarLista(bruto);
+}
+
+function obterScoreAnomalia(proc) {
+    return pegarValor(proc, [
+        "anomalias.score_anomalia_processo",
+        "anomalias.score_anomalia",
+        "score_anomalia_processo",
+        "score_anomalia",
+        "score",
+        "score_alerta",
+        "risk_score"
+    ]);
+}
+
+function obterLimitesProcesso(proc) {
+    var altaPrioridade = Boolean(proc.alta_prioridade) || String(proc.name || proc.nome || "").startsWith("RBC_");
+    return {
+        cpu: numero(altaPrioridade ? process.env.HIGH_PRIORITY_PROCESS_CPU_ALERT : process.env.PROCESS_CPU_ALERT, altaPrioridade ? 2 : 15),
+        ram: numero(altaPrioridade ? process.env.HIGH_PRIORITY_PROCESS_MEMORY_PERCENT_ALERT : process.env.PROCESS_MEMORY_PERCENT_ALERT, altaPrioridade ? 5 : 10),
+        rssMb: numero(altaPrioridade ? process.env.HIGH_PRIORITY_PROCESS_RSS_MB_ALERT : process.env.PROCESS_RSS_MB_ALERT, altaPrioridade ? 20 : 200),
+        threads: numero(process.env.PROCESS_THREADS_ALERT, 75)
+    };
+}
+
+function statusIndicaProblema(status) {
+    var statusNormalizado = String(status || "").toUpperCase();
+    var statusProblematicos = ["CRASH", "CRASHED", "ERRO", "ERROR", "FAILED", "FALHA", "FALHOU", "DEAD", "ZOMBIE", "OFFLINE", "TERMINATED", "PARADO", "STOPPED"];
+    return statusProblematicos.some(function (item) {
+        return statusNormalizado.includes(item);
+    });
+}
+
+function obterMotivos(proc) {
+    var motivos = [];
+    motivos = motivos.concat(normalizarLista(proc.motivos_alerta));
+    motivos = motivos.concat(normalizarLista(proc.motivos));
+    motivos = motivos.concat(normalizarLista(proc.alertas));
+    motivos = motivos.concat(normalizarLista(proc.problemas));
 
     var cpu = numero(pegarValor(proc, ["cpu_percent", "cpu_percentual", "percentual_cpu", "cpu", "uso_cpu", "cpu_percentual_uso"]), 0);
     var ram = numero(pegarValor(proc, ["memory_percent", "memoria_percent", "percentual_memoria", "ram", "uso_ram", "memory_percentual"]), 0);
     var rssMb = numero(pegarValor(proc, ["rss_mb", "memoria_rss_mb", "rss", "memory_rss_mb"]), 0);
-    var score = numero(pegarValor(proc, ["score", "score_alerta", "score_anomalia", "risk_score"]), 0);
+    var threads = numero(pegarValor(proc, ["num_threads", "threads", "qtd_threads"]), 0);
+    var score = numero(obterScoreAnomalia(proc), 0);
+    var limites = obterLimitesProcesso(proc);
 
-    return cpu >= numero(process.env.PROCESS_CPU_ALERT, 15) ||
-        ram >= numero(process.env.PROCESS_MEMORY_PERCENT_ALERT, 10) ||
-        rssMb >= numero(process.env.PROCESS_RSS_MB_ALERT, 200) ||
-        score > 0;
+    if (cpu >= limites.cpu) motivos.push("CPU acima do limite (" + limites.cpu + "%)");
+    if (ram >= limites.ram) motivos.push("RAM acima do limite (" + limites.ram + "%)");
+    if (rssMb >= limites.rssMb) motivos.push("RSS acima do limite (" + limites.rssMb + " MB)");
+    if (threads >= limites.threads) motivos.push("Threads acima do limite (" + limites.threads + ")");
+    if (score > 0) motivos.push("Score de anomalia informado pela ETL");
+    if (statusIndicaProblema(proc.status || proc.situacao || proc.nivel)) motivos.push("Status do processo indica falha");
+
+    return Array.from(new Set(motivos.filter(Boolean)));
+}
+
+function processoEhProblematico(proc) {
+    var flags = [proc.problematico, proc.em_alerta, proc.alerta, proc.anomalia, proc.anomalo, proc.is_anomaly, proc.vazamento_memoria, proc.memory_leak, proc.crash];
+    if (flags.some(Boolean)) return true;
+    if (obterMotivos(proc).length > 0) return true;
+    if (normalizarAnomalias(proc).length > 0) return true;
+    return false;
 }
 
 function obterNomeProcesso(proc) {
-    return pegarValor(proc, ["name", "nome", "processo", "process_name", "nome_processo", "cmdline"]) || "Processo sem nome";
+    var nome = pegarValor(proc, ["name", "nome", "processo", "process_name", "nome_processo"]);
+    if (nome) return nome;
+    if (Array.isArray(proc.cmdline) && proc.cmdline.length) return proc.cmdline[0];
+    if (typeof proc.cmdline === "string" && proc.cmdline) return proc.cmdline;
+    return "Processo sem nome";
 }
 
 function resumirProcesso(proc, leitura, indice) {
     var cpu = pegarValor(proc, ["cpu_percent", "cpu_percentual", "percentual_cpu", "cpu", "uso_cpu", "cpu_percentual_uso"]);
     var ram = pegarValor(proc, ["memory_percent", "memoria_percent", "percentual_memoria", "ram", "uso_ram", "memory_percentual"]);
-    var rssMb = pegarValor(proc, ["rss_mb", "memoria_rss_mb", "memory_rss_mb"]);
+    var rssMb = pegarValor(proc, ["rss_mb", "memoria_rss_mb", "rss", "memory_rss_mb"]);
     var pid = pegarValor(proc, ["pid", "process_id"]);
-    var score = pegarValor(proc, ["score", "score_alerta", "score_anomalia", "risk_score"]);
-    var motivos = proc.motivos || proc.alertas || proc.anomalias || proc.problemas || [];
-
-    if (!Array.isArray(motivos)) motivos = [motivos].filter(Boolean);
-    if (!motivos.length) {
-        if (numero(cpu, 0) >= numero(process.env.PROCESS_CPU_ALERT, 15)) motivos.push("CPU acima do limite");
-        if (numero(ram, 0) >= numero(process.env.PROCESS_MEMORY_PERCENT_ALERT, 10)) motivos.push("RAM acima do limite");
-        if (numero(rssMb, 0) >= numero(process.env.PROCESS_RSS_MB_ALERT, 200)) motivos.push("RSS acima do limite");
-        if (numero(score, 0) > 0) motivos.push("Score de alerta informado pela ETL");
-    }
+    var score = obterScoreAnomalia(proc);
+    var motivos = obterMotivos(proc);
+    var anomalias = normalizarAnomalias(proc);
+    var statusOriginal = proc.status || proc.situacao || proc.nivel;
 
     return {
         id: indice + 1,
@@ -113,8 +229,11 @@ function resumirProcesso(proc, leitura, indice) {
         ram: ram,
         rss_mb: rssMb,
         score: score,
-        status: proc.status || proc.situacao || proc.nivel || (motivos.length ? "ALERTA" : "OK"),
+        anomalia: score,
+        status: statusIndicaProblema(statusOriginal) ? statusOriginal : (motivos.length || anomalias.length ? "ALERTA" : "OK"),
         motivos: motivos,
+        motivos_alerta: motivos,
+        anomalias: anomalias,
         timestamp: leitura.data_hora_iso || leitura.timestamp || leitura.data_hora || leitura.coletado_em || null
     };
 }
@@ -159,7 +278,7 @@ function montarRelatorio(result, filtroRbc) {
     });
 
     processos.sort(function (a, b) {
-        return numero(b.score, 0) - numero(a.score, 0) || numero(b.cpu, 0) - numero(a.cpu, 0) || numero(b.ram, 0) - numero(a.ram, 0);
+        return numero(b.score, 0) - numero(a.score, 0) || numero(b.cpu, 0) - numero(a.cpu, 0) || numero(b.rss_mb, 0) - numero(a.rss_mb, 0) || numero(b.ram, 0) - numero(a.ram, 0);
     });
 
     return {
