@@ -1422,3 +1422,135 @@ modal-header {
     border: none;
     padding: 20px;
 }
+
+
+/*indiv---*/
+.clima-card {
+  border-radius: 10px;
+  min-height: 50px;
+}
+
+.clima-card .card-body {
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* lista dos incidentes */
+.card-incidentes-lista {
+    background: #fff;
+    border: 1px solid #dfe5ea;
+    border-radius: 14px;
+    padding: 20px;
+    height: 650px;
+    
+}
+
+.card-incidentes-lista h5 {
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.card-incidentes-lista small {
+    color: #8a96a8;
+}
+
+.lista-incidentes {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.incidente-item {
+    border: 1px solid #e7edf3;
+    border-radius: 12px;
+    padding: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+    position: relative;
+}
+
+.incidente-item.clicado{
+    filter: brightness(0.90);           
+}
+
+.incidente-item.status-atencao {
+    border-left: 5px solid #f2b705;
+    background: #fafcff;
+}
+
+.incidente-item.status-risco {
+    border-left: 5px solid #f22505;
+    background: #fafcff;
+}
+
+.incidente-item.status-normal {
+    border-left: 5px solid #06b300;
+    background: #fafcff;
+}
+
+.incidente-item .linha {
+    display: block;
+    font-size: 12px;
+    color: #7c8ba0;
+}
+
+.incidente-item strong {
+    display: block;
+    margin-top: 6px;
+    font-size: 15px;
+}
+
+.classificacao-incidente {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 20px;
+}
+
+.alto {
+    background: #ffcdcd;
+}
+
+.medio {
+    background: #ffeab2;
+}
+
+.baixo {
+    background: #c0ffca;
+}
+
+/* quadro detalhe */
+.card-detalhes {
+    background: #fff;
+    border: 1px dashed #dfe5ea;
+    border-radius: 14px;
+    padding: 24px;
+    min-height: 600px;
+     display: flex;
+    flex-direction: column;
+}
+
+
+.card-detalhes h3 {
+    color: #8f99a8;
+    font-weight: 600;
+}
+
+.card-detalhes p {
+    color: #a7b0bc;
+}
+.card-body{
+    background-color: #ededed;
+    
+}
+
+/* .card-info{
+    width:500px;
+} */
