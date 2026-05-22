@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sys Train Track | Incidentes</title>
-  <link rel="stylesheet" href="../assets/css/estilo_dash.css" />
+  <link rel="stylesheet" href="estilo.css" />
   <script src="../js/sessao.js"></script>
   <link rel="icon" href="../assets/icons/logo.svg" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -61,86 +61,127 @@
           <p class="descricao">
             Resumo dos incidentes identificados pelo sistema.
           </p>
-          <br />
+
         </div>
 
-
-
       </section>
-      <div class="cont-kpis row g-4 mb-4 ">
-        <div class="cont-cards col-md-4 mb-2">
+
+      <!-- card com info geral do clima -->
+      <div class="card clima-card mb-4">
+        <div class="card-clima d-flex align-items-center py-2 px-3">
+          <strong class="me-3">Clima Tempo</strong>
+          <span class="text-muted me-3">|</span>
+          <span>Tempestade moderada prevista nas próximas 2h • 24°C • Umidade 81%</span>
+        </div>
+      </div>
+
+      <div class="cont-kpis row g-3 mb-4">
+        <div class="cont-cards col-md-3">
           <div class="card-indicador position-relative">
             <img src="../assets//icons/icon-alerta-verde.png" class="icone-card" alt="Ícone">
-            <p>Incidentes no dia</p>
+            <p>Incidentes do dia</p>
             <strong id="incidentes_diario">20</strong>
           </div>
         </div>
-        <div class="cont-cards col-md-4 mb-2">
+
+        <div class="cont-cards col-md-3 mb-2">
           <div class="card-indicador position-relative">
             <img src="../assets//icons/icon-alerta.jpg" class="icone-card" alt="Ícone">
             <p>Incidentes abertos</p>
             <strong id="incidentes_abertos">7</strong>
           </div>
         </div>
-        <div class="cont-cards col-md-4 mb-2">
+
+        <div class="cont-cards col-md-3 mb-2">
           <div class="card-indicador position-relative">
             <img src="../assets//icons/icon-alerta-amarelo.png" class="icone-card" alt="Ícone">
-            <p>Incidentes em andamento</p>
-            <strong id="incidentes_andamento">6</strong>
+            <p>SLA em risco</p>
+            <strong id="incidentes_andamento">2</strong><br>
+            <!-- <small class="descricao">mais de 80% do tempo consumido</small> -->
           </div>
         </div>
+
+        <div class="cont-cards col-md-3 mb-2">
+          <div class="card-indicador position-relative">
+            <img
+              src="https://p7.hiclipart.com/preview/646/403/633/computer-icons-teamwork-team-building-clip-art-environmental-group.jpg"
+              height="64px" class="icone-card" alt="Ícone">
+            <p>Sem responsável</p>
+            <strong id="incidentes_andamento">0</strong>
+          </div>
+        </div>
+
       </div>
 
-      <section class="container-graficos mb-4 gap-3 justify-content-between align-items-center w-100 d-flex ">
-        <div
-          class="cont-grafico-incidente justify-content-evenly align-items-center border rounded bg-white d-flex flex-column">
-          <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
-            <span class="font-titulo">Quantidade de chamados por equipe diária</span>
-            <span class="font-titulo">24h</span>
+      <!-- coisas novas aqui -->
+
+      <!-- lista dos incidentes -->
+      <section>
+        <div class="row g-3">
+
+          <div class="col-12 col-xl-3">
+            <div class="card-incidentes-lista">
+              <h5>Fila de incidentes</h5>
+              <small>Ordenado por SLA ativo</small>
+
+              <div class="mt-2" id="lista-incidentes"></div>
+
+
+
+              <!-- <div class="lista-incidentes">
+
+                <div class="incidente-item status-atencao">
+                  <span class="linha">Linha 9 - Esmeralda</span>
+                  <strong>Falha de comunicação RBC-09</strong>
+                  <span class="classificacao-incidente alto">Alto</span>
+                  <span class="linha mt-2">19:01</span>
+                </div>
+
+                <div class="incidente-item status-normal">
+                  <span class="linha">Linha 7 - Rubi</span>
+                  <strong>Oscilação elétrica no trecho norte</strong>
+                  <span class="classificacao-incidente medio">Médio</span>
+                  <span class="linha mt-2">19:01</span>
+                </div>
+
+                <div class="incidente-item status-risco">
+                  <span class="linha">Linha 8 - Diamante</span>
+                  <strong>Perda de sinal temporária</strong>
+                  <span class="classificacao-incidente baixo">Baixo</span>
+                  <span class="linha mt-2">19:01</span>
+                </div>
+
+              </div> -->
+            </div>
           </div>
-          <div class="grafico p-4">
-            <canvas id="graficoBarra"></canvas>
+
+          <div class="col-12 col-xl-9 p-2">
+            <div class="card-detalhes" id="detalheIncidente">
+              <!-- <h3>Selecione um incidente</h3>
+              <p>As informações detalhadas aparecerão aqui.</p> -->
+
+              <div class="card-detalhes topo-card mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <div class="d-flex align-items-center gap-2">
+                    <span id="cor-linha">Cor</span>
+                    <span id="linha">Linha</span>
+                  </div>
+
+                  <span id="impacto">nivel de impacto</span>
+                </div>
+                <h3 id="titulo-incidente">Título incidente</h3>
+                <p id="descricao-incidente">descricao do incidente</p>
+              </div>
+            </div>
           </div>
+
         </div>
-        <div
-          class="cont-grafico-incidente  justify-content-evenly align-items-center border rounded bg-white d-flex flex-column">
-          <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
-            <span class="font-titulo">Quantidade de chamados abertos por prioridade</span>
-            <span class="font-titulo">24h</span>
-          </div>
-          <div class="grafico p-4">
-            <canvas id="graficoPizza"></canvas>
-          </div>
-        </div>
+
       </section>
-      <section class="metricas-incidentes">
-        <div class="card-incidente-metricas nivel-alto">
-          <div class="card-incidente-topo">
-            <span class="nivel-badge nivel-alto">Alto </span>
-            <p class="descricao">
-              Incidente de Alto nível: Requer atenção imediata para análise e
-              solução
-            </p>
-          </div>
-        </div>
-        <div class="card-incidente-metricas nivel-medio">
-          <div class="card-incidente-topo">
-            <span class="nivel-badge nivel-medio">Médio </span>
-            <p class="descricao">
-              Incidente de Médio nível: Atenção moderada. Indicado solicitar suporte.
-            </p>
-          </div>
-        </div>
-        <div class="card-incidente-metricas nivel-baixo">
-          <div class="card-incidente-topo">
-            <span class="nivel-badge nivel-baixo">Baixo </span>
-            <p class="descricao">
-              Incidente de Baixo nível: Incidente de pouco impacto.
-            </p>
-          </div>
-        </div>
-      </section>
-      <section class="painel-incidentes" id="listaIncidentes"></section>
+
+
+
+      <!-- <section class="painel-incidentes" id="listaIncidentes"></section> -->
     </main>
   </div>
 </body>
@@ -148,6 +189,8 @@
 </html>
 
 <script src="incidentes.js"></script>
+
+
 <script>
   function validarTipoUsuario() {
     var links_sidebar = document.getElementById("links_sidebar")
@@ -245,6 +288,8 @@
     sidebar.classList.toggle("compactada")
     conteudo.classList.toggle("expandido")
   }
+
+
   function montarGraficoPizza() {
     var dados = {
       labels: [
@@ -283,53 +328,53 @@
     new Chart(graficoPizza, config);
 
   }
-  function montarGraficoProcessos() {
-    var dados = {
-      labels: ['Equipe A', 'Equipe B', 'Equipe C', 'Equipe D', 'Equipe E'],
-      datasets: [
-        {
-          label: 'Abertos',
-          data: [30, 20, 40, 25, 35],
-          backgroundColor: '#12355B'
-        },
-        {
-          label: 'Em andamento',
-          data: [25, 30, 20, 35, 25],
-          backgroundColor: '#ff570a'
-        },
-        {
-          label: 'Finalizados',
-          data: [15, 10, 20, 15, 10],
-          backgroundColor: '#02033B'
-        }
-      ]
-    };
+  // function montarGraficoProcessos() {
+  //   var dados = {
+  //     labels: ['Equipe A', 'Equipe B', 'Equipe C', 'Equipe D', 'Equipe E'],
+  //     datasets: [
+  //       {
+  //         label: 'Abertos',
+  //         data: [30, 20, 40, 25, 35],
+  //         backgroundColor: '#12355B'
+  //       },
+  //       {
+  //         label: 'Em andamento',
+  //         data: [25, 30, 20, 35, 25],
+  //         backgroundColor: '#ff570a'
+  //       },
+  //       {
+  //         label: 'Finalizados',
+  //         data: [15, 10, 20, 15, 10],
+  //         backgroundColor: '#02033B'
+  //       }
+  //     ]
+  //   };
 
-    var config = {
-      type: 'bar',
-      data: dados,
-      options: {
-        plugins: {
-          legend: {
-            position: 'bottom'
-          }
-        },
-        responsive: true,
-        scales: {
-          x: {
-            stacked: false
-          },
-          y: {
-            beginAtZero: true,
-            max: 100
-          }
-        }
-      }
-    };
+  //   var config = {
+  //     type: 'bar',
+  //     data: dados,
+  //     options: {
+  //       plugins: {
+  //         legend: {
+  //           position: 'bottom'
+  //         }
+  //       },
+  //       responsive: true,
+  //       scales: {
+  //         x: {
+  //           stacked: false
+  //         },
+  //         y: {
+  //           beginAtZero: true,
+  //           max: 100
+  //         }
+  //       }
+  //     }
+  //   };
 
-    var graficoBarra = document.getElementById("graficoBarra")
-    new Chart(graficoBarra, config);
-  }
+  //   var graficoBarra = document.getElementById("graficoBarra")
+  //   new Chart(graficoBarra, config);
+  // }
   montarGraficoPizza()
-  montarGraficoProcessos()
+  // montarGraficoProcessos()
 </script>
