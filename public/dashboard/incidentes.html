@@ -114,8 +114,6 @@
       </div>
 
       <!-- coisas novas aqui -->
-
-      <!-- lista dos incidentes -->
       <section>
         <div class="row g-3">
 
@@ -125,33 +123,6 @@
               <small>Ordenado por SLA ativo</small>
 
               <div class="mt-2" id="lista-incidentes"></div>
-
-
-
-              <!-- <div class="lista-incidentes">
-
-                <div class="incidente-item status-atencao">
-                  <span class="linha">Linha 9 - Esmeralda</span>
-                  <strong>Falha de comunicação RBC-09</strong>
-                  <span class="classificacao-incidente alto">Alto</span>
-                  <span class="linha mt-2">19:01</span>
-                </div>
-
-                <div class="incidente-item status-normal">
-                  <span class="linha">Linha 7 - Rubi</span>
-                  <strong>Oscilação elétrica no trecho norte</strong>
-                  <span class="classificacao-incidente medio">Médio</span>
-                  <span class="linha mt-2">19:01</span>
-                </div>
-
-                <div class="incidente-item status-risco">
-                  <span class="linha">Linha 8 - Diamante</span>
-                  <strong>Perda de sinal temporária</strong>
-                  <span class="classificacao-incidente baixo">Baixo</span>
-                  <span class="linha mt-2">19:01</span>
-                </div>
-
-              </div> -->
             </div>
           </div>
 
@@ -171,18 +142,137 @@
                 </div>
                 <h3 id="titulo-incidente">Título incidente</h3>
                 <p id="descricao-incidente">descricao do incidente</p>
+
+
+                <div class="linha-especificos row g-3 mb-3">
+
+                  <div class="col-12 col-md-4">
+                    <div class="card bg-light border-0 text-center py-2">
+                      <div class="card-body p-2">
+                        <small class="text-muted d-block">Afetado</small>
+                        <strong class="d-block" id="afetado">NHA</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="card bg-light border-0 text-center py-2">
+                      <div class="card-body p-2">
+                        <small class="text-muted d-block">Aberto às</small>
+                        <strong class="d-block" id="horario">NHA</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="card bg-light border-0 text-center py-2">
+                      <div class="card-body p-2">
+                        <small class="text-muted d-block">Provável causa</small>
+                        <strong class="d-block" id="causa">Indefinido</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="sla-container mb-4">
+                  <div class="d-flex justify-content-between mb-1">
+                    <span class="text-muted small fw-bold" id="sla-texto"></span>
+                  </div>
+
+                  <div id="sla-barra" class="progress" style="height: 12px;"></div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-outline-secondary btn-sm fw-bold">
+                      Atribuir equipe +
+                    </button>
+
+                    <button class="btn btn-outline-secondary btn-sm fw-bold">
+                      Escalar
+                    </button>
+                  </div>
+
+                  <button class="btn btn-success btn-sm fw-bold">
+                    Marcar como resolvido
+                  </button>
+                </div>
+
+                <!-- onde vão as ultimas medidas -->
+                <div class="row g-3">
+                  <div class="col-12 col-md-8">
+                    <h5 class="fw-bold mb-3">Métricas</h5>
+                    <div class="row row-cols-2 g-3">
+                      <div class="col">
+                        <div class="card h-100 bg-light border-0 p-3">
+                          <div class="card-grafico-mock">Gráfico CPU</div>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="card h-100 bg-light border-0 p-3">
+                          <div class="card-grafico-mock">Gráfico RAM</div>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="card h-100 bg-light border-0 p-3">
+                          <div class="card-grafico-mock">Gráfico DISCO</div>
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <div class="card h-100 bg-light border-0 p-3">
+                          <div class="card-grafico-mock">Gráfico Latência</div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <div class="d-flex flex-column gap-3">
+                      <div class="card border-0 bg-light p-3">
+                        <small class="text-muted d-block mb-2">
+                          Responsável
+                        </small>
+                        <div class="d-flex align-items-center gap-2">
+                          <!-- temporario - eu acho-->
+                          <div
+                            class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
+                            style="width: 32px; height: 32px;">
+                            <i class="bi bi-person"></i>
+                          </div>
+                          <div id="responsavel"></div>
+
+                        </div>
+
+                      </div>
+
+                      <div class="card border-0 bg-light p-3">
+                        <small class="text-muted d-block mb-2">
+                          Contexto Externo
+                        </small>
+
+                        <div class="bg-white border rounded p-2 text-center text-muted small" id="contexto-externo">
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
+
+          </div>
         </div>
 
-      </section>
+  </div>
+  </section>
 
-
-
-      <!-- <section class="painel-incidentes" id="listaIncidentes"></section> -->
-    </main>
+  </main>
   </div>
 </body>
 

@@ -49,54 +49,8 @@ var incidentes = [
     cor: "#0B0F4B",
     climaRegiao: "alguma coisa"
   }
+
 ];
-
-// function montarIncidentes() {
-//   var lista = document.getElementById("listaIncidentes");
-//   var conteudo = "";
-
-//   for (var i = 0; i < incidentes.length; i++) {
-//     var classeNivel = "";
-
-//     if (incidentes[i].nivel == "Alto") {
-//       classeNivel = "nivel-alto";
-//     } else if (incidentes[i].nivel == "Médio") {
-//       classeNivel = "nivel-medio";
-//     } else {
-//       classeNivel = "nivel-baixo";
-//     }
-
-//     conteudo += `
-//       <div class="card-incidente">
-//         <div class="card-incidente-topo">
-//           <div class="incidente-linha">
-//             <span class="linha-cor-bolinha" style="background-color: ${incidentes[i].cor};"></span>
-//             <span>${incidentes[i].linha}</span>
-//           </div>
-
-//           <span class="nivel-badge ${classeNivel}">
-//             ${incidentes[i].nivel}
-//           </span>
-//         </div>
-
-//         <div class="card-incidente-conteudo">
-//           <h3>${incidentes[i].titulo}</h3>
-//           <p>${incidentes[i].descricao}</p>
-//         </div>
-
-//         <div class="card-incidente-rodape">
-//           <span>Horário: ${incidentes[i].horario}</span>
-//         </div>
-//       </div>
-//     `;
-//   }
-
-//   lista.innerHTML = conteudo;
-// }
-
-// montarIncidentes();
-
-
 
 function montarIncidentes() {
 
@@ -158,12 +112,23 @@ function selecionarIncidente(index, itemClicado) {
 }
 
 function renderizarIncidenteDetalhe() {
-  var detalhe = document.getElementById("detalheIncidente");
   var cor = document.getElementById("cor-linha");
   var linha = document.getElementById("linha");
   var impacto = document.getElementById("impacto");
   var titulo = document.getElementById("titulo-incidente");
   var descricao = document.getElementById("descricao-incidente");
+
+  //indicadores
+  var afetado = document.getElementById("afetado");
+  var horario = document.getElementById("horario");
+  var causa = document.getElementById("causa");
+
+  //sla - nao sei se mantem
+  var slaTexto = document.getElementById("sla-texto");
+  var slaBarra = document.getElementById("sla-barra");
+
+  var contexto = document.getElementById("contexto-externo");
+  var responsavel = document.getElementById("responsavel");
 
   if (incidenteSelecionado.nivel == "Alto") {
     var corClassificacao = "alto";
@@ -173,11 +138,36 @@ function renderizarIncidenteDetalhe() {
     corClassificacao = "baixo";
   }
 
+  // teste de como vou fazer dps - func p baixar o valor de 1 em 1 min
+  var tempoSLA = 10;
+  var classeCorSLA = "";
+
+  if (tempoSLA < 40) {
+    classeCorSLA = "bg-danger";
+  } else if (tempoSLA < 60) {
+    classeCorSLA = "bg-warning";
+  } else {
+    classeCorSLA = "bg-success";
+  }
+
   cor.innerHTML = `<span class="linha-cor-bolinha" style="background-color: ${incidenteSelecionado.cor}; display: inline-block; width: 10px; height: 10px; border-radius: 50%;"></span>`;
   linha.innerHTML = `<span class="linha text-muted small fw-bold">${incidenteSelecionado.linha}</span>`;
   impacto.innerHTML = ` <span class="badge text-black ${corClassificacao}">${incidenteSelecionado.nivel}</span>`;
   titulo.innerHTML = ` <h3 class="fw-bold mb-1">${incidenteSelecionado.titulo}</h3>`;
   descricao.innerHTML = `<p class="text-muted small mb-3">${incidenteSelecionado.descricao}</p> `;
+
+  afetado.innerHTML = incidenteSelecionado.afetado;
+  horario.innerHTML = incidenteSelecionado.horario;
+  causa.innerHTML = incidenteSelecionado.possivelCausa;
+
+   slaTexto.innerHTML = `SLA - ${tempoSLA} min restantes`;
+
+  slaBarra.innerHTML = `<div class="progress-bar ${classeCorSLA}" role="progressbar" style="width: ${tempoSLA}%" aria-valuenow="${tempoSLA}" aria-valuemin="0" aria-valuemax="100"></div>`;
+
+  responsavel.innerHTML = `<strong class="d-block lh-1">${incidenteSelecionado.responsavel}</strong>
+                          <small class="text-muted">equipe xxx</small>`;
+
+  contexto.innerHTML = `<span>${incidenteSelecionado.dadossla}</span>`;
 
 
 }
