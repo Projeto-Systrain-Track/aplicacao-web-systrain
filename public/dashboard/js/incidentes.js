@@ -113,8 +113,9 @@ function montarIncidentes() {
       corClassificacao = "baixo";
     }
 
+    //anotação: o this ajuda na referencia do click p o classlist
     html += `
-      <div class="incidente-item status-${incidentes[i].statusSLA} mb-2" onclick="selecionarIncidente(${i})" > 
+      <div class="incidente-item status-${incidentes[i].statusSLA} mb-2" onclick="selecionarIncidente(${i}, this)" > 
             <div class="linha-info">
               <span class="linha-cor-bolinha" style="background-color: ${incidentes[i].cor};"></span>
               <span class="linha">${incidentes[i].linha}</span>
@@ -139,14 +140,47 @@ if (primeiroCard) {
 
 var incidenteSelecionado = null;
 
-function selecionarIncidente(index,) {
+//meio q pega aquele this com o id e transforma em "itemClicado" aqui
+function selecionarIncidente(index, itemClicado) {
   incidenteSelecionado = incidentes[index];
 
+  var cardAtivoAnterior = document.querySelector(".incidente-item.clicado");
+  if (cardAtivoAnterior) {
+    cardAtivoAnterior.classList.remove("clicado");
+  }
+
+  itemClicado.classList.add("clicado");
+
+  renderizarIncidenteDetalhe();
 
   console.log(incidenteSelecionado);
 
 }
 
+function renderizarIncidenteDetalhe() {
+  var detalhe = document.getElementById("detalheIncidente");
+  var cor = document.getElementById("cor-linha");
+  var linha = document.getElementById("linha");
+  var impacto = document.getElementById("impacto");
+  var titulo = document.getElementById("titulo-incidente");
+  var descricao = document.getElementById("descricao-incidente");
+
+  if (incidenteSelecionado.nivel == "Alto") {
+    var corClassificacao = "alto";
+  } else if (incidenteSelecionado.nivel == "Médio") {
+    corClassificacao = "medio";
+  } else {
+    corClassificacao = "baixo";
+  }
+
+  cor.innerHTML = `<span class="linha-cor-bolinha" style="background-color: ${incidenteSelecionado.cor}; display: inline-block; width: 10px; height: 10px; border-radius: 50%;"></span>`;
+  linha.innerHTML = `<span class="linha text-muted small fw-bold">${incidenteSelecionado.linha}</span>`;
+  impacto.innerHTML = ` <span class="badge text-black ${corClassificacao}">${incidenteSelecionado.nivel}</span>`;
+  titulo.innerHTML = ` <h3 class="fw-bold mb-1">${incidenteSelecionado.titulo}</h3>`;
+  descricao.innerHTML = `<p class="text-muted small mb-3">${incidenteSelecionado.descricao}</p> `;
+
+
+}
 
 
 
