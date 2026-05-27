@@ -57,7 +57,7 @@
                 <div>
                     <h2 class="titulo fw-bolder">Operação</h2>
                     <p class="descricao">Indicadores da operação.</p>
-                    <p class="descricao">Última atualização: 20/04/2026 19:05</p>
+                    <p class="descricao">Última atualização: <span id="horario_atualizacao">NHA</span></p>
                 </div>
             </section>
             <section class="row g-4 mb-2">
@@ -65,23 +65,23 @@
                     <div class="card-indicador position-relative">
                         <img src="../assets/icons/icon-operacao-laranja.png" class="icone-card" alt="Ícone">
                         <p>Impacto financeiro da indisponibilidade</p>
-                        <strong id="impacto_financeiro">R$120mil</strong>
+                        <strong id="impacto_financeiro">NHA</strong>
                     </div>
                 </div>
 
                 <div class="col-md-4 mb-2">
                     <div class="card-indicador position-relative">
-                        <img src="./linhas/icon_linhas.png" class="icone-card" alt="Ícone">
+                        <img src="../assets/icons/icon_linhas.png" class="icone-card" alt="Ícone">
                         <p>Linha com maior indisponibilidade</p>
-                        <strong id="linhaMaiorIndisponibilidade">Linha 7 - Rubi</strong>
+                        <strong id="linhaMaiorIndisponibilidade">NHA</strong>
                     </div>
                 </div>
 
                 <div class="col-md-4 mb-2">
                     <div class="card-indicador position-relative">
-                        <img src="./linhas/icon_alerta.png" class="icone-card" alt="Ícone">
+                        <img src="../assets/icons/icon_alerta.png" class="icone-card" alt="Ícone">
                         <p>Principal causa de incidentes</p>
-                        <strong id="causaIncidentes">CPU ALTA</strong>
+                        <strong id="causaIncidentes">NHA</strong>
                     </div>
                 </div>
             </section>
@@ -96,8 +96,8 @@
                 </div>
                 <div class="cont-grafico justify-content-evenly align-items-center border rounded bg-white d-flex flex-column h-100">
                     <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
-                        <span>Tendência de impacto financeiro</span>
-                        <span>24h</span>
+                        <span>Custo desperdiçado ao longo do tempo</span>
+                        <span>Últimas coletas</span>
                     </div>
                     <div class="grafico">
                         <canvas id="grafico_linha_tendencia_impacto_financeiro"></canvas>
@@ -217,6 +217,7 @@
         }
     });
 
+    buscarArquivo()
     function abrirSideBarMobile() {
         var sidebar = document.getElementById("nav_lateral")
         var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
@@ -229,14 +230,103 @@
         sidebar.classList.toggle("compactada")
         conteudo.classList.toggle("expandido")
     }
-
-    function graficoBarraImpactoFinanceiro() {
+    
+    async function buscarArquivo() {
+        idEmpresa = sessionStorage.ID_EMPRESA
+        try {
+            var resposta = await fetch(`/operacao/buscarArquivo/${idEmpresa}`, { cache: "no-store" })
+            console.log("Status resposta:" + resposta.status);
+            if (resposta.status == 200) {
+                try {
+                    json_empresa = await resposta.json()
+                    console.log("JSON empresa:", json_empresa);
+                    orquestrador_dados(json_empresa)
+                } catch (error) {
+                    console.log("Arquivo não está no formato JSON!");
+                }
+            } else{
+                alert("Não há registros da sua empresa para a dashboard de operação!")
+            }
+        } catch (error) {
+            console.log("Error:" + error);
+        }
+    }
+    
+    function orquestrador_dados(json_empresa) {
+        graficoBarraImpactoFinanceiro(json_empresa.linhas)
+        graficoLinhaImpactoFinanceiro(json_empresa.custo_ao_longo_tempo)
+        graficoBarraQuantidadeAlertasMotivo(json_empresa.alertas_por_motivo)
+        
+        // MONTANDO KPI'S
+        document.getElementById("impacto_financeiro").innerHTML = json_empresa.custo_total_semana.toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+        var linhas = json_empresa.linhas
+        console.log(linhas);
+        
+        var linha_maior_custo = 0
+        Object.entries(linhas).forEach(([chave, valor]) => {
+            console.log(chave);
+            console.log(valor);
+            var custo_linha = valor.custo_total
+            if (linha_maior_custo < custo_linha) {
+                linha_maior_custo = custo_linha
+            }
+        })
+        Object.entries(linhas).forEach(([chave, valor]) => {
+            var custo_linha = valor.custo_total
+            var nome_linha = valor.nome
+            if (linha_maior_custo === custo_linha) {
+                document.getElementById("linhaMaiorIndisponibilidade").innerHTML = nome_linha
+            }
+        })
+        
+        var alertas_por_motivo = json_empresa.alertas_por_motivo
+        var maior_qte_alertas = 0
+        Object.entries(alertas_por_motivo).forEach(([chave, valor]) => {
+            console.log(chave);
+            console.log(valor);
+            var qte_alertas = valor
+            if (maior_qte_alertas < qte_alertas) {
+                maior_qte_alertas = qte_alertas
+            }
+        })
+        Object.entries(alertas_por_motivo).forEach(([chave, valor]) => {
+            var nome_componente = chave
+            var qte_alertas = valor
+            if (maior_qte_alertas === qte_alertas) {
+                document.getElementById("causaIncidentes").innerHTML = nome_componente
+            }
+        })
+        document.getElementById("horario_atualizacao").innerHTML = json_empresa.data_hora
+    }
+    function graficoBarraImpactoFinanceiro(json_linhas) {
+        var labels = []
+        var valores = []
+        var cores = []
+        var maior_valor = 0
+        
+        Object.entries(json_linhas).forEach(([chave, valor]) => {
+            var nome_linha = valor.nome
+            var custo_linha_semanal = valor.custo_total
+            labels.push(nome_linha)
+            valores.push(custo_linha_semanal)
+            if (custo_linha_semanal > maior_valor) {
+                maior_valor = custo_linha_semanal;
+            }
+        })
+        valores.forEach((valor) => {
+            if (valor === maior_valor) {
+                cores.push("#EE9D0B");
+            } else {
+                cores.push("#34495e"); 
+            }
+        });
+        
         var data = {
-            labels: ["Linha 8 - Diamante", "Linha 9 - Esmeralda", "Linha 10 - Turquesa", "Linha 7 - Rubi", "Linha 11 - Coral", "Linha 12 - Safira", "Linha 17 - Ouro"],
+            labels: labels,
             datasets: [{
                 label: 'Valor em R$',
-                data: [65, 59, 80, 81, 56, 55, 40],
-                backgroundColor: ["#12355B", "#12355B", "#12355B", "#EE9D0B", "#12355B", "#12355B", "#12355B"],
+                data: valores,
+                backgroundColor:  cores,
                 borderColor: "#ffffff",
                 borderWidth: 1
             }]
@@ -256,13 +346,31 @@
         var grafico_barra_impacto_financeiro = document.getElementById("grafico_barra_impacto_financeiro")
         new Chart(grafico_barra_impacto_financeiro, config);
     }
-    function graficoLinhaImpactoFinanceiro() {
+    function graficoLinhaImpactoFinanceiro(json_custo_ao_longo_tempo) {
+        console.log("LINHAS: ", json_custo_ao_longo_tempo);
+        var labels = []
+        var valores = []
+        var limitesCusto = []
+        Object.entries(json_custo_ao_longo_tempo).forEach(([chave, valor]) => {
+            var data_coleta = valor.data.replace(" ", "T").slice(0, 23);
+            data_coleta = new Date(data_coleta);
+            var dataFormatada = data_coleta.toLocaleDateString("pt-BR",{
+                day: "2-digit",
+                month: "2-digit"
+            });
+            var horaFormatada = data_coleta.toLocaleTimeString("pt-BR");
+            var custo_coleta = valor.custo
+            var limiteCusto = valor.objetivoFinanceiro
+            labels.push(dataFormatada+" "+horaFormatada)
+            valores.push(custo_coleta)
+            limitesCusto.push(limiteCusto)
+        })
         var data = {
-            labels: ['00:00', '00:10', '00:20', '00:30', '00:40', '00:50'],
+            labels: labels,
             datasets: [
                 {
                     label: 'Impacto',
-                    data: [10, 28, 45, 32, 50, 20],
+                    data: valores,
                     borderColor: '#34495e',
                     backgroundColor: '#34495e',
                     borderWidth: 2,
@@ -271,7 +379,7 @@
                 },
                 {
                     label: 'Meta',
-                    data: [37, 37, 37, 37, 37, 37],
+                    data: limitesCusto,
                     borderDash: [5, 5],
                     borderColor: 'green',
                     backgroundColor: 'green',
@@ -279,19 +387,9 @@
                     fill: false,
                     pointRadius: 0,
                     tension: 0
-                },
-                {
-                    label: 'Tendência',
-                    data: [10, 18, 26, 34, 42, 50],
-                    borderColor: 'red',
-                    backgroundColor: 'red',
-                    borderWidth: 2,
-                    pointRadius: 0,
-                    fill: false
                 }
             ]
         };
-
         var config = {
             type: 'line',
             data: data,
@@ -306,13 +404,34 @@
         var grafico_linha_tendencia_impacto_financeiro = document.getElementById("grafico_linha_tendencia_impacto_financeiro")
         new Chart(grafico_linha_tendencia_impacto_financeiro, config);
     }
-    function graficoBarraQuantidadeAlertasMotivo() {
+    function graficoBarraQuantidadeAlertasMotivo(json_alertas_por_motivo) {
+        var labels = []
+        var valores = []
+        var maior_qte_alertas = 0
+        Object.entries(json_alertas_por_motivo).forEach(([chave, valor]) => {
+            var motivo = chave
+            var qte_alertas = valor
+            labels.push(motivo)
+            valores.push(qte_alertas)
+            if (qte_alertas > maior_qte_alertas) {
+                maior_qte_alertas = qte_alertas;
+            }
+        })
+
+        var cores = []
+        valores.forEach((valor)=>{
+            if (valor === maior_qte_alertas) {
+                cores.push("#EE9D0B");
+            } else{
+                cores.push("#34495e"); 
+            }
+        })
         var data = {
-            labels: ["Disco Cheio", "CPU Alta", "Latência Alta", "CPU Alta", "Swap Alta", "Rede Lenta", "Memória"],
+            labels: labels,
             datasets: [{
                 label: 'Incidentes',
-                data: [65, 59, 80, 81, 56, 55, 40],
-                backgroundColor: ["#12355B", "#12355B", "#12355B", "#EE9D0B", "#12355B", "#12355B", "#12355B"],
+                data: valores,
+                backgroundColor: cores,
                 borderColor: "#ffffff",
                 borderWidth: 1
             }]
@@ -331,9 +450,5 @@
         };
         var grafico_alertas_por_motivo = document.getElementById("grafico_alertas_por_motivo")
         new Chart(grafico_alertas_por_motivo, config);
-        
     }
-    graficoBarraQuantidadeAlertasMotivo()
-    graficoLinhaImpactoFinanceiro()
-    graficoBarraImpactoFinanceiro()
 </script>

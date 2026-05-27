@@ -25,6 +25,7 @@ const rbcRouter = require("./src/routes/rbcs")
 const componentesRouter = require("./src/routes/componentes");
 const admRouter = require("./src/routes/adminitradores")
 const linhaRouter = require("./src/routes/linha")
+const operacaoRouter = require("./src/routes/operacao")
 
 // Remova o .default do final caso tenha colocado
 var servidoresDetalhesRouter = require("./src/routes/servidoresDetalhes"); 
@@ -32,13 +33,9 @@ var servidoresDetalhesRouter = require("./src/routes/servidoresDetalhes");
 // Linha 51 vai funcionar agora:
 app.use("/servidorDetalhes", servidoresDetalhesRouter);
 
-
-
 const visaoGeralRouter = require("./src/routes/dashVisaoGeral")
 const dashLinhasRoutes = require("./src/routes/dashLinhas");
 const processosLambdaRouter = require("./src/routes/processosLambda");
-
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -56,6 +53,7 @@ app.use("/adm", admRouter)
 app.use("/linha", linhaRouter)
 
 app.use("/visaoGeral", visaoGeralRouter);
+app.use("/operacao", operacaoRouter);
 
 app.use("/dashLinhas", dashLinhasRoutes);
 app.use("/processosLambda", processosLambdaRouter);
