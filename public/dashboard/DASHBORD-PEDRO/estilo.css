@@ -1052,12 +1052,12 @@ modal-header {
     gap: 20px;
 }
 
-.cont-graficos-cpu-ram {
+.cont-graficos {
     height: 50vh;
     gap: 20px;
 }
 
-.cont-graficos-cpu-ram .cont-grafico {
+.cont-graficos .cont-grafico {
     width: 50%;
 }
 
@@ -1376,14 +1376,14 @@ FIM
         gap: 10px;
     }
 
-    .cont-graficos-cpu-ram {
+    .cont-graficos {
         flex-direction: column;
         height: 100vh;
         padding: 10px;
         gap: 10px;
     }
 
-    .cont-graficos-cpu-ram .cont-grafico {
+    .cont-graficos .cont-grafico {
         width: 100%;
     }
 

@@ -78,7 +78,7 @@
   height: 260px !important;
 }
 
-.cont-graficos-cpu-ram .cont-grafico {
+.cont-graficos .cont-grafico {
   width: 50%;
 }
 
@@ -333,13 +333,13 @@
 
 @media (max-width: 1000px) {
   .cont-detalhes-metricas,
-  .cont-graficos-cpu-ram {
+  .cont-graficos {
     flex-direction: column;
   }
 
   .cont-detalhes,
   .cont-metrica,
-  .cont-graficos-cpu-ram .cont-grafico {
+  .cont-graficos .cont-grafico {
     width: 100%;
   }
 }
