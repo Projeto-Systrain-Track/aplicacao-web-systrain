@@ -279,12 +279,6 @@
 
             </div>
 
-            <div class="painel-mapa mt-4">
-
-                <canvas id="graficoIncidentes"></canvas>
-
-            </div>
-
         </main>
 
     </div>
@@ -447,13 +441,10 @@
 
         sidebar.classList.toggle("compactada")
         conteudo.classList.toggle("expandido")
-
     }
 
     function carregarDados() {
-
-        fetch("/dashLinhas/dashboard")
-
+        fetch("/linha/dados")
             .then(res => res.json())
 
             .then(dados => {
@@ -684,59 +675,5 @@
     `;
 
     }
-
-    function montarGrafico(dados) {
-
-        const labels = [];
-        const valores = [];
-
-        for (var i = 0; i < dados.length; i++) {
-
-            labels.push(dados[i].tempo);
-            valores.push(dados[i].valor);
-
-        }
-
-        const ctx = document.getElementById("graficoIncidentes");
-
-        if (!ctx) return;
-
-        new Chart(ctx, {
-
-            type: "line",
-
-            data: {
-
-                labels: labels,
-
-                datasets: [{
-
-                    data: valores,
-                    tension: 0.3,
-                    borderColor: '#DC2828',
-                    backgroundColor: '#DC282825',
-                    fill: true
-
-                }]
-
-            },
-
-            options: {
-
-                responsive: true,
-
-                plugins: {
-
-                    legend: {
-                        display: false
-                    }
-
-                }
-
-            }
-
-        });
-
-    }
-
+    
 </script>
