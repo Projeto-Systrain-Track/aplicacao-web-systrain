@@ -545,9 +545,11 @@ button {
     font-size: 1.4rem;
     color: var(--azul-titulos);
 }
-#descricao_incidentes{
+
+#descricao_incidentes {
     margin: 0;
 }
+
 .card-indicador-operacao strong {
     font-size: 1rem;
     color: var(--azul-titulos);
@@ -623,6 +625,7 @@ button {
     color: #4b5b6b;
     font-size: 15px;
 }
+
 .grafico-wrap {
     height: 280px;
     border: 1px solid #e6edf4;
@@ -978,11 +981,13 @@ modal-header {
     background-color: var(--azul-escuro);
     color: white;
 }
-.cont-kpis-op{
-    display: flex; 
+
+.cont-kpis-op {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
+
 .modal-header h1 {
     font-family: var(--font-titulo);
 }
@@ -1136,10 +1141,11 @@ modal-header {
     padding: 20px;
 }
 
-.cont-resumo p{
+.cont-resumo p {
     margin: 0;
 }
-.cont-resumo .cont-info{
+
+.cont-resumo .cont-info {
     width: 100%;
     border-radius: 20px;
     height: 27.5%;
@@ -1149,30 +1155,35 @@ modal-header {
     align-items: flex-start;
     gap: 10px;
 }
-.cont-resumo .cont-info .cont_img{
+
+.cont-resumo .cont-info .cont_img {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-.cont-resumo .cont-info .cont_img img{
+
+.cont-resumo .cont-info .cont_img img {
     border-radius: 10px;
     width: 30px;
     height: 30px;
 }
-.cont-resumo .cont-info .cont_txts{
+
+.cont-resumo .cont-info .cont_txts {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
 }
-.cont-resumo .cont-info-servidor{
+
+.cont-resumo .cont-info-servidor {
     background-color: rgb(220, 40, 40, 0.15);
     font-weight: bolder;
     flex-direction: row;
 }
-.cont-resumo .cont-info-pico{
+
+.cont-resumo .cont-info-pico {
     background-color: #fafafa;
     font-weight: bolder;
     flex-direction: row;
@@ -1186,29 +1197,33 @@ modal-header {
     color: #eb0005cc;
 }
 
-.cont-resumo .cont-info .barra-total{
+.cont-resumo .cont-info .barra-total {
     width: 100%;
     height: 25%;
     background-color: #f0f0f0;
     border-radius: 30px;
 }
-.cont-resumo .cont-info .barra-total #barra-preenchida{
+
+.cont-resumo .cont-info .barra-total #barra-preenchida {
     width: 80%;
     height: 100%;
     background-color: #ff0000;
     border-radius: 30px;
 }
-.cont-resumo .cont-info .linha-info-custo #valor-custo{
+
+.cont-resumo .cont-info .linha-info-custo #valor-custo {
     color: #ff0000;
     font-weight: bolder;
 }
-.cont-resumo .cont-info .linha-info-custo{
+
+.cont-resumo .cont-info .linha-info-custo {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
+
 .cont-grafico-tempo {
     width: 60%;
 }
@@ -1235,14 +1250,15 @@ modal-header {
 .cont-kpis .card-indicador-operacao {
     width: 32.5%;
 }
-.cont-titulo-op{
+
+.cont-titulo-op {
     gap: 20px;
     justify-content: center;
     display: flex;
     align-items: center;
 }
 
-.cont-titulo-op #cont_status{
+.cont-titulo-op #cont_status {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1255,9 +1271,11 @@ modal-header {
     border-radius: 15px;
     font-weight: bolder;
 }
-.cont-titulo-op #cont_status p{
+
+.cont-titulo-op #cont_status p {
     margin: 0;
 }
+
 .cont-kpis div .linha_card {
     display: flex;
     width: 100%;
@@ -1292,6 +1310,7 @@ modal-header {
 .grafico-alertas-motivo {
     height: 75%;
 }
+
 /* RESPONSIVO */
 @media only screen and (min-width: 1101px) {
     .fundo_cinza_sidebar {
@@ -1332,7 +1351,7 @@ modal-header {
     .mobile {
         display: flex;
     }
-    
+
 
     .logo {
         width: 80%;
@@ -1473,25 +1492,31 @@ modal-header {
     .grafico-alertas-motivo {
         height: 50%;
     }
-    .cont_atualizacao{
+
+    .cont_atualizacao {
         flex-direction: column;
         align-items: flex-end;
     }
-    .cont-titulo-op{
+
+    .cont-titulo-op {
         flex-direction: column;
         align-items: flex-start;
     }
-    .grafico-e-resumo .cont-resumo{
+
+    .grafico-e-resumo .cont-resumo {
         width: 100%;
     }
-    .grafico-e-resumo .cont-grafico-tempo{
+
+    .grafico-e-resumo .cont-grafico-tempo {
         width: 100%;
 
     }
-    .cont-kpis-op{
+
+    .cont-kpis-op {
         height: 45%;
     }
-    .cont-kpis-op .card-indicador-operacao{
+
+    .cont-kpis-op .card-indicador-operacao {
         width: 100%;
     }
 }
@@ -1785,6 +1810,7 @@ modal-header {
     background-color: #fff;
     box-shadow: var(--op-shadow);
 }
+
 .topo-operacao .titulo {
     color: var(--op-title);
     font-size: clamp(20px, 2.6vw, 38px);
@@ -1865,7 +1891,7 @@ modal-header {
     content: "";
     position: absolute;
     width: 5px;
-    background:  #ffc247;
+    background: #ffc247;
     border-radius: 22px 0 0 22px;
 }
 
@@ -1910,6 +1936,7 @@ modal-header {
     position: relative;
     z-index: 1;
 }
+
 /* Containers dos gráficos e resumo */
 .cont-graficos {
     height: auto;
@@ -1922,11 +1949,12 @@ modal-header {
 .cont-grafico,
 .cont-resumo {
     border: 1px solid var(--op-border);
-    border-radius: 22px ;
+    border-radius: 22px;
     background: rgba(255, 255, 255, 0.98);
     box-shadow: var(--op-shadow);
     overflow: hidden;
 }
+
 
 .cont-grafico-tempo,
 .cont-grafico {
@@ -1947,6 +1975,20 @@ modal-header {
     font-family: var(--font-titulo);
     font-size: 16px;
     font-weight: 800;
+}
+
+.tooltip-info {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--azul-escuro);
+    color: #fff;
+    border-radius: 100%;
+    padding: 12.5px;
+    font-family: var(--font-titulo);
+    border: none;
 }
 
 .grafico {
@@ -1978,12 +2020,12 @@ modal-header {
 }
 
 .cont-resumo .cont-info-servidor {
-    background:  var(--op-red-soft);
+    background: var(--op-red-soft);
     border-color: rgba(220, 53, 69, 0.14);
 }
 
 .cont-resumo .cont-info-pico {
-    background:  var(--op-blue-soft);
+    background: var(--op-blue-soft);
     border-color: rgba(18, 53, 91, 0.10);
 }
 
@@ -2043,7 +2085,7 @@ modal-header {
 
 .cont-resumo .cont-info .barra-total #barra-preenchida {
     height: 100%;
-    background:  var(--op-red);
+    background: var(--op-red);
     box-shadow: 0 0 12px rgba(255, 87, 10, 0.35);
 }
 

@@ -55,7 +55,10 @@
         <main class="conteudo" id="conteudo_pagina">
             <section class="topo-operacao">
                 <div class="cont-titulo-op">
-                    <h2 class="titulo fw-bolder">Operação</h2>
+                    <h2 class="titulo fw-bolder">Operação: OPEX desperdiçado</h2>
+                    <button
+                        title="OPEX: Operational Expenditure/Despesas operacionais, contas, salários, manutenções, materiais, marketing."
+                        class="tooltip-info">?</button>
                     <div id="cont_status">
                         <p id="status_operacao">OFFLINE</p>
                     </div>
@@ -68,12 +71,21 @@
                     </button>
                 </div>
             </section>
-            <h5 class="p-2 fw-bolder">Resumo da semana</h5>
+            <div class="d-flex p-1 align-items-center">
+                <h5 class="p-2 fw-bolder">Resumo da semana</h5>
+                <button
+                    title="Esta tela apresenta o OPEX desperdiçado causado pela indisponibilidade dos servidores. O cálculo considera: TEMPO INDISPONÍVEL EM SEGUNDOS × CUSTO OPERACIONAL POR SEGUNDO. O tempo indisponível é identificado quando o intervalo entre coletas ultrapassa o padrão esperado; nesse caso, o servidor é considerado offline até a próxima coleta válida."
+                    class="tooltip-info">
+                    ?
+                </button>
+            </div>
             <section class="cont-kpis-op cont-kpis">
                 <div class="card-indicador card-indicador-operacao">
                     <div class="linha_card">
                         <img src="../assets/icons/icon-operacao-laranja-bg.png" class="icone-card" alt="Ícone">
                         <p>OPEX desperdiçado</p>
+                        <button title="Custo estimado de OPEX desperdiçado quando servidores ficam indisponíveis."
+                            class="tooltip-info">?</button>
                     </div>
                     <strong id="impacto_financeiro">Sem impacto</strong>
                     <p id="descricao_custo" class="descricao_kpi">Últimos 7 dias</p>
@@ -83,6 +95,7 @@
                     <div class="linha_card">
                         <img src="../assets/icons/icon-trem-azul.png" class="icone-card" alt="Ícone">
                         <p>Linha com maior desperdício</p>
+                        <button title="Linha com maior OPEX desperdiçado" class="tooltip-info">?</button>
                     </div>
                     <strong id="linhaMaiorIndisponibilidade">Sem linha</strong>
                     <p id="descricao_linha" class="descricao_kpi">Sem descrição</p>
@@ -92,6 +105,7 @@
                     <div class="linha_card">
                         <img src="../assets/icons/icon-alerta-vermelho.png" class="icone-card" alt="Ícone">
                         <p>Alerta mais frequente</p>
+                        <button title="Motivo de alerta que mais se repete." class="tooltip-info">?</button>
                     </div>
                     <strong id="causaIncidentes">Sem alerta</strong>
                     <p id="descricao_incidentes">Sem descrição</p>
@@ -102,14 +116,21 @@
                     class="cont-grafico-tempo justify-content-evenly align-items-center border bg-white d-flex flex-column h-100">
                     <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
                         <span class="fw-bolder">Evolução do OPEX desperdiçado no tempo</span>
+                        <button
+                            title="Evolução do OPEX desperdiçado no tempo: Gráfico que mostra o custo geral ao longo das coletas"
+                            class="tooltip-info">?</button>
                     </div>
                     <div class="grafico">
                         <canvas id="grafico_linha_tendencia_impacto_financeiro"></canvas>
                     </div>
                 </div>
-                <div class="cont-resumo justify-content-evenly align-items-center border bg-white d-flex flex-column h-100">
+                <div
+                    class="cont-resumo justify-content-evenly align-items-center border bg-white d-flex flex-column h-100">
                     <div class="cont-txts w-100 justify-content-between  d-flex flex-row">
-                        <span class="fw-bolder">Resumo do Impacto</span>
+                        <span class="fw-bolder">Resumo semanal</span>
+                        <button
+                            title="Resumo semanal: Nessa seção, está um breve contexto, do servidor que mais impactou, o momento com maior desperdício e uma representação gráfica de quanto o servidor impactou no total."
+                            class="tooltip-info">?</button>
                     </div>
                     <div class="cont-info-servidor cont-info">
                         <div class="cont_img">
@@ -144,10 +165,15 @@
                     </div>
                 </div>
             </section>
-            <section class="cont-graficos grafico-e-resumo mb-4  justify-content-evenly align-items-center w-100 d-flex">
-                <div class="cont-grafico justify-content-evenly align-items-center border bg-white d-flex flex-column h-100">
+            <section
+                class="cont-graficos grafico-e-resumo mb-4  justify-content-evenly align-items-center w-100 d-flex">
+                <div
+                    class="cont-grafico justify-content-evenly align-items-center border bg-white d-flex flex-column h-100">
                     <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row ">
                         <span>OPEX desperdiçado por linha</span>
+                        <button
+                            title="OPEX desperdiçado por linha: Cada barra desse gráfico representa uma linha e as barras empilhadas, os servidores."
+                            class="tooltip-info">?</button>
                     </div>
                     <div class="grafico">
                         <canvas id="grafico_barra_impacto_financeiro"></canvas>
@@ -156,7 +182,11 @@
                 <div
                     class="cont-grafico justify-content-evenly align-items-center border bg-white d-flex flex-column h-100">
                     <div class="cont-txts w-100 p-4 justify-content-between  d-flex flex-row">
-                        <span class="font-titulo">Incidentes por causa de perda operacional</span>
+                        <span class="font-titulo">Incidentes por causa</span>
+                        <button
+                            title="Incidentes por causa: Cada barra desse gráfico representa uma causa e a(s) barra(s) laranja(s) são a(s) com maior quantidade de incidentes."
+                            class="tooltip-info">?</button>
+
                     </div>
                     <div class="grafico">
                         <canvas id="grafico_alertas_por_motivo"></canvas>
@@ -502,7 +532,7 @@
                     document.getElementById("total-custo").innerHTML = `Total: ${custo_total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
                     document.getElementById("barra-preenchida").style.width = `${Math.round(porcentagem_no_total)}%`
                 }
-            });            
+            });
 
         })
 
@@ -561,7 +591,7 @@
                     backgroundColor: '#ff570a',
                     borderWidth: 2,
                     fill: false,
-                    tension: 0.3 
+                    tension: 0.3
                 },
                 {
                     label: 'Meta',
@@ -572,7 +602,7 @@
                     borderWidth: 2,
                     fill: false,
                     pointRadius: 0,
-                    tension: 0.3 
+                    tension: 0.3
                 }
             ]
         };
