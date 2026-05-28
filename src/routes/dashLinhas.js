@@ -3,6 +3,6 @@ const router = express.Router();
 
 const dashLinhasController = require("../controllers/dashLinhasController");
 
-router.get("/dashboard", dashLinhasController.dashLinhas);
+router.get("/dashboard", dashLinhasController.readS3Json);
 
 module.exports = router;
