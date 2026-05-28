@@ -13,5 +13,7 @@ router.get("/listarLinhasEmpresa/:idEmpresa", function(req, res){
     linhaController.listarLinhasEmpresa(req, res)
 })
 
+router.get('/dados', linhaController.readS3Json)
+
 
 module.exports = router;
