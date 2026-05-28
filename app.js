@@ -34,7 +34,7 @@ var servidoresDetalhesRouter = require("./src/routes/servidoresDetalhes");
 app.use("/servidorDetalhes", servidoresDetalhesRouter);
 
 const visaoGeralRouter = require("./src/routes/dashVisaoGeral")
-const dashLinhasRoutes = require("./src/routes/dashLinhas");
+// const dashLinhasRoutes = require("./src/routes/dashLinhas");
 const processosLambdaRouter = require("./src/routes/processosLambda");
 
 app.use(express.json());
@@ -55,7 +55,7 @@ app.use("/linha", linhaRouter)
 app.use("/visaoGeral", visaoGeralRouter);
 app.use("/operacao", operacaoRouter);
 
-app.use("/dashLinhas", dashLinhasRoutes);
+// app.use("/dashLinhas", dashLinhasRoutes);
 app.use("/processosLambda", processosLambdaRouter);
 
 
