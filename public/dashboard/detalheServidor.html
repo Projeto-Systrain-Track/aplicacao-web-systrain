@@ -562,7 +562,7 @@
     let graficosDetalheServidor = [];
     let intervaloAtualizacaoDetalhe = null;
 
-    sessionStorage.TIPO_USUARIO = sessionStorage.TIPO_USUARIO || "Gerente de operações";
+    //sessionStorage.TIPO_USUARIO = sessionStorage.TIPO_USUARIO || "Gerente de operacoes";
     document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO || "";
     document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO || "";
 
@@ -594,7 +594,7 @@
       var linksSidebar = document.getElementById("links_sidebar");
       var tipoUsuario = sessionStorage.TIPO_USUARIO;
 
-      if (tipoUsuario == "Gerente de operações") {
+      if (tipoUsuario == "Gerente de operacoes") {
         linksSidebar.innerHTML = `
           <a class="link-lateral" href="dashboard.html">
             <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">

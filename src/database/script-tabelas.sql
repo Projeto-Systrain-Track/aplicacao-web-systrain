@@ -127,13 +127,13 @@ CREATE TABLE usuario (
 
 INSERT INTO usuario (nome, email, senha, fkEmpresa, tipoUsuario) VALUES
 ('Thiago', 'thiago@viapaulista.com', '12345', 1, "Operador"),
-('Brandão', 'brandao@viapaulista.com', '12345', 1, "Gerente de operações"),
+('Brandão', 'brandao@viapaulista.com', '12345', 1, "Gerente de operacoes"),
 ('Marina Souza', 'marina.souza@viapaulista.com', '12345', 1, "Coordenador de incidentes"),
 ('Carlos Henrique', 'carlos.henrique@ferrobandeirante.com', '12345', 2, "Operador"),
-('Fernanda Lima', 'fernanda.lima@ferrobandeirante.com', '12345', 2, "Gerente de operações"),
+('Fernanda Lima', 'fernanda.lima@ferrobandeirante.com', '12345', 2, "Gerente de operacoes"),
 ('Henrique Lima', 'henrique.lima@ferrobandeirante.com', '12345', 2, "Coordenador de incidentes"),
 ('Alvares Tino', 'alvares.tino@rotatrilhos.com', '12345', 3, "Operador"),
-('Thiago Alves', 'thiago.alves@rotatrilhos.com', '12345', 3, "Gerente de operações"),
+('Thiago Alves', 'thiago.alves@rotatrilhos.com', '12345', 3, "Gerente de operacoes"),
 ('Amanda Castro', 'amanda.castro@rotatrilhos.com', '12345', 3, "Coordenador de incidentes");
 
 
