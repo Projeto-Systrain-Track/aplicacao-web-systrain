@@ -80,7 +80,7 @@
           <div class="card-indicador position-relative">
             <img src="../assets//icons/icon-alerta-verde.png" class="icone-card" alt="Ícone">
             <p>Incidentes do dia</p>
-            <strong id="incidentes_diario">20</strong>
+            <strong id="kpi_incidentesDia">0</strong>
           </div>
         </div>
 
@@ -88,7 +88,7 @@
           <div class="card-indicador position-relative">
             <img src="../assets//icons/icon-alerta.jpg" class="icone-card" alt="Ícone">
             <p>Incidentes abertos</p>
-            <strong id="incidentes_abertos">7</strong>
+            <strong id="kpi_incidentesAbertos">0</strong>
           </div>
         </div>
 
@@ -96,7 +96,7 @@
           <div class="card-indicador position-relative">
             <img src="../assets//icons/icon-alerta-amarelo.png" class="icone-card" alt="Ícone">
             <p>SLA em risco</p>
-            <strong id="incidentes_andamento">2</strong><br>
+            <strong id="kpi_slaRisco">0</strong><br>
             <!-- <small class="descricao">mais de 80% do tempo consumido</small> -->
           </div>
         </div>
@@ -107,7 +107,7 @@
               src="https://p7.hiclipart.com/preview/646/403/633/computer-icons-teamwork-team-building-clip-art-environmental-group.jpg"
               height="64px" class="icone-card" alt="Ícone">
             <p>Sem responsável</p>
-            <strong id="incidentes_andamento">0</strong>
+            <strong id="kpi_semResponsavel">0</strong>
           </div>
         </div>
 
@@ -129,7 +129,7 @@
           <div class="col-12 col-xl-9 p-2">
             <div class="card-detalhes" id="detalheIncidente">
               <!-- <h3>Selecione um incidente</h3>
-              <p>As informacoes detalhadas aparecerão aqui.</p> -->
+              <p>As informações detalhadas aparecerão aqui.</p> -->
 
               <div class="card-detalhes topo-card mb-3">
                 <div class="d-flex justify-content-between align-items-center mb-1">
@@ -202,34 +202,46 @@
                 <!-- onde vão as ultimas medidas -->
                 <div class="row g-3">
                   <div class="col-12 col-md-8">
-                    <h5 class="fw-bold mb-3">Métricas</h5>
+                    <h5 class="fw-bold">Métricas <span class="text-muted" style="font-size: 12px;">(última coleta até o alerta)</span></h5>
+                    <!-- <small class="text-muted mt-0" style="padding-bottom: 5px;">Últimos dados capturados no momento do alerta.</small> -->
+
                     <div class="row row-cols-2 g-3">
                       <div class="col">
-                        <div class="card h-100 bg-light border-0 p-3">
-                          <div class="card-grafico-mock">Gráfico CPU</div>
+                        <div id="card-metricas-cpu" class="card h-100 bg-light border-0 p-3">
+                          <div class="text-muted small fw-bold">CPU</div>
+                          <h3 class="fw-bold my-1" id="val-cpu">--%</h3>
+                          <div id="status-cpu"><small class="text-muted">Carregando...</small></div>
                         </div>
                       </div>
 
                       <div class="col">
-                        <div class="card h-100 bg-light border-0 p-3">
-                          <div class="card-grafico-mock">Gráfico RAM</div>
+                        <div id="card-metricas-ram" class="card h-100 bg-light border-0 p-3">
+                          <div class="text-muted small fw-bold">RAM</div>
+                          <h3 class="fw-bold my-1" id="val-ram">--%</h3>
+                          <div id="status-ram"><small class="text-muted">Carregando...</small></div>
                         </div>
                       </div>
 
                       <div class="col">
-                        <div class="card h-100 bg-light border-0 p-3">
-                          <div class="card-grafico-mock">Gráfico DISCO</div>
+                        <div id="card-metricas-disco" class="card h-100 bg-light border-0 p-3">
+                          <div class="text-muted small fw-bold">DISCO</div>
+                          <h3 class="fw-bold my-1" id="val-disco">--%</h3>
+                          <div id="status-disco"><small class="text-muted">Carregando...</small></div>
                         </div>
                       </div>
 
                       <div class="col">
-                        <div class="card h-100 bg-light border-0 p-3">
-                          <div class="card-grafico-mock">Gráfico Latência</div>
+                        <div id="card-metricas-lat" class="card h-100 bg-light border-0 p-3">
+                          <div class="text-muted small fw-bold">Latência</div>
+                          <h3 class="fw-bold my-1" id="val-lat">--%</h3>
+                          <div id="status-lat"><small class="text-muted">Carregando...</small></div>
                         </div>
                       </div>
                     </div>
 
                   </div>
+
+                
 
                   <div class="col-12 col-md-4">
                     <div class="d-flex flex-column gap-3">
@@ -242,7 +254,7 @@
                           <div
                             class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
                             style="width: 32px; height: 32px;">
-                            <i class="bi bi-person"></i>
+                            <!-- <i class="bi bi-person"></i> trocar por img -->
                           </div>
                           <div id="responsavel"></div>
 
@@ -256,12 +268,16 @@
                         </small>
 
                         <div class="bg-white border rounded p-2 text-center text-muted small" id="contexto-externo">
+                          <!-- Dado da api -->
                         </div>
                       </div>
 
                     </div>
                   </div>
                 </div>
+
+
+
               </div>
             </div>
 
