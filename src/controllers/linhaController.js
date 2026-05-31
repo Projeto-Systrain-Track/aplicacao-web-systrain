@@ -72,6 +72,7 @@ async function listarLinhasEmpresa(req, res) {
 }
 
 // Substituir pelas chamadas de objetos do Bucket
+/*
 function dashLinhas(req, res) {
     res.json({
         servidoresAtivos: "5/6",
@@ -99,23 +100,335 @@ function dashLinhas(req, res) {
             { nome: "SV-PRIM", status: "Online", cpu: 60, ram: 87, disco: 50, latencia: "95ms" },
             { nome: "SV-JOKT", status: "Online", cpu: 60, ram: 20, disco: 50, latencia: "90ms" },
             { nome: "SV-MHRT", status: "Online", cpu: 20, ram: 45, disco: 30, latencia: "150ms" },
-        ],
-
-        graficoIncidentes: [
-            { tempo: "10:00", valor: 10 },
-            { tempo: "10:05", valor: 12 },
-            { tempo: "10:10", valor: 8 },
-            { tempo: "10:15", valor: 5 },
-            { tempo: "10:20", valor: 10 },
-            { tempo: "10:25", valor: 3 },
-            { tempo: "10:30", valor: 1 },
         ]
     });
 }
+    */
 
- module.exports = {
-     dashLinhas
- };
+// ======================================================= \\
+//          FUNÇÃO PARA DESMOCKAR O dashLinhas             \\
+// ======================================================= \\
+
+async function dashLinhas(req, res) {
+
+    try {
+
+        const command = new GetObjectCommand({
+            Bucket: process.env.AWS_BUCKET,
+            Key: "empresas_linhas_rbc.json"
+        });
+
+        const response = await s3.send(command);
+
+        const streamToString = (stream) =>
+            new Promise((resolve, reject) => {
+
+                const chunks = [];
+
+                stream.on("data", chunk => chunks.push(chunk));
+                stream.on("error", reject);
+
+                stream.on("end", () => {
+                    resolve(Buffer.concat(chunks).toString("utf8"));
+                });
+
+            });
+
+        const bodyContents = await streamToString(response.Body);
+
+        const jsonData = JSON.parse(bodyContents);
+
+        // ============================================================
+        // EXTRAÇÃO DOS DADOS DA ETL
+        // ============================================================
+
+        const empresa = jsonData.empresas?.[0];
+
+        if (!empresa) {
+            return res.status(404).json({
+                erro: "Nenhuma empresa encontrada"
+            });
+        }
+
+        const linha = empresa.linhas?.[0];
+
+        if (!linha) {
+            return res.status(404).json({
+                erro: "Nenhuma linha encontrada"
+            });
+        }
+
+        const rbcs = linha.rbc || [];
+
+        // ============================================================
+        // KPIs
+        // ============================================================
+
+        let online = 0;
+        let offline = 0;
+
+        let maiorLatencia = 0;
+        let servidorCritico = "N/A";
+
+        let incidentes = 0;
+
+        const servidores = [];
+
+        const resumo = [
+            { nome: "CPU elevada", valor: 0 },
+            { nome: "RAM elevada", valor: 0 },
+            { nome: "Disco elevado", valor: 0 },
+            { nome: "Latência elevada", valor: 0 },
+            { nome: "Servidor offline", valor: 0 }
+        ];
+
+        const alertas = [];
+
+        // ============================================================
+        // LOOP RBC
+        // ============================================================
+
+        for (const rbc of rbcs) {
+
+            const ultima =
+                rbc.ultimas_leituras?.[
+                    rbc.ultimas_leituras.length - 1
+                ];
+
+            if (!ultima) continue;
+
+            const status =
+                rbc.status_atual === "ONLINE"
+                    ? "Online"
+                    : "Offline";
+
+            if (status === "Online") {
+                online++;
+            } else {
+                offline++;
+
+                resumo[4].valor++;
+
+                alertas.push({
+                    tipo: "Crítico",
+                    msg: `${rbc.nome_rbc} offline`
+                });
+            }
+
+            const cpu =
+                ultima.cpu?.percentual_uso_cpu || 0;
+
+            const ram =
+                ultima.memoria?.percentual_uso_ram || 0;
+
+            const disco =
+                ultima.disco?.percentual_uso_disco || 0;
+
+            const latencia =
+                ultima.latencia_ping_ms || 0;
+
+            // ========================================================
+            // ALERTAS
+            // ========================================================
+
+            if (cpu >= 85) {
+                resumo[0].valor++;
+                incidentes++;
+
+                alertas.push({
+                    tipo: "Atenção",
+                    msg: `${rbc.nome_rbc} CPU em ${cpu}%`
+                });
+            }
+
+            if (ram >= 85) {
+                resumo[1].valor++;
+                incidentes++;
+
+                alertas.push({
+                    tipo: "Atenção",
+                    msg: `${rbc.nome_rbc} RAM em ${ram}%`
+                });
+            }
+
+            if (disco >= 85) {
+                resumo[2].valor++;
+                incidentes++;
+
+                alertas.push({
+                    tipo: "Atenção",
+                    msg: `${rbc.nome_rbc} Disco em ${disco}%`
+                });
+            }
+
+            if (latencia >= 100) {
+                resumo[3].valor++;
+                incidentes++;
+
+                alertas.push({
+                    tipo: "Atenção",
+                    msg: `${rbc.nome_rbc} Latência em ${latencia}ms`
+                });
+            }
+
+            // ========================================================
+            // SERVIDOR MAIS CRÍTICO
+            // ========================================================
+
+            if (latencia > maiorLatencia) {
+                maiorLatencia = latencia;
+                servidorCritico = rbc.nome_rbc;
+            }
+
+            // ========================================================
+            // STATUS VISUAL
+            // ========================================================
+
+            let statusVisual = "Online";
+
+            if (
+                cpu >= 85 ||
+                ram >= 85 ||
+                disco >= 85
+            ) {
+                statusVisual = "Crítico";
+            } else if (
+                cpu >= 70 ||
+                ram >= 70 ||
+                disco >= 70
+            ) {
+                statusVisual = "Degradado";
+            }
+
+            if (status === "Offline") {
+                statusVisual = "Offline";
+            }
+
+            // ========================================================
+            // TABELA
+            // ========================================================
+
+            servidores.push({
+                nome: rbc.nome_rbc,
+                status: statusVisual,
+                cpu,
+                ram,
+                disco,
+                latencia: `${latencia}ms`
+            });
+
+        }
+
+        // ============================================================
+        // RESPOSTA FINAL
+        // ============================================================
+
+        return res.status(200).json({
+
+            servidoresAtivos: `${online}/${online + offline}`,
+
+            statusSistema:
+                offline > 0
+                    ? "Operação degradada"
+                    : "Operando normalmente",
+
+            latenciaMedia: servidorCritico,
+
+            incidentesAbertos: incidentes,
+
+            resumo,
+
+            alertas,
+
+            servidores
+
+        });
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        return res.status(500).json({
+            erro: erro.message
+        });
+
+    }
+
+}
+
+// ======================================================= \\
+
+async function detalheLinha(req, res) {
+
+    try {
+
+        const idLinha = Number(req.params.idLinha);
+
+        const command = new GetObjectCommand({
+            Bucket: process.env.AWS_BUCKET,
+            Key: "test.json"
+        });
+
+        const response = await s3.send(command);
+
+        const streamToString = (stream) =>
+            new Promise((resolve, reject) => {
+
+                const chunks = [];
+
+                stream.on("data", chunk => chunks.push(chunk));
+                stream.on("error", reject);
+
+                stream.on("end", () => {
+                    resolve(Buffer.concat(chunks).toString("utf8"));
+                });
+
+            });
+
+        const bodyContents =
+            await streamToString(response.Body);
+
+        const jsonData =
+            JSON.parse(bodyContents);
+
+        let linhaEncontrada = null;
+
+        jsonData.empresas.forEach(empresa => {
+
+            const linha =
+                empresa.linhas.find(
+                    l => l.id_linha == idLinha
+                );
+
+            if (linha) {
+                linhaEncontrada = linha;
+            }
+
+        });
+
+        if (!linhaEncontrada) {
+
+            return res.status(404).json({
+                erro: "Linha não encontrada"
+            });
+
+        }
+
+        return res.status(200).json(linhaEncontrada);
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        return res.status(500).json({
+            erro: erro.message
+        });
+
+    }
+
+}
+
+// ======================================================= \\
 
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 
@@ -142,7 +455,7 @@ async function readS3Json(req, res) {
 
     const command = new GetObjectCommand({ 
       Bucket: process.env.AWS_BUCKET,
-      Key: "empresas_linhas_rbc.json"
+      Key: "test.json"
     });
 
     const response = await s3.send(command);
@@ -173,5 +486,5 @@ module.exports = {
     listarLinhasEmpresa,
     readS3Json,
     dashLinhas,
-    readS3Json
+    detalheLinha
 }
