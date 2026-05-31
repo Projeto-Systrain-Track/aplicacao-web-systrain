@@ -37,7 +37,7 @@ function obterDadosDashboard() {
           incidentes = [];
 
           for (var i = 0; i < listaCompleta.length; i++) {
-            if (listaCompleta[i].status == "TAREFAS PENDENTES") {
+            if (listaCompleta[i].status == "TAREFAS PENDENTES" || listaCompleta[i].status === "EM ANDAMENTO") {
               incidentes.push(listaCompleta[i]);
             }
           }
