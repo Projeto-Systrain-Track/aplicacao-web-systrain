@@ -79,7 +79,7 @@
                 <div>
                     <p class="subtitulo">Painel Operacional de RBC</p>
 
-                    <h2 class="titulo fw-bolder">Linha 11 - Coral</h2>
+                    <h2 class="titulo fw-bolder" id="tituloLinha">Carregando...</h2>
 
                     <!--trocar pelo nome da linha atual-->
 
@@ -134,7 +134,25 @@
 
                         <img src="../assets/icons/icon-servidor.jpg" class="icone-card" alt="Ícone">
 
-                        <p>Servidores Online</p>
+                        <div class="kpi-header">
+
+                            <p class="m-0">Servidores Online</p>
+
+                            <button 
+                                class="btn-help"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="
+                                    Exibe quantos servidores RBC estão online no momento em relação ao total monitorado.
+                                    <hr>
+                                    🟢 Online = funcionando normalmente<br>
+                                    🔴 Offline = servidor parado ou sem comunicação
+                                ">
+                                ?
+                            </button>
+
+                        </div>
 
                         <strong id="servidorAtivo">NHA</strong>
 
@@ -148,7 +166,27 @@
 
                         <img src="../assets/icons/icon_disponibilidade.png" class="icone-card" alt="Ícone">
 
-                        <p>Status da Operação</p>
+                        <div class="kpi-header">
+
+                            <p class="m-0">Status da Operação</p>
+
+                            <button 
+                                class="btn-help"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="
+                                    Mostra a situação operacional atual da linha com base nos servidores RBC monitorados.
+                                    <hr>
+                                    🟢 Operação Normal = tudo funcionando<br>
+                                    🟡 Operação Instável = há degradação<br>
+                                    🔴 Operação Crítica = alto risco operacional<br>
+                                    ⚫ Operação Parada = algum RBC offline
+                                ">
+                                ?
+                            </button>
+
+                        </div>
 
                         <strong id="statusSistema">NHA</strong>
 
@@ -162,9 +200,31 @@
 
                         <img src="../assets/icons/icon_consumoProcesso.png" class="icone-card" alt="Ícone">
 
-                        <p>Servidor Mais Crítico</p>
+                        <div class="kpi-header">
 
-                        <strong id="latenciaMedia">NHA</strong>
+                            <p class="m-0">Servidor Mais Crítico</p>
+
+                            <button 
+                                class="btn-help"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="
+                                    Exibe o RBC com maior criticidade no momento.
+                                    <hr>
+                                    O cálculo considera:<br><br>
+                                    • Status do servidor<br>
+                                    • Uso de CPU<br>
+                                    • Uso de RAM<br>
+                                    • Uso de Disco<br>
+                                    • Latência de rede
+                                ">
+                                ?
+                            </button>
+
+                        </div>
+
+                        <strong id="servidorCritico">NHA</strong>
 
                     </div>
 
@@ -176,7 +236,26 @@
 
                         <img src="../assets/icons/icon_alerta.png" class="icone-card" alt="Ícone">
 
-                        <p>Incidentes abertos</p>
+                        <div class="kpi-header">
+
+                            <p class="m-0">Incidentes abertos</p>
+
+                            <button 
+                                class="btn-help"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                data-bs-html="true"
+                                title="
+                                    Quantidade de incidentes operacionais ainda não resolvidos.
+                                    <hr>
+                                    🟢 0-1 = normal<br>
+                                    🟡 2-5 = atenção<br>
+                                    🔴 6+ = situação crítica
+                                ">
+                                ?
+                            </button>
+
+                        </div>
 
                         <strong id="incidentesAbertos">NHA</strong>
 
@@ -292,7 +371,6 @@
 
 
 
-<script src="./js/dash.js"></script>
 
 <script>
 
@@ -399,154 +477,383 @@
 
     window.onload = function () {
 
-        // validarSessaoUsuario();
-        carregarDados();
+    carregarDados();
 
-    };
+};
 
-    window.addEventListener("resize", function () {
+window.addEventListener("resize", function () {
 
-        var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
-        var sidebar = document.getElementById("nav_lateral")
+    var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+    var sidebar = document.getElementById("nav_lateral")
 
-        if (window.innerWidth > 900) {
+    if (window.innerWidth > 900) {
 
-            if (fundo_cinza_sidebar.classList.contains("mobile")) {
+        if (fundo_cinza_sidebar.classList.contains("mobile")) {
 
-                console.log("Tem a classe mobile");
+            console.log("Tem a classe mobile");
 
-                sidebar.classList.toggle("mobile")
-                fundo_cinza_sidebar.classList.toggle("mobile")
-
-            }
+            sidebar.classList.toggle("mobile")
+            fundo_cinza_sidebar.classList.toggle("mobile")
 
         }
 
-    });
-
-    function abrirSideBarMobile() {
-
-        var sidebar = document.getElementById("nav_lateral")
-        var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
-
-        sidebar.classList.toggle("mobile")
-        fundo_cinza_sidebar.classList.toggle("mobile")
-
     }
 
-    function fecharSidebar() {
+});
 
-        var sidebar = document.getElementById("nav_lateral")
-        var conteudo = document.getElementById("conteudo_pagina")
+function abrirSideBarMobile() {
 
-        sidebar.classList.toggle("compactada")
-        conteudo.classList.toggle("expandido")
-    }
+    var sidebar = document.getElementById("nav_lateral")
+    var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
 
-    function carregarDados() {
-        fetch("/linha/dados")
-            .then(res => res.json())
+    sidebar.classList.toggle("mobile")
+    fundo_cinza_sidebar.classList.toggle("mobile")
 
-            .then(dados => {
+}
 
-                document.getElementById("servidorAtivo").innerText = dados.servidoresAtivos;
-                document.getElementById("statusSistema").innerText = dados.statusSistema;
-                document.getElementById("latenciaMedia").innerText = dados.latenciaMedia;
-                document.getElementById("incidentesAbertos").innerText = dados.incidentesAbertos;
+function fecharSidebar() {
 
-                const listaResumo = document.getElementById("listaResumo");
+    var sidebar = document.getElementById("nav_lateral")
+    var conteudo = document.getElementById("conteudo_pagina")
 
-                listaResumo.innerHTML = "";
+    sidebar.classList.toggle("compactada")
+    conteudo.classList.toggle("expandido")
+}
 
-                //coisa p anotação
+function carregarDados() {
+    const params = new URLSearchParams(window.location.search);
+    const idLinha = Number(params.get("id"));
+        
+    console.log("Linha selecionada:", idLinha);
 
-                // for(var i = 0; i < dados.resumo.length; i++){
-                //     var item = dados.resumo[i];
+    fetch(`/linha/detalhe/${idLinha}`)
+        .then(res => res.json())
 
-                //     listaResumo.innerHTML += `
-                //     <div class="d-flex justify-content-between align-items-center mb-2">
-                //         <div class="d-flex align-items-center gap-2">
-                //             <span class="bolinha-verde"></span>
-                //             ${item.nome}
-                //         </div>
-                //         <strong>${item.valor}</strong>
-                //     </div>
-                // `;
+        .then(dados => {
 
-                // }
+            console.log(dados);
 
-                // ==================================================================== \\
+            // var linha = dados.empresas[0].linhas[0];
+            var linha = dados;
 
-                // ========== ALGORÍTMO DE ORDENAÇÃO DO RESUMO DE INCIDENTES ========== \\
+            document.getElementById("tituloLinha").innerHTML = 
+            `Linha ${linha.numero_linha} - ${linha.nome_linha}`;
 
-                var resumoOriginal = [...dados.resumo];
+            var servidores = linha.rbc.map(rbc => {
 
-                function renderizarResumo(tipoOrdenacao = "padrao") {
+                // var leitura = rbc.ultimas_leituras[0];
+                var leitura = rbc.ultimas_leituras[rbc.ultimas_leituras.length - 1];
 
-                    listaResumo.innerHTML = "";
+                var status = "Online";
 
-                    var resumoOrdenado = [...resumoOriginal];
+                if (rbc.status_atual == "OFFLINE") {
+                    status = "Offline";
+                } else if (
+                    leitura.cpu.percentual_uso_cpu >= 80 ||
+                    leitura.memoria.percentual_uso_ram >= 80 ||
+                    leitura.disco.percentual_uso_disco >= 80 ||
+                    leitura.latencia_ping_ms >= 120
+                ) {
+                    status = "Crítico";
+                }
 
-                    if (tipoOrdenacao == "maior") {
+                return {
 
-                        resumoOrdenado.sort((a, b) => {
-                            return b.valor - a.valor;
-                        });
+                    nome: rbc.nome_rbc,
 
-                    } else if (tipoOrdenacao == "menor") {
+                    status: status,
 
-                        resumoOrdenado.sort((a, b) => {
-                            return a.valor - b.valor;
-                        });
+                    cpu: Math.round(leitura.cpu.percentual_uso_cpu),
 
+                    ram: Math.round(leitura.memoria.percentual_uso_ram),
+
+                    disco: Math.round(leitura.disco.percentual_uso_disco),
+
+                    latencia: leitura.latencia_ping_ms + "ms"
+
+                };
+
+            });
+
+            var servidoresOnline = servidores.filter(s => s.status != "Offline").length;
+
+            var servidorMaisCritico = null;
+
+            var maiorScore = -1;
+
+            servidores.forEach(s => {
+
+                var score =
+                    (s.cpu * 0.35) +
+                    (s.ram * 0.30) +
+                    (s.disco * 0.20) +
+                    (parseInt(s.latencia) * 0.15);
+
+                if (score > maiorScore) {
+
+                    maiorScore = score;
+
+                    servidorMaisCritico = s;
+
+                }
+
+            });
+
+            var dadosTela = {
+
+                servidoresAtivos: servidoresOnline,
+
+                statusSistema: (() => {
+
+                    var possuiOffline = servidores.some(s => s.status == "Offline");
+                    var possuiCritico = servidores.some(s => s.status == "Crítico");
+                    var possuiDegradado = servidores.some(s => s.status == "Degradado");
+
+                    if (possuiOffline) {
+                        return "Operação Parada";
                     }
 
-                    resumoOrdenado.forEach(item => {
+                    if (possuiCritico) {
+                        return "Operação Crítica";
+                    }
 
-                        listaResumo.innerHTML += `
+                    if (possuiDegradado) {
+                        return "Operação Instável";
+                    }
 
-                            <div class="d-flex justify-content-between align-items-center mb-2">
+                    return "Operação Normal";
 
-                                <div class="d-flex align-items-center gap-2">
-                                    <span class="bolinha-verde"></span>
-                                    ${item.nome}
-                                </div>
+                })(),
 
-                                <strong>${item.valor}</strong>
+                servidorCritico:
+                    servidorMaisCritico
+                        ? servidorMaisCritico.nome
+                        : "N/A",
 
-                            </div>
+                incidentesAbertos: 3,
 
-                        `;
+                resumo: [
 
-                    });
+                    {
+                        nome: "Falhas de CPU",
+                        valor: 4
+                    },
 
-                }
+                    {
+                        nome: "Latência elevada",
+                        valor: 2
+                    },
 
-                renderizarResumo();
+                    {
+                        nome: "Servidores offline",
+                        valor: servidores.filter(s => s.status == "Crítico").length
+                    }
 
-                const filtroResumo = document.getElementById("filtroResumo");
+                ],
 
-                if (filtroResumo) {
+                alertas: [
 
-                    filtroResumo.addEventListener("change", function () {
+                    {
+                        tipo: "CPU",
+                        msg: "Servidor RBC-01 com uso acima de 85%"
+                    },
 
-                        renderizarResumo(this.value);
+                    {
+                        tipo: "Rede",
+                        msg: "Latência elevada na Linha 11"
+                    },
 
-                    });
+                    {
+                        tipo: "Disco",
+                        msg: "Espaço crítico em RBC-03"
+                    }
 
-                }
+                ],
 
-                // ==================================================================== \\
+                servidores: servidores,
 
-                const listaAlertas = document.getElementById("listaALertas");
+                graficoIncidentes: []
 
-                listaAlertas.innerHTML = "";
+            };
 
-                for (var i = 0; i < dados.alertas.length; i++) {
+            // ==================================================================== \\
 
-                    var alerta = dados.alertas[i];
+            // ===================== LÓGICA DE CORES DAS KPIS ===================== \\
 
-                    listaAlertas.innerHTML += `
+            var corServidores = "bolinha-verde";
+
+            if (servidoresOnline < servidores.length) {
+                corServidores = "bolinha-vermelha";
+            }
+
+            var corStatusSistema = "bolinha-verde";
+
+            if (dadosTela.statusSistema == "Operação Parada") {
+                corStatusSistema = "bolinha-cinza";
+            } else if (dadosTela.statusSistema == "Operação Crítica") {
+                corStatusSistema = "bolinha-vermelha";
+            } else if (dadosTela.statusSistema == "Operação Instável") {
+                corStatusSistema = "bolinha-amarela";
+            }
+
+            var servidorCritico = dadosTela.servidores[0];
+            var corServidorCritico = "bolinha-verde";
+
+            if (servidorCritico.status == "Offline") {
+                corServidorCritico = "bolinha-cinza";
+            } else if (servidorCritico.status == "Crítico") {
+                corServidorCritico = "bolinha-vermelha";
+            } else if (servidorCritico.status == "Degradado") {
+                corServidorCritico = "bolinha-amarela";
+            }
+
+            var corIncidentes = "bolinha-verde";
+
+            if (dadosTela.incidentesAbertos >= 2 && dadosTela.incidentesAbertos <= 5) {
+                corIncidentes = "bolinha-amarela";
+            }
+
+            if (dadosTela.incidentesAbertos > 5) {
+                corIncidentes = "bolinha-vermelha";
+            }
+
+            // ==================================================================== \\
+
+            // ====================== RENDERIZAÇÃO DAS KPIS ======================= \\
+
+            document.getElementById("servidorAtivo").innerHTML = `
+                <div class="kpi-status">
+                    <span class="bolinha-kpi ${corServidores}"></span>
+                    ${servidoresOnline}/${servidores.length}
+                </div>
+            `;
+
+            document.getElementById("statusSistema").innerHTML = `
+                <div class="kpi-status">
+                    <span class="bolinha-kpi ${corStatusSistema}"></span>
+                    ${dadosTela.statusSistema}
+                </div>
+            `;
+
+            document.getElementById("servidorCritico").innerHTML = `
+                <div class="kpi-status">
+                    <span class="bolinha-kpi ${corServidorCritico}"></span>
+                    ${servidorCritico.nome}
+                </div>
+            `;
+
+            document.getElementById("incidentesAbertos").innerHTML = `
+                <div class="kpi-status mb-1">
+                    <span class="bolinha-kpi ${corIncidentes}"></span>
+                    ${dadosTela.incidentesAbertos}
+                </div>
+            `;
+
+            // ==================================================================== \\
+
+            // ============================= TOOLTIPS ============================= \\
+
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => 
+                new bootstrap.Tooltip(tooltipTriggerEl)
+            );
+
+            // ==================================================================== \\
+
+            const listaResumo = document.getElementById("listaResumo");
+
+            listaResumo.innerHTML = "";
+
+            //coisa p anotação
+
+            // for(var i = 0; i < dados.resumo.length; i++){
+            //     var item = dados.resumo[i];
+
+            //     listaResumo.innerHTML += `
+            //     <div class="d-flex justify-content-between align-items-center mb-2">
+            //         <div class="d-flex align-items-center gap-2">
+            //             <span class="bolinha-verde"></span>
+            //             ${item.nome}
+            //         </div>
+            //         <strong>${item.valor}</strong>
+            //     </div>
+            // `;
+
+            // }
+
+        // ==================================================================== \\
+
+        // ========== ALGORITMO DE ORDENAÇÃO DA TABELA DE SERVIDORES ========== \\
+
+        dadosTela.servidores.sort((a, b) => {
+
+            function normalizar(status) {
+                return String(status || "")
+                    .trim()
+                    .toUpperCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "");
+            }
+
+            const statusA = normalizar(a.status);
+            const statusB = normalizar(b.status);
+
+            // PRIORIDADE NUMÉRICA
+
+            function prioridade(status) {
+
+                if (status.includes("OFFLINE")) return 4;
+                if (status.includes("CRITIC")) return 3;
+                if (status.includes("DEGRAD")) return 2;
+                if (status.includes("ONLINE")) return 1;
+
+                return 0;
+            }
+
+            const prioridadeA = prioridade(statusA);
+            const prioridadeB = prioridade(statusB);
+
+            // STATUS
+
+            if (prioridadeA !== prioridadeB) {
+                return prioridadeB - prioridadeA;
+            }
+
+            // SCORE
+
+            const scoreA =
+                ((Number(a.cpu) || 0) * 0.35) +
+                ((Number(a.ram) || 0) * 0.30) +
+                ((Number(a.disco) || 0) * 0.20) +
+                ((parseInt(a.latencia) || 0) * 0.15);
+
+            const scoreB =
+                ((Number(b.cpu) || 0) * 0.35) +
+                ((Number(b.ram) || 0) * 0.30) +
+                ((Number(b.disco) || 0) * 0.20) +
+                ((parseInt(b.latencia) || 0) * 0.15);
+
+            return scoreB - scoreA;
+
+        });
+
+        document.getElementById("servidorCritico").innerHTML =
+            servidores.length > 0
+                ? servidores[0].nome
+                : "N/A";
+
+        // ==================================================================== \\
+
+            const listaAlertas = document.getElementById("listaALertas");
+
+            listaAlertas.innerHTML = "";
+
+            for (var i = 0; i < dadosTela.alertas.length; i++) {
+
+                var alerta = dadosTela.alertas[i];
+
+                listaAlertas.innerHTML += `
 
                         <div class="alerta-card mb-2">
 
@@ -560,60 +867,25 @@
 
                     `;
 
-                }
+            }
 
-                const tabela = document.getElementById("tabelaServidor");
+            const tabela = document.getElementById("tabelaServidor");
 
-                tabela.innerHTML = "";
+            tabela.innerHTML = "";
 
-                // ==================================================================== \\
+            // ==================================================================== \\
 
-                // ========== ALGORÍTMO DE ORDENAÇÃO DA TABELA DE SERVIDORES ========== \\
+            for (var i = 0; i < dadosTela.servidores.length; i++) {
 
-                dados.servidores.sort((a, b) => {
+                var s = dadosTela.servidores[i];
 
-                    if (a.status == "Offline" && b.status != "Offline") return -1;
-                    if (b.status == "Offline" && a.status != "Offline") return 1;
+                var cor = "bg-success";
 
-                    var cpuA = Number(a.cpu) || 0;
-                    var ramA = Number(a.ram) || 0;
-                    var discoA = Number(a.disco) || 0;
+                if (s.status === "Degradado") cor = "bg-warning";
+                if (s.status === "Crítico") cor = "bg-danger";
+                if (s.status === "Offline") cor = "bg-secondary";
 
-                    var cpuB = Number(b.cpu) || 0;
-                    var ramB = Number(b.ram) || 0;
-                    var discoB = Number(b.disco) || 0;
-
-                    var latA = parseInt(a.latencia) || 0;
-                    var latB = parseInt(b.latencia) || 0;
-
-                    var scoreA =
-                        (cpuA * 0.35) +
-                        (ramA * 0.30) +
-                        (discoA * 0.20) +
-                        (latA * 0.15);
-
-                    var scoreB =
-                        (cpuB * 0.35) +
-                        (ramB * 0.30) +
-                        (discoB * 0.20) +
-                        (latB * 0.15);
-
-                    return scoreB - scoreA;
-
-                });
-
-                // ==================================================================== \\
-
-                for (var i = 0; i < dados.servidores.length; i++) {
-
-                    var s = dados.servidores[i];
-
-                    var cor = "bg-success";
-
-                    if (s.status === "Degradado") cor = "bg-warning";
-                    if (s.status === "Crítico") cor = "bg-danger";
-
-                    tabela.innerHTML += `
+                tabela.innerHTML += `
 
                         <tr onclick="irDetalheServidor()">
 
@@ -637,43 +909,41 @@
 
                     `;
 
-                }
+            }
 
-                montarGrafico(dados.graficoIncidentes);
+        })
 
-            })
+        .catch(err => console.error(err));
 
-            .catch(err => console.error(err));
+}
 
-    }
+        function irDetalheServidor() {
 
-    function irDetalheServidor() {
+            window.location = "detalheServidor.html"
 
-        window.location = "detalheServidor.html"
+        }
 
-    }
+        function barra(valor) {
 
-    function barra(valor) {
+            var cor = "bg-success";
 
-        var cor = "bg-success";
+            if (valor > 70) cor = "bg-warning";
+            if (valor > 85) cor = "bg-danger";
 
-        if (valor > 70) cor = "bg-warning";
-        if (valor > 85) cor = "bg-danger";
+            return `
 
-        return `
+                <div class="fw-bolder" style="display: flex; justify-content: right; font-size: 12px;">
+                    <span>${valor}%</span>
+                </div>
 
-        <div class="fw-bolder" style="display: flex; justify-content: right; font-size: 12px;">
-            <span>${valor}%</span>
-        </div>
+                <div class="progress" style="height:10px;">
 
-        <div class="progress" style="height:10px;">
+                    <div class="progress-bar-striped progress-bar-animated ${cor}" style="width:${valor}%"></div>
 
-            <div class="progress-bar-striped progress-bar-animated ${cor}" style="width:${valor}%"></div>
+                </div>
 
-        </div>
+            `;
 
-    `;
+        }
 
-    }
-    
 </script>
