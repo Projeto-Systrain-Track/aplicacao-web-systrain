@@ -63,38 +63,24 @@
         </div>
       </section>
       <section class="painel-mapa">
-        <!-- <div class="grafico-wrap">
-          <canvas id="graficoRelatorio"></canvas>
-        </div> -->
-        <table class="tabela-linhas">
-          <thead>
-            <!-- <p class="subtitulo">Histórico dos Últimos Relatórios</p> -->
-            <tr>
-              <th>Linha</th>
-              <th>Status</th>
-              <th>Último Relatório</th>
-              <th>Usuário</th>
-            </tr>
-          </thead>
 
-          <tbody id="tabelaRelatorios">
 
-          </tbody>
-        </table>
+
       </section>
     </main>
   </div>
 
 </body>
 
+
 </html>
-<script src="./relatorio.js"></script>
+<script src="./relatorios.js"></script>
 
 <script>
-// sessionStorage.TIPO_USUARIO = "Gerente de operacoes"
+  sessionStorage.TIPO_USUARIO = "Gerente de operações"
   function validarTipoUsuario() {
     var links_sidebar = document.getElementById("links_sidebar")
-    if (sessionStorage.TIPO_USUARIO == "Gerente de operacoes") {
+    if (sessionStorage.TIPO_USUARIO == "Gerente de operações") {
 
       links_sidebar.innerHTML = `
           <a class="link-lateral " href="dashboard.html">
@@ -189,6 +175,100 @@
     var conteudo = document.getElementById("conteudo_pagina")
     sidebar.classList.toggle("compactada")
     conteudo.classList.toggle("expandido")
+  }
+
+
+
+  async function buscarLinhas() {
+
+    var idEmpresa = sessionStorage.ID_EMPRESA
+
+    try {
+      var resposta = await fetch(`/linha/listarLinhasEmpresa/${idEmpresa}`)
+      console.log("RESPOSTA: ", resposta);
+      var resposta_json = await resposta.json()
+      console.log("RESPOSTA: ", resposta_json);
+      mostrarLinha(resposta_json)
+    } catch (error) {
+      console.log("Erro: ", error);
+    }
+  }
+
+  buscarLinhas()
+
+
+  function mostrarLinha(linhas) {
+    var container_cards = document.getElementById("painelCardLinhas")
+    var elementos_html = '';
+    for (var i = 0; i < linhas.length; i++) {
+      var classeStatus = "";
+      var linha = linhas[i]
+      if (linha.status == "Operando") {
+        classeStatus = "status-operando";
+      } else if (linha.status == "Atenção") {
+        classeStatus = "status-atencao";
+      } else {
+        classeStatus = "status-monitoramento";
+      }
+      elementos_html += `
+            <div class="card-linha">
+                <div class="card-incidente-topo">
+                <div class="incidente-linha">
+                    <span class="linha-cor-bolinha" style="background-color: ${linha.corLinha};"></span>
+                    <span>Linha ${linha.numeroLinha} - ${linha.nomeLinha}</span>
+                </div>
+                <span class="nivel-badge ${classeStatus}">
+                    ${linha.status}
+                </span>
+                </div>
+                <div class="card-incidente-conteudo">
+                  <div class="card-incidente-infos card-relatorio">
+                    <h3>Descrição:</h3>
+                    <div>
+                        <span>Trecho: ${linha.trecho}</span>
+                    </div>
+                </div>
+                </div>
+                <div class="card-relatorio-rodape">
+                    <div class="linha-cor-barra" style="background-color: ${linha.corLinha};">
+                    </div>
+                    <div class="card-infos-rodape">
+                        <button class="btn-relatorio" onclick="gerarRelatorio('${linha.idLinha}', '${linha.nomeLinha}')">Gerar Relatório</button>
+                    </div>
+                </div>
+            </div>
+         `
+    }
+    console.log(container_cards)
+    container_cards.innerHTML = elementos_html
+  }
+
+  async function gerarRelatorio(idLinha, nomeLinha) {
+    try {
+      var resposta_relatorio = await fetch(`/relatorio/gerar`, {
+        method: "POST", headers: { "Content-Type": "application/json", },
+        body: JSON.stringify({
+          idEmpresaServer: sessionStorage.ID_EMPRESA,
+          nomeEmpresaServer: sessionStorage.NOME_EMPRESA,
+          idLinhaServer: idLinha,
+          nomeLinhaServer: nomeLinha,
+          emailUsuarioServer: sessionStorage.EMAIL_USUARIO,
+        })
+      })
+
+
+      var blob = await resposta_relatorio.blob()
+      var url = URL.createObjectURL(blob)
+      var link = document.createElement('a')
+      link.href = url
+      link.download = `relatorio_${nomeLinha}.pdf`
+      link.click()
+      URL.revokeObjectURL(url)
+    } catch (error) {
+      console.log("ERRO:", error);
+
+    }
+
   }
 
 </script>
