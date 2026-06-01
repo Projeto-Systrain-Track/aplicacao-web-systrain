@@ -19,4 +19,8 @@ router.get("/detalhe/:idLinha", function(req, res){
     linhaController.detalheLinha(req, res)
 })
 
+router.get("/incidentes/:idLinha", function(req, res){
+    linhaController.incidentesLinha(req, res)
+})
+
 module.exports = router;
