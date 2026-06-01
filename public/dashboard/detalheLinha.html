@@ -477,11 +477,19 @@
 
     window.onload = function () {
 
-    carregarDados();
+        carregarDados();
 
-};
+        setInterval(() => {
+            carregarDados();
+        }, 30000);
+        // Atualiza a cada 30 segundos. O correto é a cada atualização da ETL, para
+        // não ficar desalinhado com a atualização da LAMBDA.
 
-window.addEventListener("resize", function () {
+        // ***** Perguntar para a Marci como fazer *****
+
+    };
+
+    window.addEventListener("resize", function () {
 
     var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
     var sidebar = document.getElementById("nav_lateral")
@@ -523,10 +531,34 @@ function fecharSidebar() {
 function carregarDados() {
     const params = new URLSearchParams(window.location.search);
     const idLinha = Number(params.get("id"));
+
+    console.log("ID DA LINHA:", idLinha);
+    
+    let incidentesDaLinha = [];
         
     console.log("Linha selecionada:", idLinha);
 
-    fetch(`/linha/detalhe/${idLinha}`)
+    fetch(`/linha/incidentes/${idLinha}`)
+        .then(res => res.json())
+
+        // RETORNO PARA TESTE -> REMOVER AO CORRIGIR PROBLEMA
+        .then(incidentes => {
+        console.log("RETORNO BRUTO INCIDENTES:");
+        console.log(JSON.stringify(incidentes, null, 2));
+
+        return incidentes;
+        })
+
+        .then(incidentes => {
+
+            incidentesDaLinha = incidentes;
+
+            console.log("INCIDENTES RECEBIDOS DA API:");
+            console.table(incidentes);
+
+            return fetch(`/linha/detalhe/${idLinha}`);
+
+        })
         .then(res => res.json())
 
         .then(dados => {
@@ -630,45 +662,54 @@ function carregarDados() {
                         ? servidorMaisCritico.nome
                         : "N/A",
 
-                incidentesAbertos: 3,
+                incidentesAbertos: incidentesDaLinha.length,
 
                 resumo: [
 
                     {
-                        nome: "Falhas de CPU",
-                        valor: 4
+                        nome: "CPU elevada",
+                        valor: incidentesDaLinha.filter(
+                            i => i.componente_afetado == "CPU"
+                        ).length
+                    },
+
+                    {
+                        nome: "RAM elevada",
+                        valor: incidentesDaLinha.filter(
+                            i => i.componente_afetado == "RAM"
+                        ).length
+                    },
+
+                    {
+                        nome: "Disco elevado",
+                        valor: incidentesDaLinha.filter(
+                            i => i.componente_afetado == "DISCO"
+                        ).length
                     },
 
                     {
                         nome: "Latência elevada",
-                        valor: 2
+                        valor: incidentesDaLinha.filter(
+                            i => i.componente_afetado == "LATENCIA"
+                        ).length
                     },
 
                     {
-                        nome: "Servidores offline",
-                        valor: servidores.filter(s => s.status == "Crítico").length
+                        nome: "Servidor offline",
+                        valor: incidentesDaLinha.filter(
+                            i => i.tipo_incidente == "OFFLINE"
+                        ).length
                     }
 
                 ],
 
-                alertas: [
+                alertas: incidentesDaLinha.map(i => ({
 
-                    {
-                        tipo: "CPU",
-                        msg: "Servidor RBC-01 com uso acima de 85%"
-                    },
+                    tipo: i.componente_afetado,
 
-                    {
-                        tipo: "Rede",
-                        msg: "Latência elevada na Linha 11"
-                    },
+                    msg: `${i.nome_rbc} - ${i.descricao}`
 
-                    {
-                        tipo: "Disco",
-                        msg: "Espaço crítico em RBC-03"
-                    }
-
-                ],
+                })),
 
                 servidores: servidores,
 
@@ -764,6 +805,48 @@ function carregarDados() {
             const listaResumo = document.getElementById("listaResumo");
 
             listaResumo.innerHTML = "";
+
+            dadosTela.resumo.forEach(item => {
+
+                let cor = "bolinha-verde";
+
+                if (item.nome === "Servidor offline") {
+
+                    if (item.valor > 0) {
+                        cor = "bolinha-cinza";
+                    }
+
+                } else {
+
+                    if (item.valor > 0) {
+                        cor = "bolinha-amarela";
+                    }
+
+                    if (item.valor >= 3) {
+                        cor = "bolinha-vermelha";
+                    }
+
+                }
+
+                listaResumo.innerHTML += `
+
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+
+                        <div class="d-flex align-items-center gap-2">
+
+                            <span class="bolinha-kpi ${cor}"></span>
+
+                            ${item.nome}
+
+                        </div>
+
+                        <strong>${item.valor}</strong>
+
+                    </div>
+
+                `;
+
+            });
 
             //coisa p anotação
 

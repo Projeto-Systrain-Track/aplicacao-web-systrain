@@ -138,6 +138,17 @@ async function dashLinhas(req, res) {
 
         const jsonData = JSON.parse(bodyContents);
 
+        console.log("ID recebido:", idLinha);
+
+        jsonData.incidentes.forEach(i => {
+            console.log(
+                "Incidente:",
+                i.nome_linha,
+                "| id_linha:",
+                i.id_linha
+            );
+        });
+
         // ============================================================
         // EXTRAÇÃO DOS DADOS DA ETL
         // ============================================================
@@ -366,7 +377,7 @@ async function detalheLinha(req, res) {
 
         const command = new GetObjectCommand({
             Bucket: process.env.AWS_BUCKET,
-            Key: "test.json"
+            Key: "linhas.json"
         });
 
         const response = await s3.send(command);
@@ -455,7 +466,7 @@ async function readS3Json(req, res) {
 
     const command = new GetObjectCommand({ 
       Bucket: process.env.AWS_BUCKET,
-      Key: "test.json"
+      Key: "linhas.json"
     });
 
     const response = await s3.send(command);
@@ -478,6 +489,86 @@ async function readS3Json(req, res) {
   }
 }
 
+async function incidentesLinha(req, res) {
+
+    try {
+
+        const idLinha = Number(req.params.idLinha);
+
+        const command = new GetObjectCommand({
+            Bucket: process.env.AWS_BUCKET,
+            Key: "incidentes.json"
+        });
+
+        const response = await s3.send(command);
+
+        const streamToString = (stream) =>
+            new Promise((resolve, reject) => {
+
+                const chunks = [];
+
+                stream.on("data", chunk => chunks.push(chunk));
+                stream.on("error", reject);
+
+                stream.on("end", () => {
+                    resolve(Buffer.concat(chunks).toString("utf8"));
+                });
+
+            });
+
+        const bodyContents = await streamToString(response.Body);
+
+        const jsonData = JSON.parse(bodyContents);
+
+        const commandLinha = new GetObjectCommand({
+            Bucket: process.env.AWS_BUCKET,
+            Key: "linhas.json"
+        });
+
+        const responseLinha = await s3.send(commandLinha);
+
+        const bodyLinha = await streamToString(responseLinha.Body);
+
+        const jsonLinhas = JSON.parse(bodyLinha);
+
+        let linhaAtual = null;
+
+        jsonLinhas.empresas.forEach(empresa => {
+
+            const encontrada = empresa.linhas.find(
+                l => l.id_linha === idLinha
+            );
+
+            if (encontrada) {
+                linhaAtual = encontrada;
+            }
+
+        });
+
+        const numeroLinha = linhaAtual.numero_linha;
+
+        const incidentesLinha = jsonData.incidentes.filter(
+            incidente => incidente.id_linha === numeroLinha
+        );
+
+        // CONSOLE DE TESTE
+        console.log("Linha recebida:", idLinha);
+        console.log("Incidentes encontrados:", incidentesLinha.length);
+
+        return res.status(200).json(incidentesLinha);
+
+    } catch (erro) {
+
+        console.error(erro);
+
+        return res.status(500).json({
+            erro: erro.message
+        });
+
+    }
+
+}
+
 
 
 module.exports = {
@@ -486,5 +577,6 @@ module.exports = {
     listarLinhasEmpresa,
     readS3Json,
     dashLinhas,
-    detalheLinha
+    detalheLinha,
+    incidentesLinha
 }
