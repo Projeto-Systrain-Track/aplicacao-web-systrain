@@ -26,6 +26,9 @@ const componentesRouter = require("./src/routes/componentes");
 const admRouter = require("./src/routes/adminitradores")
 const linhaRouter = require("./src/routes/linha")
 const operacaoRouter = require("./src/routes/operacao")
+const incidentesRouter = require("./src/routes/incidentes")
+
+// Remova o .default do final caso tenha colocado
 var servidoresDetalhesRouter = require("./src/routes/servidoresDetalhes"); 
 const visaoGeralRouter = require("./src/routes/dashVisaoGeral")
 const processosLambdaRouter = require("./src/routes/processosLambda");
@@ -43,6 +46,7 @@ app.use("/empresas", empresasRouter);
 app.use("/rbcs", rbcRouter)
 app.use("/componentes", componentesRouter)
 app.use("/adm", admRouter)
+app.use("/incidentes", incidentesRouter);
 app.use("/servidorDetalhes", servidoresDetalhesRouter);
 
 app.use("/linha", linhaRouter)

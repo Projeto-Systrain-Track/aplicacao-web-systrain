@@ -1670,15 +1670,15 @@ modal-header {
 
 /*indiv---*/
 .clima-card {
-    border-radius: 10px;
-    min-height: 50px;
+  border-radius: 10px;
+  min-height: 50px;
 }
 
 .clima-card .card-body {
-    font-size: 0.95rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* lista dos incidentes */
@@ -1687,8 +1687,8 @@ modal-header {
     border: 1px solid #dfe5ea;
     border-radius: 14px;
     padding: 20px;
-    height: 650px;
-
+    height: 740px;
+    
 }
 
 .card-incidentes-lista h5 {
@@ -1705,7 +1705,7 @@ modal-header {
     display: flex;
     flex-direction: column;
     gap: 14px;
-    max-height: 500px;
+    max-height: 600px;
     overflow-y: auto;
 }
 
@@ -1718,8 +1718,8 @@ modal-header {
     position: relative;
 }
 
-.incidente-item.clicado {
-    filter: brightness(0.90);
+.incidente-item.clicado{
+    filter: brightness(0.90);           
 }
 
 .incidente-item.status-atencao {
@@ -1777,7 +1777,7 @@ modal-header {
     border-radius: 14px;
     padding: 24px;
     min-height: 600px;
-    display: flex;
+     display: flex;
     flex-direction: column;
 }
 
@@ -1790,11 +1790,11 @@ modal-header {
 .card-detalhes p {
     color: #a7b0bc;
 }
-
-.card-body {
+.card-body{
     background-color: #ededed;
-
+    
 }
+
 
 /* =========================================================
    UPGRADE VISUAL — DASHBOARD OPERAÇÃO

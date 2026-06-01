@@ -67,16 +67,16 @@
       </section>
 
       <!-- card com info geral do clima -->
-      <div class="card clima-card mb-4">
+      <!-- <div class="card clima-card mb-4">
         <div class="card-clima d-flex align-items-center py-2 px-3">
           <strong class="me-3">Clima Tempo</strong>
           <span class="text-muted me-3">|</span>
           <span>Tempestade moderada prevista nas próximas 2h • 24°C • Umidade 81%</span>
         </div>
-      </div>
+      </div> -->
 
-      <div class="cont-kpis row g-3 mb-4">
-        <div class="cont-cards col-md-3">
+      <div class="cont-kpis row g-3 m-0 mb-4">
+        <div class="cont-cards col">
           <div class="card-indicador position-relative">
             <img src="../assets//icons/icon-alerta-verde.png" class="icone-card" alt="Ícone">
             <p>Incidentes do dia</p>
@@ -84,7 +84,7 @@
           </div>
         </div>
 
-        <div class="cont-cards col-md-3 mb-2">
+        <div class="cont-cards col">
           <div class="card-indicador position-relative">
             <img src="../assets//icons/icon-alerta.jpg" class="icone-card" alt="Ícone">
             <p>Incidentes abertos</p>
@@ -92,25 +92,21 @@
           </div>
         </div>
 
-        <div class="cont-cards col-md-3 mb-2">
+        <div class="cont-cards col">
           <div class="card-indicador position-relative">
             <img src="../assets//icons/icon-alerta-amarelo.png" class="icone-card" alt="Ícone">
             <p>SLA em risco</p>
-            <strong id="kpi_slaRisco">0</strong><br>
-            <!-- <small class="descricao">mais de 80% do tempo consumido</small> -->
+            <strong id="kpi_slaRisco">0</strong>
           </div>
         </div>
 
-        <div class="cont-cards col-md-3 mb-2">
+        <div class="cont-cards col">
           <div class="card-indicador position-relative">
-            <img
-              src="https://p7.hiclipart.com/preview/646/403/633/computer-icons-teamwork-team-building-clip-art-environmental-group.jpg"
-              height="64px" class="icone-card" alt="Ícone">
+            <img src="../assets/icons/icon-responsaveis.png" class="icone-card">
             <p>Sem responsável</p>
             <strong id="kpi_semResponsavel">0</strong>
           </div>
         </div>
-
       </div>
 
       <!-- coisas novas aqui -->
@@ -184,25 +180,18 @@
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                  <div class="d-flex gap-2">
-                    <button class="btn btn-outline-secondary btn-sm fw-bold">
-                      Atribuir equipe +
-                    </button>
-
-                    <button class="btn btn-outline-secondary btn-sm fw-bold">
-                      Escalar
-                    </button>
-                  </div>
+                
 
                   <button class="btn btn-success btn-sm fw-bold">
-                    Marcar como resolvido
+                    <a id="abrirJira" style="color: #fff; text-decoration: none;" href="">ABRIR NO JIRA</a>
                   </button>
                 </div>
 
                 <!-- onde vão as ultimas medidas -->
                 <div class="row g-3">
                   <div class="col-12 col-md-8">
-                    <h5 class="fw-bold">Métricas <span class="text-muted" style="font-size: 12px;">(última coleta até o alerta)</span></h5>
+                    <h5 class="fw-bold">Métricas <span class="text-muted" style="font-size: 12px;">(última coleta até o
+                        alerta)</span></h5>
                     <!-- <small class="text-muted mt-0" style="padding-bottom: 5px;">Últimos dados capturados no momento do alerta.</small> -->
 
                     <div class="row row-cols-2 g-3">
@@ -241,7 +230,7 @@
 
                   </div>
 
-                
+
 
                   <div class="col-12 col-md-4">
                     <div class="d-flex flex-column gap-3">
@@ -249,12 +238,10 @@
                         <small class="text-muted d-block mb-2">
                           Responsável
                         </small>
+
                         <div class="d-flex align-items-center gap-2">
-                          <!-- temporario - eu acho-->
-                          <div
-                            class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center"
-                            style="width: 32px; height: 32px;">
-                            <!-- <i class="bi bi-person"></i> trocar por img -->
+                          <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                            <img src="../assets/icons/icon-user.png" alt="Foto do usuário" class="w-100 h-100" style="object-fit: cover;">
                           </div>
                           <div id="responsavel"></div>
 
@@ -264,7 +251,7 @@
 
                       <div class="card border-0 bg-light p-3">
                         <small class="text-muted d-block mb-2">
-                          Contexto Externo
+                          Contexto Externo - Clima:
                         </small>
 
                         <div class="bg-white border rounded p-2 text-center text-muted small" id="contexto-externo">
@@ -294,7 +281,7 @@
 
 </html>
 
-<script src="./js/incidentes.js"></script>
+<script src="./js/incidentes-tela.js"></script>
 
 
 <script>
