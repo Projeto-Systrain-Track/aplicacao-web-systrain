@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sys Train Track | Dashboard</title>
+  <link rel="icon" href="../assets/icons/logo.svg" />
+  <link rel="stylesheet" href="estilo.css" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="../js/sessao.js"></script>
+
+  <style>
+    body {
+      background-color: #f5f7fa !important;
+    }
+
+    .conteudo {
+      background-color: #f5f7fa;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loading">
+    <img src="../assets/gifs/loading.gif" alt="Carregando...">
+  </div>
+  
+  
+
+  <div id="container_sys" class="container-sys" style="display: flex;">
+
+
+    
+
+    <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
+    <div class="nav-hamburguer">
+      <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
+      <img src="../assets/icons/icon-menu-white.png" alt="Sys-train track" class="icon-menu"
+        onclick="abrirSideBarMobile()">
+    </div>
+
+    <aside class="nav-lateral desktop" id="nav_lateral">
+      <div class="cont-icon-sidebar">
+        <img src="../assets/icons/icon-sidebar-white.png" id="icone-sidebar" onclick="fecharSidebar()" alt="">
+      </div>
+      <div class="logo">
+        <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-sidebar">
+      </div>
+
+      <nav class="links" id="links_sidebar"></nav>
+
+      <div class="opcoes">
+        <div class="btn-lateral usuario">
+          <img src="../assets/icons/icon-avatar-masc.png" alt="">
+          <div class="cont-user">
+            <p id="cargo_user"></p>
+            <p id="nome_user"></p>
+          </div>
+
+        </div>
+        <button onclick="limparSessao()" class="btn-lateral">
+          <img src="../assets/icons/icon-logout-white.png" alt="">
+          <p>Sair</p>
+        </button>
+      </div>
+    </aside>
+
+
+
+
+
+
+
+
+
+    <main class="conteudo px-4 py-3" id="conteudo_pagina">
+
+      <!-- topo da página, início -->
+      <section class="topo-pagina text-center mb-4">
+
+        <p class="subtitulo mb-1">
+          MONITORAMENTO | LINHAS
+        </p>
+
+
+
+        <h2 class="titulo fw-bold mb-1">
+          Visão Geral
+        </h2>
+
+
+
+        <p id="ultimaAtualizacao"
+          class="descricao small text-secondary">
+          
+        </p>
+
+
+      </section>
+      <!-- topo da página fim -->
+
+
+
+      <!--início das KPI -->
+      <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+          <div class="card-indicador dashboard-card">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <small class="text-secondary">Disponibilidade</small>
+
+                <h4 class="fw-bold mb-0" id="disponibilidade">   </h4> <!-- mostrar adisponibilidade  -->
+              
+              </div>
+
+              <img src="./linhas/icon_disponibilidade.png"
+                class="icone-card" alt="">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card-indicador dashboard-card">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <small class="text-secondary">Incidentes ativos</small>
+                <h4 class="fw-bold mb-0 text-warning"
+                  id="incidentes">             </h4> <!-- mostrar os incidentes ativos  -->
+              </div>
+
+              <img src="./linhas/icon_alerta.png"
+                class="icone-card" alt="">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card-indicador dashboard-card">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <small class="text-secondary">Servidores críticos</small>
+                <h4 class="fw-bold mb-0 text-warning"
+                  id="servidoresCriticos">            </h4><!-- mostrar os servidores críticos  -->
+              </div>
+
+              <img src="./linhas/icon_linhas.png"
+                class="icone-card" alt="">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- fim das KPI -->
+
+
+
+
+
+      <!-- início do gráfico -->
+      <div class="grafico-card mb-4">
+
+      <h5 class="fw-bold text-center mb-1">
+        Volume de incidentes por servidores durante a semana
+      </h5>
+
+      <p class="text-center text-secondary small mb-4">
+        Monitoramento semanal de incidentes
+      </p>
+
+      <div class="grafico-container">
+
+        <!-- eixo gerado via JS -->
+        <div class="eixo-y"></div>
+
+        <div class="grafico-area">
+
+          <!-- barras geradas via JS -->
+          <div class="grafico-fake"></div>
+
+          <!-- dias gerados via JS -->
+          <div class="dias-grafico"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!--resumos do q tem de destaque das linhas -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="resumo-card">
+            <p class="subtitulo">Linhas com maior latência no dia</p>
+
+            <div class="mini-lista" id="listaLatencia"></div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="resumo-card">
+            <p class="subtitulo">Linhas com mais incidentes no dia</p>
+
+            <div class="mini-lista" id="listaIncidentes"></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!--lista de status das linnhas -->
+      <div class="painel-mapa">
+
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <img src="./linhas/icon_linhas.png" class="icone-titulo" alt="Ícone">
+          <h6 class="descricao m-0">Linhas</h6>
+        </div>
+
+        <table class="tabela-linhas">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Status</th>
+              <th>Servidores</th>
+              <th>Incidentes</th>
+              <th>Latência</th>
+            </tr>
+          </thead>
+
+          <tbody id="tabelaLinhas"></tbody>
+
+          <!-- <tr>
+              <td>NHA</td>
+              <td>
+                <span class="status-badge status-monitoramento">NHA</span>
+              </td>
+              <td>NHA</td>
+              <td>NHA</td>
+              <td>NHA</td>
+              <td>NHA</td>
+            </tr>
+
+          </tbody> -->
+        </table>
+      </div>
+
+    </main>
+
+
+
+
+
+  </div>
+
+</body>
+
+</html>
+
+
+<script>
+  function validarTipoUsuario() {
+    var links_sidebar = document.getElementById("links_sidebar")
+    if (sessionStorage.TIPO_USUARIO == "Gerente de operações") {
+      links_sidebar.innerHTML = `
+          <a class="link-lateral ativo" href="dashboard.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+            <span>Visão geral</span>
+          </a>
+          <a class="link-lateral" href="linhas.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+            <span>Linhas</span>
+          </a>
+          <a class="link-lateral " href="servidores.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+            <span>Servidores</span>
+          </a>
+          <a class="link-lateral" href="incidentes.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
+            <span>Incidentes</span>
+          </a>
+          <a class="link-lateral" href="relatorios.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
+            <span>Relatórios</span>
+          </a>
+          <a class="link-lateral " href="usuarios.html">
+            <img class="icon-sidebar" src="../assets/icons/icon-usuario-white.png" alt="">
+            <span>Usuários</span>
+          </a>
+      `
+      setTimeout(() => {
+        document.getElementById("container_sys").style.display = "flex"
+        document.getElementById("loading").style.display = "none"
+      }, 500);
+    } else if (sessionStorage.TIPO_USUARIO == "Operador") {
+      links_sidebar.innerHTML = `
+        <a class="link-lateral ativo" href="dashboard.html">
+        <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+        <span>Visão geral</span>
+        </a>
+        <a class="link-lateral" href="linhas.html">
+        <img class="icon-sidebar" src="../assets/icons/icon-linha-white.png" alt="">
+        <span>Linhas</span>
+        </a>
+        <a class="link-lateral " href="servidores.html">
+        <img class="icon-sidebar" src="../assets/icons/icon-servidor-white.png" alt="">
+        <span>Servidores</span>
+        </a>
+      `
+      setTimeout(() => {
+        document.getElementById("container_sys").style.display = "flex"
+        document.getElementById("loading").style.display = "none"
+      }, 500);
+    } else if (sessionStorage.TIPO_USUARIO == "Coordenador de incidentes") {
+      links_sidebar.innerHTML = `
+        <a class="link-lateral ativo" href="dashboard.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-home-white.png" alt="">
+          <span>Visão geral</span>
+        </a>
+        <a class="link-lateral" href="incidentes.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-alert-white.png" alt="">
+          <span>Incidentes</span>
+        </a>
+        <a class="link-lateral" href="relatorios.html">
+          <img class="icon-sidebar" src="../assets/icons/icon-relatorio-white.png" alt="">
+          <span>Relatórios</span>
+        </a>
+      `
+      setTimeout(() => {
+        document.getElementById("container_sys").style.display = "flex"
+        document.getElementById("loading").style.display = "none"
+      }, 500);
+    } else {
+      setTimeout(() => {
+        window.location = "../index.html"
+      }, 500);
+    }
+  }
+  validarTipoUsuario()
+  document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
+  document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
+  window.onload = function () {
+    validarSessaoUsuario();
+    carregarDados();
+  };
+
+  window.addEventListener("resize", function () {
+    var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+    var sidebar = document.getElementById("nav_lateral")
+
+    if (window.innerWidth > 900) {
+      if (fundo_cinza_sidebar.classList.contains("mobile")) {
+        console.log("Tem a classe mobile");
+        sidebar.classList.toggle("mobile")
+        fundo_cinza_sidebar.classList.toggle("mobile")
+      }
+    }
+  });
+
+  
+
+  function abrirSideBarMobile() {
+    var sidebar = document.getElementById("nav_lateral")
+    var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+    sidebar.classList.toggle("mobile")
+    fundo_cinza_sidebar.classList.toggle("mobile")
+  }
+  function fecharSidebar() {
+    var sidebar = document.getElementById("nav_lateral")
+    var conteudo = document.getElementById("conteudo_pagina")
+    sidebar.classList.toggle("compactada")
+    conteudo.classList.toggle("expandido")
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+function carregarDados() {
+  
+  fetch("./dashboard.json") // ajustar aqui o caminho do JSON 
+
+
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (dados) {
+      
+      document.getElementById("ultimaAtualizacao").innerHTML =
+      "Última atualização: " + dados.ultimaAtualizacao;
+
+
+      // =========================
+      // KPI'S
+      document.getElementById("servidoresCriticos").innerHTML =
+        dados.servidoresCriticos + " servidores";
+
+      document.getElementById("disponibilidade").innerHTML =
+        dados.disponibilidade + "%";
+
+      document.getElementById("incidentes").innerHTML =
+        dados.incidentesAtivos;
+
+        
+
+
+      // =========================
+      // MAIOR LATÊNCIA
+      var listaLatencia = document.getElementById("listaLatencia");
+      listaLatencia.innerHTML = "";
+
+      for (var i = 0; i < dados.maiorLatencia.length; i++) {
+
+        var latencia = dados.maiorLatencia[i];
+        var cor = "#227643";
+
+        if (latencia.valor > 100) {
+          cor = "#FF0000";
+        } else if (latencia.valor > 75) {
+          cor = "#EE9D0B";
+        }
+
+        listaLatencia.innerHTML += `
+          <div class="cont-linhas-ranking"> 
+            <div class="cont-txt-linhas-maior">
+              <span style="font-weight: bold">${i + 1}º</span>
+
+              <div class="circulo-cor-linha"
+                style="background-color:${latencia.cor}">
+              </div>
+
+              <span>${latencia.nome}</span> 
+            </div>
+
+            <strong style="color:${cor}">
+              ${latencia.valor}ms
+            </strong> 
+          </div>
+        `;
+      }
+
+
+      // =========================
+      // MAIS INCIDENTES
+      var listaIncidentes = document.getElementById("listaIncidentes");
+      listaIncidentes.innerHTML = "";
+
+      for (var i = 0; i < dados.maisIncidentes.length; i++) {
+
+        var incidente = dados.maisIncidentes[i];
+        var cor = "#227643";
+
+        if (incidente.valor > 10) {
+          cor = "#FF0000";
+        } else if (incidente.valor > 5) {
+          cor = "#EE9D0B";
+        }
+
+        listaIncidentes.innerHTML += `
+          <div class="cont-linhas-ranking"> 
+            <div class="cont-txt-linhas-maior">
+
+              <span style="font-weight: bold">
+                ${i + 1}º
+              </span>
+
+              <div class="circulo-cor-linha"
+                style="background-color:${incidente.cor}">
+              </div>
+
+              <span>${incidente.nome}</span> 
+            </div>
+
+            <strong style="color:${cor}">
+              ${incidente.valor}
+            </strong> 
+          </div>
+        `;
+      }
+
+
+      // =========================
+      // TABELA
+      var tabela = document.getElementById("tabelaLinhas");
+      tabela.innerHTML = "";
+
+      for (var i = 0; i < dados.linhas.length; i++) {
+
+        var linha = dados.linhas[i];
+
+        var classeStatus = "status-monitoramento";
+
+        if (linha.status === "Operando") {
+          classeStatus = "status-operando";
+
+        } else if (linha.status === "Atenção") {
+          classeStatus = "status-atencao";
+        }
+
+        tabela.innerHTML += `
+          <tr onclick='irDetalheLinha()'>
+
+            <td>${linha.nome}</td>
+
+            <td>
+              <span class='status-badge ${classeStatus}'>
+                ${linha.status}
+              </span>
+            </td>
+
+            <td>${linha.servidores}</td>
+
+            <td>${linha.incidentes}</td>
+
+            <td>${linha.latencia}ms</td>
+
+          </tr>
+        `;
+      }
+
+
+      // =========================
+      // GRÁFICO REAL DA ETL
+      // =========================
+      carregarGraficoETL(dados.graficoSemana);
+
+    })
+    .catch(function (erro) {
+      console.error("Erro:", erro);
+    });
+}
+
+
+
+
+
+function carregarGraficoETL(graficoSemana) {
+
+  /*
+    Estrutura esperada da ETL:
+
+    graficoSemana: [
+      { dia: "Seg", valor: 32 },
+      { dia: "Ter", valor: 58 },
+      { dia: "Qua", valor: 90 },
+      ...
+    ]
+  */
+
+  var grafico = document.querySelector(".grafico-fake");
+  grafico.innerHTML = "";
+
+  var dias = document.querySelector(".dias-grafico");
+  dias.innerHTML = "";
+
+  var maiorValor = 0;
+
+  // Descobrir maior valor
+  for (var i = 0; i < graficoSemana.length; i++) {
+
+    if (graficoSemana[i].valor > maiorValor) {
+      maiorValor = graficoSemana[i].valor;
+    }
+  }
+
+
+  // Montar barras
+  for (var i = 0; i < graficoSemana.length; i++) {
+
+    var item = graficoSemana[i];
+
+    // escala máxima = 140px
+    var altura = (item.valor / maiorValor) * 140;
+
+    var cor = "#449dd1";
+
+    if (item.valor >= maiorValor * 0.85) {
+
+      cor = "#ff4d4d";
+
+    } else if (item.valor >= maiorValor * 0.65) {
+
+      cor = "#f0ad4e";
+    }
+
+    if (maiorValor == 0) {
+      altura = 1;
+    }
+
+
+    grafico.innerHTML += `
+      <div class="barra"
+        style="
+          height:${altura}px;
+          background-color:${cor};
+        ">
+      </div>
+    `;
+
+    dias.innerHTML += `
+      <span>${item.dia}</span>
+    `;
+  }
+
+
+  // =========================
+  // EIXO Y DINÂMICO
+  // =========================
+  var eixoY = document.querySelector(".eixo-y");
+  eixoY.innerHTML = "";
+
+  var divisao = Math.ceil(maiorValor / 5);
+
+  for (var i = 5; i >= 0; i--) {
+
+    eixoY.innerHTML += `
+      <span>${divisao * i}</span>
+    `;
+  }
+}
+
+
+
+  function irDetalheLinha() {
+    window.location = "detalheLinha.html"
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

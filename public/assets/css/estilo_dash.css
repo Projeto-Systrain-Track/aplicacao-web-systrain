@@ -2175,3 +2175,111 @@ modal-header {
         margin: 0 14px;
     }
 }
+
+        /* ==================================================================== */
+
+        /* =========== BOLINHAS DAS KPIs - DASH LINHAS ESPECÍFICA ============ */
+
+        .kpi-status {
+
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+        }
+
+        .bolinha-kpi {
+
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+
+        }
+
+        .bolinha-verde {
+            background-color: #198754;
+        }
+
+        .bolinha-amarela {
+            background-color: #ffc107;
+        }
+
+        .bolinha-vermelha {
+            background-color: #dc3545;
+        }
+
+        .bolinha-cinza {
+            background-color: #6c757d;
+        }
+
+        /* ==================================================================== */
+
+        /* ============================ BOTÃO HELP ============================ */
+
+        .btn-help {
+            position: absolute;
+
+            top: 12px;
+            right: 12px;
+
+            width: 24px;
+            height: 24px;
+
+            border-radius: 50%;
+            border: 2px solid white;
+
+            background-color: #2563eb;
+            color: white;
+
+            font-size: 13px;
+            font-weight: bold;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            z-index: 2;
+        }
+
+        .btn-help:hover {
+            background-color: #1d4ed8;
+
+            transform: scale(1.08);
+        }
+
+        /* ==================== HEADER KPI ==================== */
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 5px;
+        }
+
+        /* ==================== TOOLTIP BOOTSTRAP ==================== */
+
+        .tooltip-inner {
+            max-width: 260px !important;
+
+            background-color: white !important;
+            color: #1f2937 !important;
+
+            border-radius: 12px;
+            padding: 14px;
+
+            text-align: left;
+            font-size: 13px;
+
+            box-shadow: 0 5px 18px rgba(0,0,0,0.15);
+            border: 1px solid #e5e7eb;
+        }
+
+        .tooltip .tooltip-arrow::before {
+            border-top-color: white !important;
+        }
