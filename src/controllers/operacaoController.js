@@ -9,16 +9,18 @@ const s3 = new S3Client({
     }
 });
 async function buscarArquivo(req, res) {
-    var idEmpresa = req.params.idEmpresa
-    console.log("idEmpresa: " + idEmpresa)
-    if (idEmpresa == null) {
-        return res.status(400).json({"mensagem": "O idEmpresa está nulo"})
+    var id_empresa = req.body.idEmpresaServer
+    var nome_empresa = req.body.nomeEmpresaServer
+    console.log("id_empresa: " + id_empresa)
+    if (id_empresa == null || nome_empresa == null) {
+        return res.status(400).json({"mensagem": "O id_empresa está nulo"})
     } 
     try {
+        var nome_empresa_formatado = nome_empresa.trim().replaceAll(" ", "_").toLowerCase()
         // 2. Definir parâmetros da busca
-        const parametros = {
-            Bucket: "systrain-bucket-csv",
-            Key: "client/dashboard_operacao.json"
+        var parametros = {
+            Bucket: process.env.AWS_BUCKET,
+            Key: `client/${nome_empresa_formatado}/dashboard_operacao.json`
         };
         // 3. Enviar o comando para o S3
         const comando = new GetObjectCommand(parametros);
@@ -26,8 +28,8 @@ async function buscarArquivo(req, res) {
         var conteudo = await resposta.Body.transformToString("utf-8");
         conteudo = JSON.parse(conteudo) 
         console.log("Chaves do JSON:", Object.keys(conteudo));
-        console.log("Conteudo da empresa:", conteudo[idEmpresa]);
-        return res.status(200).json(conteudo[idEmpresa]);
+        console.log("Conteudo da empresa:", conteudo);
+        return res.status(200).json(conteudo);
     } catch (erro) {
         console.error("Erro ao buscar arquivo no S3:", erro);
         return res.status(500).json({

@@ -26,7 +26,14 @@
   <div id="loading">
     <img src="../assets/gifs/loading.gif" alt="Carregando...">
   </div>
-  <div id="container_sys" class="container-sys" style="display: none;">
+  
+  
+
+  <div id="container_sys" class="container-sys" style="display: flex;">
+
+
+    
+
     <div id="fundo_cinza_sidebar" onclick="abrirSideBarMobile()"></div>
     <div class="nav-hamburguer">
       <img src="../assets/images/sys-logo - adm2.svg" alt="Sys-train track" class="logo-nav-hamburguer">
@@ -61,43 +68,127 @@
     </aside>
 
 
-    <main class="conteudo" id="conteudo_pagina">
-      <section class="topo-pagina">
-        <div>
-          <p class="subtitulo">Monitoramento Metropolitano</p>
-          <h2 class="titulo fw-bolder">Visão Geral - Linhas</h2>
-          <p class="descricao">Indicadores gerais do sistema.</p>
-          <p class="descricao">Última atualização: 20/04/2026 19:05</p>
-        </div>
+
+
+
+
+
+
+
+    <main class="conteudo px-4 py-3" id="conteudo_pagina">
+
+      <!-- topo da página, início -->
+      <section class="topo-pagina text-center mb-4">
+
+        <p class="subtitulo mb-1">
+          MONITORAMENTO | LINHAS
+        </p>
+
+
+
+        <h2 class="titulo fw-bold mb-1">
+          Visão Geral
+        </h2>
+
+
+
+        <p id="ultimaAtualizacao"
+          class="descricao small text-secondary">
+          
+        </p>
+
+
       </section>
+      <!-- topo da página fim -->
 
-      <!-- kpi -->
-      <div class="row g-4 mb-4 ">
-        <div class="col-md-4 mb-2">
-          <div class="card-indicador position-relative">
-            <img src="../assets/icons/icon_disponibilidade.png" class="icone-card" alt="Ícone">
-            <p>Disponibilidade atual</p>
-            <strong id="disponibilidade">NHA</strong>
+
+
+      <!--início das KPI -->
+      <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+          <div class="card-indicador dashboard-card">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <small class="text-secondary">Disponibilidade</small>
+
+                <h4 class="fw-bold mb-0" id="disponibilidade">   </h4> <!-- mostrar adisponibilidade  -->
+              
+              </div>
+
+              <img src="../assets/icons/icon_disponibilidade.png"
+                class="icone-card" alt="">
+            </div>
           </div>
         </div>
 
-        <div class="col-md-4 mb-2">
-          <div class="card-indicador position-relative">
-            <img src="../assets/icons/icon_linhas.png" class="icone-card" alt="Ícone">
-            <p>Linha com maior consumo no dia</p>
-            <strong id="linhaMaiorConsumo">NHA</strong>
+        <div class="col-md-4">
+          <div class="card-indicador dashboard-card">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <small class="text-secondary">Incidentes ativos</small>
+                <h4 class="fw-bold mb-0 text-warning"
+                  id="incidentes">             </h4> <!-- mostrar os incidentes ativos  -->
+              </div>
+
+              <img src="../assets/icons/icon_alerta.png"
+                class="icone-card" alt="">
+            </div>
           </div>
         </div>
 
-        <div class="col-md-4 mb-2">
-          <div class="card-indicador position-relative">
-            <img src="../assets/icons/icon_alerta.png" class="icone-card" alt="Ícone">
-            <p>Incidentes no dia</p>
-            <strong id="incidentes">NHA</strong>
+        <div class="col-md-4">
+          <div class="card-indicador dashboard-card">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <small class="text-secondary">Servidores críticos</small>
+                <h4 class="fw-bold mb-0 text-warning"
+                  id="servidoresCriticos">            </h4><!-- mostrar os servidores críticos  -->
+              </div>
+
+              <img src="../assets/icons/icon_linhas.png"
+                class="icone-card" alt="">
+            </div>
           </div>
         </div>
+
       </div>
 
+      <!-- fim das KPI -->
+
+
+
+
+
+      <!-- início do gráfico -->
+      <div class="grafico-card mb-4">
+
+      <h5 class="fw-bold text-center mb-1">
+        Volume de incidentes por servidores durante a semana
+      </h5>
+
+      <p class="text-center text-secondary small mb-4">
+        Monitoramento semanal de incidentes
+      </p>
+
+      <div class="grafico-container">
+
+        <!-- eixo gerado via JS -->
+        <div class="eixo-y"></div>
+
+        <div class="grafico-area">
+
+          <!-- barras geradas via JS -->
+          <div class="grafico-fake"></div>
+
+          <!-- dias gerados via JS -->
+          <div class="dias-grafico"></div>
+
+        </div>
+
+      </div>
+
+    </div>
       <!--resumos do q tem de destaque das linhas -->
       <div class="row g-4 mb-4">
         <div class="col-md-6">
@@ -155,6 +246,11 @@
       </div>
 
     </main>
+
+
+
+
+
   </div>
 
 </body>

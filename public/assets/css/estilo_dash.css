@@ -349,7 +349,7 @@ button {
 
 .titulo {
     font-family: var(--font-titulo);
-    color: var(--azul-titulos);
+    color: var(--azul-claro);
 }
 
 .descricao {
@@ -1805,14 +1805,14 @@ modal-header {
 
 .topo-operacao {
     border: 1px solid rgba(228, 235, 243, 0.95);
-    border-radius: 22px;
+    border-radius: 12px;
     padding: 24px 26px;
     background-color: #fff;
     box-shadow: var(--op-shadow);
 }
 
 .topo-operacao .titulo {
-    color: var(--op-title);
+    color: var(--azul-claro);
     font-size: clamp(20px, 2.6vw, 38px);
     letter-spacing: 0.3px;
 }

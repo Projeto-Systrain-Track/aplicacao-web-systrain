@@ -6,9 +6,7 @@ const path = require("path");
 function gerarRelatorioLinha(req, res) {
     console.log("Entrou na rota /relatorio/gerar");
     console.log("Body recebido:", req.body);
-
-
-
+    
     var idEmpresa = req.body.idEmpresaServer
     var nomeEmpresa = req.body.nomeEmpresaServer
     var idLinha = req.body.idLinhaServer

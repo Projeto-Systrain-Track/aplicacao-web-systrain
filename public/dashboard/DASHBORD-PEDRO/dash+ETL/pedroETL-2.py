@@ -31,15 +31,6 @@ def limpar_endereco_mac(mac: str) -> str:
 
     return str(mac).strip().lower() # Remove espaços vazios e transforma em minúsculo
 
-
-
-
-
-
-
-
-
-
 def converter_bytes_para_mb(valor: Optional[float]) -> Optional[float]:
     """
     Converte bytes para MB.

@@ -309,9 +309,21 @@
     }
 
     async function buscarArquivo() {
-        idEmpresa = sessionStorage.ID_EMPRESA
+        var idEmpresa = sessionStorage.ID_EMPRESA
+        var nomeEmpresa = sessionStorage.NOME_EMPRESA
+
         try {
-            var resposta = await fetch(`/operacao/buscarArquivo/${idEmpresa}`, { cache: "no-store" })
+            var resposta = await fetch(`/operacao/buscarArquivo`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        idEmpresaServer: idEmpresa,
+                        nomeEmpresaServer: nomeEmpresa
+                    }),
+                })
             console.log("Status resposta:" + resposta.status);
             if (resposta.status == 200) {
                 try {
