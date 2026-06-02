@@ -41,8 +41,7 @@
         <aside class="nav-lateral desktop" id="nav_lateral">
 
             <div class="cont-icon-sidebar">
-                <img src="../assets/icons/icon-sidebar-white.png" id="icone-sidebar" onclick="fecharSidebar()"
-                    alt="">
+                <img src="../assets/icons/icon-sidebar-white.png" id="icone-sidebar" onclick="fecharSidebar()" alt="">
             </div>
 
             <div class="logo">
@@ -138,12 +137,8 @@
 
                             <p class="m-0">Servidores Online</p>
 
-                            <button 
-                                class="btn-help"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                data-bs-html="true"
-                                title="
+                            <button class="btn-help" data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-html="true" title="
                                     Exibe quantos servidores RBC estão online no momento em relação ao total monitorado.
                                     <hr>
                                     🟢 Online = funcionando normalmente<br>
@@ -170,12 +165,8 @@
 
                             <p class="m-0">Status da Operação</p>
 
-                            <button 
-                                class="btn-help"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                data-bs-html="true"
-                                title="
+                            <button class="btn-help" data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-html="true" title="
                                     Mostra a situação operacional atual da linha com base nos servidores RBC monitorados.
                                     <hr>
                                     🟢 Operação Normal = tudo funcionando<br>
@@ -204,12 +195,8 @@
 
                             <p class="m-0">Servidor Mais Crítico</p>
 
-                            <button 
-                                class="btn-help"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                data-bs-html="true"
-                                title="
+                            <button class="btn-help" data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-html="true" title="
                                     Exibe o RBC com maior criticidade no momento.
                                     <hr>
                                     O cálculo considera:<br><br>
@@ -240,12 +227,8 @@
 
                             <p class="m-0">Incidentes abertos</p>
 
-                            <button 
-                                class="btn-help"
-                                data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                data-bs-html="true"
-                                title="
+                            <button class="btn-help" data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-html="true" title="
                                     Quantidade de incidentes operacionais ainda não resolvidos.
                                     <hr>
                                     🟢 0-1 = normal<br>
@@ -365,15 +348,7 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
 <script>
-
     function validarTipoUsuario() {
 
         var links_sidebar = document.getElementById("links_sidebar")
@@ -475,360 +450,381 @@
     document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
     document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
 
-    window.onload = function () {
+    console.log("CHEGOU ANTES DE CHAMAR CARREGAR DADOS");
 
+    carregarDados();
+
+    setInterval(() => {
         carregarDados();
-
-        setInterval(() => {
-            carregarDados();
-        }, 30000);
-        // Atualiza a cada 30 segundos. O correto é a cada atualização da ETL, para
-        // não ficar desalinhado com a atualização da LAMBDA.
-
-        // ***** Perguntar para a Marci como fazer *****
-
-    };
+    }, 30000);  
+    // Atualiza a cada 30 segundos. O correto é a cada atualização da ETL, para
+    // não ficar desalinhado com a atualização da LAMBDA.
+    // ***** Perguntar para a Marci como fazer *****};
 
     window.addEventListener("resize", function () {
 
-    var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
-    var sidebar = document.getElementById("nav_lateral")
+        var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+        var sidebar = document.getElementById("nav_lateral")
 
-    if (window.innerWidth > 900) {
+        if (window.innerWidth > 900) {
 
-        if (fundo_cinza_sidebar.classList.contains("mobile")) {
+            if (fundo_cinza_sidebar.classList.contains("mobile")) {
 
-            console.log("Tem a classe mobile");
+                console.log("Tem a classe mobile");
 
-            sidebar.classList.toggle("mobile")
-            fundo_cinza_sidebar.classList.toggle("mobile")
+                sidebar.classList.toggle("mobile")
+                fundo_cinza_sidebar.classList.toggle("mobile")
+
+            }
 
         }
 
+    });
+
+    function abrirSideBarMobile() {
+
+        var sidebar = document.getElementById("nav_lateral")
+        var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+
+        sidebar.classList.toggle("mobile")
+        fundo_cinza_sidebar.classList.toggle("mobile")
+
     }
 
-});
+    function fecharSidebar() {
 
-function abrirSideBarMobile() {
+        var sidebar = document.getElementById("nav_lateral")
+        var conteudo = document.getElementById("conteudo_pagina")
 
-    var sidebar = document.getElementById("nav_lateral")
-    var fundo_cinza_sidebar = document.getElementById("fundo_cinza_sidebar")
+        sidebar.classList.toggle("compactada")
+        conteudo.classList.toggle("expandido")
+    }
 
-    sidebar.classList.toggle("mobile")
-    fundo_cinza_sidebar.classList.toggle("mobile")
+    function carregarDados() {
+        const params = new URLSearchParams(window.location.search);
+        const idLinha = Number(params.get("id"));
 
-}
+        console.log("ID DA LINHA:", idLinha);
 
-function fecharSidebar() {
+        if (!idLinha) {
+            console.error("ID da linha inválido ou não enviado na URL.");
+            document.getElementById("tituloLinha").innerHTML = "Linha não encontrada";
+            return;
+        }
 
-    var sidebar = document.getElementById("nav_lateral")
-    var conteudo = document.getElementById("conteudo_pagina")
+        let incidentesDaLinha = [];
 
-    sidebar.classList.toggle("compactada")
-    conteudo.classList.toggle("expandido")
-}
+        console.log("Linha selecionada:", idLinha);
 
-function carregarDados() {
-    const params = new URLSearchParams(window.location.search);
-    const idLinha = Number(params.get("id"));
-
-    console.log("ID DA LINHA:", idLinha);
-    
-    let incidentesDaLinha = [];
-        
-    console.log("Linha selecionada:", idLinha);
-
-    fetch(`/linha/incidentes/${idLinha}`)
-        .then(res => res.json())
-
-        // RETORNO PARA TESTE -> REMOVER AO CORRIGIR PROBLEMA
-        .then(incidentes => {
-        console.log("RETORNO BRUTO INCIDENTES:");
-        console.log(JSON.stringify(incidentes, null, 2));
-
-        return incidentes;
-        })
-
-        .then(incidentes => {
-
-            incidentesDaLinha = incidentes;
-
-            console.log("INCIDENTES RECEBIDOS DA API:");
-            console.table(incidentes);
-
-            return fetch(`/linha/detalhe/${idLinha}`);
-
-        })
-        .then(res => res.json())
-
-        .then(dados => {
-
-            console.log(dados);
-
-            // var linha = dados.empresas[0].linhas[0];
-            var linha = dados;
-
-            document.getElementById("tituloLinha").innerHTML = 
-            `Linha ${linha.numero_linha} - ${linha.nome_linha}`;
-
-            var servidores = linha.rbc.map(rbc => {
-
-                // var leitura = rbc.ultimas_leituras[0];
-                var leitura = rbc.ultimas_leituras[rbc.ultimas_leituras.length - 1];
-
-                var status = "Online";
-
-                if (rbc.status_atual == "OFFLINE") {
-                    status = "Offline";
-                } else if (
-                    leitura.cpu.percentual_uso_cpu >= 80 ||
-                    leitura.memoria.percentual_uso_ram >= 80 ||
-                    leitura.disco.percentual_uso_disco >= 80 ||
-                    leitura.latencia_ping_ms >= 120
-                ) {
-                    status = "Crítico";
+        fetch(`/linha/incidentes/${idLinha}`)
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Erro ao buscar incidentes da linha");
                 }
 
-                return {
+                return res.json();
+            })
 
-                    nome: rbc.nome_rbc,
+            // RETORNO PARA TESTE -> REMOVER AO CORRIGIR PROBLEMA
+            .then(incidentes => {
+                console.log("RETORNO BRUTO INCIDENTES:");
+                console.log(JSON.stringify(incidentes, null, 2));
 
-                    status: status,
+                return incidentes;
+            })
 
-                    cpu: Math.round(leitura.cpu.percentual_uso_cpu),
+            .then(incidentes => {
 
-                    ram: Math.round(leitura.memoria.percentual_uso_ram),
+                incidentesDaLinha = Array.isArray(incidentes) ? incidentes : [];
 
-                    disco: Math.round(leitura.disco.percentual_uso_disco),
+                console.log("INCIDENTES RECEBIDOS DA API:");
+                console.table(incidentesDaLinha);
 
-                    latencia: leitura.latencia_ping_ms + "ms"
+                return fetch(`/linha/detalhe/${idLinha}`);
+
+            })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error("Erro ao buscar detalhes da linha");
+                }
+
+                return res.json();
+            })
+
+            .then(dados => {
+
+                console.log(dados);
+
+                // var linha = dados.empresas[0].linhas[0];
+                var linha = dados;
+
+                document.getElementById("tituloLinha").innerHTML =
+                    `Linha ${linha.numero_linha} - ${linha.nome_linha}`;
+
+                var servidores = linha.rbc.map(rbc => {
+
+                    // var leitura = rbc.ultimas_leituras[0];
+                    var leitura = rbc.ultimas_leituras[rbc.ultimas_leituras.length - 1];
+
+                    var status = "Online";
+
+                    if (rbc.status_atual == "OFFLINE") {
+                        status = "Offline";
+                    } else if (
+                        leitura.cpu.percentual_uso_cpu >= 80 ||
+                        leitura.memoria.percentual_uso_ram >= 80 ||
+                        leitura.disco.percentual_uso_disco >= 80 ||
+                        leitura.latencia_ping_ms >= 120
+                    ) {
+                        status = "Crítico";
+                    }
+
+                    return {
+
+                        nome: rbc.nome_rbc,
+
+                        status: status,
+
+                        cpu: Math.round(leitura.cpu.percentual_uso_cpu),
+
+                        ram: Math.round(leitura.memoria.percentual_uso_ram),
+
+                        disco: Math.round(leitura.disco.percentual_uso_disco),
+
+                        latencia: leitura.latencia_ping_ms + "ms"
+
+                    };
+
+                });
+
+                var servidoresOnline = servidores.filter(s => s.status != "Offline").length;
+
+                var servidorMaisCritico = null;
+
+                var maiorScore = -1;
+
+                servidores.forEach(s => {
+
+                    var score =
+                        (s.cpu * 0.35) +
+                        (s.ram * 0.30) +
+                        (s.disco * 0.20) +
+                        (parseInt(s.latencia) * 0.15);
+
+                    if (score > maiorScore) {
+
+                        maiorScore = score;
+
+                        servidorMaisCritico = s;
+
+                    }
+
+                });
+
+                var dadosTela = {
+
+                    servidoresAtivos: servidoresOnline,
+
+                    statusSistema: (() => {
+
+                        var possuiOffline = servidores.some(s => s.status == "Offline");
+                        var possuiCritico = servidores.some(s => s.status == "Crítico");
+                        var possuiDegradado = servidores.some(s => s.status == "Degradado");
+
+                        if (possuiOffline) {
+                            return "Operação Parada";
+                        }
+
+                        if (possuiCritico) {
+                            return "Operação Crítica";
+                        }
+
+                        if (possuiDegradado) {
+                            return "Operação Instável";
+                        }
+
+                        return "Operação Normal";
+
+                    })(),
+
+                    servidorCritico:
+                        servidorMaisCritico
+                            ? servidorMaisCritico.nome
+                            : "N/A",
+
+                    incidentesAbertos: incidentesDaLinha.length,
+
+                    resumo: [
+
+                        {
+                            nome: "CPU elevada",
+                            valor: incidentesDaLinha.filter(
+                                i => i.componente_afetado == "CPU"
+                            ).length
+                        },
+
+                        {
+                            nome: "RAM elevada",
+                            valor: incidentesDaLinha.filter(
+                                i => i.componente_afetado == "RAM"
+                            ).length
+                        },
+
+                        {
+                            nome: "Disco elevado",
+                            valor: incidentesDaLinha.filter(
+                                i => i.componente_afetado == "DISCO"
+                            ).length
+                        },
+
+                        {
+                            nome: "Latência elevada",
+                            valor: incidentesDaLinha.filter(
+                                i => i.componente_afetado == "LATENCIA"
+                            ).length
+                        },
+
+                        {
+                            nome: "Servidor offline",
+                            valor: incidentesDaLinha.filter(
+                                i => i.tipo_incidente == "OFFLINE"
+                            ).length
+                        }
+
+                    ],
+
+                    alertas: incidentesDaLinha.map(i => ({
+
+                        tipo: i.componente_afetado,
+
+                        msg: `${i.nome_rbc} - ${i.descricao}`
+
+                    })),
+
+                    servidores: servidores,
+
+                    graficoIncidentes: []
 
                 };
 
-            });
+                // ==================================================================== \\
 
-            var servidoresOnline = servidores.filter(s => s.status != "Offline").length;
+                // ===================== LÓGICA DE CORES DAS KPIS ===================== \\
 
-            var servidorMaisCritico = null;
+                var corServidores = "bolinha-verde";
 
-            var maiorScore = -1;
-
-            servidores.forEach(s => {
-
-                var score =
-                    (s.cpu * 0.35) +
-                    (s.ram * 0.30) +
-                    (s.disco * 0.20) +
-                    (parseInt(s.latencia) * 0.15);
-
-                if (score > maiorScore) {
-
-                    maiorScore = score;
-
-                    servidorMaisCritico = s;
-
+                if (servidoresOnline < servidores.length) {
+                    corServidores = "bolinha-vermelha";
                 }
 
-            });
+                var corStatusSistema = "bolinha-verde";
 
-            var dadosTela = {
+                if (dadosTela.statusSistema == "Operação Parada") {
+                    corStatusSistema = "bolinha-cinza";
+                } else if (dadosTela.statusSistema == "Operação Crítica") {
+                    corStatusSistema = "bolinha-vermelha";
+                } else if (dadosTela.statusSistema == "Operação Instável") {
+                    corStatusSistema = "bolinha-amarela";
+                }
 
-                servidoresAtivos: servidoresOnline,
+                var servidorCritico = dadosTela.servidores[0];
+                var corServidorCritico = "bolinha-verde";
 
-                statusSistema: (() => {
+                if (!servidorCritico) {
+                    servidorCritico = {
+                        nome: "N/A",
+                        status: "Offline"
+                    };
+                    corServidorCritico = "bolinha-cinza";
+                } else if (servidorCritico.status == "Offline") {
+                    corServidorCritico = "bolinha-cinza";
+                } else if (servidorCritico.status == "Crítico") {
+                    corServidorCritico = "bolinha-vermelha";
+                } else if (servidorCritico.status == "Degradado") {
+                    corServidorCritico = "bolinha-amarela";
+                }
 
-                    var possuiOffline = servidores.some(s => s.status == "Offline");
-                    var possuiCritico = servidores.some(s => s.status == "Crítico");
-                    var possuiDegradado = servidores.some(s => s.status == "Degradado");
+                var corIncidentes = "bolinha-verde";
 
-                    if (possuiOffline) {
-                        return "Operação Parada";
-                    }
+                if (dadosTela.incidentesAbertos >= 2 && dadosTela.incidentesAbertos <= 5) {
+                    corIncidentes = "bolinha-amarela";
+                }
 
-                    if (possuiCritico) {
-                        return "Operação Crítica";
-                    }
+                if (dadosTela.incidentesAbertos > 5) {
+                    corIncidentes = "bolinha-vermelha";
+                }
 
-                    if (possuiDegradado) {
-                        return "Operação Instável";
-                    }
+                // ==================================================================== \\
 
-                    return "Operação Normal";
+                // ====================== RENDERIZAÇÃO DAS KPIS ======================= \\
 
-                })(),
-
-                servidorCritico:
-                    servidorMaisCritico
-                        ? servidorMaisCritico.nome
-                        : "N/A",
-
-                incidentesAbertos: incidentesDaLinha.length,
-
-                resumo: [
-
-                    {
-                        nome: "CPU elevada",
-                        valor: incidentesDaLinha.filter(
-                            i => i.componente_afetado == "CPU"
-                        ).length
-                    },
-
-                    {
-                        nome: "RAM elevada",
-                        valor: incidentesDaLinha.filter(
-                            i => i.componente_afetado == "RAM"
-                        ).length
-                    },
-
-                    {
-                        nome: "Disco elevado",
-                        valor: incidentesDaLinha.filter(
-                            i => i.componente_afetado == "DISCO"
-                        ).length
-                    },
-
-                    {
-                        nome: "Latência elevada",
-                        valor: incidentesDaLinha.filter(
-                            i => i.componente_afetado == "LATENCIA"
-                        ).length
-                    },
-
-                    {
-                        nome: "Servidor offline",
-                        valor: incidentesDaLinha.filter(
-                            i => i.tipo_incidente == "OFFLINE"
-                        ).length
-                    }
-
-                ],
-
-                alertas: incidentesDaLinha.map(i => ({
-
-                    tipo: i.componente_afetado,
-
-                    msg: `${i.nome_rbc} - ${i.descricao}`
-
-                })),
-
-                servidores: servidores,
-
-                graficoIncidentes: []
-
-            };
-
-            // ==================================================================== \\
-
-            // ===================== LÓGICA DE CORES DAS KPIS ===================== \\
-
-            var corServidores = "bolinha-verde";
-
-            if (servidoresOnline < servidores.length) {
-                corServidores = "bolinha-vermelha";
-            }
-
-            var corStatusSistema = "bolinha-verde";
-
-            if (dadosTela.statusSistema == "Operação Parada") {
-                corStatusSistema = "bolinha-cinza";
-            } else if (dadosTela.statusSistema == "Operação Crítica") {
-                corStatusSistema = "bolinha-vermelha";
-            } else if (dadosTela.statusSistema == "Operação Instável") {
-                corStatusSistema = "bolinha-amarela";
-            }
-
-            var servidorCritico = dadosTela.servidores[0];
-            var corServidorCritico = "bolinha-verde";
-
-            if (servidorCritico.status == "Offline") {
-                corServidorCritico = "bolinha-cinza";
-            } else if (servidorCritico.status == "Crítico") {
-                corServidorCritico = "bolinha-vermelha";
-            } else if (servidorCritico.status == "Degradado") {
-                corServidorCritico = "bolinha-amarela";
-            }
-
-            var corIncidentes = "bolinha-verde";
-
-            if (dadosTela.incidentesAbertos >= 2 && dadosTela.incidentesAbertos <= 5) {
-                corIncidentes = "bolinha-amarela";
-            }
-
-            if (dadosTela.incidentesAbertos > 5) {
-                corIncidentes = "bolinha-vermelha";
-            }
-
-            // ==================================================================== \\
-
-            // ====================== RENDERIZAÇÃO DAS KPIS ======================= \\
-
-            document.getElementById("servidorAtivo").innerHTML = `
+                document.getElementById("servidorAtivo").innerHTML = `
                 <div class="kpi-status">
                     <span class="bolinha-kpi ${corServidores}"></span>
                     ${servidoresOnline}/${servidores.length}
                 </div>
             `;
 
-            document.getElementById("statusSistema").innerHTML = `
+                document.getElementById("statusSistema").innerHTML = `
                 <div class="kpi-status">
                     <span class="bolinha-kpi ${corStatusSistema}"></span>
                     ${dadosTela.statusSistema}
                 </div>
             `;
 
-            document.getElementById("servidorCritico").innerHTML = `
+                document.getElementById("servidorCritico").innerHTML = `
                 <div class="kpi-status">
                     <span class="bolinha-kpi ${corServidorCritico}"></span>
                     ${servidorCritico.nome}
                 </div>
             `;
 
-            document.getElementById("incidentesAbertos").innerHTML = `
+                document.getElementById("incidentesAbertos").innerHTML = `
                 <div class="kpi-status mb-1">
                     <span class="bolinha-kpi ${corIncidentes}"></span>
                     ${dadosTela.incidentesAbertos}
                 </div>
             `;
 
-            // ==================================================================== \\
+                // ==================================================================== \\
 
-            // ============================= TOOLTIPS ============================= \\
+                // ============================= TOOLTIPS ============================= \\
 
-            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+                const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 
-            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => 
-                new bootstrap.Tooltip(tooltipTriggerEl)
-            );
+                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl =>
+                    new bootstrap.Tooltip(tooltipTriggerEl)
+                );
 
-            // ==================================================================== \\
+                // ==================================================================== \\
 
-            const listaResumo = document.getElementById("listaResumo");
+                const listaResumo = document.getElementById("listaResumo");
 
-            listaResumo.innerHTML = "";
+                listaResumo.innerHTML = "";
 
-            dadosTela.resumo.forEach(item => {
+                dadosTela.resumo.forEach(item => {
 
-                let cor = "bolinha-verde";
+                    let cor = "bolinha-verde";
 
-                if (item.nome === "Servidor offline") {
+                    if (item.nome === "Servidor offline") {
 
-                    if (item.valor > 0) {
-                        cor = "bolinha-cinza";
+                        if (item.valor > 0) {
+                            cor = "bolinha-cinza";
+                        }
+
+                    } else {
+
+                        if (item.valor > 0) {
+                            cor = "bolinha-amarela";
+                        }
+
+                        if (item.valor >= 3) {
+                            cor = "bolinha-vermelha";
+                        }
+
                     }
 
-                } else {
-
-                    if (item.valor > 0) {
-                        cor = "bolinha-amarela";
-                    }
-
-                    if (item.valor >= 3) {
-                        cor = "bolinha-vermelha";
-                    }
-
-                }
-
-                listaResumo.innerHTML += `
+                    listaResumo.innerHTML += `
 
                     <div class="d-flex justify-content-between align-items-center mb-2">
 
@@ -846,97 +842,80 @@ function carregarDados() {
 
                 `;
 
-            });
+                });
 
-            //coisa p anotação
+                // ==================================================================== \\
 
-            // for(var i = 0; i < dados.resumo.length; i++){
-            //     var item = dados.resumo[i];
+                // ========== ALGORITMO DE ORDENAÇÃO DA TABELA DE SERVIDORES ========== \\
 
-            //     listaResumo.innerHTML += `
-            //     <div class="d-flex justify-content-between align-items-center mb-2">
-            //         <div class="d-flex align-items-center gap-2">
-            //             <span class="bolinha-verde"></span>
-            //             ${item.nome}
-            //         </div>
-            //         <strong>${item.valor}</strong>
-            //     </div>
-            // `;
+                dadosTela.servidores.sort((a, b) => {
 
-            // }
+                    function normalizar(status) {
+                        return String(status || "")
+                            .trim()
+                            .toUpperCase()
+                            .normalize("NFD")
+                            .replace(/[\u0300-\u036f]/g, "");
+                    }
 
-        // ==================================================================== \\
+                    const statusA = normalizar(a.status);
+                    const statusB = normalizar(b.status);
 
-        // ========== ALGORITMO DE ORDENAÇÃO DA TABELA DE SERVIDORES ========== \\
+                    // PRIORIDADE NUMÉRICA
 
-        dadosTela.servidores.sort((a, b) => {
+                    function prioridade(status) {
 
-            function normalizar(status) {
-                return String(status || "")
-                    .trim()
-                    .toUpperCase()
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "");
-            }
+                        if (status.includes("OFFLINE")) return 4;
+                        if (status.includes("CRITIC")) return 3;
+                        if (status.includes("DEGRAD")) return 2;
+                        if (status.includes("ONLINE")) return 1;
 
-            const statusA = normalizar(a.status);
-            const statusB = normalizar(b.status);
+                        return 0;
+                    }
 
-            // PRIORIDADE NUMÉRICA
+                    const prioridadeA = prioridade(statusA);
+                    const prioridadeB = prioridade(statusB);
 
-            function prioridade(status) {
+                    // STATUS
 
-                if (status.includes("OFFLINE")) return 4;
-                if (status.includes("CRITIC")) return 3;
-                if (status.includes("DEGRAD")) return 2;
-                if (status.includes("ONLINE")) return 1;
+                    if (prioridadeA !== prioridadeB) {
+                        return prioridadeB - prioridadeA;
+                    }
 
-                return 0;
-            }
+                    // SCORE
 
-            const prioridadeA = prioridade(statusA);
-            const prioridadeB = prioridade(statusB);
+                    const scoreA =
+                        ((Number(a.cpu) || 0) * 0.35) +
+                        ((Number(a.ram) || 0) * 0.30) +
+                        ((Number(a.disco) || 0) * 0.20) +
+                        ((parseInt(a.latencia) || 0) * 0.15);
 
-            // STATUS
+                    const scoreB =
+                        ((Number(b.cpu) || 0) * 0.35) +
+                        ((Number(b.ram) || 0) * 0.30) +
+                        ((Number(b.disco) || 0) * 0.20) +
+                        ((parseInt(b.latencia) || 0) * 0.15);
 
-            if (prioridadeA !== prioridadeB) {
-                return prioridadeB - prioridadeA;
-            }
+                    return scoreB - scoreA;
 
-            // SCORE
+                });
 
-            const scoreA =
-                ((Number(a.cpu) || 0) * 0.35) +
-                ((Number(a.ram) || 0) * 0.30) +
-                ((Number(a.disco) || 0) * 0.20) +
-                ((parseInt(a.latencia) || 0) * 0.15);
+                document.getElementById("servidorCritico").innerHTML =
+                    servidores.length > 0
+                        ? servidores[0].nome
+                        : "N/A";
 
-            const scoreB =
-                ((Number(b.cpu) || 0) * 0.35) +
-                ((Number(b.ram) || 0) * 0.30) +
-                ((Number(b.disco) || 0) * 0.20) +
-                ((parseInt(b.latencia) || 0) * 0.15);
+                // ==================================================================== \\
 
-            return scoreB - scoreA;
+                const listaAlertas = document.getElementById("listaALertas");
 
-        });
+                listaAlertas.innerHTML = "";
 
-        document.getElementById("servidorCritico").innerHTML =
-            servidores.length > 0
-                ? servidores[0].nome
-                : "N/A";
+                for (var i = 0; i < dadosTela.alertas.length; i++) {
 
-        // ==================================================================== \\
+                    var alerta = dadosTela.alertas[i];
 
-            const listaAlertas = document.getElementById("listaALertas");
-
-            listaAlertas.innerHTML = "";
-
-            for (var i = 0; i < dadosTela.alertas.length; i++) {
-
-                var alerta = dadosTela.alertas[i];
-
-                listaAlertas.innerHTML += `
+                    listaAlertas.innerHTML += `
 
                         <div class="alerta-card mb-2">
 
@@ -950,25 +929,25 @@ function carregarDados() {
 
                     `;
 
-            }
+                }
 
-            const tabela = document.getElementById("tabelaServidor");
+                const tabela = document.getElementById("tabelaServidor");
 
-            tabela.innerHTML = "";
+                tabela.innerHTML = "";
 
-            // ==================================================================== \\
+                // ==================================================================== \\
 
-            for (var i = 0; i < dadosTela.servidores.length; i++) {
+                for (var i = 0; i < dadosTela.servidores.length; i++) {
 
-                var s = dadosTela.servidores[i];
+                    var s = dadosTela.servidores[i];
 
-                var cor = "bg-success";
+                    var cor = "bg-success";
 
-                if (s.status === "Degradado") cor = "bg-warning";
-                if (s.status === "Crítico") cor = "bg-danger";
-                if (s.status === "Offline") cor = "bg-secondary";
+                    if (s.status === "Degradado") cor = "bg-warning";
+                    if (s.status === "Crítico") cor = "bg-danger";
+                    if (s.status === "Offline") cor = "bg-secondary";
 
-                tabela.innerHTML += `
+                    tabela.innerHTML += `
 
                         <tr onclick="irDetalheServidor()">
 
@@ -992,28 +971,31 @@ function carregarDados() {
 
                     `;
 
-            }
+                }
 
-        })
+            })
 
-        .catch(err => console.error(err));
+            .catch(err => {
+                console.error(err);
+                document.getElementById("tituloLinha").innerHTML = "Erro ao carregar dashboard";
+            });
 
-}
+    }
 
-        function irDetalheServidor() {
+    function irDetalheServidor() {
 
-            window.location = "detalheServidor.html"
+        window.location = "detalheServidor.html"
 
-        }
+    }
 
-        function barra(valor) {
+    function barra(valor) {
 
-            var cor = "bg-success";
+        var cor = "bg-success";
 
-            if (valor > 70) cor = "bg-warning";
-            if (valor > 85) cor = "bg-danger";
+        if (valor > 70) cor = "bg-warning";
+        if (valor > 85) cor = "bg-danger";
 
-            return `
+        return `
 
                 <div class="fw-bolder" style="display: flex; justify-content: right; font-size: 12px;">
                     <span>${valor}%</span>
@@ -1027,6 +1009,6 @@ function carregarDados() {
 
             `;
 
-        }
+    }
 
-</script>
+    </script>
