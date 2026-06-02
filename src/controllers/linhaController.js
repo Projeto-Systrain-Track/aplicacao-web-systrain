@@ -459,7 +459,7 @@ async function readS3Json(req, res) {
     // Jeito correto de receber o dado no controller:
     // const { nomeCaminho } = "dados_csv/trusted_empresa (3).csv";
 
-    
+
     // if (!nomeCaminho) {
     //   return res.status(400).json({ error: "O nome do arquivo (Key) não foi definido." });
     // }
@@ -494,6 +494,12 @@ async function incidentesLinha(req, res) {
     try {
 
         const idLinha = Number(req.params.idLinha);
+
+        if (!idLinha) {
+            return res.status(400).json({
+                erro: "ID da linha inválido"
+            });
+        }
 
         const command = new GetObjectCommand({
             Bucket: process.env.AWS_BUCKET,
@@ -536,7 +542,7 @@ async function incidentesLinha(req, res) {
         jsonLinhas.empresas.forEach(empresa => {
 
             const encontrada = empresa.linhas.find(
-                l => l.id_linha === idLinha
+                l => l.id_linha == idLinha
             );
 
             if (encontrada) {
@@ -545,14 +551,21 @@ async function incidentesLinha(req, res) {
 
         });
 
+        if (!linhaAtual) {
+            return res.status(404).json({
+                erro: "Linha não encontrada"
+            });
+        }
+
         const numeroLinha = linhaAtual.numero_linha;
 
         const incidentesLinha = jsonData.incidentes.filter(
-            incidente => incidente.id_linha === numeroLinha
+            incidente => incidente.id_linha == numeroLinha
         );
 
         // CONSOLE DE TESTE
         console.log("Linha recebida:", idLinha);
+        console.log("Número da linha:", numeroLinha);
         console.log("Incidentes encontrados:", incidentesLinha.length);
 
         return res.status(200).json(incidentesLinha);
