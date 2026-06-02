@@ -312,13 +312,9 @@
 
                     <img src="../assets/icons/icon-servidor.jpg" class="icone-titulo" alt="Ícone">
 
-                    <!--trocar o icon aqui-->
-
                     <h6 class="descricao m-0">Servidores</h6>
 
                 </div>
-
-                <!--reciclando um pouco do codigo da tabela de linhas aqui-->
 
                 <table class="tabela-servidor">
 
@@ -348,6 +344,15 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
 <script>
     function validarTipoUsuario() {
 
@@ -450,8 +455,6 @@
     document.getElementById("cargo_user").innerHTML = sessionStorage.TIPO_USUARIO
     document.getElementById("nome_user").innerHTML = sessionStorage.NOME_USUARIO
 
-    console.log("CHEGOU ANTES DE CHAMAR CARREGAR DADOS");
-
     carregarDados();
 
     setInterval(() => {
@@ -498,6 +501,10 @@
 
         sidebar.classList.toggle("compactada")
         conteudo.classList.toggle("expandido")
+    }
+
+    function irParaDetalhe(link) {
+        window.location = link
     }
 
     function carregarDados() {
@@ -562,6 +569,7 @@
                     `Linha ${linha.numero_linha} - ${linha.nome_linha}`;
 
                 var servidores = linha.rbc.map(rbc => {
+                    
 
                     // var leitura = rbc.ultimas_leituras[0];
                     var leitura = rbc.ultimas_leituras[rbc.ultimas_leituras.length - 1];
@@ -933,47 +941,31 @@
 
                 const tabela = document.getElementById("tabelaServidor");
 
-                tabela.innerHTML = "";
-
-                // ==================================================================== \\
-
-                for (var i = 0; i < dadosTela.servidores.length; i++) {
-
-                    var s = dadosTela.servidores[i];
-
-                    var cor = "bg-success";
-
+                tabela.innerHTML = dadosTela.servidores.map(s => {
+                    
+                    let cor = "bg-success";
                     if (s.status === "Degradado") cor = "bg-warning";
                     if (s.status === "Crítico") cor = "bg-danger";
                     if (s.status === "Offline") cor = "bg-secondary";
 
-                    tabela.innerHTML += `
-
-                        <tr onclick="irDetalheServidor()">
-
+                    return `
+                        <tr onclick="irParaDetalhe('detalheServidor.html?idRbc=${s.idRbc}&nomeServidor=${s.nome}&macAdress=${s.macAdress}&numeroLinha=${s.numeroLinha}&trecho=${s.trecho}')">
                             <td>${s.nome}</td>
-
                             <td>
                                 <span class="badge ${cor}">
                                     ${s.status}
                                 </span>
                             </td>
-
                             <td>${barra(s.cpu)}</td>
-
                             <td>${barra(s.ram)}</td>
-
                             <td>${barra(s.disco)}</td>
-
                             <td>${s.latencia}</td>
-
                         </tr>
-
                     `;
 
-                }
+                }).join('');
 
-            })
+        })
 
             .catch(err => {
                 console.error(err);
