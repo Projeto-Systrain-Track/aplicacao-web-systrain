@@ -1,0 +1,103 @@
+{
+    "ultimaAtualizacao": "07/04/2026 22:30",
+    "disponibilidade": 7.75,
+    "incidentesAtivos": 420,
+    "servidoresCriticos": 5,
+    "graficoSemana": [
+        {
+            "dia": "Terça",
+            "valor": 89.44
+        }
+    ],
+    "maiorLatencia": [
+        {
+            "nome": "ec:3f:b6:b9:ae:2f",
+            "valor": 89.7,
+            "cor": "#FF0000"
+        },
+        {
+            "nome": "13:47:52:e1:8a:7f",
+            "valor": 89.66,
+            "cor": "#FF0000"
+        },
+        {
+            "nome": "ae:b1:7d:b6:3a:19",
+            "valor": 89.65,
+            "cor": "#FF0000"
+        },
+        {
+            "nome": "06:71:a3:c2:10:07",
+            "valor": 89.2,
+            "cor": "#FF0000"
+        },
+        {
+            "nome": "60:c7:27:3e:4f:56",
+            "valor": 89.03,
+            "cor": "#FF0000"
+        }
+    ],
+    "maisIncidentes": [
+        {
+            "nome": "06:71:a3:c2:10:07",
+            "valor": 84,
+            "cor": "#FF0000"
+        },
+        {
+            "nome": "13:47:52:e1:8a:7f",
+            "valor": 84,
+            "cor": "#FF0000"
+        },
+        {
+            "nome": "60:c7:27:3e:4f:56",
+            "valor": 84,
+            "cor": "#FF0000"
+        },
+        {
+            "nome": "ae:b1:7d:b6:3a:19",
+            "valor": 84,
+            "cor": "#FF0000"
+        },
+        {
+            "nome": "ec:3f:b6:b9:ae:2f",
+            "valor": 84,
+            "cor": "#FF0000"
+        }
+    ],
+    "linhas": [
+        {
+            "nome": "06:71:a3:c2:10:07",
+            "status": "Operando",
+            "servidores": 1,
+            "incidentes": 0,
+            "latencia": 89.2
+        },
+        {
+            "nome": "13:47:52:e1:8a:7f",
+            "status": "Atenção",
+            "servidores": 1,
+            "incidentes": 0,
+            "latencia": 89.66
+        },
+        {
+            "nome": "60:c7:27:3e:4f:56",
+            "status": "Atenção",
+            "servidores": 1,
+            "incidentes": 0,
+            "latencia": 89.03
+        },
+        {
+            "nome": "ae:b1:7d:b6:3a:19",
+            "status": "Atenção",
+            "servidores": 1,
+            "incidentes": 0,
+            "latencia": 89.65
+        },
+        {
+            "nome": "ec:3f:b6:b9:ae:2f",
+            "status": "Atenção",
+            "servidores": 1,
+            "incidentes": 0,
+            "latencia": 89.7
+        }
+    ]
+}

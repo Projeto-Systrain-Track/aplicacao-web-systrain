@@ -3,32 +3,32 @@
 
 function limparSessao() {
     sessionStorage.clear();
-    window.location = "../index.html";
+    window.location = "../index.html"; 
 }
 
-// // sessao usuario
+// sessao usuario
 
-// function validarSessaoUsuario() {
-//     var nomeUser = sessionStorage.NOME_USUARIO
-//     var emailUser = sessionStorage.EMAIL_USUARIO
-//     var idUser = sessionStorage.ID_USUARIO
+function validarSessaoUsuario() {
+    var nomeUser = sessionStorage.NOME_USUARIO
+    var emailUser = sessionStorage.EMAIL_USUARIO
+    var idUser = sessionStorage.ID_USUARIO
 
-//     if (nomeUser != null && emailUser != null && idUser != null) {
-//         var identificacao = document.getElementById("nome_user");
-//         var identificacaoMobile = document.getElementById("nome_user_m");
+    if (nomeUser != null && emailUser != null && idUser != null) {
+        var identificacao = document.getElementById("nome_user");
+        var identificacaoMobile = document.getElementById("nome_user_m");
 
-//         if (identificacao != null) {
-//             identificacao.innerHTML = nomeUser;
-//         }
-//         if (identificacaoMobile != null) {
-//             identificacaoMobile.innerHTML =  nomeUser;
-//         }
+        if (identificacao != null) {
+            identificacao.innerHTML = nomeUser;
+        }
+        if (identificacaoMobile != null) {
+            identificacaoMobile.innerHTML =  nomeUser;
+        }
 
-//     }else {
-//         window.location = "../loginUsuario.html";
-//     }
+    }else {
+        window.location = "./loginUsuario.html";
+    }
 
-// }
+}
 
 // // sessão adm
 // function iniciarSessaoAdm(nome, email, nivel) {
