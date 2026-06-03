@@ -144,9 +144,9 @@ async function obterDadosVisaoGeral(req, res) {
             ]
         };
 
-        return res.status(200).json(dadosDashboard);
         console.log("DADOS ENVIADOS:");
         console.log(JSON.stringify(dadosDashboard, null, 2));
+        return res.status(200).json(dadosDashboard);
 
         
 

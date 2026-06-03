@@ -161,7 +161,7 @@
 
 
       <!-- início do gráfico -->
-      <div class="grafico-card mb-4">
+    <div class="grafico-card mb-4">
 
       <h5 class="fw-bold text-center mb-1">
         Volume de incidentes por servidores durante a semana
@@ -171,25 +171,11 @@
         Monitoramento semanal de incidentes
       </p>
 
-      <div class="grafico-container">
-
-        <!-- eixo gerado via JS -->
-        <div class="eixo-y"></div>
-
-        <div class="grafico-area">
-
-          <!-- barras geradas via JS -->
-          <div class="grafico-barras"></div>
-
-          <!-- dias gerados via JS -->
-          <div class="dias-grafico"></div>
-
-        </div>
-
+      <div class="grafico-container" style="height: 300px;">
+        <canvas id="incidentsChart"></canvas>
       </div>
 
     </div>
-
 
 
 
@@ -269,6 +255,8 @@
 </body>
 
 </html>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 <script>
@@ -429,248 +417,220 @@
 
 
 
-  
 function carregarDados() {
+    var idEmpresa = sessionStorage.ID_EMPRESA;
+    console.log("ID Empresa:", idEmpresa);
 
-  var idEmpresa = sessionStorage.ID_EMPRESA ;
-  console.log("ID Empresa:", idEmpresa);
+    fetch(`/visaoGeral/${idEmpresa}`)
+      .then(function (res) {
+        // CORREÇÃO 3: Se o backend der erro 500, o código para aqui de forma segura
+        if (!res.ok) {
+          throw new Error(`Erro no servidor: Status ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(function (dados) {
+        // Proteção extra: verifica se as propriedades básicas vieram na resposta da API
+        if (!dados || !dados.maiorLatencia || !dados.maisIncidentes || !dados.linhas) {
+          throw new TypeError("Estrutura de dados inválida enviada pelo servidor.");
+        }
 
-  fetch(`/visaoGeral/${idEmpresa}`)
-  
+        document.getElementById("ultimaAtualizacao").innerHTML =
+          "Última atualização: " + (dados.ultimaAtualizacao || "Não disponível");
 
+        // KPI'S
+        document.getElementById("servidoresCriticos").innerHTML =
+          dados.servidoresCriticos + " servidores";
 
-    .then(function (res) {
-      return res.json();
-    })
-    .then(function (dados) {
-      
-      document.getElementById("ultimaAtualizacao").innerHTML =
-      "Última atualização: " + dados.ultimaAtualizacao;
+        document.getElementById("disponibilidade").innerHTML =
+          dados.disponibilidade + "%";
 
+        document.getElementById("incidentes").innerHTML =
+          dados.incidentesAtivos;
 
-      // =========================
-      // KPI'S
-      document.getElementById("servidoresCriticos").innerHTML =
-        dados.servidoresCriticos + " servidores";
+        // MAIOR LATÊNCIA
+        var listaLatencia = document.getElementById("listaLatencia");
+        listaLatencia.innerHTML = "";
 
-      document.getElementById("disponibilidade").innerHTML =
-        dados.disponibilidade + "%";
+        for (var i = 0; i < dados.maiorLatencia.length; i++) {
+          var latencia = dados.maiorLatencia[i];
+          var cor = "#227643";
 
-      document.getElementById("incidentes").innerHTML =
-        dados.incidentesAtivos;
+          if (latencia.valor > 100) {
+            cor = "#FF0000";
+          } else if (latencia.valor > 75) {
+            cor = "#EE9D0B";
+          }
 
+          listaLatencia.innerHTML += `
+            <div class="cont-linhas-ranking"> 
+              <div class="cont-txt-linhas-maior">
+                <span style="font-weight: bold">${i + 1}º</span>
+                <div class="circulo-cor-linha" style="background-color:${latencia.cor}"></div>
+                <span>${latencia.nome}</span> 
+              </div>
+              <strong style="color:${cor}">${latencia.valor}ms</strong> 
+            </div>
+          `;
+        }
+
+        // MAIS INCIDENTES
+        var listaIncidentes = document.getElementById("listaIncidentes");
+        listaIncidentes.innerHTML = "";
+
+        for (var i = 0; i < dados.maisIncidentes.length; i++) {
+          var incidente = dados.maisIncidentes[i];
+          var cor = "#227643";
+
+          if (incidente.valor > 10) {
+            cor = "#FF0000";
+          } else if (incidente.valor > 5) {
+            cor = "#EE9D0B";
+          }
+
+          listaIncidentes.innerHTML += `
+            <div class="cont-linhas-ranking"> 
+              <div class="cont-txt-linhas-maior">
+                <span style="font-weight: bold">${i + 1}º</span>
+                <div class="circulo-cor-linha" style="background-color:${incidente.cor}"></div>
+                <span>${incidente.nome}</span> 
+              </div>
+              <strong style="color:${cor}">${incidente.valor}</strong> 
+            </div>
+          `;
+        }
+
+        // TABELA
+        var tabela = document.getElementById("tabelaLinhas");
+        tabela.innerHTML = "";
+
+        for (var i = 0; i < dados.linhas.length; i++) {
+          var linha = dados.linhas[i];
+          var classeStatus = "status-monitoramento";
+
+          if (linha.status === "Operando") {
+            classeStatus = "status-operando";
+          } else if (linha.status === "Atenção") {
+            classeStatus = "status-atencao";
+          }
+
+          tabela.innerHTML += `
+            <tr onclick='irDetalheLinha()'>
+              <td>${linha.nome}</td>
+              <td>
+                <span class='status-badge ${classeStatus}'>${linha.status}</span>
+              </td>
+              <td>${linha.servidores}</td>
+              <td>${linha.incidentes}</td>
+              <td>${linha.latencia}ms</td>
+            </tr>
+          `;
+        }
+
+        // Carrega o gráfico apenas se os dados dele existirem
+        if (dados.graficoSemana) {
+          carregarGraficoETL(dados.graficoSemana);
+        }
+      })
+      .catch(function (erro) {
+        console.error("Erro capturado no frontend:", erro);
         
+        // Remove a tela de carregamento e exibe um aviso amigável na tela
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("ultimaAtualizacao").innerHTML = 
+          "<span style='color: #ff4d4d; font-weight: bold;'>Erro ao sincronizar com o servidor. Verifique o console do Backend.</span>";
+      });
+  }
 
 
-      // =========================
-      // MAIOR LATÊNCIA
-      var listaLatencia = document.getElementById("listaLatencia");
-      listaLatencia.innerHTML = "";
 
-      for (var i = 0; i < dados.maiorLatencia.length; i++) {
 
-        var latencia = dados.maiorLatencia[i];
-        var cor = "#227643";
+  function carregarGraficoETL(graficoSemana) {
 
-        if (latencia.valor > 100) {
-          cor = "#FF0000";
-        } else if (latencia.valor > 75) {
-          cor = "#EE9D0B";
+  const canvas = document.getElementById('incidentsChart');
+
+  if (!canvas) {
+    console.error("Canvas 'incidentsChart' não encontrado");
+    return;
+  }
+
+  const ctx = canvas.getContext('2d');
+
+  const diasMapeados = {
+    'Seg': 'Segunda',
+    'Ter': 'Terça',
+    'Qua': 'Quarta',
+    'Qui': 'Quinta',
+    'Sex': 'Sexta',
+    'Sab': 'Sábado',
+    'Dom': 'Domingo'
+  };
+
+  const labels = graficoSemana.map(item => diasMapeados[item.dia] || item.dia);
+  const data = graficoSemana.map(item => item.valor);
+
+  const maxVal = Math.max(...data);
+
+  const backgroundColors = data.map(valor =>
+    valor === maxVal ? '#E99C1F' : '#14345C'
+  );
+
+  // destrói gráfico antigo (evita bug ao atualizar)
+  if (window.myChart) {
+    window.myChart.destroy();
+  }
+
+  window.myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Dia com o maior nº de incidentes',
+        data: data,
+        backgroundColor: backgroundColors,
+        borderWidth: 0,
+        barPercentage: 0.6
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          labels: {
+            boxWidth: 15,
+            padding: 20,
+            filter: function (item) {
+              return item.text === 'Dia com o maior nº de incidentes';
+            }
+          }
+        },
+
+        tooltip: {
+          enabled: true,
+          backgroundColor: '#0A1E33',
+          displayColors: false
         }
+      },
 
-        listaLatencia.innerHTML += `
-          <div class="cont-linhas-ranking"> 
-            <div class="cont-txt-linhas-maior">
-              <span style="font-weight: bold">${i + 1}º</span>
-
-              <div class="circulo-cor-linha"
-                style="background-color:${latencia.cor}">
-              </div>
-
-              <span>${latencia.nome}</span> 
-            </div>
-
-            <strong style="color:${cor}">
-              ${latencia.valor}ms
-            </strong> 
-          </div>
-        `;
-      }
-
-
-      // =========================
-      // MAIS INCIDENTES
-      var listaIncidentes = document.getElementById("listaIncidentes");
-      listaIncidentes.innerHTML = "";
-
-      for (var i = 0; i < dados.maisIncidentes.length; i++) {
-
-        var incidente = dados.maisIncidentes[i];
-        var cor = "#227643";
-
-        if (incidente.valor > 10) {
-          cor = "#FF0000";
-        } else if (incidente.valor > 5) {
-          cor = "#EE9D0B";
+      scales: {
+        x: {
+          grid: { display: false }
+        },
+        y: {
+          beginAtZero: true
         }
-
-        listaIncidentes.innerHTML += `
-          <div class="cont-linhas-ranking"> 
-            <div class="cont-txt-linhas-maior">
-
-              <span style="font-weight: bold">
-                ${i + 1}º
-              </span>
-
-              <div class="circulo-cor-linha"
-                style="background-color:${incidente.cor}">
-              </div>
-
-              <span>${incidente.nome}</span> 
-            </div>
-
-            <strong style="color:${cor}">
-              ${incidente.valor}
-            </strong> 
-          </div>
-        `;
       }
-
-
-      // =========================
-      // TABELA
-      var tabela = document.getElementById("tabelaLinhas");
-      tabela.innerHTML = "";
-
-      for (var i = 0; i < dados.linhas.length; i++) {
-
-        var linha = dados.linhas[i];
-
-        var classeStatus = "status-monitoramento";
-
-        if (linha.status === "Operando") {
-          classeStatus = "status-operando";
-
-        } else if (linha.status === "Atenção") {
-          classeStatus = "status-atencao";
-        }
-
-        tabela.innerHTML += `
-          <tr onclick='irDetalheLinha()'>
-
-            <td>${linha.nome}</td>
-
-            <td>
-              <span class='status-badge ${classeStatus}'>
-                ${linha.status}
-              </span>
-            </td>
-
-            <td>${linha.servidores}</td>
-
-            <td>${linha.incidentes}</td>
-
-            <td>${linha.latencia}ms</td>
-
-          </tr>
-        `;
-      }
-
-
-
-      carregarGraficoETL(dados.graficoSemana);
-
-    })
-    .catch(function (erro) {
-      console.error("Erro:", erro);
-    });
+    }
+  });
 }
-
-
-
-
-
-function carregarGraficoETL(graficoSemana) {
-
-
-  var grafico = document.querySelector(".grafico-barras");
-  grafico.innerHTML = "";
-
-  var dias = document.querySelector(".dias-grafico");
-  dias.innerHTML = "";
-
-  var maiorValor = 0;
-
-  // Descobrir maior valor
-  for (var i = 0; i < graficoSemana.length; i++) {
-
-    if (graficoSemana[i].valor > maiorValor) {
-      maiorValor = graficoSemana[i].valor;
-    }
-  }
-
-
-  // Montar barras
-  for (var i = 0; i < graficoSemana.length; i++) {
-
-    var item = graficoSemana[i];
-
-    // escala máxima = 140px
-    var altura = (item.valor / maiorValor) * 140;
-
-    var cor = "#449dd1";
-
-    if (item.valor >= maiorValor * 0.85) {
-
-      cor = "#ff4d4d";
-
-    } else if (item.valor >= maiorValor * 0.65) {
-
-      cor = "#f0ad4e";
-    }
-
-    if (maiorValor == 0) {
-      altura = 1;
-    }
-
-
-    grafico.innerHTML += `
-      <div class="barra"
-        style="
-          height:${altura}px;
-          background-color:${cor};
-        ">
-      </div>
-    `;
-
-    dias.innerHTML += `
-      <span>${item.dia}</span>
-    `;
-  }
-
-
-  // =========================
-  // EIXO Y DINÂMICO
-  var eixoY = document.querySelector(".eixo-y");
-  eixoY.innerHTML = "";
-
-  var divisao = Math.ceil(maiorValor / 5);
-
-  for (var i = 5; i >= 0; i--) {
-
-    eixoY.innerHTML += `
-      <span>${divisao * i}</span>
-    `;
-  }
-}
-
-
 
   function irDetalheLinha() {
-    window.location = "detalheLinha.html"
+    window.location = "detalheLinha.html";
   }
-
-
 
 
 

@@ -990,7 +990,7 @@ button {
 }
 
 /*MODAL*/
-modal-header {
+.modal-header {
     background-color: var(--azul-escuro);
     color: white;
 }
@@ -2101,6 +2101,35 @@ modal-header {
     background: var(--op-red);
     box-shadow: 0 0 12px rgba(255, 87, 10, 0.35);
 }
+
+
+.grafico-container {
+    display: flex;
+    align-items: flex-end;
+    height: 260px;
+    gap: 10px;
+}
+
+.grafico-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.grafico-barras {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 200px;
+    gap: 8px;
+    padding: 10px 0;
+}
+
+.barra {
+    width: 18px;
+    border-radius: 6px 6px 0 0;
+}
+
 
 
 /* Responsivo só do conteúdo da página */
