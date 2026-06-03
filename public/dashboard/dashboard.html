@@ -112,7 +112,7 @@
               <div>
                 <small class="text-secondary">Disponibilidade</small>
 
-                <h4 class="fw-bold mb-0" id="disponibilidade">   </h4> <!-- mostrar adisponibilidade  -->
+                <h4 class="fw-bold mb-0" id="disponibilidade">   </h4> 
               
               </div>
 
@@ -128,10 +128,10 @@
               <div>
                 <small class="text-secondary">Incidentes ativos</small>
                 <h4 class="fw-bold mb-0 text-warning"
-                  id="incidentes">             </h4> <!-- mostrar os incidentes ativos  -->
+                  id="incidentes">             </h4> 
               </div>
 
-              <img src="../assets/icons/icon_alerta.png"
+              <img src="../assets/icons/icon-alerta-amarelo.png"
                 class="icone-card" alt="">
             </div>
           </div>
@@ -141,12 +141,12 @@
           <div class="card-indicador dashboard-card">
             <div class="d-flex justify-content-between align-items-start">
               <div>
-                <small class="text-secondary">Servidores críticos</small>
+                <small class="text-secondary">Alertas críticos</small>
                 <h4 class="fw-bold mb-0 text-warning"
-                  id="servidoresCriticos">            </h4><!-- mostrar os servidores críticos  -->
+                  id="servidoresCriticos">            </h4>
               </div>
 
-              <img src="../assets/icons/icon_linhas.png"
+              <img src="../assets/icons/icon_alerta.png"
                 class="icone-card" alt="">
             </div>
           </div>
@@ -572,7 +572,7 @@ function carregarDados() {
   const maxVal = Math.max(...data);
 
   const backgroundColors = data.map(valor =>
-    valor === maxVal ? '#E99C1F' : '#14345C'
+    valor === maxVal ? '#14345C' : '#E99C1F'
   );
 
   // destrói gráfico antigo (evita bug ao atualizar)

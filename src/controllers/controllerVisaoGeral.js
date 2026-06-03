@@ -59,16 +59,24 @@ async function obterDadosVisaoGeral(req, res) {
         }
 
 
-        const nomeCaminho = "raw/30-1b-a1-92-17-dc/2026/06/01/13h39.csv";
+        const nomeCaminho = "client/13h39";                
+        //"raw/30-1b-a1-92-17-dc/2026/06/01/13h39.csv";
         console.log("Arquivo procurado:", nomeCaminho);
+
+  
 
 
 
         console.log("Bucket enviado para AWS:", process.env.S3_BUCKET_NAME);
 
         const command = new GetObjectCommand({
-            Bucket: "raw-s3-123456",
+            Bucket: "rbc-train-track-sys",
             Key: nomeCaminho
+            
+            // Bucket: "raw-s3-123456",
+            // Key: nomeCaminho
+
+
         });
 
 
